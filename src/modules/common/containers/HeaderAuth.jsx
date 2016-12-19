@@ -5,8 +5,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { checkLoginUser, loginToPanoptes, logoutFromPanoptes } from '../actions/login';
 
-import LoginButton from './LoginButton';
-import LogoutButton from './LogoutButton';
+import LoginButton from '../components/LoginButton';
+import LogoutButton from '../components/LogoutButton';
 
 const PropTypes = React.PropTypes;
 
