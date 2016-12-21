@@ -34,9 +34,8 @@ class Layout extends React.Component {
         </li>
       );
     } else {
-      isActive(this.props.router, item.to);
       return (
-        <li key={item.label} className={isActive ? 'active' : null}>
+        <li key={item.label} className={isActive(this.props.router, item.to) ? 'active' : null}>
           <Link to={item.to}>{item.label}</Link>
         </li>
       );
