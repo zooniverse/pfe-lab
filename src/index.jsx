@@ -4,7 +4,9 @@ import { browserHistory, Router, Route } from 'react-router';
 import { Provider } from 'react-redux';
 import oauth from 'panoptes-client/lib/oauth';
 
-import App from './modules/common/containers/App';
+import App from './modules/common/containers/app';
+
+import organizationsRoutes from './modules/organizations';
 
 import { config } from './constants/config';
 import configureStore from './store';
@@ -22,7 +24,9 @@ oauth.init(config.panoptesAppId)
     ReactDOM.render((
       <Provider store={store}>
         <Router history={browserHistory}>
-          <Route path="/" component={App} />
+          <Route path="/" component={App} >
+            {organizationsRoutes(store)}
+          </Route>
         </Router>
       </Provider>),
       document.getElementById('root'),
