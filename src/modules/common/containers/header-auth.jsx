@@ -5,13 +5,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { checkLoginUser, loginToPanoptes, logoutFromPanoptes } from '../actions/login';
 
-import LoginButton from '../components/LoginButton';
-import LogoutButton from '../components/LogoutButton';
-
-const PropTypes = React.PropTypes;
+import LoginButton from '../components/login-button';
+import LogoutButton from '../components/logout-button';
 
 class HeaderAuth extends React.Component {
-
   constructor() {
     super();
     this.login = this.login.bind(this);
@@ -19,7 +16,7 @@ class HeaderAuth extends React.Component {
   }
 
   componentDidMount() {
-    if (!this.props.initialised) {
+    if (!this.props.initialized) {
       this.props.dispatch(checkLoginUser());
     }
   }
@@ -40,20 +37,20 @@ class HeaderAuth extends React.Component {
 }
 
 HeaderAuth.propTypes = {
-  user: PropTypes.shape({ login: PropTypes.string }),
-  initialised: PropTypes.bool,
-  dispatch: PropTypes.func,
+  user: React.PropTypes.shape({ login: React.PropTypes.string }),
+  initialized: React.PropTypes.bool,
+  dispatch: React.PropTypes.func,
 };
 
 HeaderAuth.defaultProps = {
   user: null,
-  initialised: false,
+  initialized: false,
 };
 
 function mapStateToProps(state) {  // Listens for changes in the Redux Store
   return {
     user: state.login.user,
-    initialised: state.login.initialised,
+    initialized: state.login.initialized,
   };
 }
 export default connect(mapStateToProps)(HeaderAuth);  // Connects the Component to the Redux Store
