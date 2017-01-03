@@ -1,10 +1,10 @@
 import React from 'react';
-import { Link, IndexLink } from 'react-router';
-import isActive from '../../../lib/is-active';
+import { Link } from 'react-router';
+import OrganizationActionLink from './organization-action-link';
 
 /* eslint-disable react/prop-types */
 // i really don't wanna figure out how to give valid propTypes for builtins like children
-const OrganizationsLayout = ({ children, navItems, organization, organizations }, context) => {
+const OrganizationsLayout = ({ children, navItems, organization, organizations }) => {
 /* eslint-enable */
 
   // inject organization into children
@@ -14,21 +14,15 @@ const OrganizationsLayout = ({ children, navItems, organization, organizations }
 
   const org = organization || {};
 
-  const labPath = `/organizations/${org.id}`;
   return (
     <div>
       <aside>
         <nav>
           <ul>
             <li><Link to="/organizations">Organizations List</Link></li>
-            <li className={isActive(context.router, 'organizations') ? 'active' : null}>
-              <IndexLink to={labPath}>Organization details</IndexLink>
-            </li>
-            {navItems.map(item => (
-              <li key={item.label} className={isActive(context.router, item.to) ? 'active' : null} >
-                <Link to={`${labPath}${item.to}`}>{item.label}</Link>
-              </li>
-            ))}
+            {navItems.map(item =>
+              <OrganizationActionLink key={item.to} to={item.to} id={org.id} text={item.label} />,
+            )}
           </ul>
         </nav>
       </aside>
@@ -44,9 +38,10 @@ OrganizationsLayout.contextTypes = {
 
 OrganizationsLayout.defaultProps = {
   navItems: [
-    { to: '/about', label: 'About' },
-    { to: '/collaborators', label: 'Collaborators' },
-    { to: '/visibility', label: 'Visibility' },
+    { to: '', label: 'Edit' },
+    { to: 'about', label: 'About' },
+    { to: 'collaborators', label: 'Collaborators' },
+    { to: 'visibility', label: 'Visibility' },
   ],
 };
 

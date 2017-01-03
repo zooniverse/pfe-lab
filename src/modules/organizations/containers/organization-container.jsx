@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import apiClient from 'panoptes-client/lib/api-client';
+import { organizationShape, organizationsShape } from '../model';
 import { setCurrentOrganization } from '../../common/actions/organizations';
 
 class OrganizationContainer extends React.Component {
@@ -42,24 +43,14 @@ class OrganizationContainer extends React.Component {
       React.cloneElement(child, { organization, organizations, organizationId }),
     );
 
-    return (
-      <div>
-        <span>organization container</span>
-        {wrappedChildren}
-      </div>);
+    return (<div> {wrappedChildren} </div>);
   }
 }
-
-const organizationShape = React.PropTypes.shape({
-  id: React.PropTypes.string,
-  display_name: React.PropTypes.string,
-  description: React.PropTypes.string,
-});
 
 OrganizationContainer.propTypes = {
   dispatch: React.PropTypes.func,
   organization: organizationShape,
-  organizations: React.PropTypes.arrayOf(organizationShape),
+  organizations: organizationsShape,
   params: React.PropTypes.shape({ id: React.PropTypes.string }),
 };
 

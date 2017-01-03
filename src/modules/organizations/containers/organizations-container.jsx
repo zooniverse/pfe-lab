@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import apiClient from 'panoptes-client/lib/api-client';
 
-import { setCurrentOrganization, setOrganizations } from '../../common/actions/organizations';
+import { setOrganizations } from '../../common/actions/organizations';
+import { organizationShape, organizationsShape } from '../model';
 import OrganizationsLayout from '../components/organizations-layout';
 
 // TODO: ARB: we shouldn't need this but organizations don't return otherwise
@@ -24,7 +25,7 @@ class OrganizationsContainer extends React.Component {
 
   render() {
     return (
-      <OrganizationsLayout organizations={this.props.organizations}>
+      <OrganizationsLayout organizations={this.props.organizations} organization={this.props.organization}>
         {this.props.children}
       </OrganizationsLayout>
     );
@@ -34,12 +35,13 @@ class OrganizationsContainer extends React.Component {
 OrganizationsContainer.propTypes = {
   children: React.PropTypes.node,
   dispatch: React.PropTypes.func,
-  params: React.PropTypes.shape({ id: React.PropTypes.string }),
-  organizations: React.PropTypes.arrayOf(React.PropTypes.shape({ id: React.PropTypes.string })),
+  organization: organizationShape,
+  organizations: organizationsShape,
 };
 
 function mapStateToProps(state) {
   return {
+    organization: state.organization,
     organizations: state.organizations,
   };
 }

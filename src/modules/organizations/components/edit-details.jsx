@@ -10,7 +10,8 @@ const EditDetails = ({ organization }) => {
   return (
     <div>
       <h2>{organization.display_name}</h2>
-      <p>{organization.description}</p>
+      <p><small>{organization.description}</small></p>
+      <p>You are editing this organization</p>
     </div>
   );
 };
