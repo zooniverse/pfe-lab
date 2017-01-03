@@ -17,6 +17,10 @@ class OrganizationsContainer extends React.Component {
     this.state = { client: apiClient };
   }
 
+  componentWillUnmount() {
+    this.props.dispatch(setOrganizations([]));
+  }
+
   fetchOrganizations() {
     apiClient.type('organizations').get().then((orgs) => {
       this.props.dispatch(setOrganizations(orgs));
