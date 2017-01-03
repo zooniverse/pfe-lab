@@ -18,6 +18,11 @@ const OrganizationsLayout = ({ children, navItems, organization, organizations }
     <div>
       <aside>
         <nav>
+          <h4>Navigation</h4>
+          <ul>
+            <li><Link to="">Home</Link></li>
+          </ul>
+          <h4>Organizations</h4>
           <ul>
             <li><Link to="/organizations">Organizations List</Link></li>
             {navItems.map(item =>
