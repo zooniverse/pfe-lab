@@ -2,30 +2,19 @@ import React from 'react';
 import { connect } from 'react-redux';
 import apiClient from 'panoptes-client/lib/api-client';
 
-import { setCurrentOrganization, setOrganizations } from '../../common/actions/organizations';
-import OrganizationsEditLayout from '../components/organizations-edit-layout';
+import { setOrganizations } from '../../common/actions/organizations';
+import { organizationShape, organizationsShape } from '../model';
+import OrganizationsLayout from '../components/organizations-layout';
 
 // TODO: ARB: we shouldn't need this but organizations don't return otherwise
-window.zooAPI = apiClient;
 apiClient.params.admin = true;
+window.zooAPI = apiClient;
 
 class OrganizationsContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.fetchOrganization(props.params.id);
     this.fetchOrganizations();
     this.state = { client: apiClient };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.params && this.props.params && nextProps.params.id === this.props.params.id) return;
-
-    this.fetchOrganization(nextProps.params.id);
-    this.fetchOrganizations();
-  }
-
-  componentWillUnmount() {
-    this.props.dispatch(setCurrentOrganization(null));
   }
 
   fetchOrganizations() {
@@ -34,21 +23,11 @@ class OrganizationsContainer extends React.Component {
     });
   }
 
-  fetchOrganization(id) { // eslint-disable-line class-methods-use-this
-    if (!id) {
-      return;
-    }
-
-    apiClient.type('organizations').get({ id }).then((org) => {
-      this.props.dispatch(setCurrentOrganization(org[0]));
-    });
-  }
-
   render() {
     return (
-      <OrganizationsEditLayout organization={this.props.organization} organizations={this.props.organizations}>
+      <OrganizationsLayout organizations={this.props.organizations} organization={this.props.organization}>
         {this.props.children}
-      </OrganizationsEditLayout>
+      </OrganizationsLayout>
     );
   }
 }
@@ -56,9 +35,8 @@ class OrganizationsContainer extends React.Component {
 OrganizationsContainer.propTypes = {
   children: React.PropTypes.node,
   dispatch: React.PropTypes.func,
-  params: React.PropTypes.shape({ id: React.PropTypes.string }),
-  organization: React.PropTypes.shape({ id: React.PropTypes.string }),
-  organizations: React.PropTypes.arrayOf(React.PropTypes.shape({ id: React.PropTypes.string })),
+  organization: organizationShape,
+  organizations: organizationsShape,
 };
 
 function mapStateToProps(state) {

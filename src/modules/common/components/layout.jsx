@@ -72,7 +72,7 @@ Layout.propTypes = {
 Layout.defaultProps = {
   loginInitialized: false,
   navItems: [
-    { label: 'A Header Link', to: '' },
+    { label: 'Home', to: '' },
   ],
   user: null,
 };
