@@ -4,12 +4,14 @@ import { Provider } from 'react-redux';
 
 import OrganizationsContainer from './containers/organizations-container';
 import EditDetails from './components/edit-details';
+import ListOrganizations from './components/list-organizations';
 
 const organizationsRoutes = store => (
   <Provider store={store}>
     <Router>
-      <Route path="organizations/:id" component={OrganizationsContainer}>
-        <IndexRoute component={EditDetails} />
+      <Route path="/organizations" component={OrganizationsContainer}>
+        <Route path=":id" component={EditDetails} />
+        <IndexRoute component={ListOrganizations} />
       </Route>
     </Router>
   </Provider>

@@ -7,6 +7,10 @@ export default function (state = initialState, action) { // eslint-disable-line 
       return Object.assign({}, state, {
         organization: action.organization,
       });
+    case types.SET_ORGANIZATIONS:
+      return Object.assign({}, state, {
+        organizations: action.organizations,
+      });
     default:
       return state;
   }

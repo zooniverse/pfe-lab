@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import Layout from '../components/layout';
 
 export default class App extends React.Component {
@@ -8,9 +9,17 @@ export default class App extends React.Component {
   }
 
   render() {
+    if (this.props.children) {
+      return (
+        <Layout {...this.props}>
+          {this.props.children}
+        </Layout>
+      );
+    }
     return (
       <Layout {...this.props}>
-        {this.props.children || <span>Welcome</span>}
+        <h2>Welcome</h2>
+        <Link to="organizations">Organizations</Link>
       </Layout>
     );
   }

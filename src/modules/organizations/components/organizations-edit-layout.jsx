@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, IndexLink } from 'react-router';
 import isActive from '../../../lib/is-active';
 
-const OrganizationsEditLayout = ({ children, navItems, organization }, context) => {
+const OrganizationsEditLayout = ({ children, navItems, organization, organizations }, context) => {
   if (!organization) {
     return (
       <div>Loading...</div>
@@ -11,7 +11,7 @@ const OrganizationsEditLayout = ({ children, navItems, organization }, context) 
 
   // inject organization into children
   const wrappedChildren = React.Children.map(children, child =>
-    React.cloneElement(child, { organization }),
+    React.cloneElement(child, { organization, organizations }),
   );
 
   const labPath = `/organizations/${organization.id}`;

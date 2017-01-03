@@ -9,7 +9,7 @@ const EditDetails = ({ organization }) => {
 
   return (
     <div>
-      <h1>{organization.display_name}</h1>
+      <h2>{organization.display_name}</h2>
       <p>{organization.description}</p>
     </div>
   );
