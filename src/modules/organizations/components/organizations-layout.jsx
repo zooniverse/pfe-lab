@@ -3,7 +3,8 @@ import { Link, IndexLink } from 'react-router';
 import isActive from '../../../lib/is-active';
 
 /* eslint-disable react/prop-types */
-const OrganizationsEditLayout = ({ children, navItems, organization, organizations }, context) => {
+// i really don't wanna figure out how to give valid propTypes for builtins like children
+const OrganizationsLayout = ({ children, navItems, organization, organizations }, context) => {
 /* eslint-enable */
 
   // inject organization into children
@@ -19,6 +20,7 @@ const OrganizationsEditLayout = ({ children, navItems, organization, organizatio
       <aside>
         <nav>
           <ul>
+            <li><Link to="/organizations">Organizations List</Link></li>
             <li className={isActive(context.router, 'organizations') ? 'active' : null}>
               <IndexLink to={labPath}>Organization details</IndexLink>
             </li>
@@ -36,11 +38,11 @@ const OrganizationsEditLayout = ({ children, navItems, organization, organizatio
   );
 };
 
-OrganizationsEditLayout.contextTypes = {
+OrganizationsLayout.contextTypes = {
   router: React.PropTypes.object,
 };
 
-OrganizationsEditLayout.defaultProps = {
+OrganizationsLayout.defaultProps = {
   navItems: [
     { to: '/about', label: 'About' },
     { to: '/collaborators', label: 'Collaborators' },
@@ -48,4 +50,4 @@ OrganizationsEditLayout.defaultProps = {
   ],
 };
 
-export default OrganizationsEditLayout;
+export default OrganizationsLayout;
