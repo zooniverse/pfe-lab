@@ -20,7 +20,7 @@ class OrganizationsContainer extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.params && this.props.params && nextProps.params.id === this.props.params.id) return;
 
-    this.fetchOrganization(nextProps.params.id)
+    this.fetchOrganization(nextProps.params.id);
     this.fetchOrganizations();
   }
 
@@ -47,8 +47,10 @@ class OrganizationsContainer extends React.Component {
 
 OrganizationsContainer.propTypes = {
   children: React.PropTypes.node,
-  organization: React.PropTypes.object,
-  organizations: React.PropTypes.array,
+  dispatch: React.PropTypes.func,
+  params: React.PropTypes.shape({ id: React.PropTypes.string }),
+  organization: React.PropTypes.shape({ id: React.PropTypes.string }),
+  organizations: React.PropTypes.arrayOf(React.PropTypes.shape({ id: React.PropTypes.string })),
 };
 
 function mapStateToProps(state) {

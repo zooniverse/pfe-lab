@@ -4,7 +4,7 @@ import { browserHistory, Router, Route } from 'react-router';
 import { Provider } from 'react-redux';
 import oauth from 'panoptes-client/lib/oauth';
 
-import App from './modules/common/containers/app';
+import App from './modules/common/containers/App';
 
 import organizationsRoutes from './modules/organizations';
 

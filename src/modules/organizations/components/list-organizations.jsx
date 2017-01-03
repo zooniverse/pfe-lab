@@ -2,8 +2,6 @@ import React from 'react';
 import { Link } from 'react-router';
 
 const ListOrganizations = ({ organizations }) => {
-  console.log('orgs', organizations);
-  console.log('args', arguments);
   if (!organizations) {
     return (
       <div>Loading...</div>
@@ -23,6 +21,14 @@ const ListOrganizations = ({ organizations }) => {
       </dl>
     </div>
   );
+};
+
+ListOrganizations.propTypes = {
+  organizations: React.PropTypes.arrayOf(React.PropTypes.shape({
+    id: React.PropTypes.string,
+    display_name: React.PropTypes.string,
+    description: React.PropTypes.string,
+  })),
 };
 
 export default ListOrganizations;

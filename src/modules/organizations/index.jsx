@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Route, IndexRoute, IndexRedirect } from 'react-router';
+import { Router, Route, IndexRoute } from 'react-router';
 import { Provider } from 'react-redux';
 
 import OrganizationsContainer from './containers/organizations-container';

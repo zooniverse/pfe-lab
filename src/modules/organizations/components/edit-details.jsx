@@ -15,4 +15,11 @@ const EditDetails = ({ organization }) => {
   );
 };
 
+EditDetails.propTypes = {
+  organization: React.PropTypes.shape({
+    id: React.PropTypes.string,
+    display_name: React.PropTypes.string,
+    description: React.PropTypes.string }),
+};
+
 export default EditDetails;

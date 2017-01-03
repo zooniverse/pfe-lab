@@ -33,13 +33,13 @@ class Layout extends React.Component {
           <a href={item.to}>{item.label}</a>
         </li>
       );
-    } else {
-      return (
-        <li key={item.label} className={isActive(this.props.router, item.to) ? 'active' : null}>
-          <Link to={item.to}>{item.label}</Link>
-        </li>
-      );
     }
+
+    return (
+      <li key={item.label} className={isActive(this.props.router, item.to) ? 'active' : null}>
+        <Link to={item.to}>{item.label}</Link>
+      </li>
+    );
   }
 
   render() {
@@ -64,20 +64,20 @@ class Layout extends React.Component {
 Layout.propTypes = {
   children: React.PropTypes.node,
   loginInitialized: React.PropTypes.bool,
-  navItems: React.PropTypes.array,
+  navItems: React.PropTypes.arrayOf(React.PropTypes.object),
   router: React.PropTypes.shape({ isActive: React.PropTypes.func }),
-  user: React.PropTypes.object,
+  user: React.PropTypes.shape({ id: React.PropTypes.string }),
 };
 
 Layout.defaultProps = {
   loginInitialized: false,
-    navItems: [
+  navItems: [
     { label: 'A Header Link', to: '' },
   ],
   user: null,
 };
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state, ownProps) { // eslint-disable-line no-unused-vars
   return {
     user: state.user,
     loginInitialized: state.initialized,

@@ -2,7 +2,9 @@ import React from 'react';
 import { Link, IndexLink } from 'react-router';
 import isActive from '../../../lib/is-active';
 
+/* eslint-disable react/prop-types */
 const OrganizationsEditLayout = ({ children, navItems, organization, organizations }, context) => {
+/* eslint-enable */
   if (!organization) {
     return (
       <div>Loading...</div>
@@ -23,13 +25,11 @@ const OrganizationsEditLayout = ({ children, navItems, organization, organizatio
             <li className={isActive(context.router, 'organizations') ? 'active' : null}>
               <IndexLink to={labPath}>Organization details</IndexLink>
             </li>
-            {navItems.map((item) => {
-              return (
-                <li key={item.label} className={isActive(context.router, item.to) ? 'active' : null} >
-                  <Link to={`${labPath}${item.to}`}>{item.label}</Link>
-                </li>
-              );
-            })}
+            {navItems.map(item => (
+              <li key={item.label} className={isActive(context.router, item.to) ? 'active' : null} >
+                <Link to={`${labPath}${item.to}`}>{item.label}</Link>
+              </li>
+            ))}
           </ul>
         </nav>
       </aside>
