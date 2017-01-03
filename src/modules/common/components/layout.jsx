@@ -79,10 +79,9 @@ Layout.defaultProps = {
 
 function mapStateToProps(state, ownProps) {
   return {
-    user: state.login.user,
-    loginInitialized: state.login.initialized,
+    user: state.user,
+    loginInitialized: state.initialized,
   };
 }
 
 export default connect(mapStateToProps)(Layout);
-

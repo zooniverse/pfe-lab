@@ -9,6 +9,7 @@ const createStoreWithMiddleware = applyMiddleware(
 )(createStore);
 
 export default function configureStore(initialState) {
+  console.log('initial state', initialState);
   /* eslint-disable no-underscore-dangle */
   const store = createStoreWithMiddleware(rootReducer, initialState,
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
