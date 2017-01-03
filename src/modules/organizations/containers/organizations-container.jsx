@@ -8,13 +8,11 @@ import OrganizationsLayout from '../components/organizations-layout';
 
 // TODO: ARB: we shouldn't need this but organizations don't return otherwise
 apiClient.params.admin = true;
-window.zooAPI = apiClient;
 
 class OrganizationsContainer extends React.Component {
   constructor(props) {
     super(props);
     this.fetchOrganizations();
-    this.state = { client: apiClient };
   }
 
   componentWillUnmount() {

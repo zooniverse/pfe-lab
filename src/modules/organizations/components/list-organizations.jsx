@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router';
 
+import { organizationsShape } from '../model';
+
 const ListOrganizations = ({ organizations }) => {
   if (!organizations) {
     return (
@@ -23,12 +25,6 @@ const ListOrganizations = ({ organizations }) => {
   );
 };
 
-ListOrganizations.propTypes = {
-  organizations: React.PropTypes.arrayOf(React.PropTypes.shape({
-    id: React.PropTypes.string,
-    display_name: React.PropTypes.string,
-    description: React.PropTypes.string,
-  })),
-};
+ListOrganizations.propTypes = { organizations: organizationsShape };
 
 export default ListOrganizations;

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { organizationShape } from '../model';
+
 const EditDetails = ({ organization }) => {
   if (!organization) {
     return (
@@ -16,11 +18,6 @@ const EditDetails = ({ organization }) => {
   );
 };
 
-EditDetails.propTypes = {
-  organization: React.PropTypes.shape({
-    id: React.PropTypes.string,
-    display_name: React.PropTypes.string,
-    description: React.PropTypes.string }),
-};
+EditDetails.propTypes = { organization: organizationShape };
 
 export default EditDetails;
