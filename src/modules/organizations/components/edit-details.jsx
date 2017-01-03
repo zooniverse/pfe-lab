@@ -1,13 +1,18 @@
 import React from 'react';
 
 const EditDetails = ({ organization }) => {
-  return (
-    <div>edit details placeholder {organization.id}</div>
-  );
-};
+  if (!organization) {
+    return (
+      <div>Loading...</div>
+    );
+  }
 
-EditDetails.defaultProps = {
-  organization: { id: 1 },
+  return (
+    <div>
+      <h1>{organization.display_name}</h1>
+      <p>{organization.description}</p>
+    </div>
+  );
 };
 
 export default EditDetails;

@@ -3,6 +3,17 @@ import { Link, IndexLink } from 'react-router';
 import isActive from '../../../lib/is-active';
 
 const OrganizationsEditLayout = ({ children, navItems, organization }, context) => {
+  if (!organization) {
+    return (
+      <div>Loading...</div>
+    );
+  }
+
+  // inject organization into children
+  const wrappedChildren = React.Children.map(children, child =>
+    React.cloneElement(child, { organization }),
+  );
+
   const labPath = `/organizations/${organization.id}`;
   return (
     <div>
@@ -23,7 +34,7 @@ const OrganizationsEditLayout = ({ children, navItems, organization }, context) 
         </nav>
       </aside>
 
-      <section>{children}</section>
+      <section>{wrappedChildren}</section>
     </div>
   );
 };
@@ -33,7 +44,6 @@ OrganizationsEditLayout.contextTypes = {
 };
 
 OrganizationsEditLayout.defaultProps = {
-  organization: { id: 1 },
   navItems: [
     { to: '/about', label: 'About' },
     { to: '/collaborators', label: 'Collaborators' },
