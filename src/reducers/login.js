@@ -1,6 +1,5 @@
 import * as types from '../constants/action-types';
-
-const initialState = { user: null, initialized: false };
+import initialState from './initial-state';
 
 export function login(state = initialState, action) { // eslint-disable-line import/prefer-default-export
   switch (action.type) {
