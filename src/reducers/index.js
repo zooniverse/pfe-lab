@@ -5,16 +5,26 @@ import organizations from './organizations';
 // that modified it, which isn't a behavior i really like
 function myCombineReducers(...reducers) {
   let reducer;
-  let result;
+  let reduction;
+  let result = null;
+
   return function combined(state, action) {
+    let matched = false;
     for (reducer of reducers) { // eslint-disable-line no-restricted-syntax
-      result = reducer(state, action);
-      if (result !== state) {
-        return result;
+      reduction = reducer(state, action);
+      if (reduction !== state) {
+        if (matched) {
+          /* eslint-disable no-throw-literal */
+          throw `Multiple reducers matched the action ${action.type}, which is a BAD IDEA`;
+          /* eslint-enable */
+        }
+
+        matched = true;
+        result = Object.assign({}, state, reduction);
       }
     }
 
-    return state;
+    return result || state;
   };
 }
 
