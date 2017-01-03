@@ -5,7 +5,7 @@ const PropTypes = React.PropTypes;
 const LogoutButton = ({ logout, user }) =>
   <div className="logout-button">
     <span>{user.credited_name}</span>
-    <button type="submit" onClick={logout}>Log out</button>
+    <button type="submit" style={{ marginLeft: '1em' }} onClick={logout}>Log out</button>
   </div>;
 
 LogoutButton.propTypes = {
