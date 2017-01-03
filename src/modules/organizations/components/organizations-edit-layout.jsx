@@ -5,18 +5,15 @@ import isActive from '../../../lib/is-active';
 /* eslint-disable react/prop-types */
 const OrganizationsEditLayout = ({ children, navItems, organization, organizations }, context) => {
 /* eslint-enable */
-  if (!organization) {
-    return (
-      <div>Loading...</div>
-    );
-  }
 
   // inject organization into children
   const wrappedChildren = React.Children.map(children, child =>
     React.cloneElement(child, { organization, organizations }),
   );
 
-  const labPath = `/organizations/${organization.id}`;
+  const org = organization || {};
+
+  const labPath = `/organizations/${org.id}`;
   return (
     <div>
       <aside>

@@ -24,6 +24,10 @@ class OrganizationsContainer extends React.Component {
     this.fetchOrganizations();
   }
 
+  componentWillUnmount() {
+    this.props.dispatch(setCurrentOrganization(null));
+  }
+
   fetchOrganizations() {
     apiClient.type('organizations').get().then((orgs) => {
       this.props.dispatch(setOrganizations(orgs));
@@ -31,6 +35,10 @@ class OrganizationsContainer extends React.Component {
   }
 
   fetchOrganization(id) { // eslint-disable-line class-methods-use-this
+    if (!id) {
+      return;
+    }
+
     apiClient.type('organizations').get({ id }).then((org) => {
       this.props.dispatch(setCurrentOrganization(org[0]));
     });
