@@ -34,7 +34,7 @@ describe('OrganizationContainer', () => {
     </Provider>,
   );
 
-  it('should give editdetails the organization correctly', () => {
+  it('should give EditDetails the organization correctly', () => {
     expect(wrapper.find('h2').first().props().children).to.equal(initialState.organization.display_name);
   });
 });
