@@ -49,8 +49,8 @@ HeaderAuth.defaultProps = {
 
 function mapStateToProps(state) {  // Listens for changes in the Redux Store
   return {
-    user: state.login.user,
-    initialized: state.login.initialized,
+    user: state.user,
+    initialized: state.initialized,
   };
 }
 export default connect(mapStateToProps)(HeaderAuth);  // Connects the Component to the Redux Store

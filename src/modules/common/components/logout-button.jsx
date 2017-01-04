@@ -2,21 +2,15 @@ import React from 'react';
 
 const PropTypes = React.PropTypes;
 
-export default class LogoutButton extends React.Component {
-
-  render() {
-    const logout = this.props.logout;
-    return (
-      <div className="logout-button">
-        <span>{this.props.user.login}</span>
-        <button type="submit" onClick={logout}>Logout</button>
-      </div>
-    );
-  }
-
-}
+const LogoutButton = ({ logout, user }) =>
+  <div className="logout-button">
+    <span>{user.credited_name}</span>
+    <button type="submit" style={{ marginLeft: '1em' }} onClick={logout}>Log out</button>
+  </div>;
 
 LogoutButton.propTypes = {
   logout: PropTypes.func.isRequired,
-  user: PropTypes.shape({ login: PropTypes.string }).isRequired,
+  user: PropTypes.shape({ credited_name: PropTypes.string }).isRequired,
 };
+
+export default LogoutButton;

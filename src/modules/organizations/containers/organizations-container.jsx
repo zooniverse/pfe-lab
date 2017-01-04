@@ -1,30 +1,50 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import apiClient from 'panoptes-client/lib/api-client';
 
-import OrganizationsEditLayout from '../components/organizations-edit-layout';
+import { setOrganizations } from '../../common/actions/organizations';
+import { organizationShape, organizationsShape } from '../model';
+import OrganizationsLayout from '../components/organizations-layout';
+
+// TODO: ARB: we shouldn't need this but organizations don't return otherwise
+apiClient.params.admin = true;
 
 class OrganizationsContainer extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    this.fetchOrganizations();
+  }
+
+  componentWillUnmount() {
+    this.props.dispatch(setOrganizations([]));
+  }
+
+  fetchOrganizations() {
+    apiClient.type('organizations').get().then((orgs) => {
+      this.props.dispatch(setOrganizations(orgs));
+    });
   }
 
   render() {
     return (
-      <OrganizationsEditLayout organization={this.props.organization}>
+      <OrganizationsLayout organizations={this.props.organizations} organization={this.props.organization}>
         {this.props.children}
-      </OrganizationsEditLayout>
+      </OrganizationsLayout>
     );
   }
 }
 
 OrganizationsContainer.propTypes = {
   children: React.PropTypes.node,
-  organization: React.PropTypes.object,
+  dispatch: React.PropTypes.func,
+  organization: organizationShape,
+  organizations: organizationsShape,
 };
 
 function mapStateToProps(state) {
   return {
     organization: state.organization,
+    organizations: state.organizations,
   };
 }
 
