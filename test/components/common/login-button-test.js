@@ -5,7 +5,7 @@ import sinon from 'sinon';
 
 import LoginButton from '../../../src/modules/common/components/login-button';
 
-describe('LogoutButton', () => {
+describe('LoginButton', () => {
   const loginClick = sinon.spy();
   const wrapper = shallow(<LoginButton login={loginClick} />);
 
