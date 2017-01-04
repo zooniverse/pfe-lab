@@ -4,7 +4,7 @@ const Footer = () =>
   <div className="app-footer">
     <div className="app-footer__upper">
       <div className="app-footer__section app-footer__brand">
-        <a href="https://www.zooniverse.org">ZOO-LOGO</a>
+        <a href="https://www.zooniverse.org">ZOOLOGOTYPE PH</a>
         <br />
       </div>
 
