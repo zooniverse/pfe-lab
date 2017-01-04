@@ -9,30 +9,25 @@ import LoginButton from '../components/login-button';
 import LogoutButton from '../components/logout-button';
 
 class HeaderAuth extends React.Component {
-  constructor() {
-    super();
-    this.login = this.login.bind(this);
+  constructor(props) {
+    super(props);
     this.logout = this.logout.bind(this);
   }
 
   componentDidMount() {
     if (!this.props.initialized) {
-      this.props.dispatch(checkLoginUser());
+      checkLoginUser(this.props.dispatch);
     }
   }
 
-  login() {
-    return this.props.dispatch(loginToPanoptes());
-  }
-
   logout() {
-    this.props.dispatch(logoutFromPanoptes());
+    logoutFromPanoptes(this.props.dispatch);
   }
 
   render() {
     return (this.props.user)
       ? <LogoutButton user={this.props.user} logout={this.logout} />
-      : <LoginButton login={this.login} />;
+      : <LoginButton login={loginToPanoptes} />;
   }
 }
 
