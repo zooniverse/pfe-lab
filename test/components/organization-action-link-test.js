@@ -37,10 +37,9 @@ describe('OrganizationActionLink', () => {
       <OrganizationActionLink to="bar" text="foo" id="3" />,
     );
 
-    const link = wrapper.find(Link);
-    const linkProps = link.node.props;
+    const linkProps = wrapper.find(Link).first().props();
 
     expect(linkProps.to).to.equal('/organizations/3/bar');
-    expect(link.html()).to.equal('<a>foo</a>');
+    expect(linkProps.children).to.equal('foo');
   });
 });
