@@ -75,6 +75,7 @@
     "nib": "^1.1.2",
     "react-addons-test-utils": "^15.4.1",
     "rimraf": "^2.5.4",
+    "sinon": "^1.17.7",
     "stats-webpack-plugin": "^0.4.2",
     "style-loader": "^0.13.1",
     "stylus": "^0.54.5",

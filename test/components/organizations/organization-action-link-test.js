@@ -1,11 +1,9 @@
-/* eslint-disable react/jsx-filename-extension, no-unused-expressions */
-
 import React from 'react';
 import { Link } from 'react-router';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
 
-import OrganizationActionLink from '../../src/modules/organizations/components/organization-action-link';
+import OrganizationActionLink from '../../../src/modules/organizations/components/organization-action-link';
 
 describe('OrganizationActionLink', () => {
   it('should render a list item', () => {

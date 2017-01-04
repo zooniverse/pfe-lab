@@ -1,10 +1,8 @@
-/* eslint-disable react/jsx-filename-extension, no-unused-expressions */
-
 import React from 'react';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 
-import App from '../../src/modules/common/containers/App';
+import App from '../../../src/modules/common/containers/App';
 
 
 describe('App', () => {
