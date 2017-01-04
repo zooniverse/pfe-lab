@@ -18,8 +18,6 @@ export function loginToPanoptes() {
 }
 
 export function logoutFromPanoptes(dispatch) {
-  oauth.signOut()
-    .then((user) => {
-      dispatch(setLoginUser(user));
-    });
+  oauth.signOut();
+  dispatch(setLoginUser(null));
 }
