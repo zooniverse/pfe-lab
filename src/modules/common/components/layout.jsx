@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
+import Footer from '../components/footer';
 import HeaderAuth from '../containers/header-auth';
 import isActive from '../../../lib/is-active';
 
@@ -55,7 +56,7 @@ class Layout extends React.Component {
           {(this.props.user && this.props.loginInitialized ? this.props.children : <div>Loading...</div>)}
         </main>
 
-        {/* footer goes here */}
+        <Footer />
       </div>
     );
   }
