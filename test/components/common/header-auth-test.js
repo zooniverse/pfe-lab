@@ -3,20 +3,14 @@ import { Provider } from 'react-redux';
 
 import { mount } from 'enzyme';
 import { expect } from 'chai';
-import sinon from 'sinon';
 
 import configureStore from 'redux-mock-store';
 
 import HeaderAuth from '../../../src/modules/common/containers/header-auth';
 import initialState from '../../../src/reducers/initial-state';
-import * as actionTypes from '../../../src/constants/action-types.js';
-
-const doThing = () => {
-  console.log('done');
-};
+import * as actionTypes from '../../../src/constants/action-types';
 
 describe('HeaderAuth', () => {
-
   it('should have a login button when nobody is logged in', () => {
     const mockStore = configureStore([]);
     const store = mockStore(initialState);
@@ -69,7 +63,7 @@ describe('HeaderAuth', () => {
 
     const wrapper = mount(
       <Provider store={store}>
-        <HeaderAuth afterLogout={doThing} />
+        <HeaderAuth />
       </Provider>,
     );
 
