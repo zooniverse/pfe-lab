@@ -27,7 +27,6 @@ export default class App extends React.Component {
 
 App.propTypes = {
   children: React.PropTypes.node,
-  navItems: React.PropTypes.arrayOf(React.PropTypes.object), // eslint-disable-line react/no-unused-prop-types
 };
 
 App.defaultProps = {
