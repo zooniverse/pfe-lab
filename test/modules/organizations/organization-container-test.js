@@ -7,7 +7,6 @@ import { expect } from 'chai';
 import configureStore from 'redux-mock-store';
 
 import OrganizationContainer from '../../../src/modules/organizations/containers/organization-container';
-import EditDetails from '../../../src/modules/organizations/components/edit-details';
 
 const initialState = {
   user: {
@@ -22,19 +21,27 @@ const initialState = {
   },
 };
 
+let organizationPeek = {};
+
+const MyPureComponent = ({ organization }) => {
+  organizationPeek = organization;
+
+  return (<div>okay</div>);
+};
+
 describe('OrganizationContainer', () => {
   const mockStore = configureStore([]);
   const store = mockStore(initialState);
 
-  const wrapper = mount(
+  mount(
     <Provider store={store}>
       <OrganizationContainer params={{}}>
-        <EditDetails />
+        <MyPureComponent />
       </OrganizationContainer>
     </Provider>,
   );
 
   it('should give EditDetails the organization correctly', () => {
-    expect(wrapper.find('h2').first().props().children).to.equal(initialState.organization.display_name);
+    expect(organizationPeek.id).to.equal(initialState.organization.id);
   });
 });
