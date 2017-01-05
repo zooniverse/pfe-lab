@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Footer = () =>
-  <div className="app-footer">
+  <footer>
     <div className="app-footer__upper">
       <div className="app-footer__section app-footer__brand">
         <a href="https://www.zooniverse.org">ZOOLOGOTYPE PH</a>
@@ -129,6 +129,6 @@ const Footer = () =>
         Security
       </a>
     </div>
-  </div>;
+  </footer>;
 
 export default Footer;

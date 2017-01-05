@@ -1,4 +1,4 @@
-.app-footer
+footer
   clear: both
   font-size: 14px
   background-color: black
@@ -12,51 +12,53 @@
     &:hover
       color: rgba(white, 0.7)
 
-  &__upper
-    display: flex
-    flex-wrap: wrap
-    justify-content: space-between
-    margin: 0 auto
-    max-width: 960px
-    padding: 2em 5vw 1em
+  .app-footer
 
-  &__brand
-    flex-basis: 30%
-    margin: 0 2em 1em 0
+    &__upper
+      display: flex
+      flex-wrap: wrap
+      justify-content: space-between
+      margin: 0 auto
+      max-width: 960px
+      padding: 2em 5vw 1em
 
-  &__nav-lists
-    display: flex
-    flex: 1 1 auto
-    flex-wrap: wrap
-    justify-content: space-between
+    &__brand
+      flex-basis: 30%
+      margin: 0 2em 1em 0
 
-  &__nav-list
-    flex: 0 0 auto
-    margin: 0 2em 1em 0
-    padding: 0
+    &__nav-lists
+      display: flex
+      flex: 1 1 auto
+      flex-wrap: wrap
+      justify-content: space-between
 
-    > li
-      display: block
-
-    &--social
-      white-space: nowrap
+    &__nav-list
+      flex: 0 0 auto
+      margin: 0 2em 1em 0
+      padding: 0
 
       > li
-        display: inline-block
-        margin: 0 0.5em
+        display: block
 
-  &__sole
-    background: rgba(black, 0.2)
-    font-size: 0.8em
-    padding: 2em 0
-    text-align: center
-    width: 100%
+      &--social
+        white-space: nowrap
 
-.footer-admin-toggle
-  display: inline-block
-  color: white
-  margin-left: -1em
-  padding: 0.5em 1em
+        > li
+          display: inline-block
+          margin: 0 0.5em
 
-  &--active
-    background: red
+    &__sole
+      background: rgba(black, 0.2)
+      font-size: 0.8em
+      padding: 2em 0
+      text-align: center
+      width: 100%
+
+  .footer-admin-toggle
+    display: inline-block
+    color: white
+    margin-left: -1em
+    padding: 0.5em 1em
+
+    &--active
+      background: red
