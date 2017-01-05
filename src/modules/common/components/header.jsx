@@ -46,7 +46,7 @@ class Header extends React.Component {
 
   render() {
     return (
-      <header className="site-header">
+      <header>
         {this.renderNav()}
       </header>
     );
