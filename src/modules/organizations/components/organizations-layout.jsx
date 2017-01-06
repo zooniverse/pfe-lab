@@ -23,7 +23,7 @@ const OrganizationsLayout = ({ children, navItems, organization, organizations }
             <li><Link to="">Home</Link></li>
           </ul>
           <h4>Organizations</h4>
-          <ul>
+          <ul className="organizationsLinks">
             <li><Link to="/organizations">Organizations List</Link></li>
             {navItems.map(item =>
               <OrganizationActionLink key={item.to} to={item.to} id={org.id} text={item.label} />,
@@ -35,10 +35,6 @@ const OrganizationsLayout = ({ children, navItems, organization, organizations }
       <section>{wrappedChildren}</section>
     </div>
   );
-};
-
-OrganizationsLayout.contextTypes = {
-  router: React.PropTypes.object,
 };
 
 OrganizationsLayout.defaultProps = {

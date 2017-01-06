@@ -3,10 +3,6 @@ import { Link } from 'react-router';
 import Layout from '../components/layout';
 
 export default class App extends React.Component {
-  returnSomething(something) { // eslint-disable-line class-methods-use-this
-    // this is only for testing purposes. Check /test/components/App-test.js
-    return something;
-  }
 
   render() {
     if (this.props.children) {

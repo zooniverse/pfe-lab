@@ -3,7 +3,7 @@ import organizations from './modules/organizations/reducer';
 
 // redux's built-in combineReducers function scopes the state based on the reducer
 // that modified it, which isn't a behavior i really like
-function myCombineReducers(...reducers) {
+export const myCombineReducers = (...reducers) => {
   let reducer;
   let reduction;
   let result = null;
@@ -26,6 +26,6 @@ function myCombineReducers(...reducers) {
 
     return result || state;
   };
-}
+};
 
 export default myCombineReducers(login, organizations);
