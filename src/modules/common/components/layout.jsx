@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Header from './header';
+import Footer from './footer';
 
 const Layout = ({ user, loginInitialized, children }) =>
   <div>
@@ -10,7 +11,7 @@ const Layout = ({ user, loginInitialized, children }) =>
       {(user && loginInitialized ? children : <div>Loading...</div>)}
     </main>
 
-    {/* footer goes here */}
+    <Footer />
   </div>;
 
 Layout.propTypes = {
