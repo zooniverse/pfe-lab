@@ -7,7 +7,7 @@ import { expect } from 'chai';
 import configureStore from 'redux-mock-store';
 
 import HeaderAuth from '../../../src/modules/common/containers/header-auth';
-import initialState from '../../../src/reducers/initial-state';
+import initialState from '../../../src/initial-state';
 import * as actionTypes from '../../../src/constants/action-types';
 
 describe('HeaderAuth', () => {
