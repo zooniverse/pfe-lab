@@ -10,7 +10,7 @@ import organizationsRoutes from './modules/organizations';
 
 import { config } from './constants/config';
 import configureStore from './store';
-import initialState from './reducers/initial-state';
+import initialState from './initial-state';
 
 // Todo: let's find a better way to include Styles,
 // currently Styles looks like an unused var to eslint
