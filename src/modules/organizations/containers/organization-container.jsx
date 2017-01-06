@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import apiClient from 'panoptes-client/lib/api-client';
 import { organizationShape, organizationsShape } from '../model';
-import { setCurrentOrganization } from '../actionCreators';
+import { setCurrentOrganization } from '../action-creators';
 
 class OrganizationContainer extends React.Component {
   constructor(props) {

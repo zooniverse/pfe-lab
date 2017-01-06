@@ -1,5 +1,5 @@
 import oauth from 'panoptes-client/lib/oauth';
-import { setLoginUser } from '../modules/users/actionCreators';
+import { setLoginUser } from '../modules/users/action-creators';
 
 export function checkLoginUser(dispatch) {
   oauth.checkCurrent()

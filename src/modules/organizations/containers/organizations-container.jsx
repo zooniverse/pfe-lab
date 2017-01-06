@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import apiClient from 'panoptes-client/lib/api-client';
 
-import { setOrganizations } from '../actionCreators';
+import { setOrganizations } from '../action-creators';
 import { organizationShape, organizationsShape } from '../model';
 import OrganizationsLayout from '../components/organizations-layout';
 
