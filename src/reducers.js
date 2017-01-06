@@ -1,5 +1,5 @@
-import login from './login';
-import organizations from './organizations';
+import login from './modules/users/reducer';
+import organizations from './modules/organizations/reducer';
 
 // redux's built-in combineReducers function scopes the state based on the reducer
 // that modified it, which isn't a behavior i really like
