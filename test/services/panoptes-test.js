@@ -14,7 +14,7 @@ const testDispatch = (doneFunc, action) => {
 };
 
 
-describe('Panoptes', function des() {
+xdescribe('Panoptes', function des() {
   describe('with a user', function desc() {
     before(function bef(done) {
       nock('https://panoptes-staging.zooniverse.org')
