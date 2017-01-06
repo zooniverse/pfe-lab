@@ -2,13 +2,9 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { expect } from 'chai';
 
-import OrganizationsLayout from '../../../src/modules/organizations/components/organizations-layout';
+import { organization } from './test-data';
 
-const mockOrganization = {
-  id: '7',
-  display_name: 'Testing organization',
-  description: 'Fake provided by test framework',
-};
+import OrganizationsLayout from '../../../src/modules/organizations/components/organizations-layout';
 
 describe('OrganizationsLayout', () => {
   const noOrg = mount(
@@ -16,7 +12,7 @@ describe('OrganizationsLayout', () => {
   );
 
   const withOrg = mount(
-    <OrganizationsLayout organization={mockOrganization} />,
+    <OrganizationsLayout organization={organization} />,
   );
 
   it('should render', () => {

@@ -6,26 +6,15 @@ import { expect } from 'chai';
 
 import configureStore from 'redux-mock-store';
 
+import { user } from '../users/test-data';
+import { organizations as sampleOrganizations } from './test-data';
+
 import OrganizationsContainer from '../../../src/modules/organizations/containers/organizations-container';
 
 const initialState = {
-  user: {
-    id: '3',
-    display_name: 'bob_ross',
-  },
+  user,
   initialized: true,
-  organizations: [
-    {
-      id: '7',
-      display_name: 'Test Organization',
-      description: 'blah blah blah blah',
-    },
-    {
-      id: '42',
-      display_name: 'Deep Thought',
-      description: 'Probably wrong about everything',
-    },
-  ],
+  organizations: sampleOrganizations,
 };
 
 let organizationsPeek = [];

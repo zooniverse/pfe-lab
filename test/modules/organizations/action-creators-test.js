@@ -2,23 +2,10 @@ import { expect } from 'chai';
 
 import * as actionTypes from '../../../src/constants/action-types';
 import { setCurrentOrganization, setOrganizations } from '../../../src/modules/organizations/action-creators';
-
-const organizations = [
-  {
-    id: '7',
-    display_name: 'Test Organization',
-    description: 'blah blah blah blah',
-  },
-  {
-    id: '42',
-    display_name: 'Deep Thought',
-    description: 'Probably wrong about everything',
-  },
-];
+import { organizations, organization } from './test-data';
 
 describe('OrganizationActionCreators', () => {
   it('should build the setCurrentOrganization action as expected', () => {
-    const organization = organizations[0];
     const setOrgAction = setCurrentOrganization(organization);
 
     expect(setOrgAction.organization).to.not.be.null;
@@ -33,5 +20,6 @@ describe('OrganizationActionCreators', () => {
     expect(setOrgsAction.organizations).to.have.length(organizations.length);
     expect(setOrgsAction.type).to.equal(actionTypes.SET_ORGANIZATIONS);
     expect(setOrgsAction.organizations[0].id).to.equal(organizations[0].id);
+    expect(setOrgsAction.organizations[1].id).to.equal(organizations[1].id);
   });
 });

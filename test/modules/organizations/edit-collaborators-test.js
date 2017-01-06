@@ -2,17 +2,13 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
 
-import EditCollaborators from '../../../src/modules/organizations/components/edit-collaborators';
+import { organization } from './test-data';
 
-const mockOrganization = {
-  id: '7',
-  display_name: 'Testing organization',
-  description: 'Fake provided by test framework',
-};
+import EditCollaborators from '../../../src/modules/organizations/components/edit-collaborators';
 
 describe('EditCollaborators', () => {
   const wrapper = shallow(
-    <EditCollaborators organization={mockOrganization} />,
+    <EditCollaborators organization={organization} />,
   );
 
   it('should render', () => {
@@ -20,6 +16,6 @@ describe('EditCollaborators', () => {
   });
 
   it('should know what the organization display name is', () => {
-    expect(wrapper.find('h2').first().props().children).to.equal(mockOrganization.display_name);
+    expect(wrapper.find('h2').first().props().children).to.equal(organization.display_name);
   });
 });
