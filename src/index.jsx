@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { browserHistory, Router, Route } from 'react-router';
 import { Provider } from 'react-redux';
 import oauth from 'panoptes-client/lib/oauth';
+import apiClient from 'panoptes-client/lib/api-client';
 
 import App from './modules/common/containers/App';
 
@@ -33,3 +34,7 @@ oauth.init(config.panoptesAppId)
       document.getElementById('root'),
     );
   });
+
+
+// Just for console access:
+window.zooAPI = apiClient;

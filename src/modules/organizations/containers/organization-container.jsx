@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import apiClient from 'panoptes-client/lib/api-client';
-import { organizationShape, organizationsShape } from '../model';
+import { organizationShape } from '../model';
 import { setCurrentOrganization } from '../action-creators';
 
 class OrganizationContainer extends React.Component {
@@ -35,12 +35,11 @@ class OrganizationContainer extends React.Component {
   render() {
     const children = this.props.children; // eslint-disable-line react/prop-types
     const organization = this.props.organization;
-    const organizations = this.props.organizations;
     const organizationId = this.props.params.id;
 
     // inject props into children
     const wrappedChildren = React.Children.map(children, child =>
-      React.cloneElement(child, { organization, organizations, organizationId }),
+      React.cloneElement(child, { organization, organizationId }),
     );
 
     return (<div> {wrappedChildren} </div>);
@@ -50,14 +49,12 @@ class OrganizationContainer extends React.Component {
 OrganizationContainer.propTypes = {
   dispatch: React.PropTypes.func,
   organization: organizationShape,
-  organizations: organizationsShape,
   params: React.PropTypes.shape({ id: React.PropTypes.string }),
 };
 
 function mapStateToProps(state) {
   return {
     organization: state.organization,
-    organizations: state.organizations,
   };
 }
 
