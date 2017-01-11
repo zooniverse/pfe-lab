@@ -23,6 +23,7 @@
       2,
       "smart"
     ],
+    "quote-props": 0,
     "react/prefer-stateless-function": [1],
     "keyword-spacing": 2,
     "no-console": 1,
