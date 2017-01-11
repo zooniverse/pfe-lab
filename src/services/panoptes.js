@@ -5,8 +5,6 @@ export function checkLoginUser(dispatch) {
   oauth.checkCurrent()
     .then((user) => {
       dispatch(setLoginUser(user));
-    }).catch((msg) => {
-      console.log('what the fuck');
     });
 }
 
