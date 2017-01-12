@@ -7,6 +7,18 @@ import * as panoptes from '../../src/services/panoptes';
 const stagingHost = 'https://panoptes-staging.zooniverse.org';
 
 describe('Panoptes', () => {
+  afterEach(function (done) {
+    nock.cleanAll();
+    nock.disableNetConnect();
+    done();
+  });
+
+  beforeEach(function (done) {
+    nock.cleanAll();
+    nock.disableNetConnect();
+    done();
+  });
+
   describe('with no user', function (done) {
     let lastAction = null;
 

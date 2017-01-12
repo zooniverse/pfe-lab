@@ -9,6 +9,18 @@ import { user } from '../modules/users/test-data';
 const stagingHost = 'https://panoptes-staging.zooniverse.org';
 
 describe('Panoptes', () => {
+  afterEach(function (done) {
+    nock.cleanAll();
+    nock.disableNetConnect();
+    done();
+  });
+
+  beforeEach(function (done) {
+    nock.cleanAll();
+    nock.disableNetConnect();
+    done();
+  });
+
   describe('with a valid user', function (done) {
     let lastAction = null;
 
