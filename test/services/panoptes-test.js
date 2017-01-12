@@ -9,24 +9,29 @@ import { user } from '../modules/users/test-data';
 const stagingHost = 'https://panoptes-staging.zooniverse.org';
 
 describe('Panoptes', () => {
-  describe('with no user', function() {
-    before(function() {
-      nock.cleanAll();
-      nock(stagingHost)
-        .get(/^\/oauth\/authorize/)
-        .reply(302, '', {
-          'Cache-Control': 'no-cache',
-          'location': 'https://my-staging-server.org/users/sign_in',
-          'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
-          'X-Frame-Options': 'SAMEORIGIN',
-          'X-XSS-Protection': '1; mode=block',
-        });
+  afterEach(function (done) {
+    nock.cleanAll();
+    nock.disableNetConnect();
+    done();
+  });
 
-      nock(stagingHost)
-        .get(/^\/api\/me/)
-        .reply(401);
-    });
+  beforeEach(function (done) {
+    nock.cleanAll();
+    nock.disableNetConnect();
+    done();
+  });
 
+  describe('with a valid user', function (done) {
+    let lastAction = null;
+
+    const scope = nock(stagingHost)
+      .get(/^\/oauth\/authorize/)
+      .reply(302, '', {
+        'location': 'https://localhost:3000',
+        'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
+        'X-Frame-Options': 'SAMEORIGIN',
+        'X-XSS-Protection': '1; mode=block',
+      });
 
     it('should know that nobody is logged in', function (done) {
       panoptes.checkLoginUser((action) => {
