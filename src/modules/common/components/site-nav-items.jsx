@@ -1,6 +1,6 @@
 // TODO add News nav item with subnav?
 
-const NavItems = [
+const SiteNavItems = [
   {
     label: 'Projects',
     to: 'https://www.zooniverse.org/projects?status=live',
@@ -23,4 +23,4 @@ const NavItems = [
   },
 ];
 
-export default NavItems;
+export default SiteNavItems;
