@@ -15,7 +15,7 @@ const OrganizationsLayout = ({ children, navItems, organization, organizations }
   const org = organization || {};
 
   return (
-    <div>
+    <div className="content-section">
       <aside>
         <nav>
           <h4>Navigation</h4>
