@@ -1,15 +1,15 @@
 import React from 'react';
 
 const Footer = () =>
-  <footer>
-    <div className="app-footer__upper">
-      <div className="app-footer__section app-footer__brand">
+  <footer className="site-footer">
+    <div className="site-footer__upper">
+      <div className="site-footer__section site-footer__brand">
         <a href="https://www.zooniverse.org">ZOOLOGOTYPE PH</a>
         <br />
       </div>
 
-      <nav className="app-footer__section app-footer__nav-lists">
-        <ul className="app-footer__nav-list">
+      <nav className="site-footer__section site-footer__nav-lists">
+        <ul className="site-footer__nav-list">
           <li>
             <a href="https://www.zooniverse.org/projects">
               Projects
@@ -41,7 +41,7 @@ const Footer = () =>
             </li>}
         </ul>
 
-        <ul className="app-footer__nav-list">
+        <ul className="site-footer__nav-list">
           <li>
             <a href="https://www.zooniverse.org/about">
               About Us
@@ -74,7 +74,7 @@ const Footer = () =>
           </li>
         </ul>
 
-        <ul className="app-footer__nav-list">
+        <ul className="site-footer__nav-list">
           <li>
             <a href="https://www.zooniverse.org/talk">
               Zooniverse Talk
@@ -92,7 +92,7 @@ const Footer = () =>
           </li>
         </ul>
 
-        <ul className="app-footer__nav-list app-footer__nav-list--social">
+        <ul className="site-footer__nav-list site-footer__nav-list--social">
           <li>
             <a href="https://www.facebook.com/therealzooniverse" target="_blank" rel="noopener noreferrer">
               <i className="fa fa-facebook fa-fw" />
@@ -112,7 +112,7 @@ const Footer = () =>
       </nav>
     </div>
 
-    <div className="app-footer__sole">
+    <div className="site-footer__sole">
       <a href="https://www.zooniverse.org/privacy">
         Privacy Policy
       </a>{' '}
