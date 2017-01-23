@@ -11,15 +11,15 @@ const Landing = () =>
     <section style={{ background: '#CBCCCB' }}>
       <div style={{ padding: '50px' }}>
         <button className="button button--ghost-white">Sign-In</button>
-        <div style={{ 'margin-top': '50px' }} />
+        <div style={{ marginTop: '50px' }} />
         <button className="button button--ghost-navy">Back to Classifying</button>
-        <div style={{ 'margin-top': '50px' }} />
+        <div style={{ marginTop: '50px' }} />
         <button className="button button--ghost-teal">Button</button>
-        <div style={{ 'margin-top': '50px' }} />
+        <div style={{ marginTop: '50px' }} />
         <button className="button button--full-white">Button</button>
-        <div style={{ 'margin-top': '50px' }} />
+        <div style={{ marginTop: '50px' }} />
         <button className="button button--full-teal">Button</button>
-        <div style={{ 'margin-top': '50px' }} />
+        <div style={{ marginTop: '50px' }} />
         <button className="button button--full-alert">Button</button>
       </div>
     </section>
