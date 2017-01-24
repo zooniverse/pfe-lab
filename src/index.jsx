@@ -13,6 +13,8 @@ import { config } from './constants/config';
 import configureStore from './store';
 import initialState from './initial-state';
 
+import StyleGuide from './modules/common/components/style-guide';
+
 // Todo: let's find a better way to include Styles,
 // currently Styles looks like an unused var to eslint
 import Styles from './styles/main.styl'; // eslint-disable-line no-unused-vars
@@ -29,6 +31,7 @@ oauth.init(config.panoptesAppId)
           <Route path="/" component={App} >
             {organizationsRoutes(store)}
           </Route>
+          <Route path="style-guide" component={StyleGuide} />
         </Router>
       </Provider>),
       document.getElementById('root'),
