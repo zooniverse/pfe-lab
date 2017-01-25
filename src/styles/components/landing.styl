@@ -3,6 +3,7 @@
   background-size: cover
   display: flex
   flex-direction: column
+  align-items: center
   min-height: 100vh
   color: white
 
@@ -22,34 +23,40 @@
     color: inherit
     margin: 0 auto
     max-width: 600px
-    padding: 1em 0 6.5em
+    padding: 1em 0
+    line-height: 22px
+    font-size: 0.8em
 
   &__buttons
     display: inline-block
 
   &__button
-    @extends .button
-    font-size: 1.6em
-    font-weight: 400
-    margin-bottom: 3vh
+    margin: 1vh 0 3vh
     padding: 1em 0
     width: 250px
-    background: TEAL_MID
+    font-size: 0.8em
+    font-weight: 400
 
-    &:hover
-      background: lighten(TEAL_MID, 20%)
-
-    // TODO add color variation
-
-  &__links
+  &__links-section
     display: inline-block
-    margin-left: 3em
+    margin-left: 1em
     padding: 0 0 0 7.5px
     border-left: 2px solid white
 
-    &__heading
-      color: white
-      margin: 0 0 5px 0
+  &__links-heading
+    color: white
+    margin: 0 0 5px 0
 
-    &__link
-      display: block
+  &__link
+    display: block
+    font-size: 14px
+
+  &__row
+    width: 100%
+    margin-bottom: 3vh
+    display: flex
+    flex-direction: row
+
+  &__row-description
+    max-width: 500px
+    padding-right: 2em

@@ -11,7 +11,7 @@ const Layout = ({ user, loginInitialized, children }) =>
     </header>
 
     <main className="layout__main">
-      {(user && loginInitialized ? children : <Landing />)}
+      {(user && loginInitialized && children ? children : <Landing userBoolean={user !== null} />)}
     </main>
 
     <footer className="layout__footer">
