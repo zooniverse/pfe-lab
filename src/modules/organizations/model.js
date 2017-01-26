@@ -7,3 +7,13 @@ export const organizationShape = React.PropTypes.shape({
 });
 
 export const organizationsShape = React.PropTypes.arrayOf(organizationShape);
+
+export const organizationCollaboratorsShape = React.PropTypes.shape({
+  id: React.PropTypes.string,
+  roles: React.PropTypes.arrayOf(React.PropTypes.string),
+});
+
+export const organizationOwnerShape = React.PropTypes.shape({
+  display_name: React.PropTypes.string,
+  id: React.PropTypes.string,
+});
