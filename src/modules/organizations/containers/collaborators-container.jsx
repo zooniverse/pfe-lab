@@ -29,7 +29,7 @@ class CollaboratorsContainer extends React.Component {
       return;
     }
 
-    organization.get('organization_roles', { page_size: 100 })
+    this.props.organization.get('organization_roles', { page_size: 100 })
       .then((panoptesRoles) => {
         const collaborators = panoptesRoles.map((roleSet) => {
           const userFetch = apiClient.type('users').get(roleSet.links.owner.id, { fields: 'display_name,id' });

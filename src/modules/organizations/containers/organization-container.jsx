@@ -34,7 +34,7 @@ class OrganizationContainer extends React.Component {
     if (!id) {
       return;
     }
-    console.log('id', id)
+
     apiClient.type('organizations').get(id.toString())
       .then((org) => {
         this.props.dispatch(setCurrentOrganization(org));
