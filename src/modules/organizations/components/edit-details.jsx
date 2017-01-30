@@ -28,7 +28,6 @@ const EditDetails = ({ organization, updateOrganization }) => {
 
   const NameInput = bindInput(organization.display_name)(<input type="text" />);
   const DescriptionInput = bindInput(organization.description)(<input style={{ width: '500px' }} />);
-  const LanguageInput = bindInput(organization.primary_language || '')(<input />);
 
   return (
     <div>
@@ -38,7 +37,6 @@ const EditDetails = ({ organization, updateOrganization }) => {
       <br />
       Description: <DescriptionInput withRef={(n) => { fields.description = n; }} />
       <br />
-      Primary Language: <LanguageInput withRef={(n) => { fields.primary_language = n; }} />
       <button onClick={doUpdate}>click</button>
     </div>
   );

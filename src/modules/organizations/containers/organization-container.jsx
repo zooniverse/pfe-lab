@@ -25,14 +25,10 @@ class OrganizationContainer extends React.Component {
 
   updateOrganization(organizationFields) {
     organizationFields.name = organizationFields.display_name; // eslint-disable-line no-param-reassign
-    organizationFields.title = organizationFields.name.replace(/\W/g, ''); // eslint-disable-line no-param-reassign
-    apiClient.type('organizations').get(this.props.organization.id)
-      .then((org) => {
-        org.update(organizationFields);
-        return org.save();
-      }).then((result) => {
-        this.props.dispatch(setCurrentOrganization(result));
-      });
+    this.props.organization.update(organizationFields);
+    this.props.organization.save.then((result) => {
+      this.props.dispatch(setCurrentOrganization(result));
+    });
   }
 
   fetchOrganization(id) { // eslint-disable-line class-methods-use-this
