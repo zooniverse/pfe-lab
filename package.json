@@ -22,7 +22,7 @@
     "chai"
   ],
   "scripts": {
-    "start": "babel-node server.js",
+    "start": "webpack-dashboard -p 3777 -- babel-node server.js",
     "test": "mocha",
     "eslint": "eslint .",
     "build": "webpack --config webpack.production.config.js -p"
@@ -84,6 +84,7 @@
     "stylus": "^0.54.5",
     "stylus-loader": "^2.4.0",
     "webpack": "^1.14.0",
+    "webpack-dashboard": "^0.2.1",
     "webpack-dev-middleware": "^1.8.4",
     "webpack-hot-middleware": "^2.13.2"
   }
