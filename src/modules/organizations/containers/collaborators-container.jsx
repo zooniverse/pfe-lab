@@ -11,8 +11,18 @@ class CollaboratorsContainer extends React.Component {
   constructor(props) {
     super(props);
 
-    this.fetchOrganizationCollaborators();
-    this.updateOrganizationCollaborator = this.updateOrganizationCollaborator.bind(this);
+    this.fetchCollaborators = this.fetchCollaborators.bind(this);
+    this.updateCollaborator = this.updateCollaborator.bind(this);
+  }
+
+  componentDidMount() {
+    this.fetchCollaborators();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.organization !== this.props.organization) {
+      this.fetchCollaborators(nextProps.organization);
+    }
   }
 
   componentWillUnmount() {
@@ -20,31 +30,27 @@ class CollaboratorsContainer extends React.Component {
     this.props.dispatch(setOrganizationOwner(null));
   }
 
-  updateOrganizationCollaborator() {
+  updateCollaborator() {
     // TODO add handler
   }
 
-  fetchOrganizationCollaborators(organization = this.props.organization) { // eslint-disable-line class-methods-use-this
+  fetchCollaborators(organization = this.props.organization) { // eslint-disable-line class-methods-use-this
     if (!organization) {
       return;
     }
 
-    this.props.organization.get('organization_roles', { page_size: 100 })
+    organization.get('organization_roles', { page_size: 100 })
       .then((panoptesRoles) => {
-        const collaborators = panoptesRoles.map((roleSet) => {
-          const userFetch = apiClient.type('users').get(roleSet.links.owner.id, { fields: 'display_name,id' });
+        const ownerRole = panoptesRoles.find(roleSet => roleSet.roles.includes('owner'));
+        const withoutOwnerRole = panoptesRoles.filter(roleSet => !roleSet.roles.includes('owner'));
 
-          if (roleSet.roles.includes('owner')) {
-            userFetch.then((user) => {
-              this.props.dispatch(setOrganizationOwner(user));
-            });
-          }
-          userFetch.then((user) => {
-            return { displayName: user.display_name, roles: roleSet.roles, id: user.id };
-          });
-        });
-        this.props.dispatch(setOrganizationCollaborators(collaborators));
-      }).catch((error) => { console.error(error); });
+        apiClient.type('users').get(ownerRole.links.owner.id)
+          .then((owner) => { this.props.dispatch(setOrganizationOwner(owner)); })
+          .catch((error) => { console.error(error); });
+
+        // This is ugly. I've requested to get back display_name in the original request: https://github.com/zooniverse/Panoptes/issues/2123
+        this.props.dispatch(setOrganizationCollaborators(withoutOwnerRole));
+      });
   }
 
   render() {
@@ -52,7 +58,7 @@ class CollaboratorsContainer extends React.Component {
       organization: this.props.organization,
       organizationOwner: this.props.organizationOwner,
       organizationCollaborators: this.props.organizationCollaborators,
-      updateOrganizationCollaborator: this.updateOrganizationCollaborator,
+      updateOrganizationCollaborator: this.updateCollaborator,
       user: this.props.user,
     };
 
