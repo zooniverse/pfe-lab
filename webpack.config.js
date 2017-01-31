@@ -3,6 +3,7 @@ import path from 'path';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import nib from 'nib';
+import DashboardPlugin from 'webpack-dashboard/plugin';
 
 module.exports = {
 
@@ -33,6 +34,7 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('staging'),
     }),
+    new DashboardPlugin({ port: 3777 }),
   ],
 
   resolve: {
@@ -41,13 +43,6 @@ module.exports = {
   },
 
   module: {
-    // preLoaders: [
-    //   {
-    //     test: /\.jsx?$/,
-    //     exclude: /node_modules/,
-    //     loader: 'eslint-loader',
-    //   },
-    // ],
     loaders: [
       {
         test: /\.json$/,

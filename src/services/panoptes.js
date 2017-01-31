@@ -2,11 +2,9 @@ import oauth from 'panoptes-client/lib/oauth';
 import { setLoginUser } from '../modules/users/action-creators';
 
 export function checkLoginUser(dispatch) {
-  oauth.checkCurrent()
+  return oauth.checkCurrent()
     .then((user) => {
       dispatch(setLoginUser(user));
-    }).catch((msg) => {
-      console.log('what the fuck');
     });
 }
 
@@ -20,6 +18,6 @@ export function loginToPanoptes() {
 }
 
 export function logoutFromPanoptes(dispatch) {
-  oauth.signOut();
   dispatch(setLoginUser(null));
+  return oauth.signOut();
 }

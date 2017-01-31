@@ -6,40 +6,70 @@ import * as panoptes from '../../src/services/panoptes';
 
 import { user } from '../modules/users/test-data';
 
-let lastAction = null;
+const stagingHost = 'https://panoptes-staging.zooniverse.org';
 
-const testDispatch = (doneFunc, action) => {
-  lastAction = action;
-  doneFunc();
-};
-
-
-xdescribe('Panoptes', function des() {
-  describe('with a user', function desc() {
-    before(function bef(done) {
-      nock('https://panoptes-staging.zooniverse.org')
+describe('Panoptes', () => {
+  describe('with no user', function() {
+    before(function() {
+      nock.cleanAll();
+      nock(stagingHost)
         .get(/^\/oauth\/authorize/)
         .reply(302, '', {
-          location: 'https://localhost:3000',
+          'Cache-Control': 'no-cache',
+          'location': 'https://my-staging-server.org/users/sign_in',
           'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
           'X-Frame-Options': 'SAMEORIGIN',
           'X-XSS-Protection': '1; mode=block',
         });
 
-      nock('https://panoptes-staging.zooniverse.org')
+      nock(stagingHost)
+        .get(/^\/api\/me/)
+        .reply(401);
+    });
+
+
+    it('should know that nobody is logged in', function (done) {
+      panoptes.checkLoginUser((action) => {
+        expect(action).to.not.be.null;
+        expect(action.type).to.equal(actionTypes.SET_LOGIN_USER);
+        expect(action.user).to.be.null;
+        done();
+      });
+    });
+  });
+
+  xdescribe('with a valid user--this test is failing because of a bug in panoptes-client', function() {
+    before(function() {
+      nock.cleanAll();
+      nock(stagingHost)
+        .get(/^\/oauth\/authorize/)
+        .reply(302, '', {
+          'location': 'https://localhost:3000',
+          'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
+          'X-Frame-Options': 'SAMEORIGIN',
+          'X-XSS-Protection': '1; mode=block',
+        });
+
+      nock(stagingHost)
         .get(/^\/api\/me/)
         .reply(200, {
           users: [user],
         });
-
-      panoptes.checkLoginUser(testDispatch.bind(null, done));
     });
-    it('should know when somebody is logged in', () => {
-      expect(lastAction).to.not.be.null;
-      expect(lastAction.type).to.equal(actionTypes.SET_LOGIN_USER);
-      expect(lastAction.user).to.not.be.null;
-      expect(lastAction.user.id).to.equal(user.id);
-      expect(lastAction.user.login).to.equal(user.login);
+
+    it('should know when somebody is logged in', function(done) {
+      panoptes.checkLoginUser((action) => {
+        try {
+          expect(action).to.not.be.null;
+          expect(action.type).to.equal(actionTypes.SET_LOGIN_USER);
+          expect(action.user).to.not.be.null;
+          expect(action.user.id).to.equal(user.id);
+          expect(action.user.login).to.equal(user.login);
+          done();
+        } catch (ex) {
+          done(ex);
+        }
+      });
     });
   });
 });

@@ -8,7 +8,7 @@ import OrganizationsLayout from '../components/organizations-layout';
 
 // Uncomment the following line if needed for your queries during dev.
 // TODO: Add toggle to the footer to set this.
-// apiClient.params.admin = true;
+apiClient.params.admin = true;
 
 class OrganizationsContainer extends React.Component {
   constructor(props) {
@@ -21,7 +21,7 @@ class OrganizationsContainer extends React.Component {
   }
 
   fetchOrganizations() {
-    apiClient.type('organizations').get().then((orgs) => {
+    apiClient.type('organizations').get({ sort: 'display_name' }).then((orgs) => {
       this.props.dispatch(setOrganizations(orgs));
     });
   }
