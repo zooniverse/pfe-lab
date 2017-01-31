@@ -2,16 +2,13 @@ import React from 'react';
 
 import { organizationShape, organizationCollaboratorsShape, organizationOwnerShape } from '../model';
 
-import bindInput from '../../common/containers/bind-input';
-
-const EditCollaborators = ({ organization, organizationOwner, organizationCollaborators, updateOrganizationCollaborators, user }) => {
+const EditCollaborators = ({ organization, organizationOwner, organizationCollaborators, removeCollaborator, saving, updateCollaborator, user }) => {
   if (!organizationCollaborators || !organizationOwner) {
     return <div>Loading...</div>;
   }
 
   const POSSIBLE_ROLES = {
     collaborator: 'admin',
-    expert: 'team',
     scientist: 'scientist',
     moderator: 'moderator',
     tester: 'team',
@@ -20,11 +17,7 @@ const EditCollaborators = ({ organization, organizationOwner, organizationCollab
   const ROLES_INFO = {
     collaborator: {
       label: 'Collaborator',
-      description: 'Collaborators have full access to edit workflows and project content, including deleting some or all of the project.',
-    },
-    expert: {
-      label: 'Expert',
-      description: 'Experts can enter "gold mode" to make authoritative gold standard classifications that will be used to validate data quality.',
+      description: 'Collaborators have full access to edit organization content, including deleting the organization.',
     },
     scientist: {
       label: 'Researcher',
@@ -36,12 +29,20 @@ const EditCollaborators = ({ organization, organizationOwner, organizationCollab
     },
     tester: {
       label: 'Tester',
-      description: 'Testers can view and classify on your project to give feedback while it’s still private. They cannot access the project builder.',
+      description: 'Testers can view (TODO: view what?). They cannot access the organization builder.',
     },
     translator: {
       label: 'Translator',
       description: 'Translators will have access to the translation site.',
     },
+  };
+
+  const toggleRole = (collaborator, event) => {
+    updateCollaborator(collaborator, event.target.value, event.target.checked);
+  };
+
+  const handleRemoval = (collaborator) => {
+    removeCollaborator(collaborator);
   };
 
   return (
@@ -60,12 +61,25 @@ const EditCollaborators = ({ organization, organizationOwner, organizationCollab
         (<ul>
           {organizationCollaborators.map((collaborator) => {
             return (<li key={collaborator.id}>
-              <strong>{collaborator.id}</strong>
+              <span>
+                <strong>{collaborator.id}</strong>
+                <button type="button" onClick={handleRemoval.bind(this, collaborator)}>&times;</button>
+              </span>
+              <br />
               <label>
-                <input type="checkbox" />
-                {collaborator.roles.map((role) => {
+                {Object.keys(POSSIBLE_ROLES).map((role, i) => {
                   return (
-                    <span>{ROLES_INFO[role].label}</span>);
+                    <span key={`role-${i}`}>
+                      <input
+                        type="checkbox"
+                        name={role}
+                        checked={collaborator.roles.includes(role)}
+                        onChange={toggleRole.bind(this, collaborator)}
+                        value={role}
+                        disabled={saving === collaborator.id}
+                      />
+                      {ROLES_INFO[role].label}
+                    </span>);
                 })}
               </label>
             </li>);
@@ -83,7 +97,9 @@ EditCollaborators.propTypes = {
   organization: organizationShape,
   organizationCollaborators: organizationCollaboratorsShape,
   organizationOwner: organizationOwnerShape,
-  updateOrganizationCollaborators: React.PropTypes.func,
+  removeCollaborator: React.PropTypes.func,
+  saving: React.PropTypes.string,
+  updateCollaborator: React.PropTypes.func,
   user: React.PropTypes.shape({
     id: React.PropTypes.string,
   }),

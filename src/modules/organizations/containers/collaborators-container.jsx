@@ -11,7 +11,12 @@ class CollaboratorsContainer extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      saving: null,
+    };
+
     this.fetchCollaborators = this.fetchCollaborators.bind(this);
+    this.removeCollaborator = this.removeCollaborator.bind(this);
     this.updateCollaborator = this.updateCollaborator.bind(this);
   }
 
@@ -30,8 +35,42 @@ class CollaboratorsContainer extends React.Component {
     this.props.dispatch(setOrganizationOwner(null));
   }
 
-  updateCollaborator() {
-    // TODO add handler
+  removeCollaborator(collaborator) {
+    this.setState({ saving: collaborator.id });
+
+    collaborator.delete().then(() => {
+      this.props.organization.uncacheLink('organization_roles');
+      this.fetchCollaborators();
+    })
+    .then(() => { this.setState({ saving: null }); })
+    .catch((error) => { console.error(error); });
+  }
+
+  updateCollaborator(collaborator, role, add) {
+    // TODO add Talk roles when Talk is setup for organizations
+    this.setState({ saving: collaborator.id });
+
+    let newRoleSet;
+    if (add) {
+      collaborator.roles.push(role);
+      newRoleSet = collaborator.roles;
+    } else {
+      const index = collaborator.roles.indexOf(role);
+      collaborator.roles.splice(index, 1);
+      newRoleSet = collaborator.roles;
+    }
+
+    collaborator.update({ 'roles': newRoleSet }).save()
+      .then((updatedCollaborator) => {
+        const updatedCollaborators = this.props.organizationCollaborators.filter(currentCollaborator => !(currentCollaborator === collaborator));
+        updatedCollaborators.push(updatedCollaborator);
+        return updatedCollaborators;
+      }).then((collaborators) => {
+        console.log(collaborators)
+        this.props.dispatch(setOrganizationCollaborators(collaborators));
+
+        this.setState({ saving: null });
+      }).catch((error) => { console.error(error); });
   }
 
   fetchCollaborators(organization = this.props.organization) { // eslint-disable-line class-methods-use-this
@@ -41,12 +80,15 @@ class CollaboratorsContainer extends React.Component {
 
     organization.get('organization_roles', { page_size: 100 })
       .then((panoptesRoles) => {
-        const ownerRole = panoptesRoles.find(roleSet => roleSet.roles.includes('owner'));
         const withoutOwnerRole = panoptesRoles.filter(roleSet => !roleSet.roles.includes('owner'));
 
-        apiClient.type('users').get(ownerRole.links.owner.id)
-          .then((owner) => { this.props.dispatch(setOrganizationOwner(owner)); })
-          .catch((error) => { console.error(error); });
+        if (!this.props.organizationOwner) {
+          const ownerRole = panoptesRoles.find(roleSet => roleSet.roles.includes('owner'));
+
+          apiClient.type('users').get(ownerRole.links.owner.id)
+            .then((owner) => { this.props.dispatch(setOrganizationOwner(owner)); })
+            .catch((error) => { console.error(error); });
+        }
 
         // This is ugly. I've requested to get back display_name in the original request: https://github.com/zooniverse/Panoptes/issues/2123
         this.props.dispatch(setOrganizationCollaborators(withoutOwnerRole));
@@ -58,7 +100,9 @@ class CollaboratorsContainer extends React.Component {
       organization: this.props.organization,
       organizationOwner: this.props.organizationOwner,
       organizationCollaborators: this.props.organizationCollaborators,
-      updateOrganizationCollaborator: this.updateCollaborator,
+      removeCollaborator: this.removeCollaborator,
+      saving: this.state.saving,
+      updateCollaborator: this.updateCollaborator,
       user: this.props.user,
     };
 
