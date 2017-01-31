@@ -25,8 +25,7 @@ class OrganizationContainer extends React.Component {
 
   updateOrganization(organizationFields) {
     organizationFields.name = organizationFields.display_name; // eslint-disable-line no-param-reassign
-    this.props.organization.update(organizationFields);
-    this.props.organization.save.then((result) => {
+    this.props.organization.update(organizationFields).save.then((result) => {
       this.props.dispatch(setCurrentOrganization(result));
     });
   }
