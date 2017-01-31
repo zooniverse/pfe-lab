@@ -14,9 +14,7 @@ const Layout = ({ user, loginInitialized, children }) =>
       {(user && loginInitialized && children ? children : <Landing userBoolean={user !== null} />)}
     </main>
 
-    <footer className="layout__footer">
-      <SiteFooter />
-    </footer>
+    <SiteFooter />
   </div>;
 
 Layout.propTypes = {

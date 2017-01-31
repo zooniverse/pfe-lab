@@ -25,7 +25,7 @@ const SignedIn = () =>
     <div className="landing__row">
       <div>
         <h4>Projects</h4>
-        <p className="landing__row-description">To build a project just upload your data and choose the tasks you want the volunteers to do. To find out more, read our <a href="https://www.zooniverse.org/lab-how-to">How to Build a Project documentation</a>, or click the button to get started.</p>
+        <p className="landing__paragraph">To build a project just upload your data and choose the tasks you want the volunteers to do. To find out more, read our <a href="https://www.zooniverse.org/lab-how-to">How to Build a Project documentation</a>, or click the button to get started.</p>
       </div>
       <div>
         <a href="https://www.zooniverse.org/lab"className="button button--full-teal landing__button">Build a Project</a>
@@ -34,7 +34,7 @@ const SignedIn = () =>
     <div className="landing__row">
       <div>
         <h4>Organizations</h4>
-        <p className="landing__row-description">
+        <p className="landing__paragraph">
           To build an organization, or collection of projects, [additional info goes here]. To find out more, read our <a href="">How to Build an Organization documentation</a>, or click the button to get started.
         </p>
       </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 
 const SiteFooter = () =>
-  <div className="site-footer">
+  <footer className="site-footer">
     <div className="site-footer__upper">
       <div className="site-footer__section site-footer__brand">
         <a href="https://www.zooniverse.org">ZOOLOGOTYPE PH</a>
@@ -129,6 +129,6 @@ const SiteFooter = () =>
         Security
       </a>
     </div>
-  </div>;
+  </footer>;
 
 export default SiteFooter;

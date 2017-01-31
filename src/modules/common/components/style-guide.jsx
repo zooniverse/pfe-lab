@@ -30,9 +30,7 @@ const StyleGuide = () =>
         </section>
       </div>
     </main>
-    <footer className="layout__footer">
-      <SiteFooter />
-    </footer>
+    <SiteFooter />
   </div>;
 
 export default StyleGuide;
