@@ -62,13 +62,11 @@ class CollaboratorsContainer extends React.Component {
 
     collaborator.update({ 'roles': newRoleSet }).save()
       .then((updatedCollaborator) => {
+        // Doing this doesn't maintain the array order, so reordering in UI happens on re-render and can be confusing...
         const updatedCollaborators = this.props.organizationCollaborators.filter(currentCollaborator => !(currentCollaborator === collaborator));
         updatedCollaborators.push(updatedCollaborator);
-        return updatedCollaborators;
-      }).then((collaborators) => {
-        console.log(collaborators)
         this.props.dispatch(setOrganizationCollaborators(collaborators));
-
+      }).then(() => {
         this.setState({ saving: null });
       }).catch((error) => { console.error(error); });
   }

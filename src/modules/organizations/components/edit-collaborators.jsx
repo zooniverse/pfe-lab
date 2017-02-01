@@ -7,6 +7,8 @@ const EditCollaborators = ({ organization, organizationOwner, organizationCollab
     return <div>Loading...</div>;
   }
 
+  const ID_PREFIX = 'LAB_COLLABORATORS_PAGE_';
+
   const POSSIBLE_ROLES = {
     collaborator: 'admin',
     scientist: 'scientist',
@@ -31,10 +33,11 @@ const EditCollaborators = ({ organization, organizationOwner, organizationCollab
       label: 'Tester',
       description: 'Testers can view (TODO: view what?). They cannot access the organization builder.',
     },
-    translator: {
-      label: 'Translator',
-      description: 'Translators will have access to the translation site.',
-    },
+    // TODO: uncomment when we can translate
+    // translator: {
+    //   label: 'Translator',
+    //   description: 'Translators will have access to the translation site.',
+    // },
   };
 
   const toggleRole = (collaborator, event) => {
@@ -43,6 +46,10 @@ const EditCollaborators = ({ organization, organizationOwner, organizationCollab
 
   const handleRemoval = (collaborator) => {
     removeCollaborator(collaborator);
+  };
+
+  const handleSubmit = () => {
+    console.log('submit');
   };
 
   return (
@@ -88,7 +95,30 @@ const EditCollaborators = ({ organization, organizationOwner, organizationCollab
 
       <hr />
 
-      <div className="form-label">Add another</div>
+      <h3 className="form-label">Add another</h3>
+      <form>
+        <div>
+          search placeholder.
+        </div>
+
+        <table className="standard-table">
+          <tbody>
+            {Object.keys(POSSIBLE_ROLES).map((role, i) => {
+              return (
+                <tr key={`${role}-${i}`}>
+                  <td><input id={ID_PREFIX + role} type="checkbox" name="role" value={role} disabled={role === 'owner'}/></td>
+                  <td><strong><label htmlFor={ID_PREFIX + role}>{ROLES_INFO[role].label}</label></strong></td>
+                  <td>{ROLES_INFO[role].description}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+
+        <p>
+          <button type="submit" className="major-button" onClick={handleSubmit}>Add user role</button>
+        </p>
+      </form>
     </div>
   );
 };
