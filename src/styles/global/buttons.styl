@@ -1,0 +1,78 @@
+.button
+  @extends $reset-button
+  border: 2px solid
+  border-radius: 7px
+  padding: 0.8em 1.4vw
+  text-align: center
+  font-weight: bold
+  box-shadow: 0px 2px 2px 0px rgba(0,0,0,.14)
+
+  &:disabled
+    pointer-events: none
+
+  &--wide
+    display: block
+    width: 100%
+
+  &--ghost-white
+    border-color: white
+    background: transparent
+    color: white
+
+    &:focus,
+    &:hover
+      background: white
+      color: TEAL_DARK
+
+  &--ghost-navy
+    border-color: ZOONIVERSE_NAVY
+    background: transparent
+    color: ZOONIVERSE_NAVY
+
+    &:focus,
+    &:hover
+      background: ZOONIVERSE_NAVY
+      color: white
+
+  &--ghost-teal
+    border-color: TEAL_DARK
+    background: transparent
+    color: TEAL_DARK
+
+    &:focus,
+    &:hover
+      background: TEAL_DARK
+      color: white
+
+  &--full-white
+    border-color: white
+    background: white
+    color: TEAL_DARK
+
+    &:focus,
+    &:hover
+      border-color: TEAL_MID
+      background: TEAL_MID
+      color: white
+
+  &--full-teal
+    border-color: TEAL_MID
+    background: TEAL_MID
+    color: white
+
+    &:focus,
+    &:hover
+      border-color: TEAL_LIGHT
+      background: TEAL_LIGHT
+      color: white
+
+  &--full-alert
+    border-color: ALERT_COLOR
+    background: ALERT_COLOR
+    color: white
+
+    &:focus,
+    &:hover
+      border-color: lighten(ALERT_COLOR, 50%)
+      background: lighten(ALERT_COLOR, 50%)
+      color: white

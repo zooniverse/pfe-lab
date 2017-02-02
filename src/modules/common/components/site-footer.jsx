@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Footer = () =>
+const SiteFooter = () =>
   <footer className="site-footer">
     <div className="site-footer__upper">
       <div className="site-footer__section site-footer__brand">
@@ -131,4 +131,4 @@ const Footer = () =>
     </div>
   </footer>;
 
-export default Footer;
+export default SiteFooter;
