@@ -13,3 +13,17 @@ export function setOrganizations(organizations) {
     organizations,
   };
 }
+
+export function setOrganizationCollaborators(organizationCollaborators) {
+  return {
+    type: types.SET_ORGANIZATION_COLLABORATORS,
+    organizationCollaborators,
+  };
+}
+
+export function setOrganizationOwner(organizationOwner) {
+  return {
+    type: types.SET_ORGANIZATION_OWNER,
+    organizationOwner,
+  };
+}

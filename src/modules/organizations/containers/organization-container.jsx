@@ -35,9 +35,10 @@ class OrganizationContainer extends React.Component {
       return;
     }
 
-    apiClient.type('organizations').get(id.toString()).then((org) => {
-      this.props.dispatch(setCurrentOrganization(org));
-    });
+    apiClient.type('organizations').get(id.toString())
+      .then((org) => {
+        this.props.dispatch(setCurrentOrganization(org));
+      })
   }
 
   render() {
