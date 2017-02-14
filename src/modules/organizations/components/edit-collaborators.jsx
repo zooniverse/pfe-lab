@@ -63,9 +63,9 @@ const EditCollaborators = ({ organization, organizationOwner, organizationCollab
       <h3 className="form-label">Collaborators</h3>
 
       <hr />
-      {organizationCollaborators.length === 1 &&
+      {organizationCollaborators.length === 0 &&
         <em className="form-help">None yet</em>}
-      {organizationCollaborators.length > 1 &&
+      {organizationCollaborators.length > 0 &&
         (<ul>
           {organizationCollaborators.map((collaborator) => {
             return (<li key={collaborator.id}>
