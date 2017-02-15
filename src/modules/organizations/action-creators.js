@@ -48,3 +48,10 @@ export function removeOrganizationProject(projectId) {
     projectId,
   };
 }
+
+export function setOrganizationRoles(organizationRoles) {
+  return {
+    type: types.SET_ORGANIZATION_ROLES,
+    organizationRoles,
+  };
+}

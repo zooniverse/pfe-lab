@@ -1,19 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import apiClient from 'panoptes-client/lib/api-client';
 
-import { setOrganizations } from '../action-creators';
-import { organizationShape, organizationsShape } from '../model';
-import OrganizationsLayout from '../components/organizations-layout';
+import apiClient from 'panoptes-client/lib/api-client';
+import { setOrganizations, setOrganizationRoles } from '../action-creators';
+import { organizationsShape } from '../model';
+import ListOrganizations from '../components/list-organizations';
 
 class OrganizationsContainer extends React.Component {
   constructor(props) {
     super(props);
     this.fetchOrganizations();
+    this.fetchOrganizationRoles();
   }
 
   componentWillUnmount() {
     this.props.dispatch(setOrganizations([]));
+    this.props.dispatch(setOrganizationRoles([]));
   }
 
   fetchOrganizations() {
@@ -22,26 +24,33 @@ class OrganizationsContainer extends React.Component {
     });
   }
 
+  fetchOrganizationRoles() {
+    apiClient.type('organization_roles').get({ user_id: this.props.user.id }).then((orgRoles) => {
+      this.props.dispatch(setOrganizationRoles(orgRoles));
+    });
+  }
+
   render() {
     return (
-      <OrganizationsLayout organizations={this.props.organizations} organization={this.props.organization}>
-        {this.props.children}
-      </OrganizationsLayout>
+      <ListOrganizations organizations={this.props.organizations} organizationRoles={this.props.organizationRoles} />
     );
   }
 }
 
 OrganizationsContainer.propTypes = {
-  children: React.PropTypes.node,
   dispatch: React.PropTypes.func,
-  organization: organizationShape,
+  user: React.PropTypes.shape({
+    id: React.PropTypes.string,
+  }),
   organizations: organizationsShape,
+  organizationRoles: React.PropTypes.arrayOf(React.PropTypes.object),
 };
 
 function mapStateToProps(state) {
   return {
-    organization: state.organization,
+    user: state.user,
     organizations: state.organizations,
+    organizationRoles: state.organizationRoles,
   };
 }
 

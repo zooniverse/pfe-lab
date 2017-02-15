@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 import apiClient from 'panoptes-client/lib/api-client';
 import { organizationShape } from '../model';
 import { setCurrentOrganization } from '../action-creators';
-
-import MainTitle from '../../common/components/main-title';
+import OrganizationLayout from '../components/organization-layout';
 
 class OrganizationContainer extends React.Component {
   constructor(props) {
@@ -72,11 +71,9 @@ class OrganizationContainer extends React.Component {
     );
 
     return (
-      <div>
-        <MainTitle message={`Organization: ${this.organizationName()}`} />
+      <OrganizationLayout organizationId={organizationId}>
         {wrappedChildren}
-      </div>
-    );
+      </OrganizationLayout>);
   }
 }
 
