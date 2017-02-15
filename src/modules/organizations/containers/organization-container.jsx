@@ -10,6 +10,7 @@ class OrganizationContainer extends React.Component {
     super(props);
 
     this.fetchOrganization(props.params.id);
+    this.resetOrganization = this.resetOrganization.bind(this);
     this.updateOrganization = this.updateOrganization.bind(this);
   }
 
@@ -24,10 +25,13 @@ class OrganizationContainer extends React.Component {
   }
 
   updateOrganization(organizationFields) {
-    organizationFields.name = organizationFields.display_name; // eslint-disable-line no-param-reassign
     this.props.organization.update(organizationFields).save().then((result) => {
       this.props.dispatch(setCurrentOrganization(result));
     });
+  }
+
+  resetOrganization() {
+    this.props.dispatch(setCurrentOrganization(this.props.organization));
   }
 
   fetchOrganization(id) { // eslint-disable-line class-methods-use-this
@@ -38,7 +42,7 @@ class OrganizationContainer extends React.Component {
     apiClient.type('organizations').get(id.toString())
       .then((org) => {
         this.props.dispatch(setCurrentOrganization(org));
-      })
+      });
   }
 
   render() {
@@ -48,7 +52,12 @@ class OrganizationContainer extends React.Component {
 
     // inject props into children
     const wrappedChildren = React.Children.map(children, child =>
-      React.cloneElement(child, { organization, organizationId, updateOrganization: this.updateOrganization }),
+      React.cloneElement(child, {
+        organization,
+        organizationId,
+        resetOrganization: this.resetOrganization,
+        updateOrganization: this.updateOrganization,
+      }),
     );
 
     return (<div> {wrappedChildren} </div>);
