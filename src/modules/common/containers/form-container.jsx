@@ -8,6 +8,7 @@ export default class FormContainer extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleReset = this.handleReset.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.hideButtons = this.hideButtons.bind(this);
   }
 
   handleChange() {
@@ -20,11 +21,16 @@ export default class FormContainer extends React.Component {
     e.preventDefault();
     this.props.onReset();
     this.setState({ show: false });
+    this.hideButtons();
   }
 
   handleSubmit(e) {
     e.preventDefault();
     this.props.onSubmit();
+    this.hideButtons();
+  }
+
+  hideButtons() {
     this.setState({ show: false });
   }
 
@@ -34,8 +40,8 @@ export default class FormContainer extends React.Component {
         {this.props.children}
         {this.state.show &&
           <div>
-            <button type="submit" onClick={this.handleSubmit}>{this.props.saveLabel}</button>
-            <button type="reset" onClick={this.handleReset}>{this.props.cancelLabel}</button>
+            <button type="submit" onClick={this.handleSubmit}>{this.props.submitLabel}</button>
+            <button type="reset" onClick={this.handleReset}>{this.props.resetLabel}</button>
           </div>}
       </form>
     );
@@ -43,16 +49,16 @@ export default class FormContainer extends React.Component {
 }
 
 FormContainer.defaultProps = {
-  cancelLabel: 'Cancel',
+  resetLabel: 'Cancel',
   onReset: () => {},
   onSubmit: () => {},
-  saveLabel: 'Save',
+  submitLabel: 'Save',
 };
 
 FormContainer.propTypes = {
   children: React.PropTypes.node,
-  cancelLabel: React.PropTypes.string,
+  resetLabel: React.PropTypes.string,
   onReset: React.PropTypes.func.isRequired,
   onSubmit: React.PropTypes.func.isRequired,
-  saveLabel: React.PropTypes.string,
+  submitLabel: React.PropTypes.string,
 };
