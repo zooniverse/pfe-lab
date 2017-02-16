@@ -16,7 +16,6 @@ class OrganizationContainer extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.params && this.props.params && nextProps.params.id === this.props.params.id) return;
-
     this.fetchOrganization(nextProps.params.id);
   }
 
