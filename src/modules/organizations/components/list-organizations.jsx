@@ -3,45 +3,35 @@ import { Link } from 'react-router';
 
 import { organizationsShape } from '../model';
 
-const ListOrganizations = ({ organizations, organizationRoles }) => {
-  if (!organizations || !organizationRoles) {
+const ListOrganizations = ({ ownedOrganizations, collaboratorOrganizations }) => {
+  if (!ownedOrganizations || !collaboratorOrganizations) {
     return (
       <div>Loading...</div>
     );
   }
-
-  function isRole(orgRole, roleFilter) {
-    return orgRole.roles.indexOf(roleFilter) !== -1;
-  }
-
-  const ownedOrgIds = organizationRoles
-    .filter(orgRole => isRole(orgRole, 'owner'))
-    .map(orgRole => orgRole.links.organization);
-  const collabOrgIds = organizationRoles
-    .filter(orgRole => isRole(orgRole, 'collaborator'))
-    .map(orgRole => orgRole.links.organization);
-
-  const ownedOrgs = organizations.filter(org => ownedOrgIds.indexOf(org.id) !== -1);
-  const collabOrgs = organizations.filter(org => collabOrgIds.indexOf(org.id) !== -1);
 
   return (
     <div>
       <h2>Organizations</h2>
       <h3>Owned</h3>
       <dl>
-        { ownedOrgs.map(organization => (
+        { ownedOrganizations.map(organization => (
           <span key={organization.id}>
             <dt><Link to={`/organizations/${organization.id}`}>{organization.display_name}</Link></dt>
             <dd>{organization.description}</dd>
+            <dd>
+              <img alt="test" src={organization.avatar.src} />
+            </dd>
           </span>
         ))}
       </dl>
       <h3>Collaborator</h3>
       <dl>
-        { collabOrgs.map(organization => (
+        { collaboratorOrganizations.map(organization => (
           <span key={organization.id}>
             <dt><Link to={`/organizations/${organization.id}`}>{organization.display_name}</Link></dt>
             <dd>{organization.description}</dd>
+            <dd>by {organization.owner.display_name}</dd>
           </span>
         ))}
       </dl>
@@ -50,8 +40,8 @@ const ListOrganizations = ({ organizations, organizationRoles }) => {
 };
 
 ListOrganizations.propTypes = {
-  organizations: organizationsShape,
-  organizationRoles: React.PropTypes.arrayOf(React.PropTypes.object),
+  ownedOrganizations: organizationsShape,
+  collaboratorOrganizations: organizationsShape,
 };
 
 export default ListOrganizations;

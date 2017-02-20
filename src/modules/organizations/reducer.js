@@ -5,6 +5,10 @@ export default function (state = initialState, action) { // eslint-disable-line 
   switch (action.type) {
     case types.SET_CURRENT_ORGANIZATION:
       return { organization: action.organization };
+    case types.SET_OWNED_ORGANIZATIONS:
+      return { ownedOrganizations: action.ownedOrganizations };
+    case types.SET_COLLABORATOR_ORGANIZATIONS:
+      return { collaboratorOrganizations: action.collaboratorOrganizations };
     case types.SET_ORGANIZATION_COLLABORATORS:
       return { organizationCollaborators: action.organizationCollaborators };
     case types.SET_ORGANIZATION_OWNER:
@@ -17,8 +21,6 @@ export default function (state = initialState, action) { // eslint-disable-line 
       return { organizationProjects: (state.organizationProjects || []).filter(p => p.id !== action.projectId) };
     case types.SET_ORGANIZATION_ROLES:
       return { organizationRoles: action.organizationRoles };
-    case types.SET_ORGANIZATIONS:
-      return { organizations: action.organizations };
     default:
       return state;
   }
