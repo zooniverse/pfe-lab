@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { ZooniverseLogo } from 'Zooniverse-react-components';
 import SiteNavItems from './site-nav-items';
 import HeaderAuth from '../containers/header-auth';
 
@@ -25,7 +26,9 @@ const SiteNav = () => {
   if (SiteNavItems) {
     nav = (
       <nav className="site-nav">
-        <a href="https://www.zooniverse.org/" className="site-nav__link">ZOO-LOGO-PH</a>
+        <a href="https://www.zooniverse.org/" className="site-nav__link">
+          <ZooniverseLogo height='1.75em' width='1.75em' />
+        </a>
         <ul className="site-nav__main-links">
           {SiteNavItems.map(renderNavItem)}
         </ul>
