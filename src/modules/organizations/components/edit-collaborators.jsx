@@ -2,6 +2,8 @@ import React from 'react';
 
 import { organizationShape, organizationCollaboratorsShape, organizationOwnerShape } from '../model';
 
+import bindInput from '../../common/containers/bind-input';
+
 const EditCollaborators = ({ organization, organizationOwner, organizationCollaborators, removeCollaborator, saving, updateCollaborator, user }) => {
   if (!organizationCollaborators || !organizationOwner) {
     return <div>Loading...</div>;
@@ -74,22 +76,20 @@ const EditCollaborators = ({ organization, organizationOwner, organizationCollab
                 <button type="button" onClick={handleRemoval.bind(this, collaborator)}>&times;</button>
               </span>
               <br />
-              <label>
-                {Object.keys(POSSIBLE_ROLES).map((role, i) => {
-                  return (
-                    <span key={`role-${i}`}>
-                      <input
-                        type="checkbox"
-                        name={role}
-                        checked={collaborator.roles.includes(role)}
-                        onChange={toggleRole.bind(this, collaborator)}
-                        value={role}
-                        disabled={saving === collaborator.id}
-                      />
-                      {ROLES_INFO[role].label}
-                    </span>);
-                })}
-              </label>
+              {Object.keys(POSSIBLE_ROLES).map((role, i) => {
+                return (
+                  <label key={`role-${i}`}>
+                    <input
+                      type="checkbox"
+                      name={role}
+                      checked={collaborator.roles.includes(role)}
+                      onChange={toggleRole.bind(this, collaborator)}
+                      value={role}
+                      disabled={saving === collaborator.id}
+                    />
+                    {ROLES_INFO[role].label}
+                  </label>);
+              })}
             </li>);
           })}
         </ul>)}
