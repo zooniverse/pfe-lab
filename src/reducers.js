@@ -1,4 +1,4 @@
-import login from './modules/users/reducer';
+import users from './modules/users/reducer';
 import organizations from './modules/organizations/reducer';
 import common from './modules/common/reducer';
 
