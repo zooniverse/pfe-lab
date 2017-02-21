@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { ZooniverseLogotype } from 'Zooniverse-react-components';
 import { loginToPanoptes } from '../../../services/panoptes';
 
 const SignedOut = () =>
@@ -47,7 +48,7 @@ const SignedIn = () =>
 const Landing = ({ userBoolean }) =>
   <div className="landing">
     <div className="landing__hero">
-      <h4>ZOOLOGOTYPE PH</h4>
+      <ZooniverseLogotype />
       <h3 className="landing__title">Zooniverse Lab</h3>
       <p className="landing__tagline">Anyone can build a Zooniverse project or organization.</p>
     </div>
