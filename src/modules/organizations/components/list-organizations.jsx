@@ -31,7 +31,7 @@ const ListOrganizations = ({ ownedOrganizations, collaboratorOrganizations }) =>
           <span key={organization.id}>
             <dt><Link to={`/organizations/${organization.id}`}>{organization.display_name}</Link></dt>
             <dd>{organization.description}</dd>
-            <dd>by {organization.owner.display_name}</dd>
+            <dd>by User #{organization.ownerRole.links.owner.id}</dd>
           </span>
         ))}
       </dl>
