@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { browserHistory, Router, Route } from 'react-router';
+import { browserHistory, Route, Router } from 'react-router';
 import { Provider } from 'react-redux';
 import oauth from 'panoptes-client/lib/oauth';
 import apiClient from 'panoptes-client/lib/api-client';
@@ -23,11 +23,13 @@ const store = configureStore(initialState);
 
 window.React = React;
 
+// We should use react-router-scroll middleware instead of onUpdate handler
+// But lib still depends on history v3
 oauth.init(config.panoptesAppId)
   .then(() => {
     ReactDOM.render((
       <Provider store={store}>
-        <Router history={browserHistory}>
+        <Router history={browserHistory} onUpdate={() => window.scrollTo(0, 0)}>
           <Route path="/" component={App} >
             {organizationsRoutes(store)}
           </Route>
