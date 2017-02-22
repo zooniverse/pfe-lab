@@ -1,5 +1,7 @@
 import React from 'react';
 import { ZooniverseLogotype } from 'Zooniverse-react-components';
+import AdminOnly from './admin-only';
+import AdminToggle from './admin-toggle';
 
 const SiteFooter = () =>
   <footer className="site-footer">
@@ -9,6 +11,9 @@ const SiteFooter = () =>
           <ZooniverseLogotype />
         </a>
         <br />
+        <AdminOnly>
+          <AdminToggle />
+        </AdminOnly>
       </div>
 
       <nav className="site-footer__section site-footer__nav-lists">
