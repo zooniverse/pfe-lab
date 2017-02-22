@@ -3,41 +3,40 @@ import apiClient from 'panoptes-client/lib/api-client';
 import { connect } from 'react-redux';
 import { setAdminMode } from '../action-creators';
 
-class AdminToggle extends React.Component {
-  constructor(props) {
-    super(props);
-    this.toggleAdminMode = this.toggleAdminMode.bind(this);
-  }
-
-  componentDidMount() {
+const AdminToggle = ({ adminMode, dispatch }) => {
+  const toggleAdminMode = (e) => {
     apiClient.update({
-      'params.admin': !!localStorage.getItem('adminFlag') || undefined,
+      'params.admin': e.target.checked || undefined,
     });
-  }
 
-  toggleAdminMode() {
-    this.props.dispatch(setAdminMode(!this.props.adminMode));
-  }
+    if (e.target.checked) {
+      localStorage.setItem('adminFlag', true);
+    } else {
+      localStorage.removeItem('adminFlag');
+    }
 
-  render() {
-    return (
-      <label htmlFor="adminMode">
-        <input type="checkbox" checked={this.props.adminMode} onClick={this.toggleAdminMode} />{' '}
-        Admin Mode
-      </label>
-    );
-  }
-}
+    dispatch(setAdminMode(!adminMode));
+  };
+
+  return (
+    <label
+      className={adminMode ? 'footer-admin-toggle footer-admin-toggle--active' : 'footer-admin-toggle'}
+      htmlFor="adminMode"
+    >
+      <input type="checkbox" value={adminMode} onClick={toggleAdminMode} />{' '}
+      Admin Mode
+    </label>
+  );
+};
 
 AdminToggle.propTypes = {
-  admin: React.PropTypes.bool,
+  adminMode: React.PropTypes.bool,
   dispatch: React.PropTypes.func,
 };
 
 function mapStateToProps(state) {
   return {
     adminMode: state.adminMode,
-    user: state.user,
   };
 }
 
