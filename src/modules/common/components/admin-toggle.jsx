@@ -4,6 +4,10 @@ import { connect } from 'react-redux';
 import { setAdminMode } from '../action-creators';
 
 const AdminToggle = ({ adminMode, dispatch }) => {
+  if (localStorage.getItem('adminFlag') && !adminMode) {
+    dispatch(setAdminMode(!adminMode));
+  }
+
   const toggleAdminMode = (e) => {
     apiClient.update({
       'params.admin': e.target.checked || undefined,
@@ -18,12 +22,14 @@ const AdminToggle = ({ adminMode, dispatch }) => {
     dispatch(setAdminMode(!adminMode));
   };
 
+  const toggleClass = adminMode ? 'footer-admin-toggle--active' : '';
+
   return (
     <label
-      className={adminMode ? 'footer-admin-toggle footer-admin-toggle--active' : 'footer-admin-toggle'}
+      className={`footer-admin-toggle ${toggleClass}`}
       htmlFor="adminMode"
     >
-      <input type="checkbox" value={adminMode} onClick={toggleAdminMode} />{' '}
+      <input type="checkbox" checked={adminMode} value={adminMode} onClick={toggleAdminMode} />{' '}
       Admin Mode
     </label>
   );
