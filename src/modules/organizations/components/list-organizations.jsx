@@ -3,35 +3,35 @@ import { Link } from 'react-router';
 
 import { organizationsShape, organizationShape } from '../model';
 
-const ListRow = ({ organization }) =>
-  <div className="list__row">
-    <Link to={`/organizations/${organization.id}`} className="list__edit list--action">
+export const ListRow = ({ organization }) =>
+  <div className="listOrgs__row">
+    <Link to={`/organizations/${organization.id}`} className="listOrgs__edit listOrgs--action">
       {organization.avatar &&
-        <img src={organization.avatar.src} alt="avatar" className="list__avatar" />}
-      <div className="list__description">
+        <img src={organization.avatar.src} alt="avatar" className="listOrgs__avatar" />}
+      <div className="listOrgs__description">
         <strong>{organization.display_name}</strong>{' '}
         {organization.ownerRole &&
           <small>
             by User #{organization.ownerRole.links.owner.id}
           </small>}
       </div>
-      <span className="list__icon">
+      <span className="listOrgs__icon">
         <i className="fa fa-pencil fa-fw" />
         <small>Edit</small>
       </span>
     </Link>
-    <Link to="/" className="list__icon list--action">
+    <Link to="/" className="listOrgs__icon listOrgs--action">
       <i className="fa fa-hand-o-right fa-fw" />
       <small>View</small>
     </Link>
   </div>;
 
-const ListGroup = ({ organizations, title }) =>
+export const ListGroup = ({ organizations, title }) =>
   <div>
-    <p className="list__title">{title}</p>
-    <ul className="list__list">
+    <p className="listOrgs__title">{title}</p>
+    <ul className="listOrgs__list">
       {organizations.map(organization => (
-        <li key={organization.id} className="list__item">
+        <li key={organization.id} className="listOrgs__item">
           <ListRow organization={organization} />
         </li>
       ))}
@@ -46,17 +46,17 @@ const ListOrganizations = ({ ownedOrganizations, collaboratorOrganizations }) =>
   }
 
   return (
-    <div className="list">
+    <div className="listOrgs">
       <ListGroup organizations={ownedOrganizations} title={'Your Organizations'} />
-      <p className="list__button-container">
+      <p className="listOrgs__buttonContainer">
         <button
           type="button"
-          className="button list__create-button"
+          className="button listOrgs__createButton"
           onClick={() => console.log('create an org!')}
         >
           Create a new project
         </button>{' '}
-        <Link to="/" className="button list__info-button">How-to</Link>{' '}
+        <Link to="/" className="button listOrgs__infoButton">How-to</Link>{' '}
       </p>
       <hr />
       <ListGroup organizations={collaboratorOrganizations} title={'Collaborations'} />

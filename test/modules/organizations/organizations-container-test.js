@@ -14,13 +14,16 @@ import OrganizationsContainer from '../../../src/modules/organizations/container
 const initialState = {
   user,
   initialized: true,
-  organizations: sampleOrganizations,
+  ownedOrganizations: sampleOrganizations,
+  collaboratorOrganizations: sampleOrganizations,
 };
 
-let organizationsPeek = [];
+let ownedOrganizationsPeek = [];
+let collaboratorOrganizationsPeek = [];
 
-const MyPureComponent = ({ organizations }) => {
-  organizationsPeek = organizations;
+const MyPureComponent = ({ ownedOrganizations, collaboratorOrganizations }) => {
+  ownedOrganizationsPeek = ownedOrganizations;
+  collaboratorOrganizationsPeek = collaboratorOrganizations;
 
   return (<div>okay</div>);
 };
@@ -38,7 +41,9 @@ describe('OrganizationsContainer', () => {
   );
 
   it('should give ListOrganizations the organizations correctly', () => {
-    expect(organizationsPeek).to.have.length(initialState.organizations.length);
-    expect(organizationsPeek[0].id).to.equal(initialState.organizations[0].id);
+    expect(ownedOrganizationsPeek).to.have.length(initialState.ownedOrganizations.length);
+    expect(ownedOrganizationsPeek[0].id).to.equal(initialState.ownedOrganizations[0].id);
+    expect(collaboratorOrganizationsPeek).to.have.length(initialState.collaboratorOrganizations.length);
+    expect(collaboratorOrganizationsPeek[0].id).to.equal(initialState.collaboratorOrganizations[0].id);
   });
 });
