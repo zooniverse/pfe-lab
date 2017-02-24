@@ -4,7 +4,7 @@ export default class FormContainer extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { show: false };
+    this.state = { show: false, submitting: false };
     this.handleChange = this.handleChange.bind(this);
     this.handleReset = this.handleReset.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -12,6 +12,7 @@ export default class FormContainer extends React.Component {
   }
 
   handleChange() {
+    this.props.onChange();
     if (this.state.show === false) {
       this.setState({ show: true });
     }
@@ -26,8 +27,14 @@ export default class FormContainer extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.onSubmit();
-    this.hideButtons();
+    const submitPromise = new Promise((resolve, reject) => {
+      this.setState({ submitting: true });
+      resolve(this.props.onSubmit());
+    });
+
+    submitPromise
+      .then(() => { this.hideButtons(); })
+      .catch((e) => { console.error(e); });
   }
 
   hideButtons() {
@@ -40,8 +47,14 @@ export default class FormContainer extends React.Component {
         {this.props.children}
         {this.state.show &&
           <div>
-            <button type="submit" onClick={this.handleSubmit}>{this.props.submitLabel}</button>
-            <button type="reset" onClick={this.handleReset}>{this.props.resetLabel}</button>
+            <button
+              type="submit"
+              disabled={this.props.disabledSubmit || this.state.submitting}
+              onClick={this.handleSubmit}
+            >
+              {this.props.submitLabel}
+            </button>
+            <button type="reset" disabled={this.state.submitting} onClick={this.handleReset}>{this.props.resetLabel}</button>
           </div>}
       </form>
     );
@@ -49,16 +62,19 @@ export default class FormContainer extends React.Component {
 }
 
 FormContainer.defaultProps = {
-  resetLabel: 'Cancel',
+  disabledSubmit: false,
   onReset: () => {},
   onSubmit: () => {},
+  resetLabel: 'Cancel',
   submitLabel: 'Save',
 };
 
 FormContainer.propTypes = {
   children: React.PropTypes.node,
-  resetLabel: React.PropTypes.string,
+  disabledSubmit: React.PropTypes.bool,
+  onChange: React.PropTypes.func,
   onReset: React.PropTypes.func.isRequired,
   onSubmit: React.PropTypes.func.isRequired,
+  resetLabel: React.PropTypes.string,
   submitLabel: React.PropTypes.string,
 };
