@@ -21,24 +21,22 @@ export default class FormContainer extends React.Component {
   handleReset(e) {
     e.preventDefault();
     this.props.onReset();
-    this.setState({ show: false });
     this.hideButtons();
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    const submitPromise = new Promise((resolve, reject) => {
-      this.setState({ submitting: true });
-      resolve(this.props.onSubmit());
-    });
-
-    submitPromise
-      .then(() => { this.hideButtons(); })
-      .catch((e) => { console.error(e); });
+    this.setState({ submitting: true });
+    this.props.onSubmit();
+    this.hideButtons();
   }
 
   hideButtons() {
-    this.setState({ show: false });
+    if (this.state.submitting) {
+      return this.setState({ show: false, submitting: false });
+    }
+
+    return this.setState({ show: false });
   }
 
   render() {
@@ -63,6 +61,7 @@ export default class FormContainer extends React.Component {
 
 FormContainer.defaultProps = {
   disabledSubmit: false,
+  onChange: () => {},
   onReset: () => {},
   onSubmit: () => {},
   resetLabel: 'Cancel',

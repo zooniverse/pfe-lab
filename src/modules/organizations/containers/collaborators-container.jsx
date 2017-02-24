@@ -49,7 +49,9 @@ class CollaboratorsContainer extends React.Component {
 
     this.addCollaborators = this.addCollaborators.bind(this);
     this.fetchCollaborators = this.fetchCollaborators.bind(this);
+    this.refreshCollaborators = this.refreshCollaborators.bind(this);
     this.removeCollaborator = this.removeCollaborator.bind(this);
+    this.saveCollaborators = this.saveCollaborators.bind(this);
     this.updateCollaborator = this.updateCollaborator.bind(this);
   }
 
@@ -68,19 +70,41 @@ class CollaboratorsContainer extends React.Component {
     this.props.dispatch(setOrganizationOwner(null));
   }
 
-  addCollaborators() {
-    console.log('adding');
+  addCollaborators(roles, users) {
+    // TODO: add talk role creation when that is supported
+    const newRoles = users.map(user =>
+      apiClient.type('organization_roles').create({
+        roles,
+        links: {
+          organization: this.props.organization.id,
+          user,
+        },
+      })
+    );
+
+    return Promise.all(this.saveCollaborators(newRoles))
+      .then(() => {
+        this.refreshCollaborators();
+      }).catch((error) => { console.error(error); });
+  }
+
+  refreshCollaborators() {
+    this.props.organization.uncacheLink('organization_roles');
+    this.fetchCollaborators();
   }
 
   removeCollaborator(collaborator) {
     this.setState({ saving: collaborator.id });
 
     collaborator.delete().then(() => {
-      this.props.organization.uncacheLink('organization_roles');
-      this.fetchCollaborators();
+      this.refreshCollaborators();
     })
     .then(() => { this.setState({ saving: null }); })
     .catch((error) => { console.error(error); });
+  }
+
+  saveCollaborators(newRoles) {
+    return newRoles.map(newRole => newRole.save());
   }
 
   updateCollaborator(collaborator, role, add) {

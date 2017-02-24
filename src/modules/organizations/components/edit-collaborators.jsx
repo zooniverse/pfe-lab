@@ -57,6 +57,11 @@ const EditCollaborators = ({ organizationOwner, organizationCollaborators, possi
   );
 };
 
+EditCollaborators.defaultProps = {
+  possibleRoles: {},
+  rolesInfo: {},
+};
+
 EditCollaborators.propTypes = {
   organizationCollaborators: organizationCollaboratorsShape,
   organizationOwner: organizationOwnerShape,

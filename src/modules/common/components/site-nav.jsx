@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { ZooniverseLogo } from 'Zooniverse-react-components';
+import { ZooniverseLogo } from 'zooniverse-react-components';
 import SiteNavItems from './site-nav-items';
 import HeaderAuth from '../containers/header-auth';
 

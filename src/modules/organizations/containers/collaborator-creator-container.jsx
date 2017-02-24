@@ -23,8 +23,10 @@ class CollaboratorCreatorContainer extends React.Component {
     const anyRolesChecked = Object.keys(this.props.possibleRoles).some((role, i) => {
       return this[ID_PREFIX + role].checked;
     });
+    console.log('calling handleChange', anyRolesChecked)
 
     if (this.userSearch.value() && anyRolesChecked) {
+      console.log('gonna set state')
       this.setState({ disabledSubmit: false });
     }
   }
@@ -50,9 +52,11 @@ class CollaboratorCreatorContainer extends React.Component {
       }
     });
 
-    console.log('users, roles', users, roles)
-    this.setState({ disabledSubmit: true, submitting: false });
-    this.props.addCollaborators();
+    this.props.addCollaborators(roles, users)
+      .then(() => {
+        this.setState({ disabledSubmit: true, submitting: false });
+        this.handleReset();
+      }).catch((error) => { console.error(error); });
   }
 
   render() {
