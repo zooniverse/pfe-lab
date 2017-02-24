@@ -1,9 +1,8 @@
 import React from 'react';
 import { ZooniverseLogotype } from 'Zooniverse-react-components';
-import AdminOnly from './admin-only';
 import AdminToggle from './admin-toggle';
 
-const SiteFooter = () =>
+const SiteFooter = ({ adminMode, toggleAdminMode, user }) =>
   <footer className="site-footer">
     <div className="site-footer__upper">
       <div className="site-footer__section site-footer__brand">
@@ -11,9 +10,9 @@ const SiteFooter = () =>
           <ZooniverseLogotype />
         </a>
         <br />
-        <AdminOnly>
-          <AdminToggle />
-        </AdminOnly>
+        {user && user.admin && (
+          <AdminToggle adminMode={adminMode} toggleAdminMode={toggleAdminMode} />
+        )}
       </div>
 
       <nav className="site-footer__section site-footer__nav-lists">
@@ -138,5 +137,11 @@ const SiteFooter = () =>
       </a>
     </div>
   </footer>;
+
+SiteFooter.propTypes = {
+  adminMode: React.PropTypes.bool,
+  toggleAdminMode: React.PropTypes.func,
+  user: React.PropTypes.shape({ id: React.PropTypes.string }),
+};
 
 export default SiteFooter;
