@@ -8,7 +8,7 @@ const AdminToggle = ({ adminMode, toggleAdminMode }) => {
       className={`footer-admin-toggle ${toggleClass}`}
       htmlFor="adminMode"
     >
-      <input type="checkbox" checked={adminMode} value={adminMode} onClick={toggleAdminMode} />{' '}
+      <input type="checkbox" checked={adminMode} value={adminMode} onChange={toggleAdminMode} />{' '}
       Admin Mode
     </label>
   );
