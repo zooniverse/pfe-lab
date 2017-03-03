@@ -1,5 +1,6 @@
 import login from './modules/users/reducer';
 import organizations from './modules/organizations/reducer';
+import common from './modules/common/reducer';
 
 // redux's built-in combineReducers function scopes the state based on the reducer
 // that modified it, which isn't a behavior i really like
@@ -28,4 +29,4 @@ export const myCombineReducers = (...reducers) => {
   };
 };
 
-export default myCombineReducers(login, organizations);
+export default myCombineReducers(login, organizations, common);

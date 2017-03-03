@@ -6,10 +6,6 @@ import { setOrganizations } from '../action-creators';
 import { organizationShape, organizationsShape } from '../model';
 import OrganizationsLayout from '../components/organizations-layout';
 
-// Uncomment the following line if needed for your queries during dev.
-// TODO: Add toggle to the footer to set this.
-apiClient.params.admin = true;
-
 class OrganizationsContainer extends React.Component {
   constructor(props) {
     super(props);
