@@ -31,25 +31,20 @@ class VisibilityContainer extends React.Component {
   }
 
   addProject() {
-    const projId = this.state.projectToAdd.value;
-    const organizationId = this.props.organizationId;
-
-    apiClient.type('projects')
-      .get(projId)
-      .update({ organization_id: organizationId })
-      .save()
+    const id = this.state.projectToAdd.value;
+    apiClient.type('organizations')
+      .get(this.props.organizationId)
+      .addLink('projects', [id])
+      .then(() => apiClient.type('projects').get(id))
       .then((project) => {
         this.props.dispatch(addOrganizationProject(project));
       });
   }
 
   removeProject(id) {
-    const projId = this.state.projectToAdd.value;
-
-    apiClient.type('projects')
-      .get(projId)
-      .update({ organization_id: null })
-      .save()
+    apiClient.type('organizations')
+      .get(this.props.organizationId)
+      .removeLink('projects', [id])
       .then(() => this.props.dispatch(removeOrganizationProject(id)));
   }
 
