@@ -41,7 +41,7 @@ export default class FormContainer extends React.Component {
 
   render() {
     return (
-      <form onChange={this.handleChange}>
+      <form className="form" onChange={this.handleChange}>
         {this.props.children}
         {this.state.show &&
           <div>
