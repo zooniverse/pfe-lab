@@ -9,8 +9,8 @@ import ListOrganizations, { ListGroup, ListRow } from '../../../src/modules/orga
 describe('ListOrganizations', () => {
   const wrapper = shallow(
     <ListOrganizations
-      ownedOrganizations={organizations}
-      collaboratorOrganizations={organizations}
+      organizationsCollaborator={organizations}
+      organizationsOwned={organizations}
     />,
   );
 

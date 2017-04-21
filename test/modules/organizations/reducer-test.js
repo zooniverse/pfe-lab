@@ -2,7 +2,7 @@ import { expect } from 'chai';
 
 import initialState from '../../../src/initial-state';
 
-import { organization, organizations, orgAction, ownedOrgsAction, bogusAction } from './test-data';
+import { organization, organizations, orgAction, orgsOwnedAction, bogusAction } from './test-data';
 
 import reducer from '../../../src/modules/organizations/reducer';
 
@@ -14,17 +14,17 @@ describe('OrganizationsReducer', () => {
     expect(newState.organization.id).to.equal(organization.id);
   });
 
-  it('should put a new organization list into the state on receiving a SET_OWNED_ORGANIZATIONS', () => {
-    const newState = reducer(initialState, ownedOrgsAction);
+  it('should put a new organization list into the state on receiving a SET_ORGANIZATIONS_OWNED', () => {
+    const newState = reducer(initialState, orgsOwnedAction);
 
-    expect(newState.ownedOrganizations).to.not.be.null;
-    expect(newState.ownedOrganizations).to.have.length(organizations.length);
-    expect(newState.ownedOrganizations[0].id).to.equal(organizations[0].id);
+    expect(newState.organizationsOwned).to.not.be.null;
+    expect(newState.organizationsOwned).to.have.length(organizations.length);
+    expect(newState.organizationsOwned[0].id).to.equal(organizations[0].id);
   });
 
   it('should return only modified fields so our custom reducer can merge changes', () => {
     const orgState = reducer(initialState, orgAction);
-    const orgsState = reducer(initialState, ownedOrgsAction);
+    const orgsState = reducer(initialState, orgsOwnedAction);
 
     expect(orgState.organizations).to.be.undefined;
     expect(orgState.user).to.be.undefined;

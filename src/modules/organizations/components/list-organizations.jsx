@@ -54,7 +54,7 @@ const ListOrganizations = ({ organizationsCollaborator, organizationsOwned }) =>
           className="button listOrgs__createButton"
           onClick={() => console.log('create an org!')}
         >
-          Create a new project
+          Create a new organization
         </button>{' '}
         <Link to="/" className="button listOrgs__infoButton">How-to</Link>{' '}
       </p>
