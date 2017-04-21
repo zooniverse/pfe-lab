@@ -7,17 +7,17 @@ export function setCurrentOrganization(organization) {
   };
 }
 
-export function setOwnedOrganizations(ownedOrganizations) {
+export function setOrganizationsCollaborator(organizationsCollaborator) {
   return {
-    type: types.SET_OWNED_ORGANIZATIONS,
-    ownedOrganizations,
+    type: types.SET_ORGANIZATIONS_COLLABORATOR,
+    organizationsCollaborator,
   };
 }
 
-export function setCollaboratorOrganizations(collaboratorOrganizations) {
+export function setOrganizationsOwned(organizationsOwned) {
   return {
-    type: types.SET_COLLABORATOR_ORGANIZATIONS,
-    collaboratorOrganizations,
+    type: types.SET_ORGANIZATIONS_OWNED,
+    organizationsOwned,
   };
 }
 

@@ -6,8 +6,8 @@ const initialState = {
   organizationOwner: null,
   organizationProjects: [],
   organizationRoles: null,
-  ownedOrganizations: [],
-  collaboratorOrganizations: [],
+  organizationsCollaborator: [],
+  organizationsOwned: [],
   user: null,
 };
 

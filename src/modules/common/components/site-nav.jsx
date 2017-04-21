@@ -26,9 +26,9 @@ const SiteNav = () => {
   if (SiteNavItems) {
     nav = (
       <nav className="site-nav">
-        <a href="https://www.zooniverse.org/" className="site-nav__link">
-          <ZooniverseLogo height='1.75em' width='1.75em' />
-        </a>
+        <Link to="/" className="site-nav__link">
+          <ZooniverseLogo height="1.75em" width="1.75em" />
+        </Link>
         <ul className="site-nav__main-links">
           {SiteNavItems.map(renderNavItem)}
         </ul>
