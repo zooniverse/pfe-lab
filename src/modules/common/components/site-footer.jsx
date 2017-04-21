@@ -1,5 +1,5 @@
 import React from 'react';
-import { ZooniverseLogotype } from 'Zooniverse-react-components';
+import { ZooniverseLogotype } from 'zooniverse-react-components';
 import AdminToggle from './admin-toggle';
 
 const SiteFooter = ({ adminMode, toggleAdminMode, user }) =>
