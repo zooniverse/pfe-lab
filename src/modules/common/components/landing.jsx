@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { ZooniverseLogotype } from 'Zooniverse-react-components';
+import { ZooniverseLogotype } from 'zooniverse-react-components';
 import { loginToPanoptes } from '../../../services/panoptes';
 
 const SignedOut = () =>

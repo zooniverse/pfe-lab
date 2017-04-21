@@ -6,6 +6,38 @@ import { organizationShape, organizationCollaboratorsShape, organizationOwnerSha
 import { setOrganizationCollaborators, setOrganizationOwner } from '../action-creators';
 
 import EditCollaborators from '../components/edit-collaborators';
+import CollaboratorCreatorContainer from './collaborator-creator-container';
+
+const POSSIBLE_ROLES = {
+  collaborator: 'admin',
+  // scientist: 'scientist',
+  // moderator: 'moderator',
+  // tester: 'team',
+};
+
+const ROLES_INFO = {
+  collaborator: {
+    label: 'Collaborator',
+    description: 'Collaborators have full access to edit organization content, including deleting the organization.',
+  },
+  // scientist: {
+  //   label: 'Researcher',
+  //   description: 'Members of the research team will be marked as researchers on "Talk"',
+  // },
+  // moderator: {
+  //   label: 'Moderator',
+  //   description: 'Moderators have extra privileges in the community discussion area to moderate discussions. They will also be marked as moderators on "Talk".',
+  // },
+  // tester: {
+  //   label: 'Tester',
+  //   description: 'Testers can view (TODO: view what?). They cannot access the organization builder.',
+  // },
+  // TODO: uncomment when we can translate
+  // translator: {
+  //   label: 'Translator',
+  //   description: 'Translators will have access to the translation site.',
+  // },
+};
 
 class CollaboratorsContainer extends React.Component {
   constructor(props) {
@@ -15,8 +47,11 @@ class CollaboratorsContainer extends React.Component {
       saving: null,
     };
 
+    this.addCollaborators = this.addCollaborators.bind(this);
     this.fetchCollaborators = this.fetchCollaborators.bind(this);
+    this.refreshCollaborators = this.refreshCollaborators.bind(this);
     this.removeCollaborator = this.removeCollaborator.bind(this);
+    this.saveCollaborators = this.saveCollaborators.bind(this);
     this.updateCollaborator = this.updateCollaborator.bind(this);
   }
 
@@ -35,15 +70,41 @@ class CollaboratorsContainer extends React.Component {
     this.props.dispatch(setOrganizationOwner(null));
   }
 
+  addCollaborators(roles, users) {
+    // TODO: add talk role creation when that is supported
+    const newRoles = users.map(user =>
+      apiClient.type('organization_roles').create({
+        roles,
+        links: {
+          organization: this.props.organization.id,
+          user,
+        },
+      })
+    );
+
+    return Promise.all(this.saveCollaborators(newRoles))
+      .then(() => {
+        this.refreshCollaborators();
+      }).catch((error) => { console.error(error); });
+  }
+
+  refreshCollaborators() {
+    this.props.organization.uncacheLink('organization_roles');
+    this.fetchCollaborators();
+  }
+
   removeCollaborator(collaborator) {
     this.setState({ saving: collaborator.id });
 
     collaborator.delete().then(() => {
-      this.props.organization.uncacheLink('organization_roles');
-      this.fetchCollaborators();
+      this.refreshCollaborators();
     })
     .then(() => { this.setState({ saving: null }); })
     .catch((error) => { console.error(error); });
+  }
+
+  saveCollaborators(newRoles) {
+    return newRoles.map(newRole => newRole.save());
   }
 
   updateCollaborator(collaborator, role, add) {
@@ -65,7 +126,7 @@ class CollaboratorsContainer extends React.Component {
         // Doing this doesn't maintain the array order, so reordering in UI happens on re-render and can be confusing...
         const updatedCollaborators = this.props.organizationCollaborators.filter(currentCollaborator => !(currentCollaborator === collaborator));
         updatedCollaborators.push(updatedCollaborator);
-        this.props.dispatch(setOrganizationCollaborators(collaborators));
+        this.props.dispatch(setOrganizationCollaborators(updatedCollaborators));
       }).then(() => {
         this.setState({ saving: null });
       }).catch((error) => { console.error(error); });
@@ -98,17 +159,30 @@ class CollaboratorsContainer extends React.Component {
       organization: this.props.organization,
       organizationOwner: this.props.organizationOwner,
       organizationCollaborators: this.props.organizationCollaborators,
+      possibleRoles: POSSIBLE_ROLES,
       removeCollaborator: this.removeCollaborator,
+      rolesInfo: ROLES_INFO,
       saving: this.state.saving,
       updateCollaborator: this.updateCollaborator,
       user: this.props.user,
     };
 
-    return (<EditCollaborators {...props} />);
+    return (
+      <div>
+        <EditCollaborators {...props} />
+        <hr />
+        <CollaboratorCreatorContainer
+          addCollaborators={this.addCollaborators}
+          possibleRoles={POSSIBLE_ROLES}
+          rolesInfo={ROLES_INFO}
+        />
+      </div>
+    );
   }
 }
 
 CollaboratorsContainer.propTypes = {
+  children: React.PropTypes.node,
   dispatch: React.PropTypes.func,
   organization: organizationShape,
   organizationCollaborators: organizationCollaboratorsShape,

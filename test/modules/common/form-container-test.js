@@ -13,17 +13,21 @@ describe('FormContainer', function() {
   before(function() {
     onSubmit = sinon.spy();
     onReset = sinon.spy();
+  });
+
+  it('renders children', function() {
     wrapper = shallow(
       <FormContainer onSubmit={onSubmit} onReset={onReset} resetLabel="Reset" submitLabel="Submit">
         <span></span>
       </FormContainer>);
-  });
-
-  it('renders children', function() {
     expect(wrapper.find('span')).to.have.length(1);
   });
 
   describe('change event', function() {
+    before(function() {
+      wrapper = shallow(<FormContainer onSubmit={onSubmit} onReset={onReset} resetLabel="Reset" submitLabel="Submit" />);
+    });
+
     it('does not render the buttons without changes', function() {
       expect(wrapper.find('button')).to.have.length(0);
     });
@@ -34,8 +38,34 @@ describe('FormContainer', function() {
     });
   });
 
-  describe('submit button', function() {
+  describe('submit button render', function() {
     let submitButton;
+    before(function() {
+      wrapper = mount(<FormContainer onSubmit={onSubmit} onReset={onReset} resetLabel="Reset" submitLabel="Submit" />);
+    });
+
+    beforeEach(function() {
+      wrapper.simulate('change');
+      submitButton = wrapper.find('button[type="submit"]');
+    });
+
+    it('uses submitLabel prop when set', function() {
+      expect(submitButton.text()).to.equal('Submit');
+    });
+
+    it('is disabled if disabledSubmit prop is true', function() {
+      expect(submitButton.prop('disabled')).to.be.false;
+      wrapper.setProps({ disabledSubmit: true });
+      expect(submitButton.prop('disabled')).to.be.true;
+    });
+  });
+
+  describe('submit button onSubmit event', function() {
+    let submitButton;
+    before(function() {
+      wrapper = shallow(<FormContainer onSubmit={onSubmit} onReset={onReset} resetLabel="Reset" submitLabel="Submit" />);
+    });
+
     beforeEach(function() {
       wrapper.simulate('change');
       submitButton = wrapper.find('button[type="submit"]');
@@ -47,17 +77,18 @@ describe('FormContainer', function() {
       expect(onSubmit.calledOnce).to.be.true;
     });
 
-    it('sets state to false after clicking submit', function() {
+    it('sets show and submitting state to false after clicking submit', function() {
+      expect(wrapper.state('submitting')).to.be.false;
       expect(wrapper.state('show')).to.be.false;
-    });
-
-    it('uses submitLabel prop when set', function() {
-      expect(submitButton.text()).to.equal('Submit');
     });
   });
 
   describe('reset button', function() {
     let resetButton;
+    before(function() {
+      wrapper = shallow(<FormContainer onSubmit={onSubmit} onReset={onReset} resetLabel="Reset" submitLabel="Submit" />);
+    });
+
     beforeEach(function() {
       wrapper.simulate('change');
       resetButton = wrapper.find('button[type="reset"]');
@@ -68,7 +99,8 @@ describe('FormContainer', function() {
       expect(onReset.calledOnce).to.be.true;
     });
 
-    it('sets state to false after clicking cancel', function() {
+    it('sets show and submitting state to false after clicking cancel', function() {
+      expect(wrapper.state('submitting')).to.be.false;
       expect(wrapper.state('show')).to.be.false;
     });
 
