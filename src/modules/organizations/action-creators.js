@@ -9,16 +9,14 @@ export function setCurrentOrganization(organization) {
 
 export function setOrganizationsCollaborator(organizationsCollaborator) {
   return {
-    type: types.SET_COLLABORATED_ORGANIZATIONS
-,
+    type: types.SET_COLLABORATED_ORGANIZATIONS,
     organizationsCollaborator,
   };
 }
 
 export function setOrganizationsOwned(organizationsOwned) {
   return {
-    type: types.SET_OWNED_ORGANIZATIONS
-,
+    type: types.SET_OWNED_ORGANIZATIONS,
     organizationsOwned,
   };
 }
