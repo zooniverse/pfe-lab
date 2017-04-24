@@ -64,5 +64,5 @@ describe('CollaboratorCreator', function() {
     // afterEach(function() {
     //   wrapper.instance().handleReset();
     // });
-  });
+  // });
 });

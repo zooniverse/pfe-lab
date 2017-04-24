@@ -1,11 +1,13 @@
 const initialState = {
   adminMode: false,
+  collaboratedOrganizations: [],
   initialized: false,
   organization: null,
-  organizationOwner: null,
   organizationCollaborators: null,
+  organizationOwner: null,
   organizationProjects: [],
-  organizations: [],
+  organizationRoles: null,
+  ownedOrganizations: [],
   user: null,
 };
 

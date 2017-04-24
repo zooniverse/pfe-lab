@@ -7,10 +7,17 @@ export function setCurrentOrganization(organization) {
   };
 }
 
-export function setOrganizations(organizations) {
+export function setCollaboratedOrganizations(collaboratedOrganizations) {
   return {
-    type: types.SET_ORGANIZATIONS,
-    organizations,
+    type: types.SET_COLLABORATED_ORGANIZATIONS,
+    collaboratedOrganizations,
+  };
+}
+
+export function setOwnedOrganizations(ownedOrganizations) {
+  return {
+    type: types.SET_OWNED_ORGANIZATIONS,
+    ownedOrganizations,
   };
 }
 
@@ -46,5 +53,12 @@ export function removeOrganizationProject(projectId) {
   return {
     type: types.REMOVE_ORGANIZATION_PROJECT,
     projectId,
+  };
+}
+
+export function setOrganizationRoles(organizationRoles) {
+  return {
+    type: types.SET_ORGANIZATION_ROLES,
+    organizationRoles,
   };
 }

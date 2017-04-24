@@ -4,18 +4,19 @@ import { connect } from 'react-redux';
 import apiClient from 'panoptes-client/lib/api-client';
 import { organizationShape } from '../model';
 import { setCurrentOrganization } from '../action-creators';
-
-import MainTitle from '../../common/components/main-title';
+import OrganizationLayout from '../components/organization-layout';
 
 class OrganizationContainer extends React.Component {
   constructor(props) {
     super(props);
 
-    this.fetchOrganization(props.params.id);
-
-    this.organizationName = this.organizationName.bind(this);
+    this.fetchOrganization = this.fetchOrganization.bind(this);
     this.resetOrganization = this.resetOrganization.bind(this);
     this.updateOrganization = this.updateOrganization.bind(this);
+  }
+
+  componentDidMount() {
+    this.fetchOrganization(this.props.params.id);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -28,9 +29,10 @@ class OrganizationContainer extends React.Component {
   }
 
   updateOrganization(organizationFields) {
-    this.props.organization.update(organizationFields).save().then((result) => {
-      this.props.dispatch(setCurrentOrganization(result));
-    });
+    this.props.organization.update(organizationFields).save()
+      .then((updatedOrganization) => {
+        this.props.dispatch(setCurrentOrganization(updatedOrganization));
+      }).catch(error => console.error(error));
   }
 
   resetOrganization() {
@@ -46,14 +48,6 @@ class OrganizationContainer extends React.Component {
       .then((org) => {
         this.props.dispatch(setCurrentOrganization(org));
       });
-  }
-
-  organizationName() {
-    if (this.props.organization) {
-      return this.props.organization.display_name;
-    }
-
-    return '';
   }
 
   render() {
@@ -72,10 +66,9 @@ class OrganizationContainer extends React.Component {
     );
 
     return (
-      <div>
-        <MainTitle message={`Organization: ${this.organizationName()}`} />
+      <OrganizationLayout organizationId={organizationId}>
         {wrappedChildren}
-      </div>
+      </OrganizationLayout>
     );
   }
 }
