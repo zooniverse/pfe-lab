@@ -18,18 +18,19 @@
       border-top: 0
 
   &__row
-    display: flex
     align-items: center
+    display: flex
 
   &__edit
-    display: flex
     align-items: center
-    text-decoration: none
+    display: flex
     flex: 1 1 auto
+    text-decoration: none
 
   &__avatar
     background-position: 50%, 50%
     background-size: cover
+    border-radius: 50%
     flex: 0 0 2.5em
     height: 2.5em
 
@@ -42,35 +43,34 @@
       padding-left: 0
 
   &__icon
-    display: flex
-    text-decoration: none
     color: MAIN_HIGHLIGHT
+    display: flex
     padding: 0.5em 0.7em
+    text-decoration: none
 
-  &__buttonContainer
+  &__button-container
+    padding: 1em 0
     text-align: center
 
-  &__createButton
+  &__button--create
     border-color: SECOND_HIGHLIGHT
     background: SECOND_HIGHLIGHT
     color: white
 
     &:focus,
     &:hover
-      border-color: lighten(SECOND_HIGHLIGHT, 50%)
       background: lighten(SECOND_HIGHLIGHT, 50%)
-      color: white
+      border-color: lighten(SECOND_HIGHLIGHT, 50%)
 
-  &__infoButton
-    border-color: MAIN_HIGHLIGHT
+  &__button--info
     background: MAIN_HIGHLIGHT
+    border-color: MAIN_HIGHLIGHT
     color: white
 
     &:focus,
     &:hover
-      border-color: lighten(MAIN_HIGHLIGHT, 50%)
       background: lighten(MAIN_HIGHLIGHT, 50%)
-      color: white
+      border-color: lighten(MAIN_HIGHLIGHT, 50%)
 
   &--action
     &:hover

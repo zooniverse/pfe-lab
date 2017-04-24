@@ -9,6 +9,11 @@ import OrganizationsList from '../components/organizations-list';
 class OrganizationsContainer extends React.Component {
   constructor(props) {
     super(props);
+
+    this.fetchOrganizations = this.fetchOrganizations.bind(this);
+  }
+
+  componentDidMount() {
     this.fetchOrganizations();
   }
 
@@ -18,40 +23,39 @@ class OrganizationsContainer extends React.Component {
   }
 
   fetchOrganizations() {
-    apiClient.type('organizations').get({
-      sort: 'display_name',
-      current_user_roles: ['owner'],
-      include: 'avatar',
-    })
-      .then((orgs) => {
+    const fetchOwnedOrganizations =
+      apiClient.type('organizations').get({
+        sort: 'display_name',
+        current_user_roles: ['owner'],
+        include: 'avatar',
+      });
+
+    const fetchCollaboratedOrganizations =
+      apiClient.type('organizations').get({
+        sort: 'display_name',
+        current_user_roles: ['collaborator'],
+      });
+
+    Promise.all([fetchOwnedOrganizations, fetchCollaboratedOrganizations])
+      .then(([ownedOrganizations, collaboratedOrganizations]) => {
         const orgsWithAvatar = [];
-        orgs.forEach((org) => {
-          org.get('avatar')
+        ownedOrganizations.forEach((ownedOrg) => {
+          this.fetchLinkedAvatar(ownedOrg)
             .then((avatar) => {
-              const orgWithAvatar = Object.assign(org, { avatar });
+              const orgWithAvatar = Object.assign(ownedOrg, { avatar });
               orgsWithAvatar.push(orgWithAvatar);
               this.props.dispatch(setOwnedOrganizations(orgsWithAvatar));
             });
         });
-      });
 
-    apiClient.type('organizations').get({
-      sort: 'display_name',
-      current_user_roles: ['collaborator'],
-      include: 'organization_roles',
-    })
-      .then((orgs) => {
-        const orgsWithOwner = [];
-        orgs.forEach((org) => {
-          org.get('organization_roles')
-            .then((panoptesRoles) => {
-              const ownerRole = panoptesRoles.find(roleSet => roleSet.roles.includes('owner'));
-              const orgWithOwner = Object.assign(org, { ownerRole });
-              orgsWithOwner.push(orgWithOwner);
-              this.props.dispatch(setCollaboratedOrganizations(orgsWithOwner));
-            });
-        });
+        this.props.dispatch(setCollaboratedOrganizations(collaboratedOrganizations));
       });
+  }
+
+  fetchLinkedAvatar(organization) {
+    return apiClient.type('avatars').get(organization.links.avatar.id)
+      .then((avatar) => { return avatar; })
+      .catch(error => console.error(error));
   }
 
   render() {
