@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import apiClient from 'panoptes-client/lib/api-client';
-import { setOrganizationsCollaborator, setOrganizationsOwned } from '../action-creators';
+import { setCollaboratedOrganizations, setOwnedOrganizations } from '../action-creators';
 import { organizationsShape } from '../model';
 import OrganizationsList from '../components/organizations-list';
 
@@ -13,8 +13,8 @@ class OrganizationsContainer extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.dispatch(setOrganizationsCollaborator([]));
-    this.props.dispatch(setOrganizationsOwned([]));
+    this.props.dispatch(setCollaboratedOrganizations([]));
+    this.props.dispatch(setOwnedOrganizations([]));
   }
 
   fetchOrganizations() {
@@ -30,7 +30,7 @@ class OrganizationsContainer extends React.Component {
             .then((avatar) => {
               const orgWithAvatar = Object.assign(org, { avatar });
               orgsWithAvatar.push(orgWithAvatar);
-              this.props.dispatch(setOrganizationsOwned(orgsWithAvatar));
+              this.props.dispatch(setOwnedOrganizations(orgsWithAvatar));
             });
         });
       });
@@ -48,7 +48,7 @@ class OrganizationsContainer extends React.Component {
               const ownerRole = panoptesRoles.find(roleSet => roleSet.roles.includes('owner'));
               const orgWithOwner = Object.assign(org, { ownerRole });
               orgsWithOwner.push(orgWithOwner);
-              this.props.dispatch(setOrganizationsCollaborator(orgsWithOwner));
+              this.props.dispatch(setCollaboratedOrganizations(orgsWithOwner));
             });
         });
       });
@@ -57,8 +57,8 @@ class OrganizationsContainer extends React.Component {
   render() {
     return (
       <OrganizationsList
-        organizationsCollaborator={this.props.organizationsCollaborator}
-        organizationsOwned={this.props.organizationsOwned}
+        collaboratedOrganizations={this.props.collaboratedOrganizations}
+        ownedOrganizations={this.props.ownedOrganizations}
       />
     );
   }
@@ -66,14 +66,14 @@ class OrganizationsContainer extends React.Component {
 
 OrganizationsContainer.propTypes = {
   dispatch: React.PropTypes.func,
-  organizationsCollaborator: organizationsShape,
-  organizationsOwned: organizationsShape,
+  collaboratedOrganizations: organizationsShape,
+  ownedOrganizations: organizationsShape,
 };
 
 function mapStateToProps(state) {
   return {
-    organizationsCollaborator: state.organizationsCollaborator,
-    organizationsOwned: state.organizationsOwned,
+    collaboratedOrganizations: state.collaboratedOrganizations,
+    ownedOrganizations: state.ownedOrganizations,
   };
 }
 

@@ -36,8 +36,8 @@ export const ListGroup = ({ organizations, title }) =>
     </ul>
   </div>;
 
-const OrganizationsList = ({ organizationsCollaborator, organizationsOwned }) => {
-  if (!organizationsOwned || !organizationsCollaborator) {
+const OrganizationsList = ({ collaboratedOrganizations, ownedOrganizations }) => {
+  if (!ownedOrganizations || !collaboratedOrganizations) {
     return (
       <div>Loading...</div>
     );
@@ -45,7 +45,7 @@ const OrganizationsList = ({ organizationsCollaborator, organizationsOwned }) =>
 
   return (
     <div className="organizations-list">
-      <ListGroup organizations={organizationsOwned} title={'Your Organizations'} />
+      <ListGroup organizations={ownedOrganizations} title={'Your Organizations'} />
       <p className="organizations-list__buttonContainer">
         <button
           type="button"
@@ -57,7 +57,7 @@ const OrganizationsList = ({ organizationsCollaborator, organizationsOwned }) =>
         <Link to="/" className="button organizations-list__infoButton">How-to</Link>{' '}
       </p>
       <hr />
-      <ListGroup organizations={organizationsCollaborator} title={'Collaborations'} />
+      <ListGroup organizations={collaboratedOrganizations} title={'Collaborations'} />
     </div>
   );
 };
@@ -72,8 +72,8 @@ ListGroup.propTypes = {
 };
 
 OrganizationsList.propTypes = {
-  organizationsCollaborator: organizationsShape,
-  organizationsOwned: organizationsShape,
+  collaboratedOrganizations: organizationsShape,
+  ownedOrganizations: organizationsShape,
 };
 
 export default OrganizationsList;

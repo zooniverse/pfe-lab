@@ -14,8 +14,8 @@ import OrganizationsContainer from '../../../src/modules/organizations/container
 const initialState = {
   user,
   initialized: true,
-  organizationsOwned: sampleOrganizations,
-  organizationsCollaborator: sampleOrganizations,
+  ownedOrganizations: sampleOrganizations,
+  collaboratedOrganizations: sampleOrganizations,
 };
 
 describe('OrganizationsContainer', () => {

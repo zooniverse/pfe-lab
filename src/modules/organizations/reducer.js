@@ -6,9 +6,9 @@ export default function (state = initialState, action) { // eslint-disable-line 
     case types.SET_CURRENT_ORGANIZATION:
       return { organization: action.organization };
     case types.SET_COLLABORATED_ORGANIZATIONS:
-      return { organizationsCollaborator: action.organizationsCollaborator };
+      return { collaboratedOrganizations: action.collaboratedOrganizations };
     case types.SET_OWNED_ORGANIZATIONS:
-      return { organizationsOwned: action.organizationsOwned };
+      return { ownedOrganizations: action.ownedOrganizations };
     case types.SET_ORGANIZATION_COLLABORATORS:
       return { organizationCollaborators: action.organizationCollaborators };
     case types.SET_ORGANIZATION_OWNER:

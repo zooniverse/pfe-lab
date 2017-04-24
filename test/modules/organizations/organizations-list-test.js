@@ -4,13 +4,13 @@ import { expect } from 'chai';
 
 import { organizations } from './test-data';
 
-import ListOrganizations, { ListGroup, ListRow } from '../../../src/modules/organizations/components/list-organizations';
+import OrganizationsList, { ListGroup, ListRow } from '../../../src/modules/organizations/components/organizations-list';
 
-describe('ListOrganizations', () => {
+describe('OrganizationsList', () => {
   const wrapper = shallow(
-    <ListOrganizations
-      organizationsCollaborator={organizations}
-      organizationsOwned={organizations}
+    <OrganizationsList
+      collaboratedOrganizations={organizations}
+      ownedOrganizations={organizations}
     />,
   );
 

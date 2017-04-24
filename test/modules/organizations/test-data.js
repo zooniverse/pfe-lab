@@ -13,24 +13,24 @@ export const organizations = [
   },
 ];
 
-const organizationsCollaborator = organizations;
-const organizationsOwned = organizations;
+const collaboratedOrganizations = organizations;
+const ownedOrganizations = organizations;
 
 export const organization = organizations[0];
 
-export const orgAction = {
+export const setCurrentOrganizationAction = {
   type: actionTypes.SET_CURRENT_ORGANIZATION,
   organization,
 };
 
-export const orgsCollaboratorAction = {
-  type: actionTypes.SET_ORGANIZATIONS_COLLABORATOR,
-  organizationsCollaborator,
+export const setCollaboratedOrganizationAction = {
+  type: actionTypes.SET_COLLABORATED_ORGANIZATIONS,
+  collaboratedOrganizations,
 };
 
-export const orgsOwnedAction = {
-  type: actionTypes.SET_ORGANIZATIONS_OWNED,
-  organizationsOwned,
+export const setOwnedOrganizationsAction = {
+  type: actionTypes.SET_OWNED_ORGANIZATIONS,
+  ownedOrganizations,
 };
 
 export const bogusAction = {
