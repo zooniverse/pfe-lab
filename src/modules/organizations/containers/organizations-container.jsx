@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import apiClient from 'panoptes-client/lib/api-client';
 import { setOrganizationsCollaborator, setOrganizationsOwned } from '../action-creators';
 import { organizationsShape } from '../model';
-import ListOrganizations from '../components/list-organizations';
+import OrganizationsList from '../components/organizations-list';
 
 class OrganizationsContainer extends React.Component {
   constructor(props) {
@@ -56,7 +56,7 @@ class OrganizationsContainer extends React.Component {
 
   render() {
     return (
-      <ListOrganizations
+      <OrganizationsList
         organizationsCollaborator={this.props.organizationsCollaborator}
         organizationsOwned={this.props.organizationsOwned}
       />

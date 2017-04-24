@@ -5,9 +5,11 @@ export default function (state = initialState, action) { // eslint-disable-line 
   switch (action.type) {
     case types.SET_CURRENT_ORGANIZATION:
       return { organization: action.organization };
-    case types.SET_ORGANIZATIONS_COLLABORATOR:
+    case types.SET_COLLABORATED_ORGANIZATIONS
+:
       return { organizationsCollaborator: action.organizationsCollaborator };
-    case types.SET_ORGANIZATIONS_OWNED:
+    case types.SET_OWNED_ORGANIZATIONS
+:
       return { organizationsOwned: action.organizationsOwned };
     case types.SET_ORGANIZATION_COLLABORATORS:
       return { organizationCollaborators: action.organizationCollaborators };
