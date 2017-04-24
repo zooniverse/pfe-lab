@@ -6,7 +6,7 @@ import { setCollaboratedOrganizations, setOwnedOrganizations } from '../action-c
 import { organizationsShape } from '../model';
 import OrganizationsList from '../components/organizations-list';
 
-class OrganizationsContainer extends React.Component {
+class OrganizationsListContainer extends React.Component {
   constructor(props) {
     super(props);
 
@@ -68,7 +68,7 @@ class OrganizationsContainer extends React.Component {
   }
 }
 
-OrganizationsContainer.propTypes = {
+OrganizationsListContainer.propTypes = {
   dispatch: React.PropTypes.func,
   collaboratedOrganizations: organizationsShape,
   ownedOrganizations: organizationsShape,
@@ -81,4 +81,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(OrganizationsContainer);
+export default connect(mapStateToProps)(OrganizationsListContainer);

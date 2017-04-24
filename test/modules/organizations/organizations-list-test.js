@@ -4,7 +4,7 @@ import { expect } from 'chai';
 
 import { organizations } from './test-data';
 
-import OrganizationsList, { ListGroup, ListRow } from '../../../src/modules/organizations/components/organizations-list';
+import OrganizationsList, { ListGroup } from '../../../src/modules/organizations/components/organizations-list';
 
 describe('OrganizationsList', () => {
   const wrapper = shallow(
@@ -37,17 +37,9 @@ describe('ListGroup', () => {
   it('should list all the organizations', () => {
     expect(wrapper.find('li')).to.have.length(organizations.length);
   });
-});
-
-describe('ListRow', () => {
-  const wrapper = shallow(
-    <ListRow
-      organization={organizations[0]}
-    />,
-  );
 
   it('should have a link to edit and view each organization', () => {
-    expect(wrapper.find('Link')).to.have.length(2);
+    expect(wrapper.find('Link')).to.have.length(4);
   });
 
   it('should have properly formatted link to edit organization', () => {

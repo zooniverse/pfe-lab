@@ -9,7 +9,7 @@ import configureStore from 'redux-mock-store';
 import { user } from '../users/test-data';
 import { organizations as sampleOrganizations } from './test-data';
 
-import OrganizationsContainer from '../../../src/modules/organizations/containers/organizations-container';
+import OrganizationsListContainer from '../../../src/modules/organizations/containers/organizations-list-container';
 
 const initialState = {
   user,
@@ -24,10 +24,9 @@ describe('OrganizationsContainer', () => {
 
   const wrapper = mount(
     <Provider store={store}>
-      <OrganizationsContainer />
+      <OrganizationsListContainer />
     </Provider>,
   );
 
-  // it('should give ListOrganizations the organizations correctly', () => {
-  // });
+  it('should give ListOrganizations the organizations correctly');
 });

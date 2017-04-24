@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-import { organizationsShape, organizationShape } from '../model';
+import { organizationsShape } from '../model';
 
 export const ListGroup = ({ organizations, showOwnerName, title }) =>
   <div>
