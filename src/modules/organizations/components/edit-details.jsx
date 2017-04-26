@@ -4,7 +4,6 @@ import { organizationShape } from '../model';
 
 import bindInput from '../../common/containers/bind-input';
 import FormContainer from '../../common/containers/form-container';
-import SectionTitle from '../../common/components/section-title';
 
 const EditDetails = ({ organization, updateOrganization, resetOrganization }) => {
   // TODO: ARB: this should be broken up into a container and some components
@@ -38,7 +37,7 @@ const EditDetails = ({ organization, updateOrganization, resetOrganization }) =>
 
   return (
     <div>
-      <SectionTitle message="Edit Organization Details" />
+      <h1>Edit Organization Details</h1>
       <FormContainer onSubmit={onSubmit} onReset={onReset}>
         <label>
           Name: <NameInput withRef={(n) => { fields.display_name = n; }} />

@@ -2,23 +2,23 @@ import React from 'react';
 
 import { projectsShape } from '../../projects/model';
 
-import OrganizationProjectItem from './organization-project-item';
-
 const OrganizationProjectsList = ({ projects, onRemove }) => {
+  // TODO: pagination
   if (!projects || projects.length < 1) {
-    return (<div><h3>Organization Projects</h3><p>No projects associated with this organization</p></div>);
+    return (<p>No projects associated with this organization</p>);
   }
 
-  const sorted = projects.sort((a, b) => a.display_name.toLowerCase() > b.display_name.toLowerCase());
-
   return (
-    <div className="organization-projects-list">
-      <ul>
-        {sorted.map(proj => (
-          <OrganizationProjectItem key={proj.id} project={proj} onRemove={onRemove} />
-        ))}
-      </ul>
-    </div>
+    <ul className="organization-projects-list">
+      {projects.map(project => (
+        <li key={project.id} className="organization-project-item">
+          <strong className="organization-project-item__name">{project.display_name}</strong>
+          <button type="button" onClick={onRemove.bind(null, project.id)} className="organization-project-item__button--remove">
+            x
+          </button>
+        </li>
+      ))}
+    </ul>
   );
 };
 

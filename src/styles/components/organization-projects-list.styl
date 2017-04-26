@@ -1,9 +1,14 @@
 .organization-projects-list
+  list-style-type: none
+  padding-left: 0.1em
 
-  ul
-    padding-left: 0.1em
-    list-style-type: none
+  .organization-project-item
+    border: 0 solid rgba(128,128,128,0.3);
+    border-top-width: 1px
+    display: flex
+    justify-content: space-between
+    padding: 1em 0
+    width: 50%
 
-    li
-      margin-bottom: 1em
-      list-style-type: none
+    &__button--remove
+      @extends $reset-button

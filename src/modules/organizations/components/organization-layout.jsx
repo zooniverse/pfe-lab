@@ -32,7 +32,7 @@ OrganizationLayout.defaultProps = {
     { to: '', label: 'Edit' },
     { to: 'about', label: 'About' },
     { to: 'collaborators', label: 'Collaborators' },
-    { to: 'visibility', label: 'Visibility' },
+    { to: 'projects', label: 'Projects' },
   ],
 };
 
