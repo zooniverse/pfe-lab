@@ -7,7 +7,7 @@ import EditDetails from './components/edit-details';
 import OrganizationContainer from './containers/organization-container';
 import CollaboratorsContainer from './containers/collaborators-container';
 import OrganizationsListContainer from './containers/organizations-list-container';
-import VisibilityContainer from './containers/visibility-container';
+import ProjectsContainer from './containers/projects-container';
 
 const organizationsRoutes = store => (
   <Provider store={store}>
@@ -17,7 +17,7 @@ const organizationsRoutes = store => (
         <Route path=":id" component={OrganizationContainer}>
           <IndexRoute component={EditDetails} />
           <Route path="collaborators" component={CollaboratorsContainer} />
-          <Route path="visibility" component={VisibilityContainer} />
+          <Route path="projects" component={ProjectsContainer} />
         </Route>
       </Route>
     </Router>
