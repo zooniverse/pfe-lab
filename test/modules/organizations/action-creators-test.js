@@ -1,8 +1,21 @@
 import { expect } from 'chai';
 
 import * as actionTypes from '../../../src/constants/action-types';
-import { setCurrentOrganization, setOwnedOrganizations, setCollaboratedOrganizations } from '../../../src/modules/organizations/action-creators';
-import { organizations, organization } from './test-data';
+import {
+  setCurrentOrganization,
+  setOwnedOrganizations,
+  setCollaboratedOrganizations,
+  setOrganizationCollaborators,
+  setOrganizationOwner,
+  setOrganizationProjects
+} from '../../../src/modules/organizations/action-creators';
+import {
+  organizations,
+  organization,
+  organizationCollaborators,
+  organizationOwner,
+  projects
+} from './test-data';
 
 describe('OrganizationActionCreators', () => {
   it('should build the setCurrentOrganization action as expected', () => {
@@ -31,5 +44,32 @@ describe('OrganizationActionCreators', () => {
     expect(setCollaboratedOrganizationsAction.type).to.equal(actionTypes.SET_COLLABORATED_ORGANIZATIONS);
     expect(setCollaboratedOrganizationsAction.collaboratedOrganizations[0].id).to.equal(organizations[0].id);
     expect(setCollaboratedOrganizationsAction.collaboratedOrganizations[1].id).to.equal(organizations[1].id);
+  });
+
+  it('should build the setOrganizationCollaborators action as expected', function() {
+    const setOrganizationCollaboratorsAction = setOrganizationCollaborators(organizationCollaborators);
+
+    expect(setOrganizationCollaboratorsAction.organizationCollaborators).to.not.be.null;
+    expect(setOrganizationCollaboratorsAction.organizationCollaborators).to.have.length(organizationCollaborators.length);
+    expect(setOrganizationCollaboratorsAction.type).to.equal(actionTypes.SET_ORGANIZATION_COLLABORATORS);
+    expect(setOrganizationCollaboratorsAction.organizationCollaborators[0].id).to.equal(organizationCollaborators[0].id);
+  });
+
+  it('should build the setOrganizationOwner action as expected', function() {
+    const setOrganizationOwnerAction = setOrganizationOwner(organizationOwner);
+
+    expect(setOrganizationOwnerAction.organizationOwner).to.not.be.null;
+    expect(setOrganizationOwnerAction.organizationOwner).to.be.an('object');
+    expect(setOrganizationOwnerAction.type).to.equal(actionTypes.SET_ORGANIZATION_OWNER);
+    expect(setOrganizationOwnerAction.organizationOwner.id).to.equal(organizationOwner.id);
+  });
+
+  it('should build the setOrganizationProjects action as expected', function() {
+    const setOrganizationProjectsAction = setOrganizationProjects(projects);
+
+    expect(setOrganizationProjectsAction.projects).to.not.be.null;
+    expect(setOrganizationProjectsAction.projects).to.have.length(projects.length);
+    expect(setOrganizationProjectsAction.type).to.equal(actionTypes.SET_ORGANIZATION_PROJECTS);
+    expect(setOrganizationProjectsAction.projects[0].id).to.equal(projects[0].id);
   });
 });
