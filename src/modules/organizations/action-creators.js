@@ -41,24 +41,3 @@ export function setOrganizationProjects(projects) {
     projects,
   };
 }
-
-export function addOrganizationProject(project) {
-  return {
-    type: types.ADD_ORGANIZATION_PROJECT,
-    project,
-  };
-}
-
-export function removeOrganizationProject(projectId) {
-  return {
-    type: types.REMOVE_ORGANIZATION_PROJECT,
-    projectId,
-  };
-}
-
-export function setOrganizationRoles(organizationRoles) {
-  return {
-    type: types.SET_ORGANIZATION_ROLES,
-    organizationRoles,
-  };
-}

@@ -15,17 +15,54 @@ export const organizations = [
   },
 ];
 
+export const organization = organizations[0];
+
 const collaboratedOrganizations = organizations;
 const ownedOrganizations = organizations;
 
-export const organization = organizations[0];
+export const users = [
+  { id: '5' },
+  { id: '10' }
+];
+
+export const organizationOwner = users[0];
+
+export const organizationCollaborators = [
+  { id: '49',
+    roles: ['collaborator'],
+    links: {
+      organization: organizations[0].id,
+      owner: {
+        id: users[0].id,
+        type: 'users'
+      }
+    }
+  },
+  { id: '64',
+    roles: ['collaborator'],
+    links: {
+      organization: organizations[0].id,
+      owner: {
+        id: users[1].id,
+        type: 'users'
+      }
+    }
+  }
+];
+
+export const projects = [
+  { id: '93' },
+  { id: '323' }
+];
+
+export const newProject = { id: '63' };
 
 export const setCurrentOrganizationAction = {
   type: actionTypes.SET_CURRENT_ORGANIZATION,
   organization,
 };
 
-export const setCollaboratedOrganizationAction = {
+export const setCollaboratedOrganizationsAction = {
   type: actionTypes.SET_COLLABORATED_ORGANIZATIONS,
   collaboratedOrganizations,
 };
@@ -33,6 +70,21 @@ export const setCollaboratedOrganizationAction = {
 export const setOwnedOrganizationsAction = {
   type: actionTypes.SET_OWNED_ORGANIZATIONS,
   ownedOrganizations,
+};
+
+export const setOrganizationCollaboratorsAction = {
+  type: actionTypes.SET_ORGANIZATION_COLLABORATORS,
+  organizationCollaborators
+};
+
+export const setOrganizationOwnerAction = {
+  type: actionTypes.SET_ORGANIZATION_OWNER,
+  organizationOwner
+};
+
+export const setOrganizationProjectsAction = {
+  type: actionTypes.SET_ORGANIZATION_PROJECTS,
+  projects
 };
 
 export const bogusAction = {
