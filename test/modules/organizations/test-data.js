@@ -87,11 +87,6 @@ export const setOrganizationProjectsAction = {
   projects
 };
 
-export const addProjectAction = {
-  type: actionTypes.ADD_ORGANIZATION_PROJECT,
-  organizationProjects: newProject
-};
-
 export const bogusAction = {
   type: 'LOL NO',
   organizations,

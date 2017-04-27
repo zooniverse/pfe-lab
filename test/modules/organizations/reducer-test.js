@@ -8,14 +8,13 @@ import {
   organizationCollaborators,
   organizationOwner,
   projects,
-  newProject,
   setCurrentOrganizationAction,
   setCollaboratedOrganizationsAction,
   setOwnedOrganizationsAction,
   setOrganizationCollaboratorsAction,
   setOrganizationOwnerAction,
   setOrganizationProjectsAction,
-  addProjectAction,
+  setOrganizationRolesAction,
   bogusAction,
 } from './test-data';
 
@@ -77,27 +76,12 @@ describe('OrganizationsReducer', () => {
       expect(newState.organizationOwner.id).to.equal(organizationOwner.id);
     });
 
-    describe('for projects', function() {
-      let newState;
-      before(function() {
-        newState = reducer(initialState, setOrganizationProjectsAction);
-      });
+    it('should put a new list of projects into the state on receiving a SET_ORGANIZATION_PROJECTS', function() {
+      const newState = reducer(initialState, setOrganizationProjectsAction);
 
-      it('should put a new list of projects into the state on receiving a SET_ORGANIZATION_PROJECTS', function() {
-        expect(newState.organizationProjects).to.not.be.null;
-        expect(newState.organizationProjects).to.have.lengthOf(projects.length);
-        expect(newState.organizationProjects[0].id).to.equal(projects[0].id);
-      });
-
-      // it('should put concatenate a new project into the state on receiving a ADD_ORGANIZATION_PROJECT', function() {
-      //   const updatedState = reducer(newState, addProjectAction);
-      //   console.log('updatedState', updatedState)
-      //   expect(updatedState.organizationProjects).to.not.be.null;
-      //   expect(updatedState.organizationProjects).to.have.lengthOf(projects.length + 1);
-      //   expect(updatedState.organizationProjects[2].id).to.equal(newProject.id);
-      // });
-
-      // it('should');
+      expect(newState.organizationProjects).to.not.be.null;
+      expect(newState.organizationProjects).to.have.lengthOf(projects.length);
+      expect(newState.organizationProjects[0].id).to.equal(projects[0].id);
     });
   });
 });
