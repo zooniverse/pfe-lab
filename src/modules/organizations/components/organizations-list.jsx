@@ -2,19 +2,19 @@ import React from 'react';
 import { Link } from 'react-router';
 import ListGroup from './list-group';
 
-import { organizationsShape } from '../model';
+import { organizationsAvatarsShape, organizationsShape } from '../model';
 
-const OrganizationsList = ({ createOrganization, collaboratedOrganizations, ownedOrganizations }) => {
+const OrganizationsList = ({ createOrganization, collaboratedOrganizations, organizationsAvatars, ownedOrganizations }) => {
   if (!ownedOrganizations || !collaboratedOrganizations) {
     return (
       <div>Loading...</div>
     );
   }
-  console.log('ownedOrganizations', ownedOrganizations)
+
   return (
     <div className="organizations-list">
       {ownedOrganizations.length > 0 &&
-        <ListGroup organizations={ownedOrganizations} title={'Your Organizations'} />}
+        <ListGroup organizations={ownedOrganizations} organizationsAvatars={organizationsAvatars} title={'Your Organizations'} />}
       <div className="organizations-list__button-container">
         <button
           type="button"
@@ -36,6 +36,7 @@ const OrganizationsList = ({ createOrganization, collaboratedOrganizations, owne
 OrganizationsList.propTypes = {
   createOrganization: React.PropTypes.func,
   collaboratedOrganizations: organizationsShape,
+  organizationsAvatars: organizationsAvatarsShape,
   ownedOrganizations: organizationsShape,
 };
 
