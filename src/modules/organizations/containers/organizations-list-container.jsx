@@ -64,8 +64,7 @@ class OrganizationsListContainer extends React.Component {
 
   createOrganization() {
     // TODO We shouldn't be setting the title.
-    const date = new Date().toLocaleString;
-    const name = `Untitled organization ${date}`;
+    const name = `Untitled organization ${new Date().toLocaleString()}`;
     apiClient.type('organizations').create({
       description: 'Lorem Ipsum',
       display_name: name,
