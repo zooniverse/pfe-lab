@@ -6,10 +6,17 @@ import { organizationShape } from '../model';
 import { setCurrentOrganization } from '../action-creators';
 import OrganizationLayout from '../components/organization-layout';
 
+const DELETE_CONFIRMATION_PHRASE = 'I AM DELETING THIS ORGANIZATION';
+
 class OrganizationContainer extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      deletionInProgress: false
+    };
+
+    this.deleteOrganization = this.deleteOrganization.bind(this);
     this.fetchOrganization = this.fetchOrganization.bind(this);
     this.resetOrganization = this.resetOrganization.bind(this);
     this.updateOrganization = this.updateOrganization.bind(this);
@@ -39,7 +46,7 @@ class OrganizationContainer extends React.Component {
     this.props.dispatch(setCurrentOrganization(this.props.organization));
   }
 
-  fetchOrganization(id) { // eslint-disable-line class-methods-use-this
+  fetchOrganization(id) {
     if (!id) {
       return;
     }
@@ -48,6 +55,24 @@ class OrganizationContainer extends React.Component {
       .then((org) => {
         this.props.dispatch(setCurrentOrganization(org));
       });
+  }
+
+  deleteOrganization() {
+    const confirmationMessage = `
+      You are about to delete this project and all its data!\n
+      Enter ${DELETE_CONFIRMATION_PHRASE} to confirm.`;
+    const confirmed = prompt(confirmationMessage) === DELETE_CONFIRMATION_PHRASE;
+
+    if (confirmed) {
+      this.setState({ deletionInProgress: confirmed });
+      this.props.organization.delete()
+        .then(() => {
+          this.props.router.push('/organizations');
+        }).catch((error) => {
+          this.setState({ deletionInProgress: false });
+          console.error(error);
+        });
+    }
   }
 
   render() {
@@ -66,7 +91,11 @@ class OrganizationContainer extends React.Component {
     );
 
     return (
-      <OrganizationLayout organizationId={organizationId}>
+      <OrganizationLayout
+        deleteOrganization={this.deleteOrganization}
+        deletionInProgress={this.state.deletionInProgress}
+        organizationId={organizationId}
+      >
         {wrappedChildren}
       </OrganizationLayout>
     );
@@ -77,6 +106,9 @@ OrganizationContainer.propTypes = {
   dispatch: React.PropTypes.func,
   organization: organizationShape,
   params: React.PropTypes.shape({ id: React.PropTypes.string }),
+  router: React.PropTypes.shape({
+    push: React.PropTypes.func
+  })
 };
 
 function mapStateToProps(state) {
