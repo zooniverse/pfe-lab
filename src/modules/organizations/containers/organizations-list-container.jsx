@@ -10,6 +10,7 @@ class OrganizationsListContainer extends React.Component {
   constructor(props) {
     super(props);
 
+    this.createOrganization = this.createOrganization.bind(this);
     this.fetchOrganizations = this.fetchOrganizations.bind(this);
   }
 
@@ -23,6 +24,7 @@ class OrganizationsListContainer extends React.Component {
   }
 
   fetchOrganizations() {
+    // TODO pagination
     const fetchOwnedOrganizations =
       apiClient.type('organizations').get({
         sort: 'display_name',
@@ -38,29 +40,50 @@ class OrganizationsListContainer extends React.Component {
 
     Promise.all([fetchOwnedOrganizations, fetchCollaboratedOrganizations])
       .then(([ownedOrganizations, collaboratedOrganizations]) => {
-        const orgsWithAvatar = [];
-        ownedOrganizations.forEach((ownedOrg) => {
-          this.fetchLinkedAvatar(ownedOrg)
-            .then((avatar) => {
-              const orgWithAvatar = Object.assign(ownedOrg, { avatar });
-              orgsWithAvatar.push(orgWithAvatar);
-              this.props.dispatch(setOwnedOrganizations(orgsWithAvatar));
-            });
-        });
 
+        const ownedAvatarIds = ownedOrganizations.forEach((ownedOrg) => {
+          if (ownedOrg.links.avatar && ownedOrg.links.avatar.id) return ownedOrg.links.avatar.id;
+          // return this.fetchLinkedAvatar(ownedOrg)
+          //   .then((avatar) => {
+          //     const orgAvatar = avatar || null;
+          //     const mergedOrganization = Object.assign(ownedOrg, { avatar: orgAvatar });
+          //     console.log('mergedOrganization', mergedOrganization)
+          //     return mergedOrganization;
+          //   });
+        });
+        console.log('ownedAvatarIds', ownedAvatarIds)
         this.props.dispatch(setCollaboratedOrganizations(collaboratedOrganizations));
+        // this.props.dispatch(setOwnedOrganizations(orgsWithAvatar));
       });
   }
 
   fetchLinkedAvatar(organization) {
     return apiClient.type('avatars').get(organization.links.avatar.id)
       .then((avatar) => { return avatar; })
-      .catch(error => console.error(error));
+      .catch((error) => {
+        if (error.status !== 404) console.error(error);
+      });
+  }
+
+  createOrganization() {
+    // TODO We shouldn't be setting the title.
+    const date = new Date().toLocaleString;
+    const name = `Untitled organization ${date}`;
+    apiClient.type('organizations').create({
+      description: 'Lorem Ipsum',
+      display_name: name,
+      primary_language: navigator.language,
+      title: name
+    })
+    .save()
+    .then((organization) => { this.props.router.push(`/organizations/${organization.id}`); })
+    .catch(error => console.error(error) );
   }
 
   render() {
     return (
       <OrganizationsList
+        createOrganization={this.createOrganization}
         collaboratedOrganizations={this.props.collaboratedOrganizations}
         ownedOrganizations={this.props.ownedOrganizations}
       />
