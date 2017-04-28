@@ -7,14 +7,16 @@ import {
   setCollaboratedOrganizations,
   setOrganizationCollaborators,
   setOrganizationOwner,
-  setOrganizationProjects
+  setOrganizationProjects,
+  setOrganizationsAvatars
 } from '../../../src/modules/organizations/action-creators';
 import {
   organizations,
   organization,
   organizationCollaborators,
   organizationOwner,
-  projects
+  organizationsAvatars,
+  projects,
 } from './test-data';
 
 describe('OrganizationActionCreators', () => {
@@ -71,5 +73,14 @@ describe('OrganizationActionCreators', () => {
     expect(setOrganizationProjectsAction.projects).to.have.length(projects.length);
     expect(setOrganizationProjectsAction.type).to.equal(actionTypes.SET_ORGANIZATION_PROJECTS);
     expect(setOrganizationProjectsAction.projects[0].id).to.equal(projects[0].id);
+  });
+
+  it('should build the setOrganizationsAvatars action as expected', function() {
+    const setOrganizationsAvatarsAction = setOrganizationsAvatars(organizationsAvatars);
+
+    expect(setOrganizationsAvatarsAction.organizationsAvatars).to.not.be.null;
+    expect(setOrganizationsAvatarsAction.organizationsAvatars).to.have.length(organizationsAvatars.length);
+    expect(setOrganizationsAvatarsAction.type).to.equal(actionTypes.SET_ORGANIZATIONS_AVATARS);
+    expect(setOrganizationsAvatarsAction.organizationsAvatars[0].src).to.equal(organizationsAvatars[0].src);
   });
 });
