@@ -7,6 +7,7 @@ import {
   organizations,
   organizationCollaborators,
   organizationOwner,
+  organizationsAvatars,
   projects,
   setCurrentOrganizationAction,
   setCollaboratedOrganizationsAction,
@@ -14,7 +15,7 @@ import {
   setOrganizationCollaboratorsAction,
   setOrganizationOwnerAction,
   setOrganizationProjectsAction,
-  setOrganizationRolesAction,
+  setOrganizationsAvatarsAction,
   bogusAction,
 } from './test-data';
 
@@ -82,6 +83,14 @@ describe('OrganizationsReducer', () => {
       expect(newState.organizationProjects).to.not.be.null;
       expect(newState.organizationProjects).to.have.lengthOf(projects.length);
       expect(newState.organizationProjects[0].id).to.equal(projects[0].id);
+    });
+
+    it('should put a new list of avatars into state on receiving a SET_ORGANIZATIONS_AVATARS', function() {
+      const newState = reducer(initialState, setOrganizationsAvatarsAction);
+
+      expect(newState.organizationsAvatars).to.not.be.null;
+      expect(newState.organizationsAvatars).to.have.lengthOf(organizationsAvatars.length);
+      expect(newState.organizationsAvatars[0].src).to.equal(organizationsAvatars[0].src);
     });
   });
 });

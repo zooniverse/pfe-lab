@@ -2,14 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import apiClient from 'panoptes-client/lib/api-client';
-import { setCollaboratedOrganizations, setOwnedOrganizations } from '../action-creators';
-import { organizationsShape } from '../model';
+import { setCollaboratedOrganizations, setOrganizationsAvatars, setOwnedOrganizations } from '../action-creators';
+import { organizationsAvatarsShape, organizationsShape } from '../model';
 import OrganizationsList from '../components/organizations-list';
 
 class OrganizationsListContainer extends React.Component {
   constructor(props) {
     super(props);
 
+    this.createOrganization = this.createOrganization.bind(this);
     this.fetchOrganizations = this.fetchOrganizations.bind(this);
   }
 
@@ -20,9 +21,11 @@ class OrganizationsListContainer extends React.Component {
   componentWillUnmount() {
     this.props.dispatch(setCollaboratedOrganizations([]));
     this.props.dispatch(setOwnedOrganizations([]));
+    this.props.dispatch(setOrganizationsAvatars([]));
   }
 
   fetchOrganizations() {
+    // TODO pagination
     const fetchOwnedOrganizations =
       apiClient.type('organizations').get({
         sort: 'display_name',
@@ -38,30 +41,47 @@ class OrganizationsListContainer extends React.Component {
 
     Promise.all([fetchOwnedOrganizations, fetchCollaboratedOrganizations])
       .then(([ownedOrganizations, collaboratedOrganizations]) => {
-        const orgsWithAvatar = [];
-        ownedOrganizations.forEach((ownedOrg) => {
-          this.fetchLinkedAvatar(ownedOrg)
-            .then((avatar) => {
-              const orgWithAvatar = Object.assign(ownedOrg, { avatar });
-              orgsWithAvatar.push(orgWithAvatar);
-              this.props.dispatch(setOwnedOrganizations(orgsWithAvatar));
-            });
-        });
+        const orgsWithAvatar = ownedOrganizations.filter(ownedOrg => ownedOrg.links.avatar && ownedOrg.links.avatar.id);
+        const avatarIds = orgsWithAvatar.map(org => org.links.avatar.id);
+
+        this.fetchLinkedAvatar(avatarIds)
+          .then((organizationsAvatars) => {
+            this.props.dispatch(setOrganizationsAvatars(organizationsAvatars));
+          });
 
         this.props.dispatch(setCollaboratedOrganizations(collaboratedOrganizations));
+        this.props.dispatch(setOwnedOrganizations(ownedOrganizations));
       });
   }
 
-  fetchLinkedAvatar(organization) {
-    return apiClient.type('avatars').get(organization.links.avatar.id)
+  fetchLinkedAvatar(avatarIds) {
+    return apiClient.type('avatars').get(avatarIds)
       .then((avatar) => { return avatar; })
-      .catch(error => console.error(error));
+      .catch((error) => {
+        if (error.status !== 404) console.error(error);
+      });
+  }
+
+  createOrganization() {
+    // TODO We shouldn't be setting the title.
+    const name = `Untitled organization ${new Date().toLocaleString()}`;
+    apiClient.type('organizations').create({
+      description: 'Lorem Ipsum',
+      display_name: name,
+      primary_language: navigator.language,
+      title: name
+    })
+    .save()
+    .then((organization) => { this.props.router.push(`/organizations/${organization.id}`); })
+    .catch(error => console.error(error));
   }
 
   render() {
     return (
       <OrganizationsList
+        createOrganization={this.createOrganization}
         collaboratedOrganizations={this.props.collaboratedOrganizations}
+        organizationsAvatars={this.props.organizationsAvatars}
         ownedOrganizations={this.props.ownedOrganizations}
       />
     );
@@ -71,12 +91,17 @@ class OrganizationsListContainer extends React.Component {
 OrganizationsListContainer.propTypes = {
   dispatch: React.PropTypes.func,
   collaboratedOrganizations: organizationsShape,
+  organizationsAvatars: organizationsAvatarsShape,
   ownedOrganizations: organizationsShape,
+  router: React.PropTypes.shape({
+    push: React.PropTypes.func
+  })
 };
 
 function mapStateToProps(state) {
   return {
     collaboratedOrganizations: state.collaboratedOrganizations,
+    organizationsAvatars: state.organizationsAvatars,
     ownedOrganizations: state.ownedOrganizations,
   };
 }

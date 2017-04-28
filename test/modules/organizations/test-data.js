@@ -55,7 +55,9 @@ export const projects = [
   { id: '323' }
 ];
 
-export const newProject = { id: '63' };
+export const organizationsAvatars = [
+  { src: 'avatar.jpg' }
+];
 
 export const setCurrentOrganizationAction = {
   type: actionTypes.SET_CURRENT_ORGANIZATION,
@@ -85,6 +87,11 @@ export const setOrganizationOwnerAction = {
 export const setOrganizationProjectsAction = {
   type: actionTypes.SET_ORGANIZATION_PROJECTS,
   projects
+};
+
+export const setOrganizationsAvatarsAction = {
+  type: actionTypes.SET_ORGANIZATIONS_AVATARS,
+  organizationsAvatars
 };
 
 export const bogusAction = {

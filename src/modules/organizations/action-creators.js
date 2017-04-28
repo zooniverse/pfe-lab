@@ -21,6 +21,13 @@ export function setOwnedOrganizations(ownedOrganizations) {
   };
 }
 
+export function setOrganizationsAvatars(organizationsAvatars) {
+  return {
+    type: types.SET_ORGANIZATIONS_AVATARS,
+    organizationsAvatars
+  };
+}
+
 export function setOrganizationCollaborators(organizationCollaborators) {
   return {
     type: types.SET_ORGANIZATION_COLLABORATORS,

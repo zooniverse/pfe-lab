@@ -8,6 +8,12 @@ export const organizationShape = React.PropTypes.shape({
 
 export const organizationsShape = React.PropTypes.arrayOf(organizationShape);
 
+export const organizationsAvatarsShape = React.PropTypes.arrayOf(
+  React.PropTypes.shape({
+    src: React.PropTypes.string
+  })
+);
+
 export const organizationCollaboratorsShape = React.PropTypes.arrayOf(
   React.PropTypes.shape({
     id: React.PropTypes.string,
