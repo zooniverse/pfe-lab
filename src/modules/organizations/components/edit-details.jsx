@@ -1,11 +1,9 @@
 import React from 'react';
 
 import { organizationShape } from '../model';
+import DetailsFormContainer from '../containers/details-form-container';
 
-import bindInput from '../../common/containers/bind-input';
-import FormContainer from '../../common/containers/form-container';
-
-const EditDetails = ({ organization, updateOrganization, resetOrganization }) => {
+const EditDetails = ({ organization, updateOrganization }) => {
   // TODO: ARB: this should be broken up into a container and some components
   if (!organization) {
     return (
@@ -13,47 +11,17 @@ const EditDetails = ({ organization, updateOrganization, resetOrganization }) =>
     );
   }
 
-  const fields = {};
-
-  const collect = () => {
-    const result = {};
-    Object.keys(fields).forEach((fieldName) => {
-      result[fieldName] = fields[fieldName].value;
-    });
-    return result;
-  };
-
-  const onSubmit = () => {
-    const patch = collect();
-    updateOrganization(patch);
-  };
-
-  const onReset = () => {
-    resetOrganization();
-  };
-
-  const NameInput = bindInput(organization.display_name, <input type="text" />);
-  const DescriptionInput = bindInput(organization.description, <textarea />);
-
   return (
     <div>
       <h1>Edit Organization Details</h1>
-      <FormContainer onSubmit={onSubmit} onReset={onReset}>
-        <label>
-          Name: <NameInput withRef={(n) => { fields.display_name = n; }} />
-        </label>
-        <br />
-        <label>
-          Description: <DescriptionInput withRef={(n) => { fields.description = n; }} />
-        </label>
-      </FormContainer>
+      <p>Input the basic information about your organization and set up its home page.</p>
+      <DetailsFormContainer updateOrganization={updateOrganization} />
     </div>
   );
 };
 
 EditDetails.propTypes = {
   organization: organizationShape,
-  resetOrganization: React.PropTypes.func,
   updateOrganization: React.PropTypes.func,
 };
 

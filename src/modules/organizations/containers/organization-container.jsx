@@ -18,7 +18,6 @@ class OrganizationContainer extends React.Component {
 
     this.deleteOrganization = this.deleteOrganization.bind(this);
     this.fetchOrganization = this.fetchOrganization.bind(this);
-    this.resetOrganization = this.resetOrganization.bind(this);
     this.updateOrganization = this.updateOrganization.bind(this);
   }
 
@@ -40,10 +39,6 @@ class OrganizationContainer extends React.Component {
       .then((updatedOrganization) => {
         this.props.dispatch(setCurrentOrganization(updatedOrganization));
       }).catch(error => console.error(error));
-  }
-
-  resetOrganization() {
-    this.props.dispatch(setCurrentOrganization(this.props.organization));
   }
 
   fetchOrganization(id) {
@@ -85,7 +80,6 @@ class OrganizationContainer extends React.Component {
       React.cloneElement(child, {
         organization,
         organizationId,
-        resetOrganization: this.resetOrganization,
         updateOrganization: this.updateOrganization,
       }),
     );
