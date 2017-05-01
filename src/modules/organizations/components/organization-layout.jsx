@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router';
 
 const OrganizationLayout = ({ children, deletionInProgress, deleteOrganization, navItems, organizationId }) =>
-  <div className="content-section">
-    <aside>
+  <div className="section">
+    <aside className="aside">
       <nav>
         <h4>Navigation</h4>
         <ul className="organizationsLinks">
@@ -26,7 +26,7 @@ const OrganizationLayout = ({ children, deletionInProgress, deleteOrganization, 
       </button>
     </aside>
 
-    <section>{children}</section>
+    <section className="section">{children}</section>
   </div>;
 
 OrganizationLayout.propTypes = {

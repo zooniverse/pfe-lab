@@ -41,31 +41,35 @@ class DetailsFormContainer extends React.Component {
 
     return (
       <FormContainer onSubmit={this.handleSubmit} onReset={this.resetOrganization}>
-        <label htmlFor="display-name">
-          Name: <NameInput id="display-name" ref={(node) => { this.fields.display_name = node; }} />
-        </label>
-        <p><small>
-          {this.props.organization.listed_at && "You cannot change listed organization's name" }
-          The organization name is the first thing people will see about the organization and it will show up in the organization URL.
-          Try to keep it short and sweet. Your organization’s URL is {`/projects/${this.props.organization.slug}`}
-        </small></p>
-        <br />
-        <label htmlFor="description">
-          Description: <DescriptionInput id="description" ref={(node) => { this.fields.description = node; }} />
-        </label>
-        <p><small>
-          This should be a one-line call to action for your organization that displays on your landing page.
-          <CharLimit limit={300} string={this.props.organization.description || ''} />
-        </small></p>
-        <br />
-        <label htmlFor="introduction">
-          Introduction: <IntroductionInput id="introduction" ref={(node) => { this.fields.introduction = node; }} />
-        </label>
-        <small className="form-help">
-          Add a brief introduction to get people interested in your organization.
-          This will display on your landing page.
-          <CharLimit limit={1500} string={this.props.organization.introduction || ''} />
-        </small>
+        <fieldset className="form__fieldset">
+          <label className="form__label" htmlFor="display-name">
+            Name <NameInput className="form__input form__input--full-width" id="display-name"  ref={(node) => { this.fields = { display_name: node }; }} />
+          </label>
+          <small className="form__help">
+            {this.props.organization.listed_at && "You cannot change listed organization's name" }
+            The organization name is the first thing people will see about the organization.
+            Try to keep it short and sweet.
+          </small>
+        </fieldset>
+        <fieldset className="form__fieldset">
+          <label className="form__label" htmlFor="description">
+            Description <DescriptionInput className="form__input form__input--full-width" id="description" ref={(node) => { this.fields = { description: node }; }} />
+          </label>
+          <small className="form__help">
+            This should be a one-line call to action for your organization that displays on your landing page.{' '}
+            <CharLimit limit={300} string={this.props.organization.description || ''} />
+          </small>
+        </fieldset>
+        <fieldset className="form__fieldset">
+          <label className="form__label" htmlFor="introduction">
+            Introduction <IntroductionInput className="form__input form__input--full-width" id="introduction" ref={(node) => { this.fields.introduction = node; }} />
+          </label>
+          <small className="form__help">
+            Add a brief introduction to get people interested in your organization.
+            This will display on your landing page.{' '}
+            <CharLimit limit={1500} string={this.props.organization.introduction || ''} />
+          </small>
+        </fieldset>
       </FormContainer>
     );
   }

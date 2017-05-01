@@ -26,6 +26,7 @@ class OrganizationsListContainer extends React.Component {
 
   fetchOrganizations() {
     // TODO pagination
+    // TODO use 'avatar_src' when it works
     const fetchOwnedOrganizations =
       apiClient.type('organizations').get({
         sort: 'display_name',
