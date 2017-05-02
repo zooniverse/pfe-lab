@@ -81,15 +81,13 @@ class OrganizationContainer extends React.Component {
         organization,
         organizationId,
         updateOrganization: this.updateOrganization,
+        deleteOrganization: this.deleteOrganization,
+        deletionInProgress: this.state.deletionInProgress
       }),
     );
 
     return (
-      <OrganizationLayout
-        deleteOrganization={this.deleteOrganization}
-        deletionInProgress={this.state.deletionInProgress}
-        organizationId={organizationId}
-      >
+      <OrganizationLayout organizationId={organizationId}>
         {wrappedChildren}
       </OrganizationLayout>
     );

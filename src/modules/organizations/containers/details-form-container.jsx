@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
+import { MarkdownEditor } from 'markdownz';
 import { organizationShape } from '../model';
 import { setCurrentOrganization } from '../action-creators';
 import bindInput from '../../common/containers/bind-input';
@@ -34,10 +34,11 @@ class DetailsFormContainer extends React.Component {
   }
 
   render() {
+    // TODO rename prop in markdownz to be resource not project.
+    // TODO extract <MarkdownHelp /> into shared components repo.
     const organization = this.props.organization;
     const NameInput = bindInput(organization.display_name, <input type="text" />);
     const DescriptionInput = bindInput(organization.description, <input type="text" />);
-    const IntroductionInput = bindInput(organization.introduction, <textarea />);
 
     return (
       <FormContainer onSubmit={this.handleSubmit} onReset={this.resetOrganization}>
@@ -62,7 +63,16 @@ class DetailsFormContainer extends React.Component {
         </fieldset>
         <fieldset className="form__fieldset">
           <label className="form__label" htmlFor="introduction">
-            Introduction <IntroductionInput className="form__input form__input--full-width" id="introduction" ref={(node) => { this.fields.introduction = node; }} />
+            Introduction
+            <MarkdownEditor
+              className="form__markdown-editor--full"
+              id="introduction"
+              name="introduction"
+              project={this.props.organization}
+              ref={(node) => { this.fields.introduction = node; }}
+              rows="10"
+              value={this.props.organization.introduction}
+            />
           </label>
           <small className="form__help">
             Add a brief introduction to get people interested in your organization.
