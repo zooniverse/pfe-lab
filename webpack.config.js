@@ -1,12 +1,11 @@
-/* eslint import/no-extraneous-dependencies: ["error", { "devDependencies": true  }] */
-import path from 'path';
-import webpack from 'webpack';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import nib from 'nib';
-import DashboardPlugin from 'webpack-dashboard/plugin';
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const nib = require('nib');
+const DashboardPlugin = require('webpack-dashboard/plugin');
+const SplitByPathPlugin = require('webpack-split-by-path');
 
 module.exports = {
-
   devtool: 'eval-source-map',
 
   entry: [
@@ -28,30 +27,37 @@ module.exports = {
       filename: 'index.html',
       gtm: '',
     }),
-    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('staging'),
     }),
     new DashboardPlugin({ port: 3777 }),
+    new SplitByPathPlugin([{
+      name: 'vendor',
+      path: path.join(__dirname, 'node_modules'),
+    }]),
+    new webpack.LoaderOptionsPlugin({
+      stylus: {
+        default: {
+          use: [nib()],
+          import: ['~nib/lib/nib/index.styl']
+        }
+      }
+    })
   ],
 
   resolve: {
-    extensions: ['', '.js', '.jsx', '.styl'],
-    modulesDirectories: ['.', 'node_modules'],
+    extensions: ['.js', '.jsx', '.styl'],
+    modules: ['.', 'node_modules'],
   },
 
   module: {
-    loaders: [
-      {
-        test: /\.json$/,
-        loader: 'json',
-      },
+    rules: [
       {
         test: /\.jsx?$/,
         exclude: /(node_modules)/,
-        loader: 'babel',
+        loader: 'babel-loader',
       },
       {
         test: /\.(jpg|png|gif|otf|eot|svg|ttf|woff\d?)$/,
@@ -59,16 +65,20 @@ module.exports = {
       },
       {
         test: /\.styl$/,
-        loader: 'style-loader!css-loader!stylus-loader',
+        use: [
+          'style-loader',
+          'css-loader',
+          'stylus-loader'
+        ],
       },
       {
         test: /\.css$/,
-        loader: 'style-loader!css-loader',
+        use: ['style-loader', 'css-loader'],
       },
     ],
   },
 
-  stylus: {
-    use: [nib()],
+  node: {
+    fs: 'empty'
   },
 };
