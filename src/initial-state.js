@@ -3,6 +3,7 @@ const initialState = {
   collaboratedOrganizations: [],
   initialized: false,
   organization: null,
+  organizationAvatar: {},
   organizationCollaborators: null,
   organizationOwner: null,
   organizationProjects: [],

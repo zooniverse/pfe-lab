@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import apiClient from 'panoptes-client/lib/api-client';
-import { organizationShape } from '../model';
-import { setCurrentOrganization } from '../action-creators';
+import { organizationShape, organizationAvatarShape } from '../model';
+import { setCurrentOrganization, setOrganizationAvatar } from '../action-creators';
 import OrganizationLayout from '../components/organization-layout';
 
 const DELETE_CONFIRMATION_PHRASE = 'I AM DELETING THIS ORGANIZATION';
@@ -46,9 +46,13 @@ class OrganizationContainer extends React.Component {
       return;
     }
 
-    apiClient.type('organizations').get(id.toString())
+    apiClient.type('organizations').get(id.toString(), { include: 'avatar' })
       .then((org) => {
         this.props.dispatch(setCurrentOrganization(org));
+        apiClient.type('avatars').get(org.links.avatar.id)
+          .then((avatar) => {
+            this.props.dispatch(setOrganizationAvatar(avatar));
+          });
       });
   }
 
@@ -73,12 +77,14 @@ class OrganizationContainer extends React.Component {
   render() {
     const children = this.props.children; // eslint-disable-line react/prop-types
     const organization = this.props.organization;
+    const organizationAvatar = this.props.organizationAvatar;
     const organizationId = this.props.params.id;
 
     // inject props into children
     const wrappedChildren = React.Children.map(children, child =>
       React.cloneElement(child, {
         organization,
+        organizationAvatar,
         organizationId,
         updateOrganization: this.updateOrganization,
         deleteOrganization: this.deleteOrganization,
@@ -97,6 +103,7 @@ class OrganizationContainer extends React.Component {
 OrganizationContainer.propTypes = {
   dispatch: React.PropTypes.func,
   organization: organizationShape,
+  organizationAvatar: organizationAvatarShape,
   params: React.PropTypes.shape({ id: React.PropTypes.string }),
   router: React.PropTypes.shape({
     push: React.PropTypes.func
@@ -106,6 +113,7 @@ OrganizationContainer.propTypes = {
 function mapStateToProps(state) {
   return {
     organization: state.organization,
+    organizationAvatar: state.organizationAvatar
   };
 }
 

@@ -48,3 +48,10 @@ export function setOrganizationProjects(projects) {
     projects,
   };
 }
+
+export function setOrganizationAvatar(organizationAvatar) {
+  return {
+    type: types.SET_ORGANIZATION_AVATAR,
+    organizationAvatar
+  }
+}

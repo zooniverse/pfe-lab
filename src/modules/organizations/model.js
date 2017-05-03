@@ -26,3 +26,7 @@ export const organizationOwnerShape = React.PropTypes.shape({
   display_name: React.PropTypes.string,
   id: React.PropTypes.string,
 });
+
+export const organizationAvatarShape = React.PropTypes.shape({
+  src: React.PropTypes.string
+});

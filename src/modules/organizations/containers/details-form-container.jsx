@@ -61,25 +61,7 @@ class DetailsFormContainer extends React.Component {
             <CharLimit limit={300} string={this.props.organization.description || ''} />
           </small>
         </fieldset>
-        <fieldset className="form__fieldset">
-          <label className="form__label" htmlFor="introduction">
-            Introduction
-            <MarkdownEditor
-              className="form__markdown-editor--full"
-              id="introduction"
-              name="introduction"
-              project={this.props.organization}
-              ref={(node) => { this.fields.introduction = node; }}
-              rows="10"
-              value={this.props.organization.introduction}
-            />
-          </label>
-          <small className="form__help">
-            Add a brief introduction to get people interested in your organization.
-            This will display on your landing page.{' '}
-            <CharLimit limit={1500} string={this.props.organization.introduction || ''} />
-          </small>
-        </fieldset>
+
       </FormContainer>
     );
   }
