@@ -18,6 +18,7 @@ class OrganizationContainer extends React.Component {
 
     this.deleteOrganization = this.deleteOrganization.bind(this);
     this.fetchOrganization = this.fetchOrganization.bind(this);
+    this.handleMediaChange = this.handleMediaChange.bind(this);
     this.updateOrganization = this.updateOrganization.bind(this);
   }
 
@@ -74,6 +75,10 @@ class OrganizationContainer extends React.Component {
     }
   }
 
+  handleMediaChange(type, file) {
+    console.log('media change', type, file);
+  }
+
   render() {
     const children = this.props.children; // eslint-disable-line react/prop-types
     const organization = this.props.organization;
@@ -88,7 +93,8 @@ class OrganizationContainer extends React.Component {
         organizationId,
         updateOrganization: this.updateOrganization,
         deleteOrganization: this.deleteOrganization,
-        deletionInProgress: this.state.deletionInProgress
+        deletionInProgress: this.state.deletionInProgress,
+        handleMediaChange: this.handleMediaChange
       }),
     );
 
