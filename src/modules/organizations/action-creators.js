@@ -53,5 +53,12 @@ export function setOrganizationAvatar(organizationAvatar) {
   return {
     type: types.SET_ORGANIZATION_AVATAR,
     organizationAvatar
-  }
+  };
+}
+
+export function setOrganizationBackground(organizationBackground) {
+  return {
+    type: types.SET_ORGANIZATION_BACKGROUND,
+    organizationBackground
+  };
 }

@@ -30,3 +30,7 @@ export const organizationOwnerShape = React.PropTypes.shape({
 export const organizationAvatarShape = React.PropTypes.shape({
   src: React.PropTypes.string
 });
+
+export const organizationBackgroundShape = React.PropTypes.shape({
+  src: React.PropTypes.string
+});

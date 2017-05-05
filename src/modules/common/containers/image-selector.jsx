@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { DragAndDropTarget, Thumbnail, FileButton } from 'zooniverse-react-components';
+import { Thumbnail, FileButton } from 'zooniverse-react-components';
 import toBlob from 'data-uri-to-blob';
 
 class ImageSelector extends React.Component {
@@ -11,6 +11,8 @@ class ImageSelector extends React.Component {
       working: false
     };
 
+    this.cropImage = this.cropImage.bind(this);
+    this.reduceImage = this.reduceImage.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -29,6 +31,12 @@ class ImageSelector extends React.Component {
     }
     const ctx = canvas.getContext('2d');
     ctx.drawImage(srcImg, (srcImg.naturalWidth - canvas.width) / -2, (srcImg.naturalHeight - canvas.height) / -2);
+
+    const croppedImg = new Image();
+    croppedImg.onload = () => {
+      this.reduceImage(croppedImg, srcFile);
+    };
+    croppedImg.src = canvas.toDataURL();
   }
 
   reduceImage(img, srcFile, _scale = 1) {
@@ -51,7 +59,11 @@ class ImageSelector extends React.Component {
         this.setState({ working: false });
 
         img.title = srcFile.name;
-        this.props.onChange(toBlob(dataURL), img);
+        if (window.navigator) {
+          this.props.onChange(this.props.resourceType, toBlob(dataURL), img);
+        } else {
+          this.props.onChange(this.props.resourceType, img);
+        }
       }
     } catch (e) {
       this.setState({ working: false });
@@ -76,7 +88,6 @@ class ImageSelector extends React.Component {
       };
       reader.readAsDataURL(file);
     }
-    // this.props.handleMediaChange.bind(this, this.props.resourceType);
   }
 
   render() {

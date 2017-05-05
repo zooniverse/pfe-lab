@@ -2,9 +2,8 @@ import React from 'react';
 import { Router, Route, IndexRoute } from 'react-router';
 import { Provider } from 'react-redux';
 
-import EditDetails from './components/edit-details';
-
 import OrganizationContainer from './containers/organization-container';
+import EditDetailsContainer from './containers/edit-details-container';
 import CollaboratorsContainer from './containers/collaborators-container';
 import OrganizationsListContainer from './containers/organizations-list-container';
 import ProjectsContainer from './containers/projects-container';
@@ -15,7 +14,7 @@ const organizationsRoutes = store => (
       <Route path="/organizations">
         <IndexRoute component={OrganizationsListContainer} />
         <Route path=":id" component={OrganizationContainer}>
-          <IndexRoute component={EditDetails} />
+          <IndexRoute component={EditDetailsContainer} />
           <Route path="collaborators" component={CollaboratorsContainer} />
           <Route path="projects" component={ProjectsContainer} />
         </Route>

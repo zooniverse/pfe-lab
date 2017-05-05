@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { organizationShape, organizationAvatarShape } from '../model';
+import { organizationShape, organizationAvatarShape, organizationBackgroundShape } from '../model';
 import DetailsFormContainer from '../containers/details-form-container';
 import ImageSelector from '../../common/containers/image-selector';
 
@@ -33,6 +33,7 @@ const EditDetails = (props) => {
               label="Background"
               onChange={props.handleMediaChange}
               maxBackgroundSize={props.maxBackgroundSize}
+              resourceSrc={props.organizationBackground.src}
               resourceType="background"
             />
             <small>This image will be the background for your organization page. To add an image, either drag and drop or left click to open your file viewer. For best results, use good quality images no more than 256 KB.</small>
@@ -63,6 +64,7 @@ EditDetails.propTypes = {
   maxBackgroundSize: React.PropTypes.number,
   organization: organizationShape,
   organizationAvatar: organizationAvatarShape,
+  organizationBackground: organizationBackgroundShape,
   updateOrganization: React.PropTypes.func,
 };
 

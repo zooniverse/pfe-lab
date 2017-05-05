@@ -4,6 +4,7 @@ const initialState = {
   initialized: false,
   organization: null,
   organizationAvatar: {},
+  organizationBackground: {},
   organizationCollaborators: null,
   organizationOwner: null,
   organizationProjects: [],
