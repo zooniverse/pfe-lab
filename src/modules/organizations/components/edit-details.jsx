@@ -20,7 +20,7 @@ const EditDetails = (props) => {
           <div>
             <ImageSelector
               label="Avatar"
-              handleMediaChange={props.handleMediaChange}
+              onChange={props.handleMediaChange}
               maxSize={props.maxAvatarSize}
               resourceSrc={props.organizationAvatar.src}
               resourceType="avatar"
@@ -31,7 +31,7 @@ const EditDetails = (props) => {
           <div>
             <ImageSelector
               label="Background"
-              handleMediaChange={props.handleMediaChange}
+              onChange={props.handleMediaChange}
               maxBackgroundSize={props.maxBackgroundSize}
               resourceType="background"
             />

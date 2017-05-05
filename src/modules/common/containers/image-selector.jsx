@@ -8,31 +8,10 @@ class ImageSelector extends React.Component {
     super(props);
 
     this.state = {
-      height: '',
-      width: 'auto',
       working: false
     };
 
-    this.updateWidth = this.updateWidth.bind(this);
     this.handleChange = this.handleChange.bind(this);
-  }
-
-  componentDidMount() {
-    addEventListener('resize', this.updateWidth);
-    this.updateWidth()
-  }
-
-  componentWillUnmount() {
-    removeEventListener('resize', this.updateWidth);
-  }
-
-  updateWidth() {
-    const img = new Image();
-    img.onload = () => {
-      const { naturalWidth, naturalHeight } = img;
-      this.setState({ height: naturalHeight, width: naturalWidth });
-    };
-    img.src = this.props.resourceSrc;
   }
 
   cropImage(srcImg, srcFile) {
@@ -72,7 +51,7 @@ class ImageSelector extends React.Component {
         this.setState({ working: false });
 
         img.title = srcFile.name;
-        this.props.handleMediaChange(toBlob(dataURL), img);
+        this.props.onChange(toBlob(dataURL), img);
       }
     } catch (e) {
       this.setState({ working: false });
@@ -82,9 +61,9 @@ class ImageSelector extends React.Component {
   }
 
   handleChange(e) {
-    console.log('event', event.target)
-    if (e.target.files.length !== 0) {
-      const [file] = e.target.files;
+    // TODO: why is the proxy event in an array?
+    if (e[0].target.files.length !== 0) {
+      const [file] = e[0].target.files;
       this.setState({ working: true });
 
       const reader = new FileReader();
@@ -93,7 +72,7 @@ class ImageSelector extends React.Component {
         img.onload = () => {
           this.cropImage(img, file);
         };
-        img.src = e.target.result;
+        img.src = event.target.result;
       };
       reader.readAsDataURL(file);
     }
@@ -101,18 +80,22 @@ class ImageSelector extends React.Component {
   }
 
   render() {
+    const uploaderClass = (this.props.resourceSrc) ? 'image-selector__uploader--without-border' : 'image-selector__uploader';
+
     return (
       <div className="image-selector" ref={(node) => { this.imageSelector = node; }}>
-        <label className="image-selector__label">
-          {this.props.label}
-          <DragAndDropTarget onDrop={this.handleChange.bind(this, this.props.resourceType)} style={{height: this.state.height, width: this.state.width}}>
-            {!this.props.resourceSrc &&
-              <p className="image-selector__placeholder">Drop an image here</p>}
-            {this.props.resourceSrc &&
-              <Thumbnail src={this.props.resourceSrc} width={160} />}
-            <FileButton onSelect={this.handleChange} />
-          </DragAndDropTarget>
-        </label>
+        <p className="image-selector__label">{this.props.label}</p>
+        <div className={uploaderClass}>
+          <FileButton accept="image/*" onSelect={this.handleChange} rootStyle={{ position: "absolute" }} disabled={this.state.working} />
+          {!this.props.resourceSrc && !this.state.working &&
+            <p className="image-selector__placeholder">Drop an image here</p>}
+          {this.props.resourceSrc &&
+            <Thumbnail src={this.props.resourceSrc} width={160} />}
+          {this.state.working &&
+            <p className="image-selector__loader">
+              <i className="fa fa-spinner fa-pulse fa-2x fa-fw" aria-label="Loading" />
+            </p>}
+        </div>
       </div>
     );
   }
@@ -120,10 +103,10 @@ class ImageSelector extends React.Component {
 
 ImageSelector.propTypes = {
   baseExpansion: React.PropTypes.number,
-  handleMediaChange: React.PropTypes.func.isRequired,
   label: React.PropTypes.string,
   minArea: React.PropTypes.number,
   maxSize: React.PropTypes.number,
+  onChange: React.PropTypes.func.isRequired,
   ratio: React.PropTypes.number,
   reductionPerPass: React.PropTypes.number,
   resourceSrc: React.PropTypes.string.isRequired,
@@ -132,9 +115,9 @@ ImageSelector.propTypes = {
 
 ImageSelector.defaultProps = {
   baseExpansion: 3 / 4,
-  handleMediaChange: () => {},
   maxSize: Infinity,
   minArea: 300,
+  onChange: () => {},
   reductionPerPass: 0.05,
   resourceSrc: '',
   ratio: NaN
