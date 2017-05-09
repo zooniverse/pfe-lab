@@ -39,6 +39,7 @@ class AboutContainer extends React.Component {
     return (
       <div>
         <EditAbout />
+        { this.props.children }
       </div>
     );
   }
@@ -48,9 +49,6 @@ AboutContainer.propTypes = {
   children: React.PropTypes.node,
   dispatch: React.PropTypes.func,
   organization: organizationShape,
-  user: React.PropTypes.shape({
-    id: React.PropTypes.string,
-  }),
 };
 
 function mapStateToProps(state) {
