@@ -7,6 +7,7 @@ const initialState = {
   organizationBackground: {},
   organizationCollaborators: null,
   organizationOwner: null,
+  organizationPages: [],
   organizationProjects: [],
   organizationRoles: null,
   organizationsAvatars: [],

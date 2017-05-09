@@ -34,3 +34,8 @@ export const organizationAvatarShape = React.PropTypes.shape({
 export const organizationBackgroundShape = React.PropTypes.shape({
   src: React.PropTypes.string
 });
+
+export const organizationPageShape = React.PropTypes.shape({
+  id: React.PropTypes.string,
+  url_key: React.PropTypes.string,
+});
