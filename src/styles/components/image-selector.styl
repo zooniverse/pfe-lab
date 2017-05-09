@@ -31,3 +31,21 @@
   &__loader
     display: flex
     justify-content: center
+
+  &__thumbnail
+    position: relative
+
+  &__delete-button
+    @extends $reset-button
+    background: white
+    border-radius: 50%
+    color: black
+    font-size: 0.8em
+    line-height: 1em
+    padding: 0.1em 0.25em
+    position: absolute
+    right: -7px
+    top: -7px
+
+    &:focus, &:hover
+      color: ALERT_COLOR

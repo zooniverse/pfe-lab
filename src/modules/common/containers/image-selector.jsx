@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Thumbnail, FileButton } from 'zooniverse-react-components';
 import toBlob from 'data-uri-to-blob';
 
@@ -91,17 +90,33 @@ class ImageSelector extends React.Component {
   }
 
   render() {
+    // TODO: Add prop to switch from using the FileButton to a button
+    // that triggers modal with a media selection view of already uploaded attached images.
+    // This would be for reuse with projects when they get added to pfe-lab
     const uploaderClass = (this.props.resourceSrc) ? 'image-selector__uploader--without-border' : 'image-selector__uploader';
 
     return (
-      <div className="image-selector" ref={(node) => { this.imageSelector = node; }}>
-        <p className="image-selector__label">{this.props.label}</p>
+      <div className="image-selector">
+        {this.props.label &&
+          <p className="image-selector__label">{this.props.label}</p>}
         <div className={uploaderClass}>
           <FileButton accept="image/*" onSelect={this.handleChange} rootStyle={{ position: "absolute" }} disabled={this.state.working} />
           {!this.props.resourceSrc && !this.state.working &&
             <p className="image-selector__placeholder">Drop an image here</p>}
           {this.props.resourceSrc &&
-            <Thumbnail src={this.props.resourceSrc} width={160} />}
+            <div className="image-selector__thumbnail">
+              <Thumbnail src={this.props.resourceSrc} width={160} />
+              {this.props.allowDelete &&
+                <button
+                  type="button"
+                  aria-label="Delete"
+                  className="image-selector__delete-button"
+                  disabled={this.props.deleting}
+                  onClick={this.props.onDelete.bind(null, this.props.resourceType)}
+                >
+                  &times;
+                </button>}
+            </div>}
           {this.state.working &&
             <p className="image-selector__loader">
               <i className="fa fa-spinner fa-pulse fa-2x fa-fw" aria-label="Loading" />
@@ -113,11 +128,14 @@ class ImageSelector extends React.Component {
 }
 
 ImageSelector.propTypes = {
+  allowDelete: React.PropTypes.bool,
   baseExpansion: React.PropTypes.number,
+  deleting: React.PropTypes.bool,
   label: React.PropTypes.string,
   minArea: React.PropTypes.number,
   maxSize: React.PropTypes.number,
   onChange: React.PropTypes.func.isRequired,
+  onDelete: React.PropTypes.func,
   ratio: React.PropTypes.number,
   reductionPerPass: React.PropTypes.number,
   resourceSrc: React.PropTypes.string.isRequired,
@@ -125,10 +143,13 @@ ImageSelector.propTypes = {
 };
 
 ImageSelector.defaultProps = {
+  allowDelete: false,
   baseExpansion: 3 / 4,
+  deleting: false,
   maxSize: Infinity,
   minArea: 300,
   onChange: () => {},
+  onDelete: () => {},
   reductionPerPass: 0.05,
   resourceSrc: '',
   ratio: NaN

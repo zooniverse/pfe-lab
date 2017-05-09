@@ -46,7 +46,7 @@ class OrganizationContainer extends React.Component {
       return;
     }
 
-    apiClient.type('organizations').get(id.toString(), { include: 'avatar,background' })
+    apiClient.type('organizations').get(id.toString(), { include: 'avatar' })
       .then((org) => {
         this.props.dispatch(setCurrentOrganization(org));
       });

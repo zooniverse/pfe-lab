@@ -19,8 +19,10 @@ const EditDetails = (props) => {
         <aside className="forms__aside">
           <div>
             <ImageSelector
+              allowDelete={false}
               label="Avatar"
               onChange={props.handleMediaChange}
+              onDelete={props.handleMediaDelete}
               maxSize={props.maxAvatarSize}
               resourceSrc={props.organizationAvatar.src}
               resourceType="avatar"
@@ -30,6 +32,7 @@ const EditDetails = (props) => {
           <hr />
           <div>
             <ImageSelector
+              allowDelete={false}
               label="Background"
               onChange={props.handleMediaChange}
               maxBackgroundSize={props.maxBackgroundSize}
@@ -59,7 +62,9 @@ const EditDetails = (props) => {
 EditDetails.propTypes = {
   deleteOrganization: React.PropTypes.func,
   deletionInProgress: React.PropTypes.bool,
+  deletingMedia: React.PropTypes.bool,
   handleMediaChange: React.PropTypes.func,
+  handleMediaDelete: React.PropTypes.func,
   maxAvatarSize: React.PropTypes.number,
   maxBackgroundSize: React.PropTypes.number,
   organization: organizationShape,

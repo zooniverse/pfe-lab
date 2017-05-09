@@ -29,27 +29,35 @@ class EditDetailsContainer extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    this.props.dispatch(setOrganizationAvatar({}));
+    this.props.dispatch(setOrganizationBackground({}));
+  }
+
   fetchAvatar(org) {
-    apiClient.type('avatars').get(org.links.avatar.id)
-      .then((avatar) => {
-        this.props.dispatch(setOrganizationAvatar(avatar));
-      }).catch((error) => {
-        if (error.status !== 404) console.error(error);
-      });;
+    if (org.links.avatar.id) {
+      apiClient.type('avatars').get(org.links.avatar.id)
+        .then((avatar) => {
+          this.props.dispatch(setOrganizationAvatar(avatar));
+        }).catch((error) => {
+          if (error.status !== 404) console.error(error);
+        });
+    }
   }
 
   fetchBackground(org) {
-    apiClient.type('backgrounds').get(org.links.background.id)
-      .then((background) => {
-        this.props.dispatch(setOrganizationBackground(background));
-      }).catch((error) => {
-        if (error.status !== 404) console.error(error);
-      });
+    if (org.links.background.id) {
+      apiClient.type('backgrounds').get(org.links.background.id)
+        .then((background) => {
+          this.props.dispatch(setOrganizationBackground(background));
+        }).catch((error) => {
+          if (error.status !== 404) console.error(error);
+        });
+    }
   }
 
   handleMediaChange(type, file) {
-    console.log('media change', type, file.type);
-    apiClient.post(this.props.organization._getURL(type), { media: { content_type: file.type }})
+    apiClient.post(this.props.organization._getURL(type), { media: { content_type: file.type } })
       .then(([resource]) => {
         const headers = new Headers();
         const params = {
@@ -62,15 +70,24 @@ class EditDetailsContainer extends React.Component {
         fetch(resource.src, params)
           .then((response) => {
             if (response.ok) {
-              console.log('ok!')
-              this.props.organization.uncacheLink(type);
-              this.props.organization.refresh()
-                .then((organization) => {
-                  console.log('refreshed organization', organization)
+              this.refreshOrganization(type)
+                .then(([organization]) => {
+                  this.props.dispatch(setCurrentOrganization(organization));
+                  if (type === 'avatar') {
+                    this.fetchAvatar(organization);
+                  }
+                  if (type === 'background') {
+                    this.fetchBackground(organization);
+                  }
                 });
             }
           }).catch(e => console.error(e));
       }).catch(e => console.error(e));
+  }
+
+  refreshOrganization(resourceLinkToUncache) {
+    this.props.organization.uncacheLink(resourceLinkToUncache);
+    return this.props.organization.refresh();
   }
 
   render() {
@@ -102,7 +119,7 @@ EditDetailsContainer.defaultProps = {
   deleteOrganization: () => {},
   deletionInProgress: false,
   updateOrganization: () => {}
-}
+};
 
 function mapStateToProps(state) {
   return {
