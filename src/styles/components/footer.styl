@@ -52,10 +52,11 @@ footer
       width: 100%
 
   .footer-admin-toggle
-    display: inline-block
     color: white
+    display: inline-block
     margin-left: -1em
     padding: 0.5em 1em
 
     &--active
+      @extends footer .footer-admin-toggle
       background: red

@@ -35,6 +35,7 @@
       'ignoreUrls': true,
       'ignoreComments': false
     }],
-    "radix": ["error", "as-needed"]
+    "radix": ["error", "as-needed"],
+    "comma-dangle": "off"
   }
 }

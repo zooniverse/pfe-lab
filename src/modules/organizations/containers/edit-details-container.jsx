@@ -35,7 +35,7 @@ class EditDetailsContainer extends React.Component {
   }
 
   fetchAvatar(org) {
-    if (org.links.avatar.id) {
+    if (org.links.avatar && org.links.avatar.id) {
       apiClient.type('avatars').get(org.links.avatar.id)
         .then((avatar) => {
           this.props.dispatch(setOrganizationAvatar(avatar));
@@ -46,7 +46,7 @@ class EditDetailsContainer extends React.Component {
   }
 
   fetchBackground(org) {
-    if (org.links.background.id) {
+    if (org.links.background && org.links.background.id) {
       apiClient.type('backgrounds').get(org.links.background.id)
         .then((background) => {
           this.props.dispatch(setOrganizationBackground(background));

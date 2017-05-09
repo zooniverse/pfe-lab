@@ -2,9 +2,9 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
 
-import { organizations, avatars } from './test-data';
+import { organizations, avatars } from '../test-data';
 
-import OrganizationsList from '../../../src/modules/organizations/components/organizations-list';
+import OrganizationsList from '../../../../src/modules/organizations/components/organizations-list';
 
 describe('OrganizationsList', () => {
   const wrapper = shallow(

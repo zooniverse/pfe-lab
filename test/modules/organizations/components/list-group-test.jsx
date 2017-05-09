@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
-import ListGroup from '../../../src/modules/organizations/components/list-group';
-import { organizations, avatars } from './test-data';
+import ListGroup from '../../../../src/modules/organizations/components/list-group';
+import { organizations, avatars } from '../test-data';
 
 
 describe('ListGroup', () => {

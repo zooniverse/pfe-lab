@@ -6,10 +6,10 @@ import { expect } from 'chai';
 
 import configureStore from 'redux-mock-store';
 
-import { user } from '../users/test-data';
-import { organization as sampleOrganization } from './test-data';
+import { user } from '../../users/test-data';
+import { organization as sampleOrganization } from '../test-data';
 
-import OrganizationContainer from '../../../src/modules/organizations/containers/organization-container';
+import OrganizationContainer from '../../../../src/modules/organizations/containers/organization-container';
 
 const initialState = {
   user,

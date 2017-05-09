@@ -27,16 +27,19 @@ export default class FormContainer extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     this.setState({ submitting: true });
-    this.props.onSubmit();
-    this.hideButtons();
+    Promise.resolve(this.props.onSubmit())
+      .then(() => {
+        this.setState({ submitting: false });
+        this.hideButtons();
+      }).catch(error => console.error(error));
   }
 
   hideButtons() {
     if (this.state.submitting) {
-      return this.setState({ show: false, submitting: false });
+      this.setState({ show: false, submitting: false });
     }
 
-    return this.setState({ show: false });
+    this.setState({ show: false });
   }
 
   render() {
