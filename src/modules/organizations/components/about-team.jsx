@@ -1,8 +1,11 @@
 import React from 'react';
+import AboutPageEditorContainer from '../containers/about-page-editor-container';
 
-const EditTeam = () =>
+const AboutTeam = () =>
   <div>
-    <h5>Team team team!</h5>
+    <p>The site will show your team members and their roles to the side of the text.
+    Additional team information may be provided below.</p>
+    <AboutPageEditorContainer pageKey="team" />
   </div>;
 
-export default EditTeam;
+export default AboutTeam;

@@ -1,8 +1,8 @@
 import React from 'react';
 
-const EditResults = () =>
+const AboutResults = () =>
   <div>
     <h5>Amazing results!</h5>
   </div>;
 
-export default EditResults;
+export default AboutResults;

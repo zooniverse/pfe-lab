@@ -1,8 +1,8 @@
 import React from 'react';
 
-const EditEducation = () =>
+const AboutEducation = () =>
   <div>
     <h5>Learn more...</h5>
   </div>;
 
-export default EditEducation;
+export default AboutEducation;

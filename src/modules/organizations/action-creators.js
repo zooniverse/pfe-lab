@@ -42,10 +42,10 @@ export function setOrganizationOwner(organizationOwner) {
   };
 }
 
-export function setOrganizationPages(organizationPages) {
+export function setOrganizationPage(organizationPage) {
   return {
-    type: types.SET_ORGANIZATION_PAGES,
-    organizationPages,
+    type: types.SET_ORGANIZATION_PAGE,
+    organizationPage,
   };
 }
 
