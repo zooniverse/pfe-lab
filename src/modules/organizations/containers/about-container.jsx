@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import apiClient from 'panoptes-client/lib/api-client';
 import { organizationShape, organizationPageShape } from '../model';
 import AboutPageEditor from '../components/about-page-editor';
 import { setOrganizationPage } from '../action-creators';
@@ -52,6 +53,20 @@ class AboutContainer extends React.Component {
     organization.get('pages')
       .catch((error) => { console.error(error); })
       .then((pages) => {
+        if (pages.length === 0) {
+          const params = {
+            organization_pages: {
+              url_key: 'about',
+              title: 'About',
+              language: organization.primary_language,
+            },
+          };
+          apiClient.post(organization._getURL('pages'), params)
+            .catch((error) => { console.error(error); })
+            .then((newPage) => {
+              this.props.dispatch(setOrganizationPage(newPage[0]));
+            });
+        }
         const organizationPage = pages.filter(page => page.url_key === 'about');
         if (organizationPage.length === 1) {
           return organizationPage[0];
