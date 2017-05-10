@@ -5,10 +5,15 @@ import { organizationShape, organizationPageShape } from '../model';
 import AboutPageEditor from '../components/about-page-editor';
 import { setOrganizationPage } from '../action-creators';
 
-class AboutPageEditorContainer extends React.Component {
+class AboutContainer extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      saving: null,
+    };
+
+    this.updateContent = this.updateContent.bind(this);
     this.fetchPage = this.fetchPage.bind(this);
   }
 
@@ -22,17 +27,32 @@ class AboutPageEditorContainer extends React.Component {
     }
   }
 
-  fetchPage(organization = this.props.organization, pageKey = this.props.pageKey) {
+  componentWillUnmount() {
+    this.props.dispatch(setOrganizationPage(null));
+  }
+
+  updateContent(page, newContent) {
+    this.setState({ saving: page.id });
+
+    page.update({ content: newContent }).save()
+      .catch((error) => { console.error(error); })
+      .then((updatedPage) => {
+        this.props.dispatch(setOrganizationPage(updatedPage));
+      })
+      .then(() => {
+        this.setState({ saving: null });
+      });
+  }
+
+  fetchPage(organization = this.props.organization) {
     if (!organization) {
       return;
     }
 
-    // TODO configure API to accept url_key param on organization_pages end-point to return single page
-
     organization.get('pages')
       .catch((error) => { console.error(error); })
       .then((pages) => {
-        const organizationPage = pages.filter(page => page.url_key === pageKey);
+        const organizationPage = pages.filter(page => page.url_key === 'about');
         if (organizationPage.length === 1) {
           return organizationPage[0];
         }
@@ -45,14 +65,17 @@ class AboutPageEditorContainer extends React.Component {
 
   render() {
     return (
-      <AboutPageEditor page={this.props.organizationPage} />
+      <AboutPageEditor
+        organizationPage={this.props.organizationPage}
+        saving={this.state.saving}
+        updateContent={this.updateContent}
+      />
     );
   }
 }
 
-AboutPageEditorContainer.propTypes = {
+AboutContainer.propTypes = {
   dispatch: React.PropTypes.func,
-  pageKey: React.PropTypes.string,
   organization: organizationShape,
   organizationPage: organizationPageShape,
 };
@@ -64,4 +87,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(AboutPageEditorContainer);
+export default connect(mapStateToProps)(AboutContainer);

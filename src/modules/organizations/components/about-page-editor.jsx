@@ -1,25 +1,36 @@
 import React from 'react';
 import { organizationPageShape } from '../model';
 
-const AboutPageEditor = ({ page }) => {
-  if (!page) {
+const AboutPageEditor = ({ organizationPage, saving, updateContent }) => {
+  if (!organizationPage) {
     return <div>Loading...</div>;
   }
 
+  const onChange = (page, event) => {
+    updateContent(page, event.target.value);
+  };
+
   return (
     <div>
-      <p>Enter content here:</p>
-      <textarea value={page.content} />
+      <p>
+        In this section:<br />
+        Header 1 will appear <strong>orange</strong>.<br />
+        Headers 2 - 6 and hyperlinks will appear <strong>dark-blue</strong>.
+      </p>
+      <textarea rows="10" cols="50" value={organizationPage.content} onChange={onChange.bind(this, organizationPage)} />
+      <p>{(saving !== null) ? 'Saving...' : 'Saved'}</p>
     </div>
   );
 };
 
 AboutPageEditor.defaultProps = {
-  page: {},
+  organizationPage: {},
 };
 
 AboutPageEditor.propTypes = {
-  page: organizationPageShape,
+  organizationPage: organizationPageShape,
+  saving: React.PropTypes.string,
+  updateContent: React.PropTypes.func,
 };
 
 export default AboutPageEditor;
