@@ -19,7 +19,7 @@ class DetailsFormContainer extends React.Component {
   collectValues() {
     const result = {};
     Object.keys(this.fields).forEach((fieldName) => {
-      result[fieldName] = this.fields[fieldName].value;
+      result[fieldName] = this.fields[fieldName].value();
     });
     return result;
   }
@@ -44,7 +44,7 @@ class DetailsFormContainer extends React.Component {
       <FormContainer onSubmit={this.handleSubmit} onReset={this.resetOrganization}>
         <fieldset className="form__fieldset">
           <label className="form__label" htmlFor="display-name">
-            Name <NameInput className="form__input form__input--full-width" id="display-name"  ref={(node) => { this.fields = { display_name: node }; }} />
+            Name <NameInput className="form__input form__input--full-width" id="display-name" ref={(node) => { this.fields = { display_name: node }; }} />
           </label>
           <small className="form__help">
             {this.props.organization.listed_at && "You cannot change listed organization's name" }
@@ -61,7 +61,6 @@ class DetailsFormContainer extends React.Component {
             <CharLimit limit={300} string={this.props.organization.description || ''} />
           </small>
         </fieldset>
-
       </FormContainer>
     );
   }

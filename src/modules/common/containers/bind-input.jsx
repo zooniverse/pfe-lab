@@ -19,6 +19,10 @@ function bindInput(changeableValue, ComposedComponent) {
       }
     }
 
+    value() {
+      return this.state.value;
+    }
+
     render() {
       let props;
 
