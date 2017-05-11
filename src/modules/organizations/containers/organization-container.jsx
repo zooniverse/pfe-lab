@@ -18,7 +18,6 @@ class OrganizationContainer extends React.Component {
 
     this.deleteOrganization = this.deleteOrganization.bind(this);
     this.fetchOrganization = this.fetchOrganization.bind(this);
-    this.resetOrganization = this.resetOrganization.bind(this);
     this.updateOrganization = this.updateOrganization.bind(this);
   }
 
@@ -42,16 +41,12 @@ class OrganizationContainer extends React.Component {
       }).catch(error => console.error(error));
   }
 
-  resetOrganization() {
-    this.props.dispatch(setCurrentOrganization(this.props.organization));
-  }
-
   fetchOrganization(id) {
     if (!id) {
       return;
     }
 
-    apiClient.type('organizations').get(id.toString())
+    apiClient.type('organizations').get(id.toString(), { include: 'avatar' })
       .then((org) => {
         this.props.dispatch(setCurrentOrganization(org));
       });
@@ -85,17 +80,14 @@ class OrganizationContainer extends React.Component {
       React.cloneElement(child, {
         organization,
         organizationId,
-        resetOrganization: this.resetOrganization,
         updateOrganization: this.updateOrganization,
+        deleteOrganization: this.deleteOrganization,
+        deletionInProgress: this.state.deletionInProgress,
       }),
     );
 
     return (
-      <OrganizationLayout
-        deleteOrganization={this.deleteOrganization}
-        deletionInProgress={this.state.deletionInProgress}
-        organizationId={organizationId}
-      >
+      <OrganizationLayout organizationId={organizationId}>
         {wrappedChildren}
       </OrganizationLayout>
     );

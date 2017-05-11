@@ -67,18 +67,19 @@ class CollaboratorCreatorContainer extends React.Component {
         submitting={this.state.submitting}
         submitLabel="Add user role"
       >
-        <h3 className="form-label">Add another user role</h3>
-        <fieldset>
-          <UserSearch ref={(input) => { this.userSearch = input; }} />
+        <h3>Add another user role</h3>
+        <fieldset className="form__fieldset">
+          <label htmlFor="user-search" className="form__label">Find a user</label>
+          <UserSearch id="user-search" ref={(input) => { this.userSearch = input; }} />
         </fieldset>
 
-        <fieldset>
+        <fieldset className="form__fieldset">
           <dl>
             {Object.keys(this.props.possibleRoles).map((role, i) => {
               return (
                 <span key={ID_PREFIX + role}>
                   <dt>
-                    <strong><label htmlFor={ID_PREFIX + role}>
+                    <strong><label className="form__label" htmlFor={ID_PREFIX + role}>
                       <input
                         ref={(input) => { this[ID_PREFIX + role] = input; }}
                         id={ID_PREFIX + role}

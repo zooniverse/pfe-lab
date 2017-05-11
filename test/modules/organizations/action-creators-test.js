@@ -8,7 +8,9 @@ import {
   setOrganizationCollaborators,
   setOrganizationOwner,
   setOrganizationProjects,
-  setOrganizationsAvatars
+  setOrganizationsAvatars,
+  setOrganizationAvatar,
+  setOrganizationBackground
 } from '../../../src/modules/organizations/action-creators';
 import {
   organizations,
@@ -17,6 +19,8 @@ import {
   organizationOwner,
   organizationsAvatars,
   projects,
+  organizationAvatar,
+  organizationBackground
 } from './test-data';
 
 describe('OrganizationActionCreators', () => {
@@ -82,5 +86,23 @@ describe('OrganizationActionCreators', () => {
     expect(setOrganizationsAvatarsAction.organizationsAvatars).to.have.length(organizationsAvatars.length);
     expect(setOrganizationsAvatarsAction.type).to.equal(actionTypes.SET_ORGANIZATIONS_AVATARS);
     expect(setOrganizationsAvatarsAction.organizationsAvatars[0].src).to.equal(organizationsAvatars[0].src);
+  });
+
+  it('should build the setOrganizationAvatar action as expected', function() {
+    const setOrganizationAvatarAction = setOrganizationAvatar(organizationAvatar);
+
+    expect(setOrganizationAvatarAction.organizationAvatar).to.not.be.null;
+    expect(setOrganizationAvatarAction.organizationAvatar).to.be.an('object');
+    expect(setOrganizationAvatarAction.type).to.equal(actionTypes.SET_ORGANIZATION_AVATAR);
+    expect(setOrganizationAvatarAction.organizationAvatar.src).to.equal(organizationAvatar.src);
+  });
+
+  it('should build the setOrganizationBackground action as expected', function() {
+    const setOrganizationBackgroundAction = setOrganizationBackground(organizationBackground);
+
+    expect(setOrganizationBackgroundAction.organizationBackground).to.not.be.null;
+    expect(setOrganizationBackgroundAction.organizationBackground).to.be.an('object');
+    expect(setOrganizationBackgroundAction.type).to.equal(actionTypes.SET_ORGANIZATION_BACKGROUND);
+    expect(setOrganizationBackgroundAction.organizationBackground.src).to.equal(organizationBackground.src);
   });
 });

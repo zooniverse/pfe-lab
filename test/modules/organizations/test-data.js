@@ -59,6 +59,12 @@ export const organizationsAvatars = [
   { src: 'avatar.jpg' }
 ];
 
+export const organizationAvatar = organizationsAvatars[0];
+
+export const organizationBackground = {
+  src: 'background.jpg'
+};
+
 export const setCurrentOrganizationAction = {
   type: actionTypes.SET_CURRENT_ORGANIZATION,
   organization,
@@ -92,6 +98,16 @@ export const setOrganizationProjectsAction = {
 export const setOrganizationsAvatarsAction = {
   type: actionTypes.SET_ORGANIZATIONS_AVATARS,
   organizationsAvatars
+};
+
+export const setOrganizationAvatarAction = {
+  type: actionTypes.SET_ORGANIZATION_AVATAR,
+  organizationAvatar
+};
+
+export const setOrganizationBackgroundAction = {
+  type: actionTypes.SET_ORGANIZATION_BACKGROUND,
+  organizationBackground
 };
 
 export const bogusAction = {

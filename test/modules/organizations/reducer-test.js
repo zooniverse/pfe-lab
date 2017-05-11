@@ -9,6 +9,8 @@ import {
   organizationOwner,
   organizationsAvatars,
   projects,
+  organizationAvatar,
+  organizationBackground,
   setCurrentOrganizationAction,
   setCollaboratedOrganizationsAction,
   setOwnedOrganizationsAction,
@@ -16,6 +18,8 @@ import {
   setOrganizationOwnerAction,
   setOrganizationProjectsAction,
   setOrganizationsAvatarsAction,
+  setOrganizationAvatarAction,
+  setOrganizationBackgroundAction,
   bogusAction,
 } from './test-data';
 
@@ -91,6 +95,20 @@ describe('OrganizationsReducer', () => {
       expect(newState.organizationsAvatars).to.not.be.null;
       expect(newState.organizationsAvatars).to.have.lengthOf(organizationsAvatars.length);
       expect(newState.organizationsAvatars[0].src).to.equal(organizationsAvatars[0].src);
+    });
+
+    it('should put a new avatar into state on receiving a SET_ORGANIZATION_AVATAR', function() {
+      const newState = reducer(initialState, setOrganizationAvatarAction);
+
+      expect(newState.organizationAvatar).to.not.be.null;
+      expect(newState.organizationAvatar.src).to.equal(organizationAvatar.src);
+    });
+
+    it('should put a new background into state on receiving a SET_ORGANIZATION_BACKGROUND', function() {
+      const newState = reducer(initialState, setOrganizationBackgroundAction);
+
+      expect(newState.organizationBackground).to.not.be.null;
+      expect(newState.organizationBackground.src).to.equal(organizationBackground.src);
     });
   });
 });
