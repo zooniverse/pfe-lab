@@ -36,6 +36,7 @@
   "dependencies": {
     "Zooniverse-React-Components": "git+ssh://git@github.com/zooniverse/Zooniverse-React-Components.git#v0.1.2",
     "classnames": "^2.2.5",
+    "data-uri-to-blob": "^0.0.4",
     "history": "^4.4.1",
     "markdownz": "^7.0.1",
     "panoptes-client": "^2.7.1",
