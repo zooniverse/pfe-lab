@@ -1,9 +1,19 @@
 import React from 'react';
 import { organizationPageShape } from '../model';
 
-const AboutPageEditor = ({ organizationPage, saving, updateContent }) => {
+const AboutPageEditor = ({ createPage, organizationPage, saving, updateContent }) => {
   if (!organizationPage) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        <p>This page is for you to provide volunteers with additional information about your organization...</p>
+        <button
+          type="button"
+          onClick={createPage}
+        >
+          Create About page
+        </button>
+      </div>
+    );
   }
 
   const onChange = (page, event) => {
@@ -23,7 +33,7 @@ const AboutPageEditor = ({ organizationPage, saving, updateContent }) => {
         value={organizationPage.content ? organizationPage.content : ''}
         onChange={onChange.bind(this, organizationPage)}
       />
-      <p>{(saving !== null) ? 'Saving...' : 'Saved'}</p>
+      <p>{saving ? 'Saving...' : 'Saved'}</p>
     </div>
   );
 };
@@ -33,8 +43,9 @@ AboutPageEditor.defaultProps = {
 };
 
 AboutPageEditor.propTypes = {
+  createPage: React.PropTypes.func,
   organizationPage: organizationPageShape,
-  saving: React.PropTypes.string,
+  saving: React.PropTypes.bool,
   updateContent: React.PropTypes.func,
 };
 
