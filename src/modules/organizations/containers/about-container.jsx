@@ -1,9 +1,12 @@
+/* eslint-disable no-underscore-dangle */
 import React from 'react';
 import { connect } from 'react-redux';
-
 import apiClient from 'panoptes-client/lib/api-client';
+
+import bindInput from '../../common/containers/bind-input';
+import FormContainer from '../../common/containers/form-container';
+import CharLimit from '../../common/components/char-limit';
 import { organizationShape, organizationPageShape } from '../model';
-import AboutPageEditor from '../components/about-page-editor';
 import { setCurrentOrganization, setOrganizationPage } from '../action-creators';
 
 class AboutContainer extends React.Component {
@@ -14,9 +17,12 @@ class AboutContainer extends React.Component {
       saving: false,
     };
 
-    this.createPage = this.createPage.bind(this);
     this.fetchPage = this.fetchPage.bind(this);
-    this.updateContent = this.updateContent.bind(this);
+    this.createPage = this.createPage.bind(this);
+    this.collectValues = this.collectValues.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.updatePageContent = this.updatePageContent.bind(this);
+    this.resetOrganizationPage = this.resetOrganizationPage.bind(this);
   }
 
   componentDidMount() {
@@ -74,27 +80,68 @@ class AboutContainer extends React.Component {
       });
   }
 
-  updateContent(page, newContent) {
-    this.setState({ saving: true });
+  collectValues() {
+    const result = {};
+    Object.keys(this.fields).forEach((fieldName) => {
+      result[fieldName] = this.fields[fieldName].value();
+    });
+    return result;
+  }
 
-    page.update({ content: newContent }).save()
+  handleSubmit() {
+    const patch = this.collectValues();
+    this.updatePageContent(patch);
+  }
+
+  updatePageContent(patch) {
+    this.props.organizationPage.update(patch).save()
     .catch((error) => { console.error(error); })
     .then((updatedPage) => {
       this.props.dispatch(setOrganizationPage(updatedPage));
-    })
-    .then(() => {
-      this.setState({ saving: false });
     });
   }
 
+  resetOrganizationPage() {
+    this.props.dispatch(setOrganizationPage(this.props.organizationPage));
+  }
+
   render() {
+    if (!this.props.organizationPage) {
+      return (
+        <div>
+          <p>Loading...</p>
+        </div>
+      );
+    }
+
+    const organizationPage = this.props.organizationPage;
+    const PageContentInput = bindInput(organizationPage.content, <textarea rows="5" type="text" />);
+
     return (
-      <AboutPageEditor
-        createPage={this.createPage}
-        organizationPage={this.props.organizationPage}
-        saving={this.state.saving}
-        updateContent={this.updateContent}
-      />
+      <div>
+        <p>
+          In this section:<br />
+          Header 1 will appear <strong>orange</strong>.<br />
+          Headers 2 - 6 and hyperlinks will appear <strong>dark-blue</strong>.
+        </p>
+        <FormContainer onSubmit={this.handleSubmit} onReset={this.resetOrganizationPage}>
+          <fieldset className="form_fieldset">
+            <label className="form_label" htmlFor="content">
+              About Page Content:
+              <br />
+              <PageContentInput
+                className="form_input form__input--full-width"
+                id="content"
+                ref={(node) => { this.fields = { content: node }; }}
+              />
+            </label>
+            <small className="form_help">
+              This is help text. {' '}
+              <CharLimit limit={1000} string={this.props.organizationPage.content || ''} />
+            </small>
+          </fieldset>
+        </FormContainer>
+      </div>
     );
   }
 }
@@ -113,3 +160,7 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps)(AboutContainer);
+
+// TODO
+// on cancel changes don't dissappear
+// if make change, then save, then make more changes, can't save more changes
