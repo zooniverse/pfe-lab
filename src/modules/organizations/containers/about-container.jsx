@@ -2,10 +2,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import apiClient from 'panoptes-client/lib/api-client';
+import { MarkdownEditor } from 'markdownz';
 
-import bindInput from '../../common/containers/bind-input';
 import FormContainer from '../../common/containers/form-container';
-import CharLimit from '../../common/components/char-limit';
 import { organizationShape, organizationPageShape } from '../model';
 import { setCurrentOrganization, setOrganizationPage } from '../action-creators';
 
@@ -14,15 +13,16 @@ class AboutContainer extends React.Component {
     super(props);
 
     this.state = {
+      pageContent: '',
       saving: false,
     };
 
     this.fetchPage = this.fetchPage.bind(this);
     this.createPage = this.createPage.bind(this);
-    this.collectValues = this.collectValues.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updatePageContent = this.updatePageContent.bind(this);
     this.resetOrganizationPage = this.resetOrganizationPage.bind(this);
+    this.onTextAreaChange = this.onTextAreaChange.bind(this);
   }
 
   componentDidMount() {
@@ -39,23 +39,28 @@ class AboutContainer extends React.Component {
     this.props.dispatch(setOrganizationPage(null));
   }
 
+  onTextAreaChange(event) {
+    const pageContent = event.target.value;
+
+    this.setState({ pageContent });
+  }
+
   fetchPage(organization = this.props.organization) {
     if (!organization) {
       return;
     }
 
-    organization.get('pages')
-    .catch((error) => { console.error(error); })
+    organization.get('pages', { url_key: 'about' })
     .then((pages) => {
-      const organizationPage = pages.filter(page => page.url_key === 'about');
-      if (organizationPage.length === 1) {
-        return organizationPage[0];
+      if (pages.length > 0) {
+        const aboutPage = pages[0];
+        this.props.dispatch(setOrganizationPage(aboutPage));
+        this.setState({ pageContent: aboutPage.content });
       }
-      return null;
+
+      this.props.dispatch(setOrganizationPage({}));
     })
-    .then((page) => {
-      this.props.dispatch(setOrganizationPage(page));
-    });
+    .catch((error) => { console.error(error); });
   }
 
   createPage() {
@@ -67,10 +72,10 @@ class AboutContainer extends React.Component {
       },
     };
     apiClient.post(this.props.organization._getURL('pages'), params)
-      .catch((error) => { console.error(error); })
       .then(([newPage]) => {
         this.props.dispatch(setOrganizationPage(newPage));
       })
+      .catch((error) => { console.error(error); })
       .then(() => {
         this.props.organization.uncacheLink('pages');
         return this.props.organization.refresh();
@@ -80,17 +85,8 @@ class AboutContainer extends React.Component {
       });
   }
 
-  collectValues() {
-    const result = {};
-    Object.keys(this.fields).forEach((fieldName) => {
-      result[fieldName] = this.fields[fieldName].value();
-    });
-    return result;
-  }
-
   handleSubmit() {
-    const patch = this.collectValues();
-    this.updatePageContent(patch);
+    this.updatePageContent({ content: this.state.pageContent });
   }
 
   updatePageContent(patch) {
@@ -102,10 +98,12 @@ class AboutContainer extends React.Component {
   }
 
   resetOrganizationPage() {
-    this.props.dispatch(setOrganizationPage(this.props.organizationPage));
+    this.setState({ pageContent: '' });
   }
 
   render() {
+    // TODO: separate out into component
+
     if (!this.props.organizationPage) {
       return (
         <div>
@@ -114,31 +112,35 @@ class AboutContainer extends React.Component {
       );
     }
 
-    const organizationPage = this.props.organizationPage;
-    const PageContentInput = bindInput(organizationPage.content, <textarea rows="5" type="text" />);
+    if (Object.keys(this.props.organizationPage).length === 0) {
+      return (
+        <div>
+          <p>No about page is found.</p>
+          <button type="button" onClick={this.createPage}>Create a new about page</button>
+        </div>
+      );
+    }
 
     return (
       <div>
         <p>
-          In this section:<br />
-          Header 1 will appear <strong>orange</strong>.<br />
-          Headers 2 - 6 and hyperlinks will appear <strong>dark-blue</strong>.
+          Instructions...
         </p>
         <FormContainer onSubmit={this.handleSubmit} onReset={this.resetOrganizationPage}>
           <fieldset className="form_fieldset">
             <label className="form_label" htmlFor="content">
-              About Page Content:
+              About Page Content
               <br />
-              <PageContentInput
-                className="form_input form__input--full-width"
+              <MarkdownEditor
+                project={this.props.organization}
+                className="form__markdown-editor--full"
+                name="content"
                 id="content"
-                ref={(node) => { this.fields = { content: node }; }}
+                rows="20"
+                value={this.state.pageContent}
+                onChange={this.onTextAreaChange}
               />
             </label>
-            <small className="form_help">
-              This is help text. {' '}
-              <CharLimit limit={1000} string={this.props.organizationPage.content || ''} />
-            </small>
           </fieldset>
         </FormContainer>
       </div>
@@ -161,6 +163,4 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps)(AboutContainer);
 
-// TODO
-// on cancel changes don't dissappear
-// if make change, then save, then make more changes, can't save more changes
+// TODO: GET request is not behaving as expected: https://github.com/zooniverse/Panoptes/issues/2318
