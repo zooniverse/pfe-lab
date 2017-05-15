@@ -19,6 +19,26 @@ COBOLT_BLUE = #0072ff
 BURNT_ORANGE = #f48a21
 SUCCESS = #009E0C
 
+// $brand-color = ZOONIVERSE_TEAL
+// $brand-neutral-colors = #0a64a0, #dc2878, #501eb4, #49516f
+// $brand-accent-colors = #00cceb, #ff7d28
+// $brand-link-color = #865cd6
+.grommetux-background-color-index-error, .grommetux-background-color-index-critical
+  background-color: ALERT_COLOR
+
+.grommetux-background-color-index-ok
+  background-color: ZOONIVERSE_TEAL
+
+// $brand-status-colors = (critical = ALERT_COLOR, error = ALERT_COLOR, warning = HIGHLIGHT_COLOR, ok = TEAL_MID, unknown = #a8a8a8, disabled = #a8a8a8)
+// $brand-grey-colors = #000001, #333333, #3b3b3b, #434343, #666666
+//Function nth is not supported in Stylus
+//$button-secondary-color = nth($brand-neutral-colors, 2)
+// $brand-font-family = "Karla", Arial, sans-serif
+// $brand-large-number-font-family = "Karla", Arial, sans-serif
+// $code-font-family = Consolas, Menlo, "DejaVu Sans Mono", "Liberation Mono", monospace
+// $text-strong-font-weight = 500
+// $fonts-path = "https://fonts.gstatic.com/s/worksans/v2"
+
 @keyframes busy-animation
   from
     background-position: 0 0

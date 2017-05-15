@@ -15,7 +15,8 @@ import initialState from './initial-state';
 
 // Todo: let's find a better way to include Styles,
 // currently Styles looks like an unused var to eslint
-import Styles from './styles/main.styl'; // eslint-disable-line no-unused-vars
+import 'grommet/scss/vanilla/index.scss';
+import './styles/main.styl'; // eslint-disable-line no-unused-vars
 
 const store = configureStore(initialState);
 
