@@ -2,11 +2,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import apiClient from 'panoptes-client/lib/api-client';
-import { MarkdownEditor } from 'markdownz';
 
-import FormContainer from '../../common/containers/form-container';
 import { organizationShape, organizationPageShape } from '../model';
 import { setCurrentOrganization, setOrganizationPage } from '../action-creators';
+import AboutPage from '../components/about-page';
 
 class AboutContainer extends React.Component {
   constructor(props) {
@@ -102,48 +101,16 @@ class AboutContainer extends React.Component {
   }
 
   render() {
-    // TODO: separate out into component
-
-    if (!this.props.organizationPage) {
-      return (
-        <div>
-          <p>Loading...</p>
-        </div>
-      );
-    }
-
-    if (Object.keys(this.props.organizationPage).length === 0) {
-      return (
-        <div>
-          <p>No about page is found.</p>
-          <button type="button" onClick={this.createPage}>Create a new about page</button>
-        </div>
-      );
-    }
-
     return (
-      <div>
-        <p>
-          Instructions...
-        </p>
-        <FormContainer onSubmit={this.handleSubmit} onReset={this.resetOrganizationPage}>
-          <fieldset className="form_fieldset">
-            <label className="form_label" htmlFor="content">
-              About Page Content
-              <br />
-              <MarkdownEditor
-                project={this.props.organization}
-                className="form__markdown-editor--full"
-                name="content"
-                id="content"
-                rows="20"
-                value={this.state.pageContent}
-                onChange={this.onTextAreaChange}
-              />
-            </label>
-          </fieldset>
-        </FormContainer>
-      </div>
+      <AboutPage
+        createPage={this.createPage}
+        handleSubmit={this.handleSubmit}
+        onTextAreaChange={this.onTextAreaChange}
+        organization={this.props.organization}
+        organizationPage={this.props.organizationPage}
+        pageContent={this.state.pageContent}
+        resetOrganizationPage={this.resetOrganizationPage}
+      />
     );
   }
 }
