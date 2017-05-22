@@ -4002,9 +4002,9 @@ markdown-it-footnote@~3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/markdown-it-footnote/-/markdown-it-footnote-3.0.1.tgz#7f3730747cacc86e2fe0bf8a17a710f34791517a"
 
-"markdown-it-imsize@git://github.com/edpaget/markdown-it-imsize":
+"markdown-it-imsize@git://github.com/edpaget/markdown-it-imsize.git":
   version "2.0.1"
-  resolved "git://github.com/edpaget/markdown-it-imsize#101510152e42cd8d9c6fc59a5f143accedf19ae9"
+  resolved "git://github.com/edpaget/markdown-it-imsize.git#101510152e42cd8d9c6fc59a5f143accedf19ae9"
 
 markdown-it-sub@~1.0.0:
   version "1.0.0"
@@ -4035,9 +4035,9 @@ markdown-it@~7.0.1:
     mdurl "^1.0.1"
     uc.micro "^1.0.1"
 
-markdownz@^7.0.1:
-  version "7.0.1"
-  resolved "https://registry.yarnpkg.com/markdownz/-/markdownz-7.0.1.tgz#225b2dff58616348f2e85d44e2853f0872a46933"
+markdownz@^7.2.0:
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/markdownz/-/markdownz-7.2.0.tgz#a2945069118e16a3cbf3db3f26b09f30421a29e0"
   dependencies:
     markdown-it "~7.0.1"
     markdown-it-anchor "~2.5.0"
@@ -4049,8 +4049,8 @@ markdownz@^7.0.1:
     markdown-it-sup "~1.0.0"
     markdown-it-table-of-contents "~0.2.2"
     markdown-it-video "~0.4.0"
-    react "~15.3.2"
-    react-dom "~15.3.2"
+    react "~15.4"
+    react-dom "~15.4"
     react-mixin "~1.7.0"
     twemoji "~1.4.1"
 
@@ -5082,17 +5082,13 @@ react-addons-test-utils@^15.4.1:
   version "15.4.1"
   resolved "https://registry.yarnpkg.com/react-addons-test-utils/-/react-addons-test-utils-15.4.1.tgz#1e4caab151bf27cce26df5f9cb714f4fd8359ae1"
 
-react-dom@^15.4.1:
+react-dom@^15.4.1, react-dom@~15.4:
   version "15.4.1"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.4.1.tgz#d54c913261aaedb17adc20410d029dcc18a1344a"
   dependencies:
     fbjs "^0.8.1"
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
-
-react-dom@~15.3.2:
-  version "15.3.2"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.3.2.tgz#c46b0aa5380d7b838e7a59c4a7beff2ed315531f"
 
 react-input-autosize@^1.1.0:
   version "1.1.0"
@@ -5131,17 +5127,9 @@ react-select@^1.0.0-rc.2, react-select@^1.0.0-rc.3:
     classnames "^2.2.4"
     react-input-autosize "^1.1.0"
 
-react@^15.4.1:
+react@^15.4.1, react@~15.4:
   version "15.4.1"
   resolved "https://registry.yarnpkg.com/react/-/react-15.4.1.tgz#498e918602677a3983cd0fd206dfe700389a0dd6"
-  dependencies:
-    fbjs "^0.8.4"
-    loose-envify "^1.1.0"
-    object-assign "^4.1.0"
-
-react@~15.3.2:
-  version "15.3.2"
-  resolved "https://registry.yarnpkg.com/react/-/react-15.3.2.tgz#a7bccd2fee8af126b0317e222c28d1d54528d09e"
   dependencies:
     fbjs "^0.8.4"
     loose-envify "^1.1.0"
