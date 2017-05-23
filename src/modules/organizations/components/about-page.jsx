@@ -17,7 +17,7 @@ const AboutPage = (props) => {
     return (
       <div>
         <p>No about page is found.</p>
-        <button type="button" onClick={props.createPage}>Create a new about page</button>
+        <button type="button" onClick={props.onCreatePage}>Create a new about page</button>
       </div>
     );
   }
@@ -27,9 +27,9 @@ const AboutPage = (props) => {
       <p>
         Instructions...
       </p>
-      <FormContainer onSubmit={props.handleSubmit} onReset={props.resetOrganizationPage}>
-        <fieldset className="form_fieldset">
-          <label className="form_label" htmlFor="content">
+      <FormContainer onSubmit={props.onSubmit} onReset={props.resetOrganizationPage}>
+        <fieldset className="form__fieldset">
+          <label className="form__label" htmlFor="content">
             About Page Content
             <br />
             <MarkdownEditor
@@ -49,8 +49,8 @@ const AboutPage = (props) => {
 };
 
 AboutPage.propTypes = {
-  createPage: React.PropTypes.func,
-  handleSubmit: React.PropTypes.func,
+  onCreatePage: React.PropTypes.func,
+  onSubmit: React.PropTypes.func,
   onTextAreaChange: React.PropTypes.func,
   organization: organizationShape,
   organizationPage: organizationPageShape,

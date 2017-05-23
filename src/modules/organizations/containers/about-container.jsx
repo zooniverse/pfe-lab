@@ -62,7 +62,7 @@ class AboutContainer extends React.Component {
     .catch((error) => { console.error(error); });
   }
 
-  createPage() {
+  onCreatePage() {
     const params = {
       organization_pages: {
         url_key: 'about',
@@ -84,7 +84,7 @@ class AboutContainer extends React.Component {
       });
   }
 
-  handleSubmit() {
+  onSubmit() {
     this.updatePageContent({ content: this.state.pageContent });
   }
 
@@ -103,8 +103,8 @@ class AboutContainer extends React.Component {
   render() {
     return (
       <AboutPage
-        createPage={this.createPage}
-        handleSubmit={this.handleSubmit}
+        onCreatePage={this.onCreatePage}
+        onSubmit={this.onSubmit}
         onTextAreaChange={this.onTextAreaChange}
         organization={this.props.organization}
         organizationPage={this.props.organizationPage}

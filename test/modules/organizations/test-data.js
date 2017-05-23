@@ -70,6 +70,11 @@ export const organizationBackground = {
   src: 'background.jpg'
 };
 
+export const organizationPage = {
+  id: '45',
+  url_key: 'about'
+};
+
 export const setCurrentOrganizationAction = {
   type: actionTypes.SET_CURRENT_ORGANIZATION,
   organization,
