@@ -1,34 +1,42 @@
-[![bitHound Score](https://www.bithound.io/github/Granze/react-starterify/badges/score.svg)](https://www.bithound.io/github/zooniverse/zoo-react-starterify/master)
+[![bitHound Score](https://www.bithound.io/github/Granze/react-starterify/badges/score.svg)](https://www.bithound.io/github/zooniverse/pfe-lab/master)
 
-# Zooniverse Reduxify
+# Panoptes-Front-End Lab
 
-A minimal Redux application starter kit, based on [Zooniverse React Starterify](https://github.com/zooniverse/zoo-react-starterify).
+PFE Lab is the UI interface for the Zooniverse Lab. 
 
 ## Usage
 
+Install yarn using `brew install yarn`. Set the default prefix to `~` by `yarn config set save-prefix ~`. 
+
+Note:
+- [Yarn can do most of what NPM can](https://yarnpkg.com/lang/en/docs/migrating-from-npm/)
+- Yarn is not correctly using `.npmrc` or its own `.yarnrc` configuration files for the save-prefix config, so it must be set globally. 
+
 __Install the dependencies:__
 
-`npm install`
+`yarn install`
 
 __Test:__
 
-```npm run test```
+```yarn test```
 
 __Development mode with livereload:__
 
-```npm run start```
+```yarn start```
 
 __When you are done, create a production-ready version of the JS bundle:__
 
-```npm run build```
+```yarn build```
 
 ## Credits
 
-Thanks to [Granze](https://github.com/Granze) for the original [React Starterify](https://github.com/Granze/react-starterify), which is used under the [MIT License](http://opensource.org/licenses/MIT).
+Based on the [Zooniverse Redux starter template](https://github.com/zooniverse/zoo-reduxify/),
+which in turn was based on the original [React Starterify](https://github.com/Granze/react-starterify)
+(used under the [MIT License](http://opensource.org/licenses/MIT)).
 
 ## License
 
-Copyright 2015 Zooniverse
+Copyright 2017 Zooniverse
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
