@@ -17,8 +17,8 @@ class AboutContainer extends React.Component {
     };
 
     this.fetchPage = this.fetchPage.bind(this);
-    this.createPage = this.createPage.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.onCreatePage = this.onCreatePage.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
     this.updatePageContent = this.updatePageContent.bind(this);
     this.resetOrganizationPage = this.resetOrganizationPage.bind(this);
     this.onTextAreaChange = this.onTextAreaChange.bind(this);
@@ -42,24 +42,6 @@ class AboutContainer extends React.Component {
     const pageContent = event.target.value;
 
     this.setState({ pageContent });
-  }
-
-  fetchPage(organization = this.props.organization) {
-    if (!organization) {
-      return;
-    }
-
-    organization.get('pages', { url_key: 'about' })
-    .then((pages) => {
-      if (pages.length > 0) {
-        const aboutPage = pages[0];
-        this.props.dispatch(setOrganizationPage(aboutPage));
-        this.setState({ pageContent: aboutPage.content });
-      }
-
-      this.props.dispatch(setOrganizationPage({}));
-    })
-    .catch((error) => { console.error(error); });
   }
 
   onCreatePage() {
@@ -94,6 +76,24 @@ class AboutContainer extends React.Component {
     .then((updatedPage) => {
       this.props.dispatch(setOrganizationPage(updatedPage));
     });
+  }
+
+  fetchPage(organization = this.props.organization) {
+    if (!organization) {
+      return;
+    }
+
+    organization.get('pages', { url_key: 'about' })
+    .then((pages) => {
+      if (pages.length > 0) {
+        const aboutPage = pages[0];
+        this.props.dispatch(setOrganizationPage(aboutPage));
+        this.setState({ pageContent: aboutPage.content });
+      }
+
+      this.props.dispatch(setOrganizationPage({}));
+    })
+    .catch((error) => { console.error(error); });
   }
 
   resetOrganizationPage() {
