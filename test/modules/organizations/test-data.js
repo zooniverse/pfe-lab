@@ -5,13 +5,17 @@ export const organizations = [
     id: '7',
     display_name: 'Test Organization',
     description: 'blah blah blah blah',
-    links: { owner: { display_name: 'Bob' } },
+    links: {
+      owner: { display_name: 'Bob' }
+    },
   },
   {
     id: '42',
     display_name: 'Deep Thought',
     description: 'Probably wrong about everything',
-    links: { owner: { display_name: 'Bob' } },
+    links: {
+      owner: { display_name: 'Bob' }
+    },
   },
 ];
 
@@ -56,7 +60,8 @@ export const projects = [
 ];
 
 export const organizationsAvatars = [
-  { src: 'avatar.jpg' }
+  { src: 'avatar.jpg' },
+  { src: 'logo.png' }
 ];
 
 export const organizationAvatar = organizationsAvatars[0];

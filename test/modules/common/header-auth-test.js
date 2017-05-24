@@ -30,10 +30,9 @@ describe('HeaderAuth', () => {
     const loggedInState = Object.assign({}, initialState, {
       initialized: true,
       user: {
-        id: 3,
-        name: 'bob_ross',
-        display_name: 'bob_ross',
-        credited_name: 'Bob Ross',
+        id: '3',
+        display_name: 'Bob Ross',
+        login: 'bob_ross'
       },
     });
     const store = mockStore(loggedInState);
@@ -53,10 +52,9 @@ describe('HeaderAuth', () => {
     const loggedInState = Object.assign({}, initialState, {
       initialized: true,
       user: {
-        id: 3,
-        name: 'bob_ross',
-        display_name: 'bob_ross',
-        credited_name: 'Bob Ross',
+        id: '3',
+        display_name: 'Bob Ross',
+        login: 'bob_ross',
       },
     });
     const store = mockStore(loggedInState);

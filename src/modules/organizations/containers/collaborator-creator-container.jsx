@@ -11,7 +11,6 @@ class CollaboratorCreatorContainer extends React.Component {
 
     this.state = {
       disabledSubmit: true,
-      submitting: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -20,11 +19,13 @@ class CollaboratorCreatorContainer extends React.Component {
   }
 
   handleChange() {
+    // React Select doesn't consistently fire onchange, so this is buggy.
+    // Look into alternative that actually uses an input correctly.
     const anyRolesChecked = Object.keys(this.props.possibleRoles).some((role, i) => {
       return this[ID_PREFIX + role].checked;
     });
 
-    if (this.userSearch.value() && anyRolesChecked) {
+    if (this.userSearch.value().length > 0 && anyRolesChecked) {
       this.setState({ disabledSubmit: false });
     }
   }
@@ -39,10 +40,11 @@ class CollaboratorCreatorContainer extends React.Component {
         this[ID_PREFIX + role].checked = false;
       }
     });
+
+    if (!this.state.disabled) this.setState({ disabledSubmit: true });
   }
 
   handleSubmit() {
-    this.setState({ submitting: true });
     const users = this.userSearch.value().map(option => parseInt(option.value));
     const roles = Object.keys(this.props.possibleRoles).map((role, i) => {
       if (this[ID_PREFIX + role].checked) {
@@ -52,7 +54,7 @@ class CollaboratorCreatorContainer extends React.Component {
 
     this.props.addCollaborators(roles, users)
       .then(() => {
-        this.setState({ disabledSubmit: true, submitting: false });
+        this.setState({ disabledSubmit: true });
         this.handleReset();
       }).catch((error) => { console.error(error); });
   }
@@ -64,7 +66,6 @@ class CollaboratorCreatorContainer extends React.Component {
         onChange={this.handleChange}
         onReset={this.handleReset}
         onSubmit={this.handleSubmit}
-        submitting={this.state.submitting}
         submitLabel="Add user role"
       >
         <h3>Add another user role</h3>

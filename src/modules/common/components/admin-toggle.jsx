@@ -1,21 +1,26 @@
 import React from 'react';
 
 const AdminToggle = ({ adminMode, toggleAdminMode }) => {
-  const toggleClass = adminMode ? 'footer-admin-toggle--active' : '';
+  const toggleClass = adminMode ? 'footer-admin-toggle--active' : 'footer-admin-toggle';
 
   return (
     <label
-      className={`footer-admin-toggle ${toggleClass}`}
+      className={toggleClass}
       htmlFor="adminMode"
     >
-      <input type="checkbox" checked={adminMode} value={adminMode} onChange={toggleAdminMode} />{' '}
+      <input type="checkbox" checked={adminMode} id="adminMode" value={adminMode} onChange={toggleAdminMode} />{' '}
       Admin Mode
     </label>
   );
 };
 
+AdminToggle.defaultProps = {
+  adminMode: false,
+  toggleAdminMode: () => {}
+};
+
 AdminToggle.propTypes = {
-  adminMode: React.PropTypes.bool,
+  adminMode: React.PropTypes.bool.isRequired,
   toggleAdminMode: React.PropTypes.func.isRequired,
 };
 

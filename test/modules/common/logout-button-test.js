@@ -6,7 +6,7 @@ import sinon from 'sinon';
 import LogoutButton from '../../../src/modules/common/components/logout-button';
 
 describe('LogoutButton', () => {
-  const user = { id: 3, display_name: 'Bob Ross' };
+  const user = { id: '3', display_name: 'Bob Ross' };
   const logoutClick = sinon.spy();
   const wrapper = shallow(<LogoutButton user={user} logout={logoutClick} />);
 

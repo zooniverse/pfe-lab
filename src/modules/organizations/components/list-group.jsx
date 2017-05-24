@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import { organizationsAvatarsShape, organizationsShape } from '../model';
 
 // TODO organizations need slug props
+// TODO abstract out for use with projects
 const ListGroup = ({ organizations, organizationsAvatars, showOwnerName, title }) => {
   const findAvatar = (organization) => {
     // TODO why is the links property for organization 'linked'?

@@ -77,9 +77,13 @@ describe('FormContainer', function() {
       expect(onSubmit.calledOnce).to.be.true;
     });
 
-    it('sets show and submitting state to false after clicking submit', function() {
-      expect(wrapper.state('submitting')).to.be.false;
-      expect(wrapper.state('show')).to.be.false;
+    it('sets show and submitting state to false after clicking submit', function(done) {
+      // Wait for the promise
+      setImmediate(() => {
+        expect(wrapper.state('submitting')).to.be.false;
+        expect(wrapper.state('show')).to.be.false;
+        done();
+      });
     });
   });
 

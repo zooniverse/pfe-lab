@@ -8,5 +8,7 @@
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "no-unused-expressions": 0,
     "space-before-function-paren": 0,
+    "comma-dangle": "off",
+    "no-underscore-dangle": "off"
   }
 }
