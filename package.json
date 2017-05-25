@@ -19,10 +19,11 @@
     "zooniverse"
   ],
   "scripts": {
-    "start": "check-engines && check-dependencies && webpack-dashboard -p 3777 -- babel-node server.js",
+    "start": "NODE_ENV=development check-engines && check-dependencies && webpack-dashboard -p 3777 -- babel-node server.js",
     "test": "mocha",
     "eslint": "eslint .",
-    "build": "webpack --config webpack.production.config.js -p"
+    "build": "webpack --config webpack.production.config.js -p",
+    "stage": "NODE_ENV=staging npm run build && publisssh ./dist zooniverse-static/preview.zooniverse.org/pfe-lab"
   },
   "engines": {
     "node": "~7.10.0",
@@ -81,6 +82,7 @@
     "mocha": "~3.2.0",
     "nib": "~1.1.2",
     "nock": "~9.0.2",
+    "publisssh": "~1.1.0",
     "react-addons-test-utils": "~15.4.1",
     "redux-mock-store": "~1.2.1",
     "rimraf": "~2.5.4",
