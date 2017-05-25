@@ -7,6 +7,10 @@ export default function (state = initialState, action) { // eslint-disable-line 
       return {
         adminMode: action.adminMode,
       };
+    case types.SET_APP_NOTIFICATION:
+      return {
+        appNotification: action.appNotification
+      };
     default:
       return state;
   }

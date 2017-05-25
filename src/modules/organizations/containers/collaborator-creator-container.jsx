@@ -2,6 +2,7 @@ import React from 'react';
 import { UserSearch } from 'zooniverse-react-components';
 
 import FormContainer from '../../common/containers/form-container';
+import notificationHandler from '../../../services/notificationHandler';
 
 const ID_PREFIX = 'LAB_COLLABORATORS_PAGE_';
 
@@ -56,7 +57,10 @@ class CollaboratorCreatorContainer extends React.Component {
       .then(() => {
         this.setState({ disabledSubmit: true });
         this.handleReset();
-      }).catch((error) => { console.error(error); });
+      }).catch((error) => {
+        const notification = { status: 'critical', message: error };
+        notificationHandler(this.props.dispatch, notification);
+      });
   }
 
   render() {
@@ -109,6 +113,7 @@ CollaboratorCreatorContainer.defaultProps = {
 
 CollaboratorCreatorContainer.propTypes = {
   addCollaborators: React.PropTypes.func.isRequired,
+  dispatch: React.PropTypes.func,
   possibleRoles: React.PropTypes.objectOf(React.PropTypes.string).isRequired,
   rolesInfo: React.PropTypes.objectOf(React.PropTypes.object).isRequired,
 };

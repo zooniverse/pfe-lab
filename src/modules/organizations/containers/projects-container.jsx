@@ -8,6 +8,7 @@ import OrganizationProjectsList from '../components/organization-projects-list';
 import OrganizationAddProject from '../components/organization-add-project';
 
 import { setOrganizationProjects, setCurrentOrganization } from '../action-creators';
+import notificationHandler from '../../../services/notificationHandler';
 
 class ProjectsContainer extends React.Component {
   constructor(props) {
@@ -38,6 +39,9 @@ class ProjectsContainer extends React.Component {
     if (organization) {
       organization.get('projects', { sort: 'display_name' }).then((projects) => {
         this.props.dispatch(setOrganizationProjects(projects));
+      }).catch((error) => {
+        const notification = { status: 'critical', message: error };
+        notificationHandler(this.props.dispatch, notification);
       });
     }
   }
@@ -50,6 +54,9 @@ class ProjectsContainer extends React.Component {
         this.props.dispatch(setCurrentOrganization(organization));
         this.getLinkedProjects(organization);
         this.resetProjectToAdd();
+      }).catch((error) => {
+        const notification = { status: 'critical', message: error };
+        notificationHandler(this.props.dispatch, notification);
       });
   }
 
@@ -59,6 +66,9 @@ class ProjectsContainer extends React.Component {
         this.props.dispatch(setCurrentOrganization(organization));
         this.getLinkedProjects(organization);
         this.resetProjectToAdd();
+      }).catch((error) => {
+        const notification = { status: 'critical', message: error };
+        notificationHandler(this.props.dispatch, notification);
       }).then(() => {
         this.props.organization.uncacheLink('projects');
       });

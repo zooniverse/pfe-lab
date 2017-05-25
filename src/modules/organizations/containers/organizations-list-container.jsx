@@ -5,6 +5,7 @@ import apiClient from 'panoptes-client/lib/api-client';
 import { setCollaboratedOrganizations, setOrganizationsAvatars, setOwnedOrganizations } from '../action-creators';
 import { organizationsAvatarsShape, organizationsShape } from '../model';
 import OrganizationsList from '../components/organizations-list';
+import notificationHandler from '../../../services/notificationHandler';
 
 class OrganizationsListContainer extends React.Component {
   constructor(props) {
@@ -74,7 +75,10 @@ class OrganizationsListContainer extends React.Component {
     })
     .save()
     .then((organization) => { this.props.router.push(`/organizations/${organization.id}`); })
-    .catch(error => console.error(error));
+    .catch((error) => {
+      const notification = { status: 'critical', message: error };
+      notificationHandler(this.props.dispatch, notification);
+    });
   }
 
   render() {
