@@ -2,17 +2,6 @@
 # yarn lockfile v1
 
 
-"Zooniverse-React-Components@git+ssh://git@github.com/zooniverse/Zooniverse-React-Components.git#v0.1.2":
-  version "0.1.2"
-  resolved "git+ssh://git@github.com/zooniverse/Zooniverse-React-Components.git#0ca120d821e0142169d001027de145c6f3c96332"
-  dependencies:
-    data-uri-to-blob "0.0.4"
-    modal-form "^2.4.3"
-    panoptes-client "^2.5.2"
-    react "^15.4.1"
-    react-dom "^15.4.1"
-    react-select "^1.0.0-rc.2"
-
 abab@^1.0.0:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/abab/-/abab-1.0.3.tgz#b81de5f7274ec4e756d797cd834f303642724e5d"
@@ -488,10 +477,6 @@ babel-plugin-react-transform@~2.0.2:
   resolved "https://registry.yarnpkg.com/babel-plugin-react-transform/-/babel-plugin-react-transform-2.0.2.tgz#515bbfa996893981142d90b1f9b1635de2995109"
   dependencies:
     lodash "^4.6.1"
-
-babel-plugin-rewire@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/babel-plugin-rewire/-/babel-plugin-rewire-1.1.0.tgz#a6b966d9d8c06c03d95dcda2eec4e2521519549b"
 
 babel-plugin-syntax-flow@^6.18.0, babel-plugin-syntax-flow@^6.3.13:
   version "6.18.0"
@@ -6789,3 +6774,14 @@ yauzl@^2.2.1:
 yeast@0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/yeast/-/yeast-0.1.2.tgz#008e06d8094320c372dbc2f8ed76a0ca6c8ac419"
+
+"zooniverse-react-components@git+ssh://git@github.com/zooniverse/Zooniverse-React-Components.git#v0.2.0":
+  version "0.2.0"
+  resolved "git+ssh://git@github.com/zooniverse/Zooniverse-React-Components.git#8d7fa9625a2080a1cf1a5502344df24227c5a2e9"
+  dependencies:
+    data-uri-to-blob "0.0.4"
+    modal-form "^2.4.3"
+    panoptes-client "^2.5.2"
+    react "^15.4.1"
+    react-dom "^15.4.1"
+    react-select "^1.0.0-rc.2"
