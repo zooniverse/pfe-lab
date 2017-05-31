@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import apiClient from 'panoptes-client/lib/api-client';
 import { organizationShape, organizationCollaboratorsShape, organizationOwnerShape } from '../model';
 import { setOrganizationCollaborators, setOrganizationOwner } from '../action-creators';
-import notificationHandler from '../../../services/notificationHandler';
+import notificationHandler from '../../../lib/notificationHandler';
 
 import EditCollaborators from '../components/edit-collaborators';
 import CollaboratorCreatorContainer from './collaborator-creator-container';
@@ -76,6 +76,7 @@ class CollaboratorsContainer extends React.Component {
     const newRoles = users.map(user =>
       apiClient.type('organization_roles').create({
         roles,
+        garbage: 'ahehy',
         links: {
           organization: this.props.organization.id,
           user,
@@ -87,7 +88,8 @@ class CollaboratorsContainer extends React.Component {
       .then(() => {
         this.refreshCollaborators();
       }).catch((error) => {
-        const notification = { status: 'critical', message: error };
+        const notification = { status: 'critical', message: `${error.statusText}: ${error.message}` };
+
         notificationHandler(this.props.dispatch, notification);
       });
   }
@@ -105,7 +107,7 @@ class CollaboratorsContainer extends React.Component {
     })
     .then(() => { this.setState({ saving: null }); })
     .catch((error) => {
-      const notification = { status: 'critical', message: error };
+      const notification = { status: 'critical', message: `${error.statusText}: ${error.message}` };
       notificationHandler(this.props.dispatch, notification);
     });
   }
@@ -138,7 +140,8 @@ class CollaboratorsContainer extends React.Component {
         this.setState({ saving: null });
       })
       .catch((error) => {
-        const notification = { status: 'critical', message: error };
+        const notification = { status: 'critical', message: `${error.statusText}: ${error.message}` };
+
         notificationHandler(this.props.dispatch, notification);
       });
   }
@@ -158,7 +161,8 @@ class CollaboratorsContainer extends React.Component {
           apiClient.type('users').get(ownerRole.links.owner.id)
             .then((owner) => { this.props.dispatch(setOrganizationOwner(owner)); })
             .catch((error) => {
-              const notification = { status: 'critical', message: error };
+              const notification = { status: 'critical', message: `${error.statusText}: ${error.message}` };
+
               notificationHandler(this.props.dispatch, notification);
             });
         }

@@ -5,7 +5,7 @@ import apiClient from 'panoptes-client/lib/api-client';
 import EditDetails from '../components/edit-details';
 import { organizationShape, organizationAvatarShape, organizationBackgroundShape } from '../model';
 import { setCurrentOrganization, setOrganizationAvatar, setOrganizationBackground } from '../action-creators';
-import notificationHandler from '../../../services/notificationHandler';
+import notificationHandler from '../../../lib/notificationHandler';
 
 class EditDetailsContainer extends React.Component {
   constructor(props) {
@@ -42,7 +42,8 @@ class EditDetailsContainer extends React.Component {
           this.props.dispatch(setOrganizationAvatar(avatar));
         }).catch((error) => {
           if (error.status !== 404) {
-            const notification = { status: 'critical', message: error };
+            const notification = { status: 'critical', message: `${error.statusText}: ${error.message}` };
+
             notificationHandler(this.props.dispatch, notification);
           }
         });
@@ -56,7 +57,8 @@ class EditDetailsContainer extends React.Component {
           this.props.dispatch(setOrganizationBackground(background));
         }).catch((error) => {
           if (error.status !== 404) {
-            const notification = { status: 'critical', message: error };
+            const notification = { status: 'critical', message: `${error.statusText}: ${error.message}` };
+
             notificationHandler(this.props.dispatch, notification);
           }
         });
@@ -89,10 +91,8 @@ class EditDetailsContainer extends React.Component {
                 });
             }
           }).catch((error) => {
-            const notification = { status: 'critical', message: error };
-            notificationHandler(this.props.dispatch, notification);
-          }).catch((error) => {
-            const notification = { status: 'critical', message: error };
+            const notification = { status: 'critical', message: `${error.statusText}: ${error.message}` };
+
             notificationHandler(this.props.dispatch, notification);
           });
       });
