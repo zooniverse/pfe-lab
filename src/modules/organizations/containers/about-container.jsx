@@ -84,20 +84,19 @@ class AboutContainer extends React.Component {
     }
 
     organization.get('pages', { url_key: 'about' })
-    .then((pages) => {
-      if (pages.length > 0) {
-        const aboutPage = pages[0];
+    .then(([aboutPage]) => {
+      if (!aboutPage) {
+        this.props.dispatch(setOrganizationPage({}));
+      } else {
         this.props.dispatch(setOrganizationPage(aboutPage));
         this.setState({ pageContent: aboutPage.content });
       }
-
-      this.props.dispatch(setOrganizationPage({}));
     })
     .catch((error) => { console.error(error); });
   }
 
   resetOrganizationPage() {
-    this.setState({ pageContent: '' });
+    this.setState({ pageContent: this.props.organizationPage.content });
   }
 
   render() {
