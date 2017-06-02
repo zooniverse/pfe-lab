@@ -7,7 +7,7 @@ import { organizationShape, organizationPageShape } from '../model';
 import { setCurrentOrganization, setOrganizationPage } from '../action-creators';
 import AboutPage from '../components/about-page';
 
-class AboutContainer extends React.Component {
+export class AboutContainer extends React.Component {
   constructor(props) {
     super(props);
 
@@ -128,5 +128,3 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps)(AboutContainer);
-
-// TODO: GET request is not behaving as expected: https://github.com/zooniverse/Panoptes/issues/2318

@@ -20,7 +20,7 @@
   ],
   "scripts": {
     "start": "NODE_ENV=development check-engines && check-dependencies && webpack-dashboard -p 3777 -- babel-node server.js",
-    "test": "mocha",
+    "test": "NODE_ENV=development BABEL_ENV=test mocha",
     "eslint": "eslint .",
     "build": "webpack --config webpack.production.config.js -p",
     "stage": "NODE_ENV=staging npm run build && publisssh ./dist zooniverse-static/preview.zooniverse.org/pfe-lab"
@@ -36,6 +36,7 @@
   },
   "homepage": "https://github.com/zooniverse/pfe-lab",
   "dependencies": {
+    "babel-plugin-rewire": "~1.1.0",
     "classnames": "~2.2.5",
     "counterpart": "~0.18.0",
     "data-uri-to-blob": "~0.0.4",

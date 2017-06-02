@@ -1,10 +1,12 @@
 import * as actionTypes from '../../../src/constants/action-types';
+import resolver from '../../utils/resolver';
 
 export const organizations = [
   {
     id: '7',
     display_name: 'Test Organization',
     description: 'blah blah blah blah',
+    get: (value) => { resolver(value); },
     links: {
       owner: { display_name: 'Bob' }
     },
@@ -13,6 +15,7 @@ export const organizations = [
     id: '42',
     display_name: 'Deep Thought',
     description: 'Probably wrong about everything',
+    get: (value) => { resolver(value); },
     links: {
       owner: { display_name: 'Bob' }
     },

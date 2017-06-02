@@ -478,6 +478,10 @@ babel-plugin-react-transform@~2.0.2:
   dependencies:
     lodash "^4.6.1"
 
+babel-plugin-rewire@~1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-rewire/-/babel-plugin-rewire-1.1.0.tgz#a6b966d9d8c06c03d95dcda2eec4e2521519549b"
+
 babel-plugin-syntax-flow@^6.18.0, babel-plugin-syntax-flow@^6.3.13:
   version "6.18.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-syntax-flow/-/babel-plugin-syntax-flow-6.18.0.tgz#4c3ab20a2af26aa20cd25995c398c4eb70310c8d"
@@ -4692,15 +4696,7 @@ pako@~0.2.0:
   version "0.2.9"
   resolved "https://registry.yarnpkg.com/pako/-/pako-0.2.9.tgz#f3f7522f4ef782348da8161bad9ecfd51bf83a75"
 
-panoptes-client@^2.5.2:
-  version "2.7.1"
-  resolved "https://registry.yarnpkg.com/panoptes-client/-/panoptes-client-2.7.1.tgz#9e187a0ca2a39c7eba1962d2c284520dcb173153"
-  dependencies:
-    json-api-client "~3.2.0"
-    local-storage "^1.4.2"
-    sugar-client "^1.0.1"
-
-panoptes-client@~2.7.2:
+panoptes-client@^2.5.2, panoptes-client@~2.7.2:
   version "2.7.2"
   resolved "https://registry.yarnpkg.com/panoptes-client/-/panoptes-client-2.7.2.tgz#c5859562d36054268aa311e2855aa1677114fa82"
   dependencies:
