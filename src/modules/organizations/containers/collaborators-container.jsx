@@ -76,7 +76,6 @@ class CollaboratorsContainer extends React.Component {
     const newRoles = users.map(user =>
       apiClient.type('organization_roles').create({
         roles,
-        garbage: 'ahehy',
         links: {
           organization: this.props.organization.id,
           user,
