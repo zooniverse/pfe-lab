@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
 import apiClient from 'panoptes-client/lib/api-client';
+import counterpart from 'counterpart';
+
 import { setCollaboratedOrganizations, setOrganizationsAvatars, setOwnedOrganizations } from '../action-creators';
 import { organizationsAvatarsShape, organizationsShape } from '../model';
 import OrganizationsList from '../components/organizations-list';
@@ -53,6 +54,8 @@ class OrganizationsListContainer extends React.Component {
 
         this.props.dispatch(setCollaboratedOrganizations(collaboratedOrganizations));
         this.props.dispatch(setOwnedOrganizations(ownedOrganizations));
+      }).catch((error) => {
+        console.error(error);
       });
   }
 
@@ -70,8 +73,7 @@ class OrganizationsListContainer extends React.Component {
     apiClient.type('organizations').create({
       description: 'Lorem Ipsum',
       display_name: name,
-      primary_language: navigator.language,
-      title: name
+      primary_language: counterpart.getLocale()
     })
     .save()
     .then((organization) => { this.props.router.push(`/organizations/${organization.id}`); })

@@ -42,6 +42,13 @@ export function setOrganizationOwner(organizationOwner) {
   };
 }
 
+export function setOrganizationPage(organizationPage) {
+  return {
+    type: types.SET_ORGANIZATION_PAGE,
+    organizationPage,
+  };
+}
+
 export function setOrganizationProjects(projects) {
   return {
     type: types.SET_ORGANIZATION_PROJECTS,
