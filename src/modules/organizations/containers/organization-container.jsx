@@ -5,6 +5,7 @@ import apiClient from 'panoptes-client/lib/api-client';
 import { organizationShape } from '../model';
 import { setCurrentOrganization } from '../action-creators';
 import OrganizationLayout from '../components/organization-layout';
+import notificationHandler from '../../../lib/notificationHandler';
 
 const DELETE_CONFIRMATION_PHRASE = 'I AM DELETING THIS ORGANIZATION';
 
@@ -38,7 +39,11 @@ class OrganizationContainer extends React.Component {
     this.props.organization.update(organizationFields).save()
       .then((updatedOrganization) => {
         this.props.dispatch(setCurrentOrganization(updatedOrganization));
-      }).catch(error => console.error(error));
+      }).catch((error) => {
+        const notification = { status: 'critical', message: `${error.statusText}: ${error.message}` };
+
+        notificationHandler(this.props.dispatch, notification);
+      });
   }
 
   fetchOrganization(id) {
@@ -49,6 +54,10 @@ class OrganizationContainer extends React.Component {
     apiClient.type('organizations').get(id.toString(), { include: 'avatar' })
       .then((org) => {
         this.props.dispatch(setCurrentOrganization(org));
+      }).catch((error) => {
+        const notification = { status: 'critical', message: `${error.statusText}: ${error.message}` };
+
+        notificationHandler(this.props.dispatch, notification);
       });
   }
 
@@ -65,7 +74,9 @@ class OrganizationContainer extends React.Component {
           this.props.router.push('/organizations');
         }).catch((error) => {
           this.setState({ deletionInProgress: false });
-          console.error(error);
+          const notification = { status: 'critical', message: `${error.statusText}: ${error.message}` };
+
+          notificationHandler(this.props.dispatch, notification);
         });
     }
   }

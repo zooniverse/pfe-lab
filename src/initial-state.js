@@ -1,5 +1,9 @@
 const initialState = {
   adminMode: false,
+  appNotification: {
+    message: null,
+    status: null,
+  },
   collaboratedOrganizations: [],
   initialized: false,
   organization: null,

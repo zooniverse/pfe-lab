@@ -5,6 +5,7 @@ import apiClient from 'panoptes-client/lib/api-client';
 import EditDetails from '../components/edit-details';
 import { organizationShape, organizationAvatarShape, organizationBackgroundShape } from '../model';
 import { setCurrentOrganization, setOrganizationAvatar, setOrganizationBackground } from '../action-creators';
+import notificationHandler from '../../../lib/notificationHandler';
 
 class EditDetailsContainer extends React.Component {
   constructor(props) {
@@ -40,7 +41,11 @@ class EditDetailsContainer extends React.Component {
         .then((avatar) => {
           this.props.dispatch(setOrganizationAvatar(avatar));
         }).catch((error) => {
-          if (error.status !== 404) console.error(error);
+          if (error.status !== 404) {
+            const notification = { status: 'critical', message: `${error.statusText}: ${error.message}` };
+
+            notificationHandler(this.props.dispatch, notification);
+          }
         });
     }
   }
@@ -51,7 +56,11 @@ class EditDetailsContainer extends React.Component {
         .then((background) => {
           this.props.dispatch(setOrganizationBackground(background));
         }).catch((error) => {
-          if (error.status !== 404) console.error(error);
+          if (error.status !== 404) {
+            const notification = { status: 'critical', message: `${error.statusText}: ${error.message}` };
+
+            notificationHandler(this.props.dispatch, notification);
+          }
         });
     }
   }
@@ -81,8 +90,12 @@ class EditDetailsContainer extends React.Component {
                   }
                 });
             }
-          }).catch(e => console.error(e));
-      }).catch(e => console.error(e));
+          }).catch((error) => {
+            const notification = { status: 'critical', message: `${error.statusText}: ${error.message}` };
+
+            notificationHandler(this.props.dispatch, notification);
+          });
+      });
   }
 
   refreshOrganization(resourceLinkToUncache) {

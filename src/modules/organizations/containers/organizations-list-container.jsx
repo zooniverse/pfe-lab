@@ -6,6 +6,7 @@ import counterpart from 'counterpart';
 import { setCollaboratedOrganizations, setOrganizationsAvatars, setOwnedOrganizations } from '../action-creators';
 import { organizationsAvatarsShape, organizationsShape } from '../model';
 import OrganizationsList from '../components/organizations-list';
+import notificationHandler from '../../../lib/notificationHandler';
 
 class OrganizationsListContainer extends React.Component {
   constructor(props) {
@@ -76,7 +77,11 @@ class OrganizationsListContainer extends React.Component {
     })
     .save()
     .then((organization) => { this.props.router.push(`/organizations/${organization.id}`); })
-    .catch(error => console.error(error));
+    .catch((error) => {
+      const notification = { status: 'critical', message: `${error.statusText}: ${error.message}` };
+
+      notificationHandler(this.props.dispatch, notification);
+    });
   }
 
   render() {

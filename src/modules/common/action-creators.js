@@ -6,3 +6,10 @@ export function setAdminMode(adminMode) { // eslint-disable-line import/prefer-d
     adminMode,
   };
 }
+
+export function setAppNotification(appNotification) {
+  return {
+    type: types.SET_APP_NOTIFICATION,
+    appNotification
+  };
+}

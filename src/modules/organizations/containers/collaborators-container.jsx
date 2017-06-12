@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import apiClient from 'panoptes-client/lib/api-client';
 import { organizationShape, organizationCollaboratorsShape, organizationOwnerShape } from '../model';
 import { setOrganizationCollaborators, setOrganizationOwner } from '../action-creators';
+import notificationHandler from '../../../lib/notificationHandler';
 
 import EditCollaborators from '../components/edit-collaborators';
 import CollaboratorCreatorContainer from './collaborator-creator-container';
@@ -85,7 +86,11 @@ class CollaboratorsContainer extends React.Component {
     return Promise.all(this.saveCollaborators(newRoles))
       .then(() => {
         this.refreshCollaborators();
-      }).catch((error) => { console.error(error); });
+      }).catch((error) => {
+        const notification = { status: 'critical', message: `${error.statusText}: ${error.message}` };
+
+        notificationHandler(this.props.dispatch, notification);
+      });
   }
 
   refreshCollaborators() {
@@ -100,7 +105,10 @@ class CollaboratorsContainer extends React.Component {
       this.refreshCollaborators();
     })
     .then(() => { this.setState({ saving: null }); })
-    .catch((error) => { console.error(error); });
+    .catch((error) => {
+      const notification = { status: 'critical', message: `${error.statusText}: ${error.message}` };
+      notificationHandler(this.props.dispatch, notification);
+    });
   }
 
   saveCollaborators(newRoles) {
@@ -129,7 +137,12 @@ class CollaboratorsContainer extends React.Component {
         this.props.dispatch(setOrganizationCollaborators(updatedCollaborators));
       }).then(() => {
         this.setState({ saving: null });
-      }).catch((error) => { console.error(error); });
+      })
+      .catch((error) => {
+        const notification = { status: 'critical', message: `${error.statusText}: ${error.message}` };
+
+        notificationHandler(this.props.dispatch, notification);
+      });
   }
 
   fetchCollaborators(organization = this.props.organization) { // eslint-disable-line class-methods-use-this
@@ -146,7 +159,11 @@ class CollaboratorsContainer extends React.Component {
 
           apiClient.type('users').get(ownerRole.links.owner.id)
             .then((owner) => { this.props.dispatch(setOrganizationOwner(owner)); })
-            .catch((error) => { console.error(error); });
+            .catch((error) => {
+              const notification = { status: 'critical', message: `${error.statusText}: ${error.message}` };
+
+              notificationHandler(this.props.dispatch, notification);
+            });
         }
 
         // This is ugly. I've requested to get back display_name in the original request: https://github.com/zooniverse/Panoptes/issues/2123

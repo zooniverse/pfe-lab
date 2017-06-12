@@ -13,7 +13,8 @@ import { config } from './constants/config';
 import configureStore from './store';
 import initialState from './initial-state';
 
-import './styles/main.styl';
+import 'grommet/scss/vanilla/index.scss';
+import './styles/main.styl'; // eslint-disable-line no-unused-vars
 
 const store = configureStore(initialState);
 
