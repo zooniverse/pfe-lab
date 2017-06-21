@@ -26,8 +26,8 @@
     "stage": "NODE_ENV=staging npm run build && publisssh ./dist zooniverse-static/preview.zooniverse.org/pfe-lab"
   },
   "engines": {
-    "node": "^8.0.0",
-    "npm": "^5.0.0"
+    "node": "~8.1.2",
+    "npm": "~5.0.3"
   },
   "author": "Zooniverse",
   "license": "Apache-2.0",
