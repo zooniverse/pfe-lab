@@ -19,11 +19,16 @@
     "zooniverse"
   ],
   "scripts": {
-    "start": "NODE_ENV=development check-engines && check-dependencies && webpack-dashboard -p 3777 -- babel-node server.js",
-    "test": "NODE_ENV=development BABEL_ENV=test mocha",
+    "start": "export NODE_ENV=development; check-engines && check-dependencies && webpack-dashboard -- babel-node ./server.js",
+    "_build": "HEAD_COMMIT=$(git rev-parse --short HEAD); check-engines && check-dependencies && rimraf dist; webpack --config ./webpack.production.config.js -p",
     "eslint": "eslint .",
-    "build": "webpack --config webpack.production.config.js -p",
-    "stage": "NODE_ENV=staging npm run build && publisssh ./dist zooniverse-static/preview.zooniverse.org/pfe-lab"
+    "_publish": "publisssh ./dist \"zooniverse-static/$PATH_ROOT/$SUBDIR\"",
+    "_log-staging-url": "echo \"Staged at https://$SUBDIR.lab-preview.zooniverse.org/\"",
+    "_stage": "export PATH_ROOT=lab-preview.zooniverse.org/pfe-lab; npm run _build && npm run _publish && npm run _log-staging-url",
+    "stage": "export NODE_ENV=staging; SUBDIR=$(git symbolic-ref --short HEAD | awk '{print tolower($0)}'); npm run _stage",
+    "_deploy": "export PATH_ROOT=www.lab.zooniverse.org; npm run _build && npm run _publish",
+    "deploy": "export NODE_ENV=production; npm run _deploy",
+    "test": "NODE_ENV=development BABEL_ENV=test mocha"
   },
   "engines": {
     "node": "~8.1.2",

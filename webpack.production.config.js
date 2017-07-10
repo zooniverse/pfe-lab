@@ -15,6 +15,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, '/dist/'),
     filename: '[name]-[hash].min.js',
+    publicPath: '/',
   },
 
   plugins: [
@@ -79,6 +80,20 @@ module.exports = {
         }),
       },
       {
+        test: /\.scss$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [{
+            loader: 'css-loader'
+          }, {
+            loader: 'sass-loader',
+            options: {
+              includePaths: ['./node_modules', './node_modules/grommet/node_modules']
+            }
+          }]
+        }),
+      },
+      {
         test: /\.(jpg|png|gif|otf|eot|svg|ttf|woff\d?)$/,
         use: ['file-loader', {
           loader: 'image-webpack-loader',
@@ -88,5 +103,9 @@ module.exports = {
         }],
       },
     ],
+  },
+
+  node: {
+    fs: 'empty'
   }
 };
