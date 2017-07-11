@@ -1,2 +1,4 @@
+before_install: if [[ `npm -v` != 5.1* ]]; then npm i -g npm@5.1; fi
+
 language: node_js
 node_js: "8.1.0"
