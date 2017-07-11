@@ -24,7 +24,7 @@
     "eslint": "eslint .",
     "_publish": "publisssh ./dist \"zooniverse-static/$PATH_ROOT/$SUBDIR\"",
     "_log-staging-url": "echo \"Staged at https://$SUBDIR.lab-preview.zooniverse.org/\"",
-    "_stage": "export PATH_ROOT=lab-preview.zooniverse.org/pfe-lab; npm run _build && npm run _publish && npm run _log-staging-url",
+    "_stage": "export PATH_ROOT=preview.zooniverse.org/pfe-lab; npm run _build && npm run _publish && npm run _log-staging-url",
     "stage": "export NODE_ENV=staging; SUBDIR=$(git symbolic-ref --short HEAD | awk '{print tolower($0)}'); npm run _stage",
     "_deploy": "export PATH_ROOT=www.lab.zooniverse.org; npm run _build && npm run _publish",
     "deploy": "export NODE_ENV=production; npm run _deploy",
