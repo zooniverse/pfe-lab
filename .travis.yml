@@ -1,2 +1,5 @@
+before_install:
+  - npm install -g npm@5.1
+
 language: node_js
-node_js: "8.0.0"
+node_js: "8.1.0"
