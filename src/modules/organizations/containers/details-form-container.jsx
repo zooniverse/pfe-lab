@@ -45,8 +45,7 @@ class DetailsFormContainer extends React.Component {
 
   handleSubmit() {
     const patch = this.collectValues();
-    console.log(patch);
-    // this.props.updateOrganization(patch);
+    this.props.updateOrganization(patch);
   }
 
   resetOrganization() {
@@ -59,18 +58,26 @@ class DetailsFormContainer extends React.Component {
     // TODO extract MarkdownEditor into its own component put into common folder
     // TODO split into functional component
     const organization = this.props.organization;
-    // const NameInput = bindInput(organization.display_name, <input type="text" />);
     const DescriptionInput = bindInput(organization.description, <input type="text" />);
     this.fields = {};
 
     return (
       <FormContainer onSubmit={this.handleSubmit} onReset={this.resetOrganization}>
-        <fieldset>
-          <DisplayNameSlugEditor resource={organization} resourceType="organization" ref={(node) => { this.fields.display_name = node; }} />
+        <fieldset className="form__fieldset">
+          <DisplayNameSlugEditor
+            resource={organization}
+            resourceType="organization"
+            ref={(node) => { this.fields.display_name = node; }}
+          />
         </fieldset>
         <fieldset className="form__fieldset">
           <label className="form__label" htmlFor="description">
-            Description <DescriptionInput className="form__input form__input--full-width" id="description" ref={(node) => { this.fields.description = node; }} />
+            Description
+            <DescriptionInput
+              className="form__input form__input--full-width"
+              id="description"
+              ref={(node) => { this.fields.description = node; }}
+            />
           </label>
           <small className="form__help">
             This should be a one-line call to action for your organization that displays on your landing page.{' '}
