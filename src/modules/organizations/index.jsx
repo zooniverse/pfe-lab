@@ -16,6 +16,7 @@ const organizationsRoutes = store => (
         <IndexRoute component={OrganizationsListContainer} />
         <Route path=":id" component={OrganizationContainer}>
           <IndexRoute component={EditDetailsContainer} />
+          <Route path="edit" component={EditDetailsContainer} />
           <Route path="about" component={AboutContainer} />
           <Route path="collaborators" component={CollaboratorsContainer} />
           <Route path="projects" component={ProjectsContainer} />
