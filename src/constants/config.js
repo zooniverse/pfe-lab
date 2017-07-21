@@ -8,7 +8,13 @@ const API_APPLICATION_IDS = {
 
 const env = process.env.NODE_ENV || DEFAULT_ENV;
 
-export const config = { // eslint-disable-line import/prefer-default-export
-  panoptesAppId: API_APPLICATION_IDS[env]
+const ZOONIVERSE_URL = {
+  production: 'https://www.zooniverse.org/',
+  staging: 'https://master.pfe-preview.zooniverse.org/',
+  development: 'https://master.pfe-preview.zooniverse.org/'
 };
 
+export const config = { // eslint-disable-line import/prefer-default-export
+  panoptesAppId: API_APPLICATION_IDS[env],
+  zooniverseURL: ZOONIVERSE_URL[env]
+};

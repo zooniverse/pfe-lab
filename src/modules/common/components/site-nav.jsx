@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import { ZooniverseLogo } from 'zooniverse-react-components';
 import SiteNavItems from './site-nav-items';
 import HeaderAuth from '../containers/header-auth';
+import { config } from '../../../constants/config';
 
 function renderNavItem(item) {
   if (item.to.match(/^https?:/ig)) {
@@ -26,7 +27,7 @@ const SiteNav = () => {
   if (SiteNavItems) {
     nav = (
       <nav className="site-nav">
-        <Link to="/" className="site-nav__link">
+        <Link to={config.zooniverseURL} className="site-nav__link">
           <ZooniverseLogo height="1.75em" width="1.75em" />
         </Link>
         <ul className="site-nav__main-links">
