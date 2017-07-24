@@ -89,7 +89,7 @@ class ProjectsContainer extends React.Component {
   render() {
     return (
       <div>
-        <h1>Affiliated Projects</h1>
+        <div className="organization-section-header">Affiliated Projects</div>
         <OrganizationProjectsList
           onRemove={this.removeProject}
           projects={this.props.organizationProjects}
