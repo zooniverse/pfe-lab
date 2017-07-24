@@ -24,6 +24,10 @@ const OrganizationsList = ({ createOrganization, collaboratedOrganizations, orga
           Create a new organization
         </button>{' '}
         <Link to="/" className="button organizations-list__button--info">How-to</Link>{' '}
+        <Link to="/" className="button organizations-list__button--info">Glossary</Link>{' '}
+        <Link to="/" className="button organizations-list__button--info">Policies</Link>{' '}
+        <Link to="/" className="button organizations-list__button--info">Best Practices</Link>{' '}
+        <Link to="/" className="button organizations-list__button--info">Talk</Link>{' '}
       </div>
       <hr />
 
