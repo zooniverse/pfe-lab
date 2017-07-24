@@ -92,6 +92,7 @@ class CollaboratorCreatorContainer extends React.Component {
                         name="role"
                         value={role}
                         disabled={role === 'owner'}
+                        className="collaborators__checkbox"
                       />
                       {this.props.rolesInfo[role].label}
                     </label></strong>
