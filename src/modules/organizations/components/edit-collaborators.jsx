@@ -17,6 +17,7 @@ const EditCollaborators = ({ organizationOwner, organizationCollaborators, possi
 
   return (
     <div>
+      <div className="organization-section-header">Collaborators</div>
       <h3 className="form-label">Organization Owner</h3>
       <p>{(user.id === organizationOwner.id) ? 'You are the organization owner.' : `${organizationOwner.display_name} is the organization owner.`}</p>
 
@@ -24,7 +25,6 @@ const EditCollaborators = ({ organizationOwner, organizationCollaborators, possi
 
       <h3 className="form-label">Collaborators</h3>
 
-      <hr />
       {organizationCollaborators.length === 0 &&
         <em className="form-help">None yet</em>}
       {organizationCollaborators.length > 0 &&

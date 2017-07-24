@@ -24,8 +24,9 @@ const AboutPage = (props) => {
 
   return (
     <div>
+      <div className="organization-section-header">Organization About Page</div>
       <p>
-        Instructions...
+        This page is for you to describe your organization to the volunteers. Feel free to add detail, but try to avoid jargon. This page renders markdown, so you can format it and add images via the Media Library and links.
       </p>
       <FormContainer onSubmit={props.onSubmit} onReset={props.resetOrganizationPage}>
         <fieldset className="form__fieldset">
