@@ -1,0 +1,44 @@
+.nav-list
+  margin: 0
+  padding: 0
+  list-style-type: none
+
+  &__item
+    border: 0 solid rgba(gray, 0.3)
+    border-top-width: 1px
+    display: block
+    padding: 0.2em 1vw
+    text-decoration: none
+
+    &.active
+      background: #43bbfd
+      border-top-color: transparent
+      color: white
+      font-weight: bold
+
+.nav-list-header
+  font-size: 1em
+  font-weight: bold
+  letter-spacing: 0.1em
+  opacity: 0.7 // why are we using opacity to calculate text color?
+  text-transform: uppercase
+  margin: 0.2em 1vw
+  text-decoration: none
+
+.view-org-button
+  cursor: pointer
+  text-decoration: none
+  background: MAIN_HIGHLIGHT
+  border-radius: 3px
+  color: white
+  padding: 0.4em 1.4em
+  text-align: center
+  display: block
+  margin: 1vw 0
+
+  &:focus,
+  &:hover
+    background: lighten(MAIN_HIGHLIGHT, 20%)
+
+  &:disabled
+    pointer-events: none
