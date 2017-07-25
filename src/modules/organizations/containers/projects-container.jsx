@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Paginator } from 'zooniverse-react-components'
+import { Paginator } from 'zooniverse-react-components';
 
 import { projectsShape } from '../../projects/model';
 import { organizationShape } from '../model';
@@ -120,6 +120,9 @@ ProjectsContainer.propTypes = {
   dispatch: React.PropTypes.func,
   organization: organizationShape,
   organizationProjects: projectsShape,
+  router: React.PropTypes.shape({
+    push: React.PropTypes.func
+  })
 };
 
 function mapStateToProps(state) {
