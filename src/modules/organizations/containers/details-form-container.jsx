@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { MarkdownEditor } from 'markdownz';
+import { DisplayNameSlugEditor } from 'zooniverse-react-components';
 import { organizationShape } from '../model';
 import { setCurrentOrganization } from '../action-creators';
 import bindInput from '../../common/containers/bind-input';
@@ -57,24 +58,26 @@ class DetailsFormContainer extends React.Component {
     // TODO extract MarkdownEditor into its own component put into common folder
     // TODO split into functional component
     const organization = this.props.organization;
-    const NameInput = bindInput(organization.display_name, <input type="text" />);
     const DescriptionInput = bindInput(organization.description, <input type="text" />);
+    this.fields = {};
 
     return (
       <FormContainer onSubmit={this.handleSubmit} onReset={this.resetOrganization}>
         <fieldset className="form__fieldset">
-          <label className="form__label" htmlFor="display-name">
-            Name <NameInput className="form__input form__input--full-width" id="display-name" ref={(node) => { this.fields = { display_name: node }; }} />
-          </label>
-          <small className="form__help">
-            {this.props.organization.listed_at && "You cannot change listed organization's name" }
-            The organization name is the first thing people will see about the organization.
-            Try to keep it short and sweet.
-          </small>
+          <DisplayNameSlugEditor
+            resource={organization}
+            resourceType="organization"
+            ref={(node) => { this.fields.display_name = node; }}
+          />
         </fieldset>
         <fieldset className="form__fieldset">
           <label className="form__label" htmlFor="description">
-            Description <DescriptionInput className="form__input form__input--full-width" id="description" ref={(node) => { this.fields = { description: node }; }} />
+            Description
+            <DescriptionInput
+              className="form__input form__input--full-width"
+              id="description"
+              ref={(node) => { this.fields.description = node; }}
+            />
           </label>
           <small className="form__help">
             This should be a one-line call to action for your organization that displays on your landing page.{' '}
