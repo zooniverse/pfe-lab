@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Paginator } from 'zooniverse-react-components'
 
 import { projectsShape } from '../../projects/model';
 import { organizationShape } from '../model';
@@ -94,6 +95,13 @@ class ProjectsContainer extends React.Component {
           onRemove={this.removeProject}
           projects={this.props.organizationProjects}
         />
+        {this.props.organizationProjects.length &&
+          (<Paginator
+            page={this.props.organizationProjects[0]._meta.projects.page}
+            pageCount={this.props.organizationProjects[0]._meta.projects.page_count}
+            router={this.props.router}
+          />)
+        }
         <hr />
         <h4>Add a project</h4>
         <p>help text goes here</p>
