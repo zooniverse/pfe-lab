@@ -157,10 +157,10 @@ class CollaboratorsContainer extends React.Component {
         if (!this.props.organizationOwner) {
           const ownerRole = panoptesRoles.find(roleSet => roleSet.roles.includes('owner'));
 
-          if (ownerRole.links.owner.id === this.props.user.id) {
+          if (ownerRole && ownerRole.links.owner.id === this.props.user.id) {
             this.props.dispatch(setOrganizationOwner(this.props.user));
           } else {
-            apiClient.type('users').get(ownerRole.links.owner.id)
+            organization.get('owner')
               .then((owner) => { this.props.dispatch(setOrganizationOwner(owner)); })
               .catch((error) => {
                 const notification = { status: 'critical', message: `${error.statusText}: ${error.message}` };
