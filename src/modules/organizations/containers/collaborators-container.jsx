@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Paginator } from 'zooniverse-react-components';
 
 import apiClient from 'panoptes-client/lib/api-client';
 import { organizationShape, organizationCollaboratorsShape, organizationOwnerShape } from '../model';
@@ -207,6 +208,13 @@ class CollaboratorsContainer extends React.Component {
     return (
       <div>
         <EditCollaborators {...props} />
+        {this.props.organizationCollaborators &&
+          (<Paginator
+            page={this.props.organizationCollaborators[0]._meta.organization_roles.page}
+            pageCount={this.props.organizationCollaborators[0]._meta.organization_roles.page_count}
+            router={this.props.router}
+          />)
+        }
         <hr />
         <CollaboratorCreatorContainer
           addCollaborators={this.addCollaborators}
