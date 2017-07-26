@@ -132,7 +132,8 @@ class CollaboratorsContainer extends React.Component {
     collaborator.update({ 'roles': newRoleSet }).save()
       .then((updatedCollaborator) => {
         // Doing this doesn't maintain the array order, so reordering in UI happens on re-render and can be confusing...
-        const updatedCollaborators = this.props.organizationCollaborators.filter(currentCollaborator => !(currentCollaborator === collaborator));
+        const updatedCollaborators = this.props.organizationCollaborators
+          .filter(currentCollaborator => !(currentCollaborator === collaborator));
         updatedCollaborators.push(updatedCollaborator);
         this.props.dispatch(setOrganizationCollaborators(updatedCollaborators));
       }).then(() => {
@@ -152,22 +153,41 @@ class CollaboratorsContainer extends React.Component {
 
     organization.get('organization_roles', { page_size: 100 })
       .then((panoptesRoles) => {
-        const withoutOwnerRole = panoptesRoles.filter(roleSet => !roleSet.roles.includes('owner'));
-
         if (!this.props.organizationOwner) {
           const ownerRole = panoptesRoles.find(roleSet => roleSet.roles.includes('owner'));
 
-          apiClient.type('users').get(ownerRole.links.owner.id)
-            .then((owner) => { this.props.dispatch(setOrganizationOwner(owner)); })
-            .catch((error) => {
-              const notification = { status: 'critical', message: `${error.statusText}: ${error.message}` };
+          if (ownerRole.links.owner.id === this.props.user.id) {
+            this.props.dispatch(setOrganizationOwner(this.props.user));
+          } else {
+            apiClient.type('users').get(ownerRole.links.owner.id)
+              .then((owner) => { this.props.dispatch(setOrganizationOwner(owner)); })
+              .catch((error) => {
+                const notification = { status: 'critical', message: `${error.statusText}: ${error.message}` };
 
-              notificationHandler(this.props.dispatch, notification);
-            });
+                notificationHandler(this.props.dispatch, notification);
+              });
+          }
         }
 
-        // This is ugly. I've requested to get back display_name in the original request: https://github.com/zooniverse/Panoptes/issues/2123
-        this.props.dispatch(setOrganizationCollaborators(withoutOwnerRole));
+        const withoutOwnerRole = panoptesRoles.filter(roleSet => !roleSet.roles.includes('owner'));
+
+        if (withoutOwnerRole.length) {
+          const getCollaboratorNames = withoutOwnerRole.map((role) => {
+            return (
+              role.get('owner')
+                .catch(error => console.error(error))
+                .then((user) => {
+                  const newRole = role;
+                  newRole.display_name = user.display_name;
+                  return newRole;
+                }));
+          });
+          Promise.all(getCollaboratorNames)
+            .catch(error => console.error(error))
+            .then((collaboratorRoles) => {
+              this.props.dispatch(setOrganizationCollaborators(collaboratorRoles));
+            });
+        }
       });
   }
 
