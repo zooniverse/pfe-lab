@@ -3,7 +3,6 @@ import React from 'react';
 import { projectsShape } from '../../projects/model';
 
 const OrganizationProjectsList = ({ projects, onRemove }) => {
-  // TODO: pagination
   if (!projects || projects.length < 1) {
     return (<p>No projects associated with this organization</p>);
   }
