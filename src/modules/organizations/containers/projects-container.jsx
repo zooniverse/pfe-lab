@@ -95,7 +95,7 @@ class ProjectsContainer extends React.Component {
           projects={this.props.organizationProjects}
         />
         <hr />
-        <h2>Add a project</h2>
+        <h4>Add a project</h4>
         <p>help text goes here</p>
         <OrganizationAddProject
           onAdd={this.addProject}

@@ -13,7 +13,11 @@ const OrganizationProjectsList = ({ projects, onRemove }) => {
       {projects.map(project => (
         <li key={project.id} className="organization-project-item">
           <strong className="organization-project-item__name">{project.display_name}</strong>
-          <button type="button" onClick={onRemove.bind(null, project.id)} className="organization-project-item__button--remove">
+          <button
+            type="button"
+            onClick={onRemove.bind(null, project.id)}
+            className="organization-project-item__button--remove"
+          >
             x
           </button>
         </li>

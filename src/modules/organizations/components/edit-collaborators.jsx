@@ -3,7 +3,7 @@ import React from 'react';
 import { organizationCollaboratorsShape, organizationOwnerShape } from '../model';
 
 const EditCollaborators = ({ organizationOwner, organizationCollaborators, possibleRoles, removeCollaborator, rolesInfo, saving, updateCollaborator, user }) => {
-  if (!organizationCollaborators || !organizationOwner) {
+  if (!organizationOwner) {
     return <div>Loading...</div>;
   }
 
@@ -19,26 +19,32 @@ const EditCollaborators = ({ organizationOwner, organizationCollaborators, possi
     <div className="collaborators">
       <div className="organization-section-header">Collaborators</div>
       <h4 className="collaborators__title">Organization Owner</h4>
-      <p>{(user.id === organizationOwner.id) ? 'You are the organization owner.' : `${organizationOwner.display_name} is the organization owner.`}</p>
+      <p>{(user.id === organizationOwner.id) ?
+        'You are the organization owner.' : `${organizationOwner.display_name} is the organization owner.`}
+      </p>
 
       <br />
 
       <h4 className="collaborators__title">Collaborators</h4>
+      <hr />
 
-      {organizationCollaborators.length === 0 &&
-        <em className="form-help">None yet</em>}
-      {organizationCollaborators.length > 0 &&
-        (<ul>
+      {(organizationCollaborators && organizationCollaborators.length) ?
+        <div>
           {organizationCollaborators.map((collaborator) => {
-            return (<li key={collaborator.id}>
+            return (<p key={collaborator.id}>
               <span>
-                <strong>{collaborator.id}</strong>
-                <button type="button" onClick={handleRemoval.bind(this, collaborator)}>&times;</button>
+                <strong>{collaborator.display_name}</strong>{' '}
+                <button
+                  type="button"
+                  className="collaborators__button"
+                  onClick={handleRemoval.bind(this, collaborator)}
+                >&times;
+                </button>
               </span>
               <br />
               {Object.keys(possibleRoles).map((role, i) => {
                 return (
-                  <label key={`role-${i}`}>
+                  <label htmlFor={`role-${i}`} key={`role-${i}`}>
                     <input
                       type="checkbox"
                       name={role}
@@ -46,13 +52,13 @@ const EditCollaborators = ({ organizationOwner, organizationCollaborators, possi
                       onChange={toggleRole.bind(this, collaborator)}
                       value={role}
                       disabled={saving === collaborator.id}
-                    />
+                    />{' '}
                     {rolesInfo[role].label}
                   </label>);
               })}
-            </li>);
+            </p>);
           })}
-        </ul>)}
+        </div> : <em className="form-help">None yet</em>}
     </div>
   );
 };

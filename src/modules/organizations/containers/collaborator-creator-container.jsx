@@ -72,7 +72,7 @@ class CollaboratorCreatorContainer extends React.Component {
         onSubmit={this.handleSubmit}
         submitLabel="Add user role"
       >
-        <h3>Add another user role</h3>
+        <h4 className="collaborators__title">Add another user role</h4>
         <fieldset className="form__fieldset">
           <label htmlFor="user-search" className="form__label">Find a user</label>
           <UserSearch id="user-search" ref={(input) => { this.userSearch = input; }} />
