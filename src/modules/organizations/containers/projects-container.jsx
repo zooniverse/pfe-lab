@@ -104,7 +104,7 @@ class ProjectsContainer extends React.Component {
         }
         <hr />
         <h4>Add a project</h4>
-        <p>help text goes here</p>
+        <p>Add projects that you want to include in this organization.</p>
         <OrganizationAddProject
           onAdd={this.addProject}
           onChange={this.changeSelectedProject}
