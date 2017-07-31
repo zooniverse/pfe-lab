@@ -43,6 +43,20 @@ const EditDetails = (props) => {
         </aside>
         <section className="forms__section">
           <DetailsFormContainer updateOrganization={props.updateOrganization} />
+          <span className="form__label">Status</span>
+          <div>
+            <span>
+              Listed:{' '}
+              <span className={props.organization.listed ? 'color-label green' : 'color-label red'}>
+                {props.organization.listed.toString()}
+              </span>
+            </span>
+            <br />
+            <span>
+              Listed At:{' '}
+              {props.organization.listed ? Date(props.organization.listed_at) : 'N/A'}
+            </span>
+          </div>
           <hr />
           <button
             type="button"
