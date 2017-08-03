@@ -31,14 +31,17 @@ class ProjectsContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.organization !== this.props.organization) {
-      this.getLinkedProjects(nextProps.organization);
+    if (nextProps.organization !== this.props.organization ||
+      nextProps.location.query.page !== this.props.location.query.page) {
+      this.getLinkedProjects(nextProps.organization, nextProps.location.query.page);
     }
   }
 
-  getLinkedProjects(organization = this.props.organization) {
+  getLinkedProjects(organization = this.props.organization, page = 1 ) {
     if (organization) {
-      organization.get('projects', { sort: 'display_name' }).then((projects) => {
+      const query = { sort: 'display_name', page_size: 2, page };
+
+      organization.get('projects', query).then((projects) => {
         this.props.dispatch(setOrganizationProjects(projects));
       }).catch((error) => {
         const notification = { status: 'critical', message: `${error.statusText}: ${error.message}` };
