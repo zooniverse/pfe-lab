@@ -37,7 +37,7 @@ class ProjectsContainer extends React.Component {
     }
   }
 
-  getLinkedProjects(organization = this.props.organization, page = 1 ) {
+  getLinkedProjects(organization = this.props.organization, page = 1) {
     if (organization) {
       const query = { sort: 'display_name', page_size: 2, page };
 
@@ -119,13 +119,23 @@ class ProjectsContainer extends React.Component {
   }
 }
 
+ProjectsContainer.defaultProps = {
+  location: {},
+  organization: {},
+  organizationProjects: {}
+};
+
 ProjectsContainer.propTypes = {
-  dispatch: React.PropTypes.func,
+  dispatch: React.PropTypes.func.isRequired,
+  location: React.PropTypes.shape({
+    query: React.PropTypes.object,
+    page: React.PropTypes.number,
+  }),
   organization: organizationShape,
   organizationProjects: projectsShape,
   router: React.PropTypes.shape({
     push: React.PropTypes.func
-  })
+  }).isRequired
 };
 
 function mapStateToProps(state) {
