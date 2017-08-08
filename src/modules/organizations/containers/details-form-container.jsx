@@ -1,12 +1,15 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import { MarkdownEditor } from 'markdownz';
+import { MarkdownEditor, MarkdownHelp } from 'markdownz';
 import { DisplayNameSlugEditor } from 'zooniverse-react-components';
+import Layer from 'grommet/components/Layer';
 import { organizationShape } from '../model';
 import { setCurrentOrganization } from '../action-creators';
 import bindInput from '../../common/containers/bind-input';
 import FormContainer from '../../common/containers/form-container';
 import CharLimit from '../../common/components/char-limit';
+
 
 class DetailsFormContainer extends React.Component {
   constructor(props) {
@@ -52,6 +55,42 @@ class DetailsFormContainer extends React.Component {
     this.props.dispatch(setCurrentOrganization(this.props.organization));
   }
 
+  alert(message) {
+    const defer = {
+      resolve: null,
+      reject: null
+    };
+
+    const promise = new Promise((resolve, reject) => {
+      defer.resolve = resolve;
+      defer.reject = reject;
+    });
+
+    if (typeof message === 'function') {
+      var message = message(defer.resolve, defer.reject);
+    }
+
+    const container = document.createElement('div');
+    document.body.appendChild(container);
+
+    ReactDOM.render(
+      <Layer
+        closer={true}
+        flush={true}
+        onClose={defer.resolve}
+      >
+        {message}
+      </Layer>, container
+    );
+
+    promise.then(() => {
+      ReactDOM.unmountComponentAtNode(container);
+      return container.parentNode.removeChild(container);
+    });
+
+    return promise;
+  }
+
   render() {
     // TODO rename prop in markdownz to be resource not project.
     // TODO extract <MarkdownHelp /> into shared components repo.
@@ -95,6 +134,7 @@ class DetailsFormContainer extends React.Component {
               project={this.props.organization}
               rows="10"
               value={this.state.textarea}
+              onHelp={() => this.alert(MarkdownHelp)}
             />
           </label>
           <small className="form__help">
