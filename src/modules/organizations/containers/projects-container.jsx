@@ -126,7 +126,7 @@ ProjectsContainer.defaultProps = {
 };
 
 ProjectsContainer.propTypes = {
-  dispatch: React.PropTypes.func.isRequired,
+  dispatch: React.PropTypes.func,
   location: React.PropTypes.shape({
     query: React.PropTypes.object,
     page: React.PropTypes.number,
@@ -135,7 +135,7 @@ ProjectsContainer.propTypes = {
   organizationProjects: projectsShape,
   router: React.PropTypes.shape({
     push: React.PropTypes.func
-  }).isRequired
+  }),
 };
 
 function mapStateToProps(state) {
