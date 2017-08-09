@@ -25,20 +25,27 @@
   margin: 0.2em 1vw
   text-decoration: none
 
-.view-org-button
-  cursor: pointer
-  text-decoration: none
-  background: MAIN_HIGHLIGHT
-  border-radius: 3px
-  color: white
-  padding: 0.4em 1.4em
-  text-align: center
-  display: block
+.nav-button
+  font-weight: normal
   margin: 1vw 0
+  padding: 0.4em 1.4em
 
-  &:focus,
-  &:hover
-    background: lighten(MAIN_HIGHLIGHT, 20%)
+  &--view
+    background: MAIN_HIGHLIGHT
+    border-color: MAIN_HIGHLIGHT
+    color: white
 
-  &:disabled
-    pointer-events: none
+    &:focus,
+    &:hover
+      background: lighten(MAIN_HIGHLIGHT, 20%)
+      border-color: lighten(MAIN_HIGHLIGHT, 20%)
+
+  &--delete
+    background: GREY_LIGHT
+    border-color: GREY_LIGHT
+    color: FOREGROUND
+
+    &:focus,
+    &:hover
+      background: lighten(GREY_LIGHT, 20%)
+      border-color: lighten(GREY_LIGHT, 20%)

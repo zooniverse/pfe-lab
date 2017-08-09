@@ -26,7 +26,11 @@ const EditDetails = (props) => {
               resourceSrc={props.organizationAvatar.src}
               resourceType="avatar"
             />
-            <small>Pick a logo to represent your organization. To add an image, either drag and drop or click to open your file viewer. For best results, use a square image of not more than 50 KB.</small>
+            <small>
+              Pick a logo to represent your organization.
+              To add an image, either drag and drop or click to open your file viewer.
+              For best results, use a square image of not more than 50 KB.
+            </small>
           </div>
           <hr />
           <div>
@@ -38,7 +42,11 @@ const EditDetails = (props) => {
               resourceSrc={props.organizationBackground.src}
               resourceType="background"
             />
-            <small>This image will be the background for your organization page. To add an image, either drag and drop or left click to open your file viewer. For best results, use good quality images no more than 256 KB.</small>
+            <small>
+              This image will be the background for your organization page.
+              To add an image, either drag and drop or left click to open your file viewer.
+              For best results, use good quality images no more than 256 KB.
+            </small>
           </div>
         </aside>
         <section className="forms__section">
@@ -57,15 +65,6 @@ const EditDetails = (props) => {
               {props.organization.listed ? Date(props.organization.listed_at) : 'N/A'}
             </span>
           </div>
-          <hr />
-          <button
-            type="button"
-            className="button button--full-alert"
-            disabled={props.deletionInProgress}
-            onClick={props.deleteOrganization}
-          >
-            Delete this organization
-          </button>
         </section>
       </div>
     </div>
@@ -73,8 +72,6 @@ const EditDetails = (props) => {
 };
 
 EditDetails.propTypes = {
-  deleteOrganization: React.PropTypes.func,
-  deletionInProgress: React.PropTypes.bool,
   handleMediaChange: React.PropTypes.func,
   maxAvatarSize: React.PropTypes.number,
   maxBackgroundSize: React.PropTypes.number,

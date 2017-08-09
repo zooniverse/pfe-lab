@@ -106,8 +106,6 @@ class EditDetailsContainer extends React.Component {
   render() {
     return (
       <EditDetails
-        deleteOrganization={this.props.deleteOrganization}
-        deletionInProgress={this.props.deletionInProgress}
         handleMediaChange={this.handleMediaChange}
         organization={this.props.organization}
         organizationAvatar={this.props.organizationAvatar}
@@ -119,8 +117,6 @@ class EditDetailsContainer extends React.Component {
 }
 
 EditDetailsContainer.propTypes = {
-  deleteOrganization: React.PropTypes.func.isRequired,
-  deletionInProgress: React.PropTypes.bool,
   dispatch: React.PropTypes.func,
   organization: organizationShape,
   organizationAvatar: organizationAvatarShape,
