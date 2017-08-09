@@ -153,7 +153,7 @@ class CollaboratorsContainer extends React.Component {
       return;
     }
 
-    const query = { sort: 'display_name', page_size: 20, page };
+    const query = { sort: 'display_name', page };
 
     organization.get('organization_roles', query)
       .then((panoptesRoles) => {
