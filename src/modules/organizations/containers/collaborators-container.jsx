@@ -153,7 +153,7 @@ class CollaboratorsContainer extends React.Component {
       return;
     }
 
-    const query = { sort: 'display_name', page_size: 2, page }
+    const query = { sort: 'display_name', page_size: 2, page };
 
     organization.get('organization_roles', query)
       .then((panoptesRoles) => {
@@ -229,12 +229,26 @@ class CollaboratorsContainer extends React.Component {
   }
 }
 
+CollaboratorsContainer.defaultProps = {
+  location: {},
+  organization: {},
+  organizationCollaborators: [],
+  organizationOwner: {},
+  user: {},
+};
+
 CollaboratorsContainer.propTypes = {
-  children: React.PropTypes.node,
   dispatch: React.PropTypes.func,
+  location: React.PropTypes.shape({
+    query: React.PropTypes.object,
+    page: React.PropTypes.number,
+  }),
   organization: organizationShape,
   organizationCollaborators: organizationCollaboratorsShape,
   organizationOwner: organizationOwnerShape,
+  router: React.PropTypes.shape({
+    push: React.PropTypes.func
+  }),
   user: React.PropTypes.shape({
     id: React.PropTypes.string,
   }),
