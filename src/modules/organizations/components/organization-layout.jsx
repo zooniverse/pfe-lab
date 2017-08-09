@@ -1,15 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-const OrganizationLayout = ({ children, navItems, organizationId }) => (
+const OrganizationLayout = ({ children, deleteOrganization, deletionInProgress, navItems, organizationId }) => (
   <div className="organization-layout">
     <nav className="organization-layout__nav">
       <ul className="nav-list">
-        <li><div className="nav-list-header">Organization #{organizationId}</div></li>
+        <li>
+          <div className="nav-list-header">Organization #{organizationId}</div>
+        </li>
         <li>
           <Link
             to={`/organizations/${organizationId}`}
-            className="view-org-button"
+            className="button button--wide nav-button nav-button--view"
           >
             View Organization
           </Link>
@@ -26,6 +28,16 @@ const OrganizationLayout = ({ children, navItems, organizationId }) => (
           </li>
         ))}
       </ul>
+      <br />
+      <div className="form__label">Other Actions</div>
+      <button
+        type="button"
+        className="button nav-button nav-button--delete"
+        disabled={deletionInProgress}
+        onClick={deleteOrganization}
+      >
+        Delete this organization
+      </button>
     </nav>
 
     <section className="organization-layout__section">{children}</section>
@@ -34,6 +46,8 @@ const OrganizationLayout = ({ children, navItems, organizationId }) => (
 
 OrganizationLayout.propTypes = {
   children: React.PropTypes.node,
+  deleteOrganization: React.PropTypes.func,
+  deletionInProgress: React.PropTypes.bool,
   navItems: React.PropTypes.arrayOf(React.PropTypes.object),
   organizationId: React.PropTypes.string,
 };

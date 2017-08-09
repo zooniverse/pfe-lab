@@ -85,20 +85,24 @@ class OrganizationContainer extends React.Component {
     const children = this.props.children; // eslint-disable-line react/prop-types
     const organization = this.props.organization;
     const organizationId = this.props.params.id;
+    const deleteOrganization = this.deleteOrganization;
+    const deletionInProgress = this.state.deletionInProgress;
 
     // inject props into children
     const wrappedChildren = React.Children.map(children, child =>
       React.cloneElement(child, {
         organization,
         organizationId,
-        updateOrganization: this.updateOrganization,
-        deleteOrganization: this.deleteOrganization,
-        deletionInProgress: this.state.deletionInProgress,
+        updateOrganization: this.updateOrganization
       }),
     );
 
     return (
-      <OrganizationLayout organizationId={organizationId}>
+      <OrganizationLayout
+        organizationId={organizationId}
+        deleteOrganization={deleteOrganization}
+        deletionInProgress={deletionInProgress}
+      >
         {wrappedChildren}
       </OrganizationLayout>
     );
