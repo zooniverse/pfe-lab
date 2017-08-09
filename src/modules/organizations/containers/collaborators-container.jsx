@@ -240,8 +240,9 @@ CollaboratorsContainer.defaultProps = {
 CollaboratorsContainer.propTypes = {
   dispatch: React.PropTypes.func,
   location: React.PropTypes.shape({
-    query: React.PropTypes.object,
-    page: React.PropTypes.number,
+    query: React.PropTypes.shape({
+      page: React.PropTypes.string,
+    }),
   }),
   organization: organizationShape,
   organizationCollaborators: organizationCollaboratorsShape,
