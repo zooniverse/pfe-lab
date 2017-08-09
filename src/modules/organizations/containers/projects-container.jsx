@@ -39,7 +39,7 @@ class ProjectsContainer extends React.Component {
 
   getLinkedProjects(organization = this.props.organization, page = 1) {
     if (organization) {
-      const query = { sort: 'display_name', page_size: 2, page };
+      const query = { sort: 'display_name', page_size: 20, page };
 
       organization.get('projects', query).then((projects) => {
         this.props.dispatch(setOrganizationProjects(projects));
