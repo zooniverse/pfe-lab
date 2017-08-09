@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { MarkdownEditor, MarkdownHelp } from 'markdownz';
 import { DisplayNameSlugEditor } from 'zooniverse-react-components';
@@ -19,9 +18,11 @@ class DetailsFormContainer extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onTextAreaChange = this.onTextAreaChange.bind(this);
     this.resetOrganization = this.resetOrganization.bind(this);
+    this.handleClickToggleHelp = this.handleClickToggleHelp.bind(this);
 
     this.state = {
-      textarea: ''
+      textarea: '',
+      isHelpVisible: false
     };
   }
 
@@ -55,40 +56,20 @@ class DetailsFormContainer extends React.Component {
     this.props.dispatch(setCurrentOrganization(this.props.organization));
   }
 
-  alert(message) {
-    const defer = {
-      resolve: null,
-      reject: null
-    };
+  handleClickToggleHelp() {
+    this.setState({ isHelpVisible: !this.state.isHelpVisible });
+  }
 
-    const promise = new Promise((resolve, reject) => {
-      defer.resolve = resolve;
-      defer.reject = reject;
-    });
-
-    if (typeof message === 'function') {
-      var message = message(defer.resolve, defer.reject);
-    }
-
-    const container = document.createElement('div');
-    document.body.appendChild(container);
-
-    ReactDOM.render(
+  renderMarkdownHelp() {
+    return (
       <Layer
         closer={true}
         flush={true}
-        onClose={defer.resolve}
+        onClose={this.handleClickToggleHelp}
       >
-        {message}
-      </Layer>, container
+        {<MarkdownHelp />}
+      </Layer>
     );
-
-    promise.then(() => {
-      ReactDOM.unmountComponentAtNode(container);
-      return container.parentNode.removeChild(container);
-    });
-
-    return promise;
   }
 
   render() {
@@ -101,52 +82,59 @@ class DetailsFormContainer extends React.Component {
     this.fields = {};
 
     return (
-      <FormContainer onSubmit={this.handleSubmit} onReset={this.resetOrganization}>
-        <fieldset className="form__fieldset">
-          <DisplayNameSlugEditor
-            resource={organization}
-            resourceType="organization"
-            ref={(node) => { this.fields.display_name = node; }}
-          />
-        </fieldset>
-        <fieldset className="form__fieldset">
-          <label className="form__label" htmlFor="description">
-            Description
-            <DescriptionInput
-              className="form__input form__input--full-width"
-              id="description"
-              ref={(node) => { this.fields.description = node; }}
+      <div>
+        {this.state.isHelpVisible && this.renderMarkdownHelp()}
+        <FormContainer onSubmit={this.handleSubmit} onReset={this.resetOrganization}>
+          <fieldset className="form__fieldset">
+            <DisplayNameSlugEditor
+              resource={organization}
+              resourceType="organization"
+              ref={(node) => { this.fields.display_name = node; }}
             />
-          </label>
-          <small className="form__help">
-            This should be a one-line call to action for your organization that displays on your landing page.{' '}
-            <CharLimit limit={300} string={this.props.organization.description || ''} />
-          </small>
-        </fieldset>
-        <fieldset className="form__fieldset">
-          <label className="form__label" htmlFor="introduction">
-            Introduction
-            <MarkdownEditor
-              className="form__markdown-editor--full"
-              id="introduction"
-              name="introduction"
-              onChange={this.onTextAreaChange}
-              project={this.props.organization}
-              rows="10"
-              value={this.state.textarea}
-              onHelp={() => this.alert(MarkdownHelp)}
-            />
-          </label>
-          <small className="form__help">
-            Add a brief introduction to get people interested in your organization.
-            This will display on your landing page.{' '}
-            <CharLimit limit={1500} string={this.state.textarea || ''} />
-          </small>
-        </fieldset>
-      </FormContainer>
+          </fieldset>
+          <fieldset className="form__fieldset">
+            <label className="form__label" htmlFor="description">
+              Description
+              <DescriptionInput
+                className="form__input form__input--full-width"
+                id="description"
+                ref={(node) => { this.fields.description = node; }}
+              />
+            </label>
+            <small className="form__help">
+              This should be a one-line call to action for your organization that displays on your landing page.{' '}
+              <CharLimit limit={300} string={this.props.organization.description || ''} />
+            </small>
+          </fieldset>
+          <fieldset className="form__fieldset">
+            <label className="form__label" htmlFor="introduction">
+              Introduction
+              <MarkdownEditor
+                className="form__markdown-editor--full"
+                id="introduction"
+                name="introduction"
+                onChange={this.onTextAreaChange}
+                project={this.props.organization}
+                rows="10"
+                value={this.state.textarea}
+                onHelp={() => this.handleClickToggleHelp()}
+              />
+            </label>
+            <small className="form__help">
+              Add a brief introduction to get people interested in your organization.
+              This will display on your landing page.{' '}
+              <CharLimit limit={1500} string={this.state.textarea || ''} />
+            </small>
+          </fieldset>
+        </FormContainer>
+      </div>
     );
   }
 }
+
+DetailsFormContainer.defaultProps = {
+  organization: {},
+};
 
 DetailsFormContainer.propTypes = {
   dispatch: React.PropTypes.func,
