@@ -24,7 +24,10 @@ class MarkdownEditor extends React.Component {
         flush={true}
         onClose={this.handleClickToggleHelp}
       >
-        {<Markdownz.MarkdownHelp talk={this.props.talk} />}
+        {<Markdownz.MarkdownHelp
+          talk={this.props.talk}
+          title={this.props.title}/
+        >}
       </Layer>
     );
   }
