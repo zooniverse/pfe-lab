@@ -26,8 +26,8 @@ class MarkdownEditor extends React.Component {
       >
         {<Markdownz.MarkdownHelp
           talk={this.props.talk}
-          title={this.props.title}/
-        >}
+          title={this.props.title}
+        />}
       </Layer>
     );
   }
@@ -48,12 +48,14 @@ class MarkdownEditor extends React.Component {
 
 MarkdownEditor.defaultProps = {
   className: 'form__markdown-editor--full',
-  talk: false
+  talk: false,
+  title: <h1 className="markdown-editor-title">Guide to using Markdown</h1>
 };
 
 MarkdownEditor.propTypes = {
   className: PropTypes.string,
-  talk: PropTypes.bool
+  talk: PropTypes.bool,
+  title: PropTypes.node
 };
 
 export default MarkdownEditor;
