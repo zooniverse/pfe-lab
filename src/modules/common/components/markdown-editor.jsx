@@ -24,7 +24,7 @@ class MarkdownEditor extends React.Component {
         flush={true}
         onClose={this.handleClickToggleHelp}
       >
-        {<Markdownz.MarkdownHelp />}
+        {<Markdownz.MarkdownHelp talk={this.props.talk} />}
       </Layer>
     );
   }
@@ -35,20 +35,22 @@ class MarkdownEditor extends React.Component {
         {this.state.isHelpVisible && this.renderMarkdownHelp()}
         <Markdownz.MarkdownEditor
           {...this.props}
+          className={this.props.className}
           onHelp={() => this.handleClickToggleHelp()}
         />
       </div>
     );
   }
-};
+}
 
 MarkdownEditor.defaultProps = {
-  className: "form__markdown-editor--full"
-}
+  className: 'form__markdown-editor--full',
+  talk: false
+};
 
 MarkdownEditor.propTypes = {
-  value: PropTypes.string,
-  className: PropTypes.string
-}
+  className: PropTypes.string,
+  talk: PropTypes.bool
+};
 
 export default MarkdownEditor;
