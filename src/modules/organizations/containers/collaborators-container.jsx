@@ -62,8 +62,9 @@ class CollaboratorsContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.organization !== this.props.organization) {
-      this.fetchCollaborators(nextProps.organization);
+    if (nextProps.organization !== this.props.organization ||
+      nextProps.location.query.page !== this.props.location.query.page) {
+      this.fetchCollaborators(nextProps.organization, nextProps.location.query.page);
     }
   }
 
@@ -147,12 +148,14 @@ class CollaboratorsContainer extends React.Component {
       });
   }
 
-  fetchCollaborators(organization = this.props.organization) { // eslint-disable-line class-methods-use-this
+  fetchCollaborators(organization = this.props.organization, page = 1) { // eslint-disable-line class-methods-use-this
     if (!organization) {
       return;
     }
 
-    organization.get('organization_roles', { page_size: 100 })
+    const query = { sort: 'display_name', page };
+
+    organization.get('organization_roles', query)
       .then((panoptesRoles) => {
         if (!this.props.organizationOwner) {
           const ownerRole = panoptesRoles.find(roleSet => roleSet.roles.includes('owner'));
@@ -226,12 +229,27 @@ class CollaboratorsContainer extends React.Component {
   }
 }
 
+CollaboratorsContainer.defaultProps = {
+  location: {},
+  organization: {},
+  organizationCollaborators: [],
+  organizationOwner: {},
+  user: {},
+};
+
 CollaboratorsContainer.propTypes = {
-  children: React.PropTypes.node,
   dispatch: React.PropTypes.func,
+  location: React.PropTypes.shape({
+    query: React.PropTypes.shape({
+      page: React.PropTypes.string,
+    }),
+  }),
   organization: organizationShape,
   organizationCollaborators: organizationCollaboratorsShape,
   organizationOwner: organizationOwnerShape,
+  router: React.PropTypes.shape({
+    push: React.PropTypes.func
+  }),
   user: React.PropTypes.shape({
     id: React.PropTypes.string,
   }),
