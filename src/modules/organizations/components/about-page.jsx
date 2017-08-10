@@ -1,5 +1,5 @@
 import React from 'react';
-import { MarkdownEditor } from 'markdownz';
+import MarkdownEditor from '../../common/components/markdown-editor';
 
 import FormContainer from '../../common/containers/form-container';
 import { organizationShape, organizationPageShape } from '../model';
@@ -35,7 +35,6 @@ const AboutPage = (props) => {
             <br />
             <MarkdownEditor
               project={props.organization}
-              className="form__markdown-editor--full"
               name="content"
               id="content"
               rows="20"

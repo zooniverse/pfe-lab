@@ -1,14 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { MarkdownEditor, MarkdownHelp } from 'markdownz';
+import MarkdownEditor from '../../common/components/markdown-editor';
 import { DisplayNameSlugEditor } from 'zooniverse-react-components';
-import Layer from 'grommet/components/Layer';
 import { organizationShape } from '../model';
 import { setCurrentOrganization } from '../action-creators';
 import bindInput from '../../common/containers/bind-input';
 import FormContainer from '../../common/containers/form-container';
 import CharLimit from '../../common/components/char-limit';
-
 
 class DetailsFormContainer extends React.Component {
   constructor(props) {
@@ -16,13 +14,11 @@ class DetailsFormContainer extends React.Component {
 
     this.collectValues = this.collectValues.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.onTextAreaChange = this.onTextAreaChange.bind(this);
+    this.handleTextAreaChange = this.handleTextAreaChange.bind(this);
     this.resetOrganization = this.resetOrganization.bind(this);
-    this.handleClickToggleHelp = this.handleClickToggleHelp.bind(this);
 
     this.state = {
-      textarea: '',
-      isHelpVisible: false
+      textarea: ''
     };
   }
 
@@ -30,7 +26,7 @@ class DetailsFormContainer extends React.Component {
     this.setState({ textarea: this.props.organization.introduction });
   }
 
-  onTextAreaChange(event) {
+  handleTextAreaChange(event) {
     const textarea = event.target.value;
 
     this.setState({ textarea });
@@ -56,22 +52,6 @@ class DetailsFormContainer extends React.Component {
     this.props.dispatch(setCurrentOrganization(this.props.organization));
   }
 
-  handleClickToggleHelp() {
-    this.setState({ isHelpVisible: !this.state.isHelpVisible });
-  }
-
-  renderMarkdownHelp() {
-    return (
-      <Layer
-        closer={true}
-        flush={true}
-        onClose={this.handleClickToggleHelp}
-      >
-        {<MarkdownHelp />}
-      </Layer>
-    );
-  }
-
   render() {
     // TODO rename prop in markdownz to be resource not project.
     // TODO extract <MarkdownHelp /> into shared components repo.
@@ -83,7 +63,6 @@ class DetailsFormContainer extends React.Component {
 
     return (
       <div>
-        {this.state.isHelpVisible && this.renderMarkdownHelp()}
         <FormContainer onSubmit={this.handleSubmit} onReset={this.resetOrganization}>
           <fieldset className="form__fieldset">
             <DisplayNameSlugEditor
@@ -110,14 +89,12 @@ class DetailsFormContainer extends React.Component {
             <label className="form__label" htmlFor="introduction">
               Introduction
               <MarkdownEditor
-                className="form__markdown-editor--full"
                 id="introduction"
                 name="introduction"
-                onChange={this.onTextAreaChange}
+                onChange={this.handleTextAreaChange}
                 project={this.props.organization}
                 rows="10"
                 value={this.state.textarea}
-                onHelp={() => this.handleClickToggleHelp()}
               />
             </label>
             <small className="form__help">
