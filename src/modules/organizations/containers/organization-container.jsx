@@ -98,7 +98,7 @@ class OrganizationContainer extends React.Component {
     );
 
     return (
-      <OrganizationLayout organizationId={organizationId}>
+      <OrganizationLayout organizationId={organizationId} organizationSlug={organization ? organization.slug : ''}>
         {wrappedChildren}
       </OrganizationLayout>
     );
