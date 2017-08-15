@@ -34,12 +34,12 @@ const AboutPage = (props) => {
             About Page Content
             <br />
             <MarkdownEditor
-              project={props.organization}
-              name="content"
               id="content"
+              name="content"
+              onChange={props.onTextAreaChange}
+              project={props.organization}
               rows="20"
               value={props.pageContent}
-              onChange={props.onTextAreaChange}
             />
           </label>
         </fieldset>
