@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { config } from '../../../constants/config';
 
 import { organizationsAvatarsShape, organizationsShape } from '../model';
 
@@ -21,7 +22,10 @@ const ListGroup = ({ organizations, organizationsAvatars, showOwnerName, title }
           return (
             <li key={organization.id} className="organizations-list__item">
               <div className="organizations-list__row">
-                <Link to={`/organizations/${organization.id}`} className="organizations-list__edit organizations-list--action">
+                <Link
+                  to={`/organizations/${organization.id}`}
+                  className="organizations-list__edit organizations-list--action"
+                >
                   {avatar && avatar.length > 0 &&
                     <img src={avatar[0].src} alt="avatar" className="organizations-list__avatar" />}
                   <div className="organizations-list__description">
@@ -34,10 +38,15 @@ const ListGroup = ({ organizations, organizationsAvatars, showOwnerName, title }
                     <small>Edit</small>
                   </span>
                 </Link>
-                <Link to={`/organizations/${organization.slug}`} className="organizations-list__icon organizations-list--action">
+                <a
+                  className="organizations-list__icon organizations-list--action"
+                  href={`${config.zooniverseURL}organizations/${organization.slug}`}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
                   <i className="fa fa-hand-o-right fa-fw" />
                   <small>View</small>
-                </Link>
+                </a>
               </div>
             </li>
           );
@@ -59,4 +68,3 @@ ListGroup.propTypes = {
 };
 
 export default ListGroup;
-
