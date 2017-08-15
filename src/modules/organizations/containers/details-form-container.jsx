@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { MarkdownEditor } from 'markdownz';
+import MarkdownEditor from '../../common/components/markdown-editor';
 import { DisplayNameSlugEditor } from 'zooniverse-react-components';
 import { organizationShape } from '../model';
 import { setCurrentOrganization } from '../action-creators';
@@ -14,7 +14,7 @@ class DetailsFormContainer extends React.Component {
 
     this.collectValues = this.collectValues.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.onTextAreaChange = this.onTextAreaChange.bind(this);
+    this.handleTextAreaChange = this.handleTextAreaChange.bind(this);
     this.resetOrganization = this.resetOrganization.bind(this);
 
     this.state = {
@@ -26,7 +26,7 @@ class DetailsFormContainer extends React.Component {
     this.setState({ textarea: this.props.organization.introduction });
   }
 
-  onTextAreaChange(event) {
+  handleTextAreaChange(event) {
     const textarea = event.target.value;
 
     this.setState({ textarea });
@@ -62,51 +62,56 @@ class DetailsFormContainer extends React.Component {
     this.fields = {};
 
     return (
-      <FormContainer onSubmit={this.handleSubmit} onReset={this.resetOrganization}>
-        <fieldset className="form__fieldset">
-          <DisplayNameSlugEditor
-            resource={organization}
-            resourceType="organization"
-            ref={(node) => { this.fields.display_name = node; }}
-          />
-        </fieldset>
-        <fieldset className="form__fieldset">
-          <label className="form__label" htmlFor="description">
-            Description
-            <DescriptionInput
-              className="form__input form__input--full-width"
-              id="description"
-              ref={(node) => { this.fields.description = node; }}
+      <div>
+        <FormContainer onSubmit={this.handleSubmit} onReset={this.resetOrganization}>
+          <fieldset className="form__fieldset">
+            <DisplayNameSlugEditor
+              resource={organization}
+              resourceType="organization"
+              ref={(node) => { this.fields.display_name = node; }}
             />
-          </label>
-          <small className="form__help">
-            This should be a one-line call to action for your organization that displays on your landing page.{' '}
-            <CharLimit limit={300} string={this.props.organization.description || ''} />
-          </small>
-        </fieldset>
-        <fieldset className="form__fieldset">
-          <label className="form__label" htmlFor="introduction">
-            Introduction
-            <MarkdownEditor
-              className="form__markdown-editor--full"
-              id="introduction"
-              name="introduction"
-              onChange={this.onTextAreaChange}
-              project={this.props.organization}
-              rows="10"
-              value={this.state.textarea}
-            />
-          </label>
-          <small className="form__help">
-            Add a brief introduction to get people interested in your organization.
-            This will display on your landing page.{' '}
-            <CharLimit limit={1500} string={this.state.textarea || ''} />
-          </small>
-        </fieldset>
-      </FormContainer>
+          </fieldset>
+          <fieldset className="form__fieldset">
+            <label className="form__label" htmlFor="description">
+              Description
+              <DescriptionInput
+                className="form__input form__input--full-width"
+                id="description"
+                ref={(node) => { this.fields.description = node; }}
+              />
+            </label>
+            <small className="form__help">
+              This should be a one-line call to action for your organization that displays on your landing page.{' '}
+              <CharLimit limit={300} string={this.props.organization.description || ''} />
+            </small>
+          </fieldset>
+          <fieldset className="form__fieldset">
+            <label className="form__label" htmlFor="introduction">
+              Introduction
+              <MarkdownEditor
+                id="introduction"
+                name="introduction"
+                onChange={this.handleTextAreaChange}
+                project={this.props.organization}
+                rows="10"
+                value={this.state.textarea}
+              />
+            </label>
+            <small className="form__help">
+              Add a brief introduction to get people interested in your organization.
+              This will display on your landing page.{' '}
+              <CharLimit limit={1500} string={this.state.textarea || ''} />
+            </small>
+          </fieldset>
+        </FormContainer>
+      </div>
     );
   }
 }
+
+DetailsFormContainer.defaultProps = {
+  organization: {},
+};
 
 DetailsFormContainer.propTypes = {
   dispatch: React.PropTypes.func,
