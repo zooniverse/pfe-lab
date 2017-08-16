@@ -6,7 +6,7 @@ const ProjectSearch = ({ clearable, onChange, value }) => {
   const getOptions = (input) => {
     const query = {
       search: `%${input}%`,
-      launch_approved: !apiClient.params.admin ? true : null,
+      current_user_roles: ['collaborator', 'owner']
     };
 
     return apiClient.type('projects').get(query, {
