@@ -15,6 +15,7 @@ const OrganizationProjectsList = ({ projects, onRemove }) => {
       showOwnerName={true}
       showRemove={true}
       onRemove={onRemove}
+      showStatus={true}
       title={'Project List'}
     />
   );

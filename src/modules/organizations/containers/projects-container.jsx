@@ -42,7 +42,21 @@ class ProjectsContainer extends React.Component {
       const query = { sort: 'display_name', page };
 
       organization.get('projects', query).then((projects) => {
-        this.props.dispatch(setOrganizationProjects(projects));
+        const allProjects = organization.links.projects.map((projectID) => {
+          if (projects.filter(project => project.id === projectID).length) {
+            return projects.filter(project => project.id === projectID)[0];
+          }
+          return {
+            display_name: `Project ${projectID}`,
+            id: projectID,
+            links: {
+              owner: {
+                display_name: 'CHECK WITH OTHER ORG COLLABORATORS'
+              },
+            },
+          };
+        });
+        this.props.dispatch(setOrganizationProjects(allProjects));
       }).catch((error) => {
         const notification = { status: 'critical', message: `${error.statusText}: ${error.message}` };
 
