@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Notification from 'grommet/components/Notification';
 import SiteNav from './site-nav';
-import SiteFooter from './site-footer';
+import { ZooFooter } from 'zooniverse-react-components';
 import Landing from './landing';
 import { setAppNotification } from '../action-creators';
 
@@ -25,7 +25,7 @@ const Layout = props =>
       {(props.user && props.loginInitialized && props.children ? props.children : <Landing userBoolean={props.user !== null} />)}
     </main>
 
-    <SiteFooter adminMode={props.adminMode} user={props.user} toggleAdminMode={props.toggleAdminMode} />
+    <ZooFooter />
   </div>;
 
 Layout.propTypes = {
