@@ -5,6 +5,7 @@ import SiteNav from './site-nav';
 import { ZooFooter } from 'zooniverse-react-components';
 import Landing from './landing';
 import { setAppNotification } from '../action-creators';
+import AdminContainer from '../containers/admin-container';
 
 const Layout = props =>
   <div className="layout">
@@ -25,7 +26,7 @@ const Layout = props =>
       {(props.user && props.loginInitialized && props.children ? props.children : <Landing userBoolean={props.user !== null} />)}
     </main>
 
-    <ZooFooter />
+    <ZooFooter adminContainer={<AdminContainer />} />
   </div>;
 
 Layout.propTypes = {
