@@ -36,7 +36,7 @@ export class AdminContainer extends React.Component {
       localStorage.removeItem('adminFlag');
     }
 
-    this.props.dispatch(setAdminMode(!this.props.adminMode));
+    this.props.dispatch(setAdminMode(isAdmin));
   }
 
   toggleAdminMode(e) {
@@ -64,9 +64,9 @@ AdminContainer.propTypes = {
   adminMode: React.PropTypes.bool,
   dispatch: React.PropTypes.func.isRequired,
   loginInitialized: React.PropTypes.bool,
-  user: React.React.PropTypes.shape({
-    id: React.React.PropTypes.string,
-    admin: React.React.PropTypes.bool,
+  user: React.PropTypes.shape({
+    id: React.PropTypes.string,
+    admin: React.PropTypes.bool,
   }),
 };
 
