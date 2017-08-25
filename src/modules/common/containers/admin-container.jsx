@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { AdminCheckbox } from 'zooniverse-react-components';
 import apiClient from 'panoptes-client/lib/api-client';
@@ -9,29 +8,40 @@ export class AdminContainer extends React.Component {
   constructor(props) {
     super(props);
 
+    this.setAdminState = this.setAdminState.bind(this);
     this.toggleAdminMode = this.toggleAdminMode.bind(this);
   }
 
   componentDidMount() {
-    if (localStorage.getItem('adminFlag') && !this.props.adminMode) {
-      this.props.dispatch(setAdminMode(!this.props.adminMode));
-      apiClient.update({
-        'params.admin': localStorage.getItem('adminFlag'),
-      });
+    const isAdmin = !!localStorage.getItem('adminFlag');
+    if (isAdmin) {
+      this.setAdminState(isAdmin);
     }
   }
 
-  toggleAdminMode(e) {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.adminMode !== this.props.adminMode) {
+      this.setAdminState(nextProps.adminMode);
+    }
+  }
+
+  setAdminState(isAdmin) {
     apiClient.update({
-      'params.admin': e.target.checked || undefined,
+      'params.admin': isAdmin || undefined,
     });
 
-    if (e.target.checked) {
+    if (isAdmin) {
       localStorage.setItem('adminFlag', true);
     } else {
       localStorage.removeItem('adminFlag');
     }
+
     this.props.dispatch(setAdminMode(!this.props.adminMode));
+  }
+
+  toggleAdminMode(e) {
+    const isAdmin = e.target.checked;
+    this.setAdminState(isAdmin);
   }
 
   render() {
@@ -45,22 +55,23 @@ export class AdminContainer extends React.Component {
 }
 
 AdminContainer.defaultProps = {
-  admin: false,
   adminMode: false,
   loginInitialized: false,
   user: null,
 };
 
 AdminContainer.propTypes = {
-  admin: PropTypes.bool,
-  adminMode: PropTypes.bool,
-  loginInitialized: PropTypes.bool,
-  user: React.PropTypes.shape({ id: React.PropTypes.string }),
+  adminMode: React.PropTypes.bool,
+  dispatch: React.PropTypes.func.isRequired,
+  loginInitialized: React.PropTypes.bool,
+  user: React.React.PropTypes.shape({
+    id: React.React.PropTypes.string,
+    admin: React.React.PropTypes.bool,
+  }),
 };
 
 function mapStateToProps(state) {
   return {
-    admin: state.admin,
     adminMode: state.adminMode,
     loginInitialized: state.initialized,
     user: state.user,
