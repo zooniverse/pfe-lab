@@ -84,7 +84,10 @@ module.exports = {
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [{
-            loader: 'css-loader'
+            loader: 'css-loader',
+            options: {
+               includePaths: [path.resolve(__dirname, './node_modules/zoo-grommet/dist'), path.resolve(__dirname, './node_modules/zooniverse-react-components/lib/zooniverse-react-components.css')]
+            }
           }, {
             loader: 'sass-loader',
             options: {
