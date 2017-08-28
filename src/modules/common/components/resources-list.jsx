@@ -2,10 +2,6 @@ import React from 'react';
 import { Link } from 'react-router';
 import { config } from '../../../constants/config';
 
-// TODO I think avatar will break and Edit link wrong with programs,
-// need dynamic Edit link, change from Link to <a> with href determined
-// progrmatically based on resourceType
-
 const ResourcesList = ({
   resources,
   resourcesAvatars,
@@ -31,12 +27,10 @@ const ResourcesList = ({
           if (showAvatar && resourcesAvatars && findAvatar(resource).length) {
             avatar = findAvatar(resource)[0];
           }
+
           let statusMessage;
           if (showStatus) {
             switch (resource.launch_approved) {
-              case undefined:
-                statusMessage = 'UNKNOWN';
-                break;
               case true:
                 statusMessage = 'Launch Approved';
                 break;
@@ -44,34 +38,49 @@ const ResourcesList = ({
                 statusMessage = 'NOT PUBLICLY VISIBILE';
                 break;
               default:
-                statusMessage = 'unknown';
+                statusMessage = 'UNKNOWN';
             }
           }
+
+          const editContent = (
+            <div className="resources-list__editContent resources-list--action">
+              {showAvatar && avatar &&
+                <img src={avatar.src} alt="" className="resources-list__avatar" />}
+              <div className="resources-list__description">
+                <strong>{resource.display_name}</strong>{' '}
+                {showOwnerName &&
+                  <small>{`by ${resource.links.owner.display_name}`}</small>}
+                {showStatus &&
+                  <span
+                    className={`color-label ${resource.launch_approved ? 'green' : 'red'}`}
+                  >
+                    {statusMessage}
+                  </span>}
+              </div>
+              <span className="resources-list__icon">
+                <i className="fa fa-pencil fa-fw" />
+                <small>Edit</small>
+              </span>
+            </div>);
+
+          let EditLink;
+          if (resourceType === 'organizations') {
+            EditLink = () => (
+              <Link className="resources-list__editLink" to={`/${resourceType}/${resource.id}`}>
+                {editContent}
+              </Link>);
+          }
+          if (resourceType === 'projects') {
+            EditLink = () => (
+              <a className="resources-list__editLink" href={`${config.zooniverseURL}lab/${resource.id}`}>
+                {editContent}
+              </a>);
+          }
+
           return (
             <li key={resource.id} className="resources-list__item">
               <div className="resources-list__row">
-                <Link
-                  to={`/${resourceType}/${resource.id}`}
-                  className="resources-list__edit resources-list--action"
-                >
-                  {showAvatar && avatar &&
-                    <img src={avatar.src} alt="avatar" className="resources-list__avatar" />}
-                  <div className="resources-list__description">
-                    <strong>{resource.display_name}</strong>{' '}
-                    {showOwnerName &&
-                      <small>{`by ${resource.links.owner.display_name}`}</small>}
-                    {showStatus &&
-                      <span
-                        className={`color-label ${resource.launch_approved ? 'green' : 'red'}`}
-                      >
-                        {statusMessage}
-                      </span>}
-                  </div>
-                  <span className="resources-list__icon">
-                    <i className="fa fa-pencil fa-fw" />
-                    <small>Edit</small>
-                  </span>
-                </Link>
+                <EditLink />
                 <a
                   className="resources-list__icon resources-list--action"
                   href={`${config.zooniverseURL}${resourceType}/${resource.slug}`}
