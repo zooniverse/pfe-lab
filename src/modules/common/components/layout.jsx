@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Notification from 'grommet/components/Notification';
-import SiteNav from './site-nav';
 import { ZooFooter } from 'zooniverse-react-components';
+import SiteNav from './site-nav';
 import Landing from './landing';
 import { setAppNotification } from '../action-creators';
 import AdminContainer from '../containers/admin-container';
@@ -13,7 +13,7 @@ const Layout = props =>
       <SiteNav />
     </header>
 
-    {props.adminMode && (<div className="layout__admin-indicator" title="Admin mode on!"></div>)}
+    {props.adminMode && (<div className="layout__admin-indicator" title="Admin mode on!" />)}
 
     <main className="layout__main">
       {props.appNotification.status &&
@@ -23,7 +23,8 @@ const Layout = props =>
           closer={true}
           onClose={() => { props.dispatch(setAppNotification({ message: null, status: null })); }}
         />}
-      {(props.user && props.loginInitialized && props.children ? props.children : <Landing userBoolean={props.user !== null} />)}
+      {(props.user && props.loginInitialized && props.children ?
+        props.children : <Landing userBoolean={props.user !== null} />)}
     </main>
 
     <ZooFooter adminContainer={<AdminContainer />} />
@@ -38,7 +39,6 @@ Layout.propTypes = {
   children: React.PropTypes.node,
   dispatch: React.PropTypes.func,
   loginInitialized: React.PropTypes.bool,
-  toggleAdminMode: React.PropTypes.func,
   user: React.PropTypes.shape({ id: React.PropTypes.string }),
 };
 
@@ -53,7 +53,7 @@ Layout.defaultProps = {
   user: null,
 };
 
-function mapStateToProps(state, ownProps) { // eslint-disable-line no-unused-vars
+function mapStateToProps(state) {
   return {
     adminMode: state.adminMode,
     appNotification: state.appNotification,
