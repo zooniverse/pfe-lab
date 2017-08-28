@@ -4,7 +4,7 @@ import { AdminCheckbox } from 'zooniverse-react-components';
 import apiClient from 'panoptes-client/lib/api-client';
 import { setAdminMode } from '../action-creators';
 
-export class AdminContainer extends React.Component {
+class AdminContainer extends React.Component {
   constructor(props) {
     super(props);
 

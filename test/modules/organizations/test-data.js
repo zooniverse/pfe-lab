@@ -10,6 +10,7 @@ export const organizations = [
     links: {
       owner: { display_name: 'Bob' }
     },
+    listed: true
   },
   {
     id: '42',
@@ -19,6 +20,7 @@ export const organizations = [
     links: {
       owner: { display_name: 'Bob' }
     },
+    listed: false
   },
 ];
 
