@@ -28,7 +28,7 @@
     "_deploy": "export PATH_ROOT=www.lab.zooniverse.org; npm run _build && npm run _publish",
     "deploy": "export NODE_ENV=production; npm run _deploy",
     "eslint": "eslint .",
-    "test": "NODE_ENV=development BABEL_ENV=test mocha"
+    "test": "NODE_ENV=development BABEL_ENV=test mocha --require mock-local-storage || true"
   },
   "engines": {
     "node": "^8.1.2",
@@ -48,6 +48,7 @@
     "grommet": "^1.4.0",
     "history": "~4.4.1",
     "markdownz": "~7.3.0",
+    "mock-local-storage": "~1.0.4",
     "panoptes-client": "~2.7.2",
     "react": "~15.4.1",
     "react-dom": "~15.4.1",
@@ -91,13 +92,13 @@
     "mocha": "~3.2.0",
     "nib": "~1.1.2",
     "nock": "~9.0.2",
-    "publisssh": "~1.1.0",
     "node-sass": "~4.5.3",
+    "publisssh": "~1.1.0",
     "react-addons-test-utils": "~15.4.1",
     "redux-mock-store": "~1.2.1",
     "rimraf": "~2.5.4",
     "sass-loader": "^6.0.5",
-    "sinon": "~1.17.7",
+    "sinon": "~2.3.8",
     "stats-webpack-plugin": "~0.6.0",
     "style-loader": "~0.13.1",
     "stylus": "~0.54.5",
