@@ -42,13 +42,14 @@ class ProjectsContainer extends React.Component {
       const query = { sort: 'display_name', page };
 
       organization.get('projects', query).then((projects) => {
-        const allProjects = organization.links.projects.map((projectID) => {
-          if (projects.filter(project => project.id === projectID).length) {
-            return projects.filter(project => project.id === projectID)[0];
+        const allProjects = organization.links.projects.map((projectId) => {
+          const proj = projects.find(project => project.id === projectId);
+          if (proj) {
+            return proj;
           }
           return {
-            display_name: `Project ${projectID}`,
-            id: projectID,
+            display_name: `Project ${projectId}`,
+            id: projectId,
             links: {
               owner: {
                 display_name: 'CHECK WITH OTHER ORG COLLABORATORS'
