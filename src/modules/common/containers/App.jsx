@@ -1,31 +1,31 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import Layout from '../components/layout';
 
-export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+/*
+Leaving App to render Layout in case pfe-lab updates to React Router v4,
+which could require additional elements within App (eg, <Switch>)
+*/
 
-  render() {
-    if (this.props.children) {
-      return (
-        <Layout {...this.props} >
-          {this.props.children}
-        </Layout>
-      );
-    }
+const App = (props) => {
+  if (props.children) {
     return (
-      <Layout {...this.props} />
+      <Layout {...props} >
+        {props.children}
+      </Layout>
     );
   }
-}
+
+  return (
+    <Layout {...props} />
+  );
+};
 
 App.propTypes = {
-  children: React.PropTypes.node,
-  dispatch: React.PropTypes.func,
+  children: React.PropTypes.node
 };
 
 App.defaultProps = {
-  children: null,
+  children: null
 };
+
+export default App;
