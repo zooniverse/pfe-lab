@@ -13,14 +13,14 @@ const ResourcesList = ({
   showStatus,
   title
 }) => {
-  const findAvatar = (resource) => {
+  const findAvatar = resource =>
     // TODO why is the links property for organization 'linked'?
-    return resourcesAvatars.filter(avatar => avatar.links.linked.id === resource.id);
-  };
+    resourcesAvatars.filter(avatar => avatar.links.linked.id === resource.id);
 
   return (
     <div>
-      <h2 className="resources-list__title">{title}</h2>
+      {title &&
+        <h2 className="resources-list__title">{title}</h2>}
       <ul className="resources-list__list">
         {resources.map((resource) => {
           let avatar = {};
@@ -109,33 +109,34 @@ const ResourcesList = ({
 };
 
 ResourcesList.defaultProps = {
+  resourcesAvatars: [],
   showAvatar: false,
   showOwnerName: false,
   showRemove: false,
+  onRemove: () => {},
   showStatus: false,
+  title: null
 };
 
 ResourcesList.propTypes = {
   resources: React.PropTypes.arrayOf(
     React.PropTypes.shape({
       id: React.PropTypes.string,
-      display_name: React.PropTypes.string,
-      description: React.PropTypes.string,
-      introduction: React.PropTypes.string
+      display_name: React.PropTypes.string
     })
-  ),
+  ).isRequired,
   resourcesAvatars: React.PropTypes.arrayOf(
     React.PropTypes.shape({
       src: React.PropTypes.string
     })
   ),
-  resourceType: React.PropTypes.string,
+  resourceType: React.PropTypes.string.isRequired,
   showAvatar: React.PropTypes.bool,
   showOwnerName: React.PropTypes.bool,
   showRemove: React.PropTypes.bool,
   onRemove: React.PropTypes.func,
   showStatus: React.PropTypes.bool,
-  title: React.PropTypes.string,
+  title: React.PropTypes.string
 };
 
 export default ResourcesList;
