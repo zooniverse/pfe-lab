@@ -16,7 +16,7 @@ class ProjectsContainer extends React.Component {
     super(props);
 
     this.state = {
-      meta: {},
+      meta: null,
       projectToAdd: { value: '', label: '' },
     };
 
@@ -42,6 +42,7 @@ class ProjectsContainer extends React.Component {
     if (organization && organization.links.projects) {
       const query = { sort: 'display_name', page };
 
+      // Isolate the project Ids associated with the organization
       const projectIds = organization.links.projects;
 
       organization.get('projects', query)
