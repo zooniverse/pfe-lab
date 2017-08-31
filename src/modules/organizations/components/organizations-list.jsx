@@ -1,6 +1,6 @@
 import React from 'react';
 import { config } from '../../../constants/config';
-import ListGroup from './list-group';
+import ResourcesList from '../../common/components/resources-list';
 
 import { organizationsAvatarsShape, organizationsShape } from '../model';
 
@@ -17,31 +17,38 @@ const OrganizationsList = ({
   }
 
   return (
-    <div className="organizations-list">
+    <div className="resources-list">
       {ownedOrganizations.length > 0 &&
-        <ListGroup
-          organizations={ownedOrganizations}
-          organizationsAvatars={organizationsAvatars}
+        <ResourcesList
+          resources={ownedOrganizations}
+          resourcesAvatars={organizationsAvatars}
+          resourceType={'organizations'}
+          showAvatar={true}
           title={'Your Organizations'}
         />}
-      <div className="organizations-list__button-container">
+      <div className="resources-list__button-container">
         <button
           type="button"
-          className="button organizations-list__button--create"
+          className="button resources-list__button--create"
           onClick={createOrganization}
         >
           Create a new organization
         </button>{' '}
-        <a href={`${config.zooniverseURL}help`} className="button organizations-list__button--info">How-to</a>{' '}
-        <a href={`${config.zooniverseURL}help/glossary`} className="button organizations-list__button--info">Glossary</a>{' '}
-        <a href={`${config.zooniverseURL}help/lab-policies`} className="button organizations-list__button--info">Policies</a>{' '}
-        <a href={`${config.zooniverseURL}lab-best-practices/introduction`} className="button organizations-list__button--info">Best Practices</a>{' '}
-        <a href={`${config.zooniverseURL}talk/18`} className="button organizations-list__button--info">Talk</a>{' '}
+        <a href={`${config.zooniverseURL}help`} className="button resources-list__button--info">How-to</a>{' '}
+        <a href={`${config.zooniverseURL}help/glossary`} className="button resources-list__button--info">Glossary</a>{' '}
+        <a href={`${config.zooniverseURL}help/lab-policies`} className="button resources-list__button--info">Policies</a>{' '}
+        <a href={`${config.zooniverseURL}lab-best-practices/introduction`} className="button resources-list__button--info">Best Practices</a>{' '}
+        <a href={`${config.zooniverseURL}talk/18`} className="button resources-list__button--info">Talk</a>{' '}
       </div>
       <hr />
 
       {collaboratedOrganizations.length > 0 &&
-        <ListGroup organizations={collaboratedOrganizations} showOwnerName={true} title={'Collaborations'} />}
+        <ResourcesList
+          resources={collaboratedOrganizations}
+          resourceType={'organizations'}
+          showOwnerName={true}
+          title={'Collaborations'}
+        />}
     </div>
   );
 };

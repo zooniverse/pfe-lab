@@ -9,12 +9,6 @@ export const organizationShape = React.PropTypes.shape({
 
 export const organizationsShape = React.PropTypes.arrayOf(organizationShape);
 
-export const organizationsAvatarsShape = React.PropTypes.arrayOf(
-  React.PropTypes.shape({
-    src: React.PropTypes.string
-  })
-);
-
 export const organizationCollaboratorsShape = React.PropTypes.arrayOf(
   React.PropTypes.shape({
     id: React.PropTypes.string,
@@ -30,6 +24,8 @@ export const organizationOwnerShape = React.PropTypes.shape({
 export const organizationAvatarShape = React.PropTypes.shape({
   src: React.PropTypes.string
 });
+
+export const organizationsAvatarsShape = React.PropTypes.arrayOf(organizationAvatarShape);
 
 export const organizationBackgroundShape = React.PropTypes.shape({
   src: React.PropTypes.string

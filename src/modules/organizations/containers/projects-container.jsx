@@ -16,6 +16,7 @@ class ProjectsContainer extends React.Component {
     super(props);
 
     this.state = {
+      meta: null,
       projectToAdd: { value: '', label: '' },
     };
 
@@ -38,16 +39,37 @@ class ProjectsContainer extends React.Component {
   }
 
   getLinkedProjects(organization = this.props.organization, page = 1) {
-    if (organization) {
+    if (organization && organization.links.projects) {
       const query = { sort: 'display_name', page };
 
-      organization.get('projects', query).then((projects) => {
-        this.props.dispatch(setOrganizationProjects(projects));
-      }).catch((error) => {
-        const notification = { status: 'critical', message: `${error.statusText}: ${error.message}` };
+      // Isolate the project Ids associated with the organization
+      const projectIds = organization.links.projects;
 
-        notificationHandler(this.props.dispatch, notification);
-      });
+      organization.get('projects', query)
+        .then((projects) => {
+          this.setState({ meta: projects[0]._meta });
+          return projectIds.map((projectId) => {
+            const project = projects.find(p => p.id === projectId);
+            if (project) {
+              return project;
+            }
+            return {
+              description: 'Unknown project',
+              display_name: `Project ${projectId}`,
+              id: projectId,
+              links: {
+                owner: {
+                  display_name: 'CHECK WITH OTHER ORG COLLABORATORS'
+                },
+              },
+            };
+          });
+        })
+        .then(allProjects => this.props.dispatch(setOrganizationProjects(allProjects)))
+        .catch((error) => {
+          const notification = { status: 'critical', message: `${error.statusText}: ${error.message}` };
+          notificationHandler(this.props.dispatch, notification);
+        });
     }
   }
 
@@ -98,10 +120,10 @@ class ProjectsContainer extends React.Component {
           onRemove={this.removeProject}
           projects={this.props.organizationProjects}
         />
-        {this.props.organizationProjects.length &&
+        {this.props.organizationProjects.length && this.state.meta &&
           (<Paginator
-            page={this.props.organizationProjects[0]._meta.projects.page}
-            pageCount={this.props.organizationProjects[0]._meta.projects.page_count}
+            page={this.state.meta.projects.page}
+            pageCount={this.state.meta.projects.page_count}
             router={this.props.router}
           />)
         }
@@ -122,7 +144,7 @@ class ProjectsContainer extends React.Component {
 ProjectsContainer.defaultProps = {
   location: {},
   organization: {},
-  organizationProjects: {}
+  organizationProjects: []
 };
 
 ProjectsContainer.propTypes = {
