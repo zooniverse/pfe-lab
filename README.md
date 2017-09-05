@@ -6,33 +6,44 @@ PFE Lab is the UI interface for the Zooniverse Lab.
 
 ## Usage
 
-Install yarn using `brew install yarn`. Set the default prefix to `~` by `yarn config set save-prefix ~`. 
-
-Note:
-- [Yarn can do most of what NPM can](https://yarnpkg.com/lang/en/docs/migrating-from-npm/)
-- Yarn is not correctly using `.npmrc` or its own `.yarnrc` configuration files for the save-prefix config, so it must be set globally. 
-
 __Install the dependencies:__
 
-`yarn install`
-
-__Test:__
-
-```yarn test```
+`npm install`
 
 __Development mode with livereload:__
 
-```yarn start```
+`npm run start`
+
+__Staged Deployment:__
+`npm run stage` builds and optimizes the site, and then deploys it to <https://current-git-branch-name.lab-preview.zooniverse.org>.
+- Note: For authentication, you will need to add the staged URL to Doorkeeper.
 
 __When you are done, create a production-ready version of the JS bundle:__
 
-```yarn build```
+```npm run build```
+
+
+## Testing
+- If you write a new component, write a test. Each component should have its own `-test.js` file. 
+- The test runner is [Mocha](https://mochajs.org/), assertion library is [Chai](http://chaijs.com/), and [Enzyme](http://airbnb.io/enzyme/) is available for testing React components. [Sinon](http://sinonjs.org/) is used for standalone test spies, stubs, and mocks.
+- You can run the tests with `npm run test`.
+
+## CSS Conventions
+- Keep common base styles and variables in **common.styl**. 
+- For a given component, pick a unique top-level class name for that component and nest child classes under it. 
+- Stylus formatting: Yes colons, no semicolons, no braces. 
+- `@extends` up top, then properties (alphabetically), then descendant selectors. 
+- Prefer use of `display: flex` and `flex-wrap: wrap` to explicit media queries wherever possible.
+- We are using [Zoo Grommet](https://github.com/zooniverse/zoo-grommet), a Zooniverse theme from the [Grommet](https://grommet.github.io/) React component library.
+- We are using [BEM](http://getbem.com/introduction/) for CSS naming conventions.
+
+## ESLint
+- An [ESLint](https://eslint.org/) configuration file is setup in the root of the repository for you to use with your text editor to lint both ES6 and use [Airbnb's React style guide](https://github.com/airbnb/javascript/tree/master/react).
+- ESLint can be run from the CLI with `eslint path/to/local/file.jsx`.
 
 ## Credits
 
-Based on the [Zooniverse Redux starter template](https://github.com/zooniverse/zoo-reduxify/),
-which in turn was based on the original [React Starterify](https://github.com/Granze/react-starterify)
-(used under the [MIT License](http://opensource.org/licenses/MIT)).
+Based on the [Zooniverse Redux starter template](https://github.com/zooniverse/zoo-reduxify/), which in turn was based on the original [React Starterify](https://github.com/Granze/react-starterify) (used under the [MIT License](http://opensource.org/licenses/MIT)).
 
 ## License
 
