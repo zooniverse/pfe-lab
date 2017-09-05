@@ -63,7 +63,7 @@ class ProjectsContainer extends React.Component {
               id: projectId,
               links: {
                 owner: {
-                  display_name: 'CHECK WITH OTHER ORG COLLABORATORS'
+                  display_name: 'CONTACT ORGANIZATION OWNER' //
                 },
               },
             };
@@ -117,9 +117,24 @@ class ProjectsContainer extends React.Component {
   }
 
   render() {
+    var inlineDivStyles = {
+      marginBottom: '0.5em',
+      marginLeft: '0.5em'
+    };
+
     return (
       <div>
         <div className="organization-section-header">Affiliated Projects</div>
+        <div className="organization-section-instructions">
+          Below are the projects affiliated with this organization.
+        </div>
+        <div className="organization-section-instructions">
+          The visibility and state of each project is displayed to the right of the project's owner.
+        </div>
+        <div className="organization-section-instructions">
+          If you see CONTACT ORGANIZATION OWNER as the owner,
+          contact other Organization collaborators, or the owner, to get access to this Organization.
+        </div>
         <OrganizationProjectsList
           onRemove={this.removeProject}
           projects={this.props.organizationProjects}
@@ -132,8 +147,14 @@ class ProjectsContainer extends React.Component {
           />)
         }
         <hr />
-        <h4>Add a project</h4>
-        <p>Add projects that you want to include in this organization.</p>
+        <h4>ADD PROJECTS TO THIS ORGANIZATION</h4>
+        <div className="organization-section-instructions">
+          You must be an Organization owner or collaborater to add Projects to an Organization.
+        </div>
+        <div className="organization-section-instructions">
+          You may wish to add other Organization collaborators or owners to a project,
+          so that they can edit to the Organization's projects.
+        </div>
         <OrganizationAddProject
           onAdd={this.addProject}
           onChange={this.changeSelectedProject}

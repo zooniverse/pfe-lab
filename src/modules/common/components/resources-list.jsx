@@ -41,7 +41,7 @@ const ResourcesList = ({
                 statusMessage = 'UNKNOWN';
             }
           }
-
+          // TODO: verify that resources-list__status is in accordance with BEM, makes sense here
           const editContent = (
             <div className="resources-list__editContent resources-list--action">
               {showAvatar && avatar &&
@@ -52,7 +52,7 @@ const ResourcesList = ({
                   <small>{`by ${resource.links.owner.display_name}`}</small>}
                 {showStatus &&
                   <span
-                    className={`color-label ${resource.launch_approved ? 'green' : 'red'}`}
+                    className={`resources-list__status color-label ${resource.launch_approved ? 'green' : 'red'}`}
                   >
                     {statusMessage}
                   </span>}
