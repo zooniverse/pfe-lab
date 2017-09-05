@@ -57,6 +57,7 @@ OrganizationLayout.defaultProps = {
   navItems: [
     { to: 'edit', label: 'Edit' },
     { to: 'about', label: 'About' },
+    { to: 'media', label: 'Media' },
     { to: 'collaborators', label: 'Collaborators' },
     { to: 'projects', label: 'Projects' },
   ],
