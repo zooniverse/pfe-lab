@@ -38,6 +38,10 @@ class ProjectsContainer extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    this.props.dispatch(setOrganizationProjects([]));
+  }
+
   getLinkedProjects(organization = this.props.organization, page = 1) {
     if (organization && organization.links.projects) {
       const query = { sort: 'display_name', page };
