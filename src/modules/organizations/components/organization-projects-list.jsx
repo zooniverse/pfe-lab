@@ -16,7 +16,7 @@ const OrganizationProjectsList = ({ projects, onRemove }) => {
       showRemove={true}
       onRemove={onRemove}
       showStatus={true}
-      // TODO: confer with Mark about removing title={'Project List'}
+      title={'Project List'}
     />
   );
 };

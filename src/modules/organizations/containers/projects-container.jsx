@@ -63,7 +63,7 @@ class ProjectsContainer extends React.Component {
               id: projectId,
               links: {
                 owner: {
-                  display_name: 'CONTACT ORGANIZATION OWNER' //
+                  display_name: 'CONTACT ORGANIZATION OWNER'
                 },
               },
             };
@@ -116,25 +116,32 @@ class ProjectsContainer extends React.Component {
     this.setState({ projectToAdd: { value: '', label: '' } });
   }
 
+  // Separate each instruction line, apply organization-section-instructions class to each element.
+  formatInstructions(text) {
+    const formattedText = text.map((line, index) => (
+      <div className="organization-section-instructions" key={index}>{line}</div> // eslint-disable-line react/no-array-index-key
+    ));
+    return (<div>{formattedText}</div>);
+  }
+
   render() {
-    var inlineDivStyles = {
-      marginBottom: '0.5em',
-      marginLeft: '0.5em'
-    };
+    const orgProjectsInstructions = [
+      'If you see CONTACT ORGANIZATION OWNER as the owner, contact other organization collaborators, or the owner, to get access to this project.',
+      'The visibility of each project is displayed to the right of the project\'s owner.',
+      'Only the assigned collaborators can view a NOT PUBLICLY VISIBILE project.',
+      'Anyone with the URL can access a PUBLICLY VISIBILE project.',
+      'UNKNOWN indicates that you are not a collaborator or owner of this project.'
+    ];
+
+    const addProjectInstructions = [
+      'You must be an organization owner or collaborater to add projects to an organization.',
+      'You may wish to add other organization collaborators or owners to a project, so that they can edit the organization\'s projects.'
+    ];
 
     return (
       <div>
         <div className="organization-section-header">Affiliated Projects</div>
-        <div className="organization-section-instructions">
-          Below are the projects affiliated with this organization.
-        </div>
-        <div className="organization-section-instructions">
-          The visibility and state of each project is displayed to the right of the project's owner.
-        </div>
-        <div className="organization-section-instructions">
-          If you see CONTACT ORGANIZATION OWNER as the owner,
-          contact other Organization collaborators, or the owner, to get access to this Organization.
-        </div>
+        {this.formatInstructions(orgProjectsInstructions)}
         <OrganizationProjectsList
           onRemove={this.removeProject}
           projects={this.props.organizationProjects}
@@ -147,14 +154,8 @@ class ProjectsContainer extends React.Component {
           />)
         }
         <hr />
-        <h4>ADD PROJECTS TO THIS ORGANIZATION</h4>
-        <div className="organization-section-instructions">
-          You must be an Organization owner or collaborater to add Projects to an Organization.
-        </div>
-        <div className="organization-section-instructions">
-          You may wish to add other Organization collaborators or owners to a project,
-          so that they can edit to the Organization's projects.
-        </div>
+        <div className="organization-section-header">Add projects to this organization</div>
+        {this.formatInstructions(addProjectInstructions)}
         <OrganizationAddProject
           onAdd={this.addProject}
           onChange={this.changeSelectedProject}
@@ -167,9 +168,11 @@ class ProjectsContainer extends React.Component {
 }
 
 ProjectsContainer.defaultProps = {
+  dispatch: () => {},
   location: {},
   organization: {},
-  organizationProjects: []
+  organizationProjects: [],
+  router: {}
 };
 
 ProjectsContainer.propTypes = {

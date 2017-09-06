@@ -32,7 +32,7 @@ const ResourcesList = ({
           if (showStatus) {
             switch (resource.launch_approved) {
               case true:
-                statusMessage = 'Launch Approved';
+                statusMessage = 'PUBLICLY VISIBLE';
                 break;
               case false:
                 statusMessage = 'NOT PUBLICLY VISIBILE';
@@ -41,7 +41,6 @@ const ResourcesList = ({
                 statusMessage = 'UNKNOWN';
             }
           }
-          // TODO: verify that resources-list__status is in accordance with BEM, makes sense here
           const editContent = (
             <div className="resources-list__editContent resources-list--action">
               {showAvatar && avatar &&
