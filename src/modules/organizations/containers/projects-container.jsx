@@ -51,7 +51,7 @@ class ProjectsContainer extends React.Component {
 
       organization.get('projects', query)
         .then((projects) => {
-          this.setState({ meta: projects[0]._meta });
+          this.setState({ meta: projects[0]._meta }); // eslint-disable-line no-underscore-dangle
           return projectIds.map((projectId) => {
             const project = projects.find(p => p.id === projectId);
             if (project) {
@@ -116,32 +116,20 @@ class ProjectsContainer extends React.Component {
     this.setState({ projectToAdd: { value: '', label: '' } });
   }
 
-  // Separate each instruction line, apply organization-section-instructions class to each element.
-  formatInstructions(text) {
-    const formattedText = text.map((line, index) => (
-      <div className="organization-section-instructions" key={index}>{line}</div> // eslint-disable-line react/no-array-index-key
-    ));
-    return (<div>{formattedText}</div>);
-  }
-
   render() {
-    const orgProjectsInstructions = [
-      'If you see CONTACT ORGANIZATION OWNER as the owner, contact other organization collaborators, or the owner, to get access to this project.',
-      'The visibility of each project is displayed to the right of the project\'s owner.',
-      'Only the assigned collaborators can view a NOT PUBLICLY VISIBILE project.',
-      'Anyone with the URL can access a PUBLICLY VISIBILE project.',
-      'UNKNOWN indicates that you are not a collaborator or owner of this project.'
-    ];
-
-    const addProjectInstructions = [
-      'You must be an organization owner or collaborater to add projects to an organization.',
-      'You may wish to add other organization collaborators or owners to a project, so that they can edit the organization\'s projects.'
-    ];
-
     return (
       <div>
         <div className="organization-section-header">Affiliated Projects</div>
-        {this.formatInstructions(orgProjectsInstructions)}
+        <ul className="organization-section-instructions">
+          <li >
+            If you see CONTACT ORGANIZATION OWNER as the owner, contact the organization owner,
+            or collaborators, to get access to this project.
+          </li>
+          <li>The visibility of each project is displayed to the right of the project&apos;s owner.</li>
+          <li>Only the owner and collaborators can view a NOT PUBLICLY VISIBILE project.</li>
+          <li>Anyone with the URL can access a PUBLICLY VISIBILE project.</li>
+          <li>UNKNOWN indicates that you are not a collaborator or owner of this project.</li>
+        </ul>
         <OrganizationProjectsList
           onRemove={this.removeProject}
           projects={this.props.organizationProjects}
@@ -155,7 +143,13 @@ class ProjectsContainer extends React.Component {
         }
         <hr />
         <div className="organization-section-header">Add projects to this organization</div>
-        {this.formatInstructions(addProjectInstructions)}
+        <ul className="organization-section-instructions">
+          <li>You must be an organization owner or collaborater to add projects to an organization.</li>
+          <li>
+            You may wish to add other organization collaborators or owners to a project,
+            so that they can edit the organization&apos;s projects.
+          </li>
+        </ul>
         <OrganizationAddProject
           onAdd={this.addProject}
           onChange={this.changeSelectedProject}
@@ -172,7 +166,7 @@ ProjectsContainer.defaultProps = {
   location: {},
   organization: {},
   organizationProjects: [],
-  router: {}
+  router: {},
 };
 
 ProjectsContainer.propTypes = {
