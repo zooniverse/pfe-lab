@@ -3,14 +3,24 @@ import ProjectSearch from '../../common/components/project-search';
 import FormContainer from '../../common/containers/form-container';
 
 const OrganizationAddProject = ({ value, onAdd, onChange, onReset }) =>
-  (<FormContainer
-    className="organization-add-project"
-    onReset={onReset}
-    onSubmit={onAdd}
-    submitLabel="Add project"
-  >
-    <ProjectSearch clearable={false} onChange={onChange} value={value} />
-  </FormContainer>);
+  (<div>
+    <div className="organization-section-header">Add projects to this organization</div>
+    <ul className="organization-section-instructions">
+      <li>You must be an organization owner or collaborater to add projects to an organization.</li>
+      <li>
+        You may wish to add other organization collaborators or owners to a project,
+        so that they can edit the organization&apos;s projects.
+      </li>
+    </ul>
+    <FormContainer
+      className="organization-add-project"
+      onReset={onReset}
+      onSubmit={onAdd}
+      submitLabel="Add project"
+    >
+      <ProjectSearch clearable={false} onChange={onChange} value={value} />
+    </FormContainer>
+  </div>);
 
 OrganizationAddProject.propTypes = {
   onAdd: React.PropTypes.func.isRequired,
