@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import MarkdownEditor from '../../common/components/markdown-editor';
 import { DisplayNameSlugEditor } from 'zooniverse-react-components';
+import MarkdownEditor from '../../common/components/markdown-editor';
 import { organizationShape } from '../model';
 import { setCurrentOrganization } from '../action-creators';
 import bindInput from '../../common/containers/bind-input';
@@ -81,7 +81,8 @@ class DetailsFormContainer extends React.Component {
               />
             </label>
             <small className="form__help">
-              This should be a one-line call to action for your organization that displays on your landing page.{' '}
+              This should be a one-line call to action for your organization that displays on your landing page.
+              It will be displayed below the organization&apos;s name.{' '}
               <CharLimit limit={300} string={this.props.organization.description || ''} />
             </small>
           </fieldset>
