@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class FormContainer extends React.Component {
   constructor(props) {
@@ -72,11 +73,11 @@ FormContainer.defaultProps = {
 };
 
 FormContainer.propTypes = {
-  children: React.PropTypes.node,
-  disabledSubmit: React.PropTypes.bool,
-  onChange: React.PropTypes.func,
-  onReset: React.PropTypes.func.isRequired,
-  onSubmit: React.PropTypes.func.isRequired,
-  resetLabel: React.PropTypes.string,
-  submitLabel: React.PropTypes.string,
+  children: PropTypes.node,
+  disabledSubmit: PropTypes.bool,
+  onChange: PropTypes.func,
+  onReset: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  resetLabel: PropTypes.string,
+  submitLabel: PropTypes.string,
 };

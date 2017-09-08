@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Thumbnail, FileButton } from 'zooniverse-react-components';
 import toBlob from 'data-uri-to-blob';
 
@@ -128,18 +129,18 @@ class ImageSelector extends React.Component {
 }
 
 ImageSelector.propTypes = {
-  allowDelete: React.PropTypes.bool,
-  baseExpansion: React.PropTypes.number,
-  deleting: React.PropTypes.bool,
-  label: React.PropTypes.string,
-  minArea: React.PropTypes.number,
-  maxSize: React.PropTypes.number,
-  onChange: React.PropTypes.func.isRequired,
-  onDelete: React.PropTypes.func,
-  ratio: React.PropTypes.number,
-  reductionPerPass: React.PropTypes.number,
-  resourceSrc: React.PropTypes.string.isRequired,
-  resourceType: React.PropTypes.string
+  allowDelete: PropTypes.bool,
+  baseExpansion: PropTypes.number,
+  deleting: PropTypes.bool,
+  label: PropTypes.string,
+  minArea: PropTypes.number,
+  maxSize: PropTypes.number,
+  onChange: PropTypes.func.isRequired,
+  onDelete: PropTypes.func,
+  ratio: PropTypes.number,
+  reductionPerPass: PropTypes.number,
+  resourceSrc: PropTypes.string.isRequired,
+  resourceType: PropTypes.string
 };
 
 ImageSelector.defaultProps = {
