@@ -20,7 +20,7 @@ const POSSIBLE_ROLES = {
 const ROLES_INFO = {
   collaborator: {
     label: 'Collaborator',
-    description: 'Collaborators have full access to edit organization content, including deleting the organization.',
+    description: 'Collaborators have full access to edit organization content, including removing projects and deleting the organization.',
   },
   // scientist: {
   //   label: 'Researcher',
