@@ -4,10 +4,10 @@ import FormContainer from '../../common/containers/form-container';
 
 const OrganizationAddProject = ({ value, onAdd, onChange, onReset }) =>
   (<div>
-    <div className="organization-section-header">Add projects to this organization</div>
-    <ul className="organization-section-instructions">
-      <li>You must be an organization owner or collaborater to add projects to an organization.</li>
-      <li>
+    <div className="organization-layout__section-header">Add projects to this organization</div>
+    <ul className="organization-layout__section-instructions">
+      <li className="organization-layout__section-instructions--list-items">You must be an organization owner or collaborater to add projects to an organization.</li>
+      <li className="organization-layout__section-instructions--list-items">
         You may wish to add other organization collaborators or owners to a project,
         so that they can edit the organization&apos;s projects.
       </li>
