@@ -13,7 +13,7 @@ const EditDetails = (props) => {
 
   return (
     <div className="organization-edit-details">
-      <div className="organization-layout__section-header">Edit Organization Details</div>
+      <h3 className="organization-layout__section-header">Edit Organization Details</h3>
       <p>Input the basic information about your organization and setup its home page.</p>
       <div className="organization-edit-details__forms">
         <aside className="forms__aside">

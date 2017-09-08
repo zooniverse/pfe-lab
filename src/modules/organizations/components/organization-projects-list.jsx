@@ -10,7 +10,7 @@ const OrganizationProjectsList = ({ projects, onRemove }) => {
 
   return (
     <div>
-      <div className="organization-layout__section-header">Affiliated Projects</div>
+      <h3 className="organization-layout__section-header">Affiliated Projects</h3>
       <ul className="organization-layout__section-instructions">
         <li className="organization-layout__section-instructions--list-items">
           If you see CONTACT ORGANIZATION OWNER as the owner, contact the organization owner,

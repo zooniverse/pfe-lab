@@ -17,7 +17,7 @@ const EditCollaborators = ({ organizationOwner, organizationCollaborators, possi
 
   return (
     <div className="collaborators">
-      <div className="organization-layout__section-header">Collaborators</div>
+      <h3 className="organization-layout__section-header">Collaborators</h3>
       <h4 className="collaborators__title">Organization Owner</h4>
       <p>{(user.id === organizationOwner.id) ?
         'You are the organization owner.' : `${organizationOwner.display_name} is the organization owner.`}
