@@ -6,10 +6,12 @@ const OrganizationAddProject = ({ value, onAdd, onChange, onReset }) =>
   (<div>
     <h3 className="organization-layout__section-header">Add projects to this organization</h3>
     <ul className="organization-layout__section-instructions">
-      <li className="organization-layout__section-instructions--list-items">You must be an organization owner or collaborater to add projects to an organization.</li>
       <li className="organization-layout__section-instructions--list-items">
-        You may wish to add other organization collaborators or owners to a project,
-        so that they can edit the organization&apos;s projects.
+        You must be a project&apos;s owner or collaborator to add a project to the organization.
+      </li>
+      <li className="organization-layout__section-instructions--list-items">
+        You may wish to add other organization collaborators to a project,
+        so that they can edit the project visibility, content, workflows&apos; status or other aspects.
       </li>
     </ul>
     <FormContainer

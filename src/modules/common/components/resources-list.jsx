@@ -30,15 +30,12 @@ const ResourcesList = ({
 
           let statusMessage;
           if (showStatus) {
-            switch (resource.launch_approved) {
-              case true:
-                statusMessage = 'publicly visible';
-                break;
-              case false:
-                statusMessage = 'not publicly visible';
-                break;
-              default:
-                statusMessage = 'unknown';
+            if (resource.launch_approved === true) {
+              statusMessage = 'launch approved';
+            } else if (resource.launch_approved === false) {
+              statusMessage = 'not publicly visible';
+            } else {
+              statusMessage = 'unknown';
             }
           }
           const editContent = (

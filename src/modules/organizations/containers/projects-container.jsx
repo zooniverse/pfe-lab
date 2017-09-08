@@ -63,7 +63,7 @@ class ProjectsContainer extends React.Component {
               id: projectId,
               links: {
                 owner: {
-                  display_name: 'CONTACT ORGANIZATION OWNER'
+                  display_name: 'CHECK WITH OTHER ORG COLLABORATORS'
                 },
               },
             };
