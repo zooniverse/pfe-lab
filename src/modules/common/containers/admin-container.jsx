@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { AdminCheckbox } from 'zooniverse-react-components';
 import apiClient from 'panoptes-client/lib/api-client';
@@ -62,12 +63,12 @@ AdminContainer.defaultProps = {
 };
 
 AdminContainer.propTypes = {
-  adminMode: React.PropTypes.bool,
-  dispatch: React.PropTypes.func,
-  loginInitialized: React.PropTypes.bool,
-  user: React.PropTypes.shape({
-    id: React.PropTypes.string,
-    admin: React.PropTypes.bool,
+  adminMode: PropTypes.bool,
+  dispatch: PropTypes.func,
+  loginInitialized: PropTypes.bool,
+  user: PropTypes.shape({
+    id: PropTypes.string,
+    admin: PropTypes.bool,
   }),
 };
 

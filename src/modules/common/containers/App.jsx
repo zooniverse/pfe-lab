@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Layout from '../components/layout';
 
 /*
@@ -21,7 +22,7 @@ const App = (props) => {
 };
 
 App.propTypes = {
-  children: React.PropTypes.node
+  children: PropTypes.node
 };
 
 App.defaultProps = {

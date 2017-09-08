@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function bindInput(changeableValue, ComposedComponent) {
   class BoundInput extends React.Component {
@@ -51,7 +52,7 @@ function bindInput(changeableValue, ComposedComponent) {
   }
 
   BoundInput.propTypes = {
-    type: React.PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
   };
 
   BoundInput.defaultProps = {

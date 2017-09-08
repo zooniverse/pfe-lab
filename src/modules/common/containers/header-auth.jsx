@@ -2,6 +2,7 @@
 // components. Stores state in Redux.
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { checkLoginUser, loginToPanoptes, logoutFromPanoptes } from '../../../services/panoptes';
 
@@ -32,9 +33,11 @@ class HeaderAuth extends React.Component {
 }
 
 HeaderAuth.propTypes = {
-  user: React.PropTypes.shape({ login: React.PropTypes.string }),
-  initialized: React.PropTypes.bool,
-  dispatch: React.PropTypes.func,
+  user: PropTypes.shape({
+    login: PropTypes.string
+  }),
+  initialized: PropTypes.bool,
+  dispatch: PropTypes.func,
 };
 
 HeaderAuth.defaultProps = {
