@@ -57,6 +57,10 @@ const EditDetails = (props) => {
               {props.organization.listed ? Date(props.organization.listed_at) : 'N/A'}
             </span>
           </div>
+          <small>
+            Status indicates whether an organization is publicly visible (TRUE) or not publicly visible (FALSE).
+            Please contact the Zooniverse team via Talk (use @team or @admin) to change the status of an organization.
+          </small>
           <hr />
           <button
             type="button"
