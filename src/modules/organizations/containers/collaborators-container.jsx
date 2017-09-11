@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Paginator } from 'zooniverse-react-components';
 
@@ -238,20 +239,20 @@ CollaboratorsContainer.defaultProps = {
 };
 
 CollaboratorsContainer.propTypes = {
-  dispatch: React.PropTypes.func,
-  location: React.PropTypes.shape({
-    query: React.PropTypes.shape({
-      page: React.PropTypes.string,
+  dispatch: PropTypes.func,
+  location: PropTypes.shape({
+    query: PropTypes.shape({
+      page: PropTypes.string,
     }),
   }),
   organization: organizationShape,
   organizationCollaborators: organizationCollaboratorsShape,
   organizationOwner: organizationOwnerShape,
-  router: React.PropTypes.shape({
-    push: React.PropTypes.func
+  router: PropTypes.shape({
+    push: PropTypes.func
   }),
-  user: React.PropTypes.shape({
-    id: React.PropTypes.string,
+  user: PropTypes.shape({
+    id: PropTypes.string,
   }),
 };
 

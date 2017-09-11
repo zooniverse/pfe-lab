@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { DisplayNameSlugEditor } from 'zooniverse-react-components';
 import MarkdownEditor from '../../common/components/markdown-editor';
@@ -115,7 +116,7 @@ DetailsFormContainer.defaultProps = {
 };
 
 DetailsFormContainer.propTypes = {
-  dispatch: React.PropTypes.func,
+  dispatch: PropTypes.func,
   organization: organizationShape,
   updateOrganization: React.PropTypes.func
 };
