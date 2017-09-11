@@ -1,6 +1,5 @@
 import React from 'react';
-
-const PropTypes = React.PropTypes;
+import PropTypes from 'prop-types';
 
 const LogoutButton = ({ logout, user }) =>
   <div className="logout-button">

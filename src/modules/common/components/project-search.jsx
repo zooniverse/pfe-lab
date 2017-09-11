@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactSelect from 'react-select';
 import apiClient from 'panoptes-client/lib/api-client';
 
@@ -38,9 +39,9 @@ const ProjectSearch = ({ clearable, onChange, value }) => {
 };
 
 ProjectSearch.propTypes = {
-  clearable: React.PropTypes.bool,
-  onChange: React.PropTypes.func.isRequired,
-  value: React.PropTypes.string.isRequired,
+  clearable: PropTypes.bool,
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
 };
 
 export default ProjectSearch;

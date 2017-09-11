@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { ZooniverseLogotype } from 'zooniverse-react-components';
 import { loginToPanoptes } from '../../../services/panoptes';
@@ -56,7 +57,7 @@ const Landing = ({ userBoolean }) =>
   </div>;
 
 Landing.propTypes = {
-  userBoolean: React.PropTypes.bool,
+  userBoolean: PropTypes.bool,
 };
 
 Landing.defaultProps = {

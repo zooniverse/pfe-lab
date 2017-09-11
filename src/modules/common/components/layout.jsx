@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Notification from 'grommet/components/Notification';
 import { ZooFooter } from 'zooniverse-react-components';
@@ -31,15 +32,15 @@ const Layout = props =>
   </div>;
 
 Layout.propTypes = {
-  adminMode: React.PropTypes.bool,
-  appNotification: React.PropTypes.shape({
-    message: React.PropTypes.string,
-    status: React.PropTypes.string
+  adminMode: PropTypes.bool,
+  appNotification: PropTypes.shape({
+    message: PropTypes.string,
+    status: PropTypes.string
   }),
-  children: React.PropTypes.node,
-  dispatch: React.PropTypes.func,
-  loginInitialized: React.PropTypes.bool,
-  user: React.PropTypes.shape({ id: React.PropTypes.string }),
+  children: PropTypes.node,
+  dispatch: PropTypes.func,
+  loginInitialized: PropTypes.bool,
+  user: PropTypes.shape({ id: PropTypes.string }),
 };
 
 Layout.defaultProps = {
