@@ -9,15 +9,18 @@ const OrganizationProjectsList = ({ projects, onRemove }) => {
   }
 
   return (
-    <ResourcesList
-      resources={projects}
-      resourceType={'projects'}
-      showOwnerName={true}
-      showRemove={true}
-      onRemove={onRemove}
-      showStatus={true}
-      title={'Project List'}
-    />
+    <div>
+      <h3 className="organization-layout__section-header">Affiliated Projects</h3>
+      <hr />
+      <ResourcesList
+        resources={projects}
+        resourceType={'projects'}
+        showOwnerName={true}
+        showRemove={true}
+        onRemove={onRemove}
+        showStatus={true}
+      />
+    </div>
   );
 };
 

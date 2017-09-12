@@ -28,20 +28,20 @@ const ResourcesList = ({
             avatar = findAvatar(resource)[0];
           }
 
+          let colorLabel;
           let statusMessage;
           if (showStatus) {
-            switch (resource.launch_approved) {
-              case true:
-                statusMessage = 'Launch Approved';
-                break;
-              case false:
-                statusMessage = 'NOT PUBLICLY VISIBILE';
-                break;
-              default:
-                statusMessage = 'UNKNOWN';
+            if (resource.launch_approved === true) {
+              colorLabel = 'green';
+              statusMessage = 'launch approved';
+            } else if (resource.launch_approved === false) {
+              colorLabel = 'orange';
+              statusMessage = 'not launch approved';
+            } else {
+              colorLabel = 'red';
+              statusMessage = 'unknown';
             }
           }
-
           const editContent = (
             <div className="resources-list__editContent resources-list--action">
               {showAvatar && avatar &&
@@ -52,7 +52,7 @@ const ResourcesList = ({
                   <small>{`by ${resource.links.owner.display_name}`}</small>}
                 {showStatus &&
                   <span
-                    className={`color-label ${resource.launch_approved ? 'green' : 'red'}`}
+                    className={`resources-list__status color-label ${colorLabel}`}
                   >
                     {statusMessage}
                   </span>}

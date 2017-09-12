@@ -51,7 +51,7 @@ class ProjectsContainer extends React.Component {
 
       organization.get('projects', query)
         .then((projects) => {
-          this.setState({ meta: projects[0]._meta });
+          this.setState({ meta: projects[0]._meta }); // eslint-disable-line no-underscore-dangle
           return projectIds.map((projectId) => {
             const project = projects.find(p => p.id === projectId);
             if (project) {
@@ -59,7 +59,7 @@ class ProjectsContainer extends React.Component {
             }
             return {
               description: 'Unknown project',
-              display_name: `Project ${projectId}`,
+              display_name: `Project #${projectId}`,
               id: projectId,
               links: {
                 owner: {
@@ -119,7 +119,6 @@ class ProjectsContainer extends React.Component {
   render() {
     return (
       <div>
-        <div className="organization-section-header">Affiliated Projects</div>
         <OrganizationProjectsList
           onRemove={this.removeProject}
           projects={this.props.organizationProjects}
@@ -132,8 +131,6 @@ class ProjectsContainer extends React.Component {
           />)
         }
         <hr />
-        <h4>Add a project</h4>
-        <p>Add projects that you want to include in this organization.</p>
         <OrganizationAddProject
           onAdd={this.addProject}
           onChange={this.changeSelectedProject}
@@ -146,9 +143,11 @@ class ProjectsContainer extends React.Component {
 }
 
 ProjectsContainer.defaultProps = {
+  dispatch: () => {},
   location: {},
   organization: {},
-  organizationProjects: []
+  organizationProjects: [],
+  router: {},
 };
 
 ProjectsContainer.propTypes = {
