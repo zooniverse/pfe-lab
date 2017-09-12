@@ -23,9 +23,9 @@ const API_APPLICATION_IDS = {
 };
 
 const ZOONIVERSE_URL = {
-  production: 'https://www.zooniverse.org/',
-  staging: 'https://master.pfe-preview.zooniverse.org/',
-  development: 'https://master.pfe-preview.zooniverse.org/'
+  production: 'https://www.zooniverse.org',
+  staging: 'https://master.pfe-preview.zooniverse.org',
+  development: 'https://master.pfe-preview.zooniverse.org'
 };
 
 export const config = { // eslint-disable-line import/prefer-default-export
