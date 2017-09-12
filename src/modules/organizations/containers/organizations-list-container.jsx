@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import apiClient from 'panoptes-client/lib/api-client';
 import counterpart from 'counterpart';
@@ -97,12 +98,12 @@ class OrganizationsListContainer extends React.Component {
 }
 
 OrganizationsListContainer.propTypes = {
-  dispatch: React.PropTypes.func,
+  dispatch: PropTypes.func,
   collaboratedOrganizations: organizationsShape,
   organizationsAvatars: organizationsAvatarsShape,
   ownedOrganizations: organizationsShape,
-  router: React.PropTypes.shape({
-    push: React.PropTypes.func
+  router: PropTypes.shape({
+    push: PropTypes.func
   })
 };
 

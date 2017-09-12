@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import apiClient from 'panoptes-client/lib/api-client';
@@ -119,13 +120,13 @@ class EditDetailsContainer extends React.Component {
 }
 
 EditDetailsContainer.propTypes = {
-  deleteOrganization: React.PropTypes.func.isRequired,
-  deletionInProgress: React.PropTypes.bool,
-  dispatch: React.PropTypes.func,
+  deleteOrganization: PropTypes.func.isRequired,
+  deletionInProgress: PropTypes.bool,
+  dispatch: PropTypes.func,
   organization: organizationShape,
   organizationAvatar: organizationAvatarShape,
   organizationBackground: organizationBackgroundShape,
-  updateOrganization: React.PropTypes.func.isRequired
+  updateOrganization: PropTypes.func.isRequired
 };
 
 EditDetailsContainer.defaultProps = {

@@ -1,5 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import apiClient from 'panoptes-client/lib/api-client';
 
@@ -115,7 +116,7 @@ export class AboutContainer extends React.Component {
 }
 
 AboutContainer.propTypes = {
-  dispatch: React.PropTypes.func,
+  dispatch: PropTypes.func,
   organization: organizationShape,
   organizationPage: organizationPageShape,
 };

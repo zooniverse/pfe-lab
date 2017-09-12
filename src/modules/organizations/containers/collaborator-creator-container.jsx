@@ -1,8 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { UserSearch } from 'zooniverse-react-components';
 
 import FormContainer from '../../common/containers/form-container';
-
 import notificationHandler from '../../../lib/notificationHandler';
 
 const ID_PREFIX = 'LAB_COLLABORATORS_PAGE_';
@@ -113,10 +113,10 @@ CollaboratorCreatorContainer.defaultProps = {
 };
 
 CollaboratorCreatorContainer.propTypes = {
-  addCollaborators: React.PropTypes.func.isRequired,
-  dispatch: React.PropTypes.func,
-  possibleRoles: React.PropTypes.objectOf(React.PropTypes.string).isRequired,
-  rolesInfo: React.PropTypes.objectOf(React.PropTypes.object).isRequired,
+  addCollaborators: PropTypes.func.isRequired,
+  dispatch: PropTypes.func,
+  possibleRoles: PropTypes.objectOf(PropTypes.string).isRequired,
+  rolesInfo: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 export default CollaboratorCreatorContainer;
