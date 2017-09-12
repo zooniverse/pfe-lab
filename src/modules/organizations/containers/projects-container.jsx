@@ -59,7 +59,7 @@ class ProjectsContainer extends React.Component {
             }
             return {
               description: 'Unknown project',
-              display_name: `Project ${projectId}`,
+              display_name: `Project #${projectId}`,
               id: projectId,
               links: {
                 owner: {
