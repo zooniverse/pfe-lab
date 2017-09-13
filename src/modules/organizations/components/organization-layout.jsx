@@ -10,7 +10,7 @@ const OrganizationLayout = ({ children, navItems, organizationId, organizationSl
         <li>
           <a
             className="view-org-button"
-            href={`${config.zooniverseURL}organizations/${organizationSlug}`}
+            href={`${config.zooniverseURL}/organizations/${organizationSlug}`}
             rel="noopener noreferrer"
             target="_blank"
           >

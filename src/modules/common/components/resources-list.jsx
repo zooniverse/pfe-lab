@@ -72,7 +72,7 @@ const ResourcesList = ({
           }
           if (resourceType === 'projects') {
             EditLink = () => (
-              <a className="resources-list__editLink" href={`${config.zooniverseURL}lab/${resource.id}`}>
+              <a className="resources-list__editLink" href={`${config.zooniverseURL}/lab/${resource.id}`}>
                 {editContent}
               </a>);
           }
@@ -83,7 +83,7 @@ const ResourcesList = ({
                 <EditLink />
                 <a
                   className="resources-list__icon resources-list--action"
-                  href={`${config.zooniverseURL}${resourceType}/${resource.slug}`}
+                  href={`${config.zooniverseURL}/${resourceType}/${resource.slug}`}
                   rel="noopener noreferrer"
                   target="_blank"
                 >

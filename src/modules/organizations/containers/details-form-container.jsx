@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { DisplayNameSlugEditor } from 'zooniverse-react-components';
-import MarkdownEditor from '../../common/components/markdown-editor';
-import { organizationShape } from '../model';
+import { config } from '../../../constants/config';
 import { setCurrentOrganization } from '../action-creators';
+import { organizationShape } from '../model';
+import MarkdownEditor from '../../common/components/markdown-editor';
 import bindInput from '../../common/containers/bind-input';
 import FormContainer from '../../common/containers/form-container';
 import CharLimit from '../../common/components/char-limit';
@@ -67,6 +68,7 @@ class DetailsFormContainer extends React.Component {
         <FormContainer onSubmit={this.handleSubmit} onReset={this.resetOrganization}>
           <fieldset className="form__fieldset">
             <DisplayNameSlugEditor
+              origin={config.zooniverseURL}
               resource={organization}
               resourceType="organization"
               ref={(node) => { this.fields.display_name = node; }}
