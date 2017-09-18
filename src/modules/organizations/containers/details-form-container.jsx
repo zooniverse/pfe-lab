@@ -11,6 +11,7 @@ import FormContainer from '../../common/containers/form-container';
 import CharLimit from '../../common/components/char-limit';
 
 import ExternalLinksEditor from '../../common/components/external-links-editor';
+import SocialLinksEditor from '../../common/components/social-links-editor';
 
 class DetailsFormContainer extends React.Component {
   constructor(props) {
@@ -119,7 +120,7 @@ class DetailsFormContainer extends React.Component {
               <CharLimit limit={1500} string={this.state.textarea || ''} />
             </small>
           </fieldset>
-          <fieldset>
+          <fieldset className="form__fieldset">
             <label className="form__label" htmlFor="external urls">
               External Links
               <ExternalLinksEditor
@@ -130,7 +131,22 @@ class DetailsFormContainer extends React.Component {
               />
             </label>
             <small className="form__help">
-              External URLs blah blah blah.
+              Adding an external link will make it appear as a new tab alongside
+              the about, classify, talk, and collect tabs.
+            </small>
+          </fieldset>
+          <fieldset className="form__fieldset">
+            <label className="form__label" htmlFor="social urls">
+              Social Links
+              <SocialLinksEditor
+                id="social"
+                name="social"
+                onChange={this.handleUrlsChange}
+                urls={this.state.urls}
+              />
+            </label>
+            <small className="form__help">
+              Adding a social link will append a media icon at the end of your project menu bar.
             </small>
           </fieldset>
         </FormContainer>

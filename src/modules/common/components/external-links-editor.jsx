@@ -36,10 +36,20 @@ export default class ExternalLinksEditor extends React.Component {
     this.props.onChange(urls);
   }
 
-  // TODO handleRemoveLink
+  handleRemoveLink(linkToRemove) {
+    const urlList = this.props.urls.slice();
+    const indexToRemove = urlList.findIndex(i => (i._key === linkToRemove._key));
+    if (indexToRemove > -1) {
+      urlList.splice(indexToRemove, 1);
+      const changes = {
+        urls: urlList
+      };
+    }
+    this.props.onChange(urlList);
+  }
 
   renderRow(link) {
-    // Find the links current position in the list
+    // Find the link's current position in the list
     const idx = this.props.urls.findIndex(i => (i._key === link._key));
     return (
       <tr key={link._key}>
@@ -61,7 +71,7 @@ export default class ExternalLinksEditor extends React.Component {
         </td>
         <td>
           <button type="button">
-            <i className="fa fa-remove" />
+            <i className="fa fa-remove" onClick={this.handleRemoveLink.bind(this, link)} />
           </button>
         </td>
       </tr>
