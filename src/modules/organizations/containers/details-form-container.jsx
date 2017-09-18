@@ -10,6 +10,8 @@ import bindInput from '../../common/containers/bind-input';
 import FormContainer from '../../common/containers/form-container';
 import CharLimit from '../../common/components/char-limit';
 
+import ExternalLinksEditor from '../../common/components/external-links-editor';
+
 class DetailsFormContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -17,21 +19,30 @@ class DetailsFormContainer extends React.Component {
     this.collectValues = this.collectValues.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleTextAreaChange = this.handleTextAreaChange.bind(this);
+    this.handleUrlsChange = this.handleUrlsChange.bind(this);
     this.resetOrganization = this.resetOrganization.bind(this);
 
     this.state = {
-      textarea: ''
+      textarea: '',
+      urls: []
     };
   }
 
   componentDidMount() {
-    this.setState({ textarea: this.props.organization.introduction });
+    this.setState({
+      textarea: this.props.organization.introduction,
+      urls: this.props.organization.urls
+    });
   }
 
   handleTextAreaChange(event) {
     const textarea = event.target.value;
 
     this.setState({ textarea });
+  }
+
+  handleUrlsChange(urls) {
+    this.setState({ urls });
   }
 
   collectValues() {
@@ -42,6 +53,7 @@ class DetailsFormContainer extends React.Component {
       result[fieldName] = this.fields[fieldName].value();
     });
     result.introduction = this.state.textarea;
+    result.urls = this.state.urls;
     return result;
   }
 
@@ -105,6 +117,20 @@ class DetailsFormContainer extends React.Component {
               Add a brief introduction to get people interested in your organization.
               This will display on your landing page.{' '}
               <CharLimit limit={1500} string={this.state.textarea || ''} />
+            </small>
+          </fieldset>
+          <fieldset>
+            <label className="form__label" htmlFor="external urls">
+              External Links
+              <ExternalLinksEditor
+                id="external"
+                name="external"
+                onChange={this.handleUrlsChange}
+                urls={this.state.urls}
+              />
+            </label>
+            <small className="form__help">
+              External URLs blah blah blah.
             </small>
           </fieldset>
         </FormContainer>
