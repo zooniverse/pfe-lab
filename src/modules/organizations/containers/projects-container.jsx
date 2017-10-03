@@ -8,7 +8,7 @@ import { organizationShape } from '../model';
 import OrganizationProjectsList from '../components/organization-projects-list';
 import OrganizationAddProject from '../components/organization-add-project';
 
-import { setOrganizationProjects, setCurrentOrganization } from '../action-creators';
+import { setOrganizationProjects } from '../action-creators';
 import notificationHandler from '../../../lib/notificationHandler';
 
 class ProjectsContainer extends React.Component {
@@ -18,6 +18,7 @@ class ProjectsContainer extends React.Component {
     this.state = {
       meta: null,
       projectToAdd: { value: '', label: '' },
+      saving: null
     };
 
     this.addProject = this.addProject.bind(this);
@@ -43,49 +44,34 @@ class ProjectsContainer extends React.Component {
   }
 
   getLinkedProjects(organization = this.props.organization, page = 1) {
-    if (organization && organization.links.projects) {
-      const query = { sort: 'display_name', page };
-
-      // Isolate the project Ids associated with the organization
-      const projectIds = organization.links.projects;
-
-      organization.get('projects', query)
-        .then((projects) => {
-          this.setState({ meta: projects[0]._meta }); // eslint-disable-line no-underscore-dangle
-          return projectIds.map((projectId) => {
-            const project = projects.find(p => p.id === projectId);
-            if (project) {
-              return project;
-            }
-            return {
-              description: 'Unknown project',
-              display_name: `Project #${projectId}`,
-              id: projectId,
-              links: {
-                owner: {
-                  display_name: 'CHECK WITH OTHER ORG COLLABORATORS'
-                },
-              },
-            };
-          });
-        })
-        .then(allProjects => this.props.dispatch(setOrganizationProjects(allProjects)))
-        .catch((error) => {
-          const notification = { status: 'critical', message: `${error.statusText}: ${error.message}` };
-          notificationHandler(this.props.dispatch, notification);
-        });
+    if (!organization) {
+      return;
     }
+
+    const query = { sort: 'display_name', page };
+
+    organization.get('projects', query)
+      .then((projects) => {
+        this.setState({ meta: projects[0].getMeta() });
+        this.props.dispatch(setOrganizationProjects(projects));
+      })
+      .catch((error) => {
+        const notification = { status: 'critical', message: `${error.statusText}: ${error.message}` };
+        notificationHandler(this.props.dispatch, notification);
+      });
   }
 
   addProject() {
     const id = this.state.projectToAdd.value;
 
     this.props.organization.addLink('projects', [id])
-      .then(([organization]) => {
-        this.props.dispatch(setCurrentOrganization(organization));
-        this.getLinkedProjects(organization);
+      .then(() => {
+        this.refreshProjects();
+      })
+      .then(() => {
         this.resetProjectToAdd();
-      }).catch((error) => {
+      })
+      .catch((error) => {
         const notification = { status: 'critical', message: `${error.statusText}: ${error.message}` };
 
         notificationHandler(this.props.dispatch, notification);
@@ -93,23 +79,30 @@ class ProjectsContainer extends React.Component {
   }
 
   removeProject(id) {
+    this.setState({ saving: id });
     this.props.organization.removeLink('projects', [id])
-      .then(([organization]) => {
-        this.props.dispatch(setCurrentOrganization(organization));
-        this.getLinkedProjects(organization);
+      .then(() => {
+        this.refreshProjects();
+      })
+      .then(() => {
         this.resetProjectToAdd();
-      }).catch((error) => {
+        this.setState({ saving: null });
+      })
+      .catch((error) => {
         const notification = { status: 'critical', message: `${error.statusText}: ${error.message}` };
 
         notificationHandler(this.props.dispatch, notification);
-      }).then(() => {
-        this.props.organization.uncacheLink('projects');
       });
   }
 
   changeSelectedProject(selectedProject) {
     const projectToAdd = selectedProject || { value: '', label: '' };
     this.setState({ projectToAdd });
+  }
+
+  refreshProjects() {
+    this.props.organization.uncacheLink('projects');
+    this.getLinkedProjects();
   }
 
   resetProjectToAdd() {
@@ -125,8 +118,8 @@ class ProjectsContainer extends React.Component {
         />
         {this.props.organizationProjects.length && this.state.meta &&
           (<Paginator
-            page={this.state.meta.projects.page}
-            pageCount={this.state.meta.projects.page_count}
+            page={this.state.meta.page}
+            pageCount={this.state.meta.page_count}
             router={this.props.router}
           />)
         }
