@@ -48,6 +48,7 @@ class CollaboratorsContainer extends React.Component {
 
     this.state = {
       saving: null,
+      meta: null
     };
 
     this.addCollaborators = this.addCollaborators.bind(this);
@@ -158,6 +159,7 @@ class CollaboratorsContainer extends React.Component {
 
     organization.get('organization_roles', query)
       .then((panoptesRoles) => {
+        this.setState({ meta: panoptesRoles[0].getMeta() });
         if (!this.props.organizationOwner) {
           const ownerRole = panoptesRoles.find(roleSet => roleSet.roles.includes('owner'));
 
@@ -212,10 +214,10 @@ class CollaboratorsContainer extends React.Component {
     return (
       <div>
         <EditCollaborators {...props} />
-        {this.props.organizationCollaborators &&
+        {this.props.organizationCollaborators && this.state.meta &&
           (<Paginator
-            page={this.props.organizationCollaborators[0]._meta.organization_roles.page}
-            pageCount={this.props.organizationCollaborators[0]._meta.organization_roles.page_count}
+            page={this.state.meta.page}
+            pageCount={this.state.meta.page_count}
             router={this.props.router}
           />)
         }
