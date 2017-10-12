@@ -6,8 +6,8 @@ export default class ExternalLinksEditor extends React.Component {
     super(props);
 
     this.handleAddLink = this.handleAddLink.bind(this);
-    this.handleLinkReorder = this.handleLinkReorder.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleLinkReorder = this.handleLinkReorder.bind(this);
     this.handleRemoveLink = this.handleRemoveLink.bind(this);
     this.renderRow = this.renderRow.bind(this);
     this.renderTable = this.renderTable.bind(this);
@@ -23,15 +23,15 @@ export default class ExternalLinksEditor extends React.Component {
     this.props.onChange(urls);
   }
 
-  handleLinkReorder(newLinkOrder) {
-    const socialUrls = this.props.urls.filter(url => url.path);
-    const urls = newLinkOrder.concat(socialUrls);
-    this.props.onChange(urls);
-  }
-
   handleInputChange(idx, event) {
     const urls = this.props.urls;
     urls[idx][event.target.name] = event.target.value;
+    this.props.onChange(urls);
+  }
+
+  handleLinkReorder(newLinkOrder) {
+    const socialUrls = this.props.urls.filter(url => url.site);
+    const urls = newLinkOrder.concat(socialUrls);
     this.props.onChange(urls);
   }
 
@@ -40,8 +40,8 @@ export default class ExternalLinksEditor extends React.Component {
     const indexToRemove = urls.findIndex(i => (i.key === linkToRemove.key));
     if (indexToRemove > -1) {
       urls.splice(indexToRemove, 1);
+      this.props.onChange(urls);
     }
-    this.props.onChange(urls);
   }
 
   renderRow(link) {
@@ -75,7 +75,7 @@ export default class ExternalLinksEditor extends React.Component {
 
   renderTable(urls) {
     const tableUrls = urls
-      .filter(url => !url.path)
+      .filter(url => !url.site)
       .map((url) => {
         if (!url.key) {
           const newUrl = url;
@@ -110,7 +110,7 @@ export default class ExternalLinksEditor extends React.Component {
           ? this.renderTable(this.props.urls)
           : null}
 
-        <button type="button" onClick={this.handleAddLink}>Add a link</button>
+        <button type="button" onClick={this.handleAddLink}>Add external link</button>
       </div>
     );
   }

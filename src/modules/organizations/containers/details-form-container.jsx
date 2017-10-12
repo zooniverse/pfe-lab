@@ -65,6 +65,7 @@ class DetailsFormContainer extends React.Component {
 
     return (
       <div>
+        <h5>Details</h5>
         <FormContainer onSubmit={this.handleSubmit} onReset={this.resetOrganization}>
           <fieldset className="form__fieldset">
             <DisplayNameSlugEditor

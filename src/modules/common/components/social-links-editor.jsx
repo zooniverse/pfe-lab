@@ -7,88 +7,62 @@ export default class SocialLinksEditor extends React.Component {
   constructor(props) {
     super(props);
 
-    this.reorderDefault = this.reorderDefault.bind(this);
-    this.handleNewLink = this.handleNewLink.bind(this);
+    this.handleAddLink = this.handleAddLink.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
     this.handleLinkReorder = this.handleLinkReorder.bind(this);
     this.handleRemoveLink = this.handleRemoveLink.bind(this);
     this.renderRow = this.renderRow.bind(this);
   }
 
-  reorderDefault() {
-    const socialUrls = this.props.urls.filter(url => url.path).map(url => url.site);
-    const socialOrder = Object.keys(SOCIAL_ICONS).filter(item => socialUrls.indexOf(item) < 0);
-    const newOrder = socialUrls.concat(socialOrder);
-    return newOrder;
+  handleAddLink(e) {
+    const newUrl = {
+      label: '',
+      path: '',
+      site: e.target.value,
+      url: `https://${e.target.value}`
+    };
+    const urls = this.props.urls;
+    urls.push(newUrl);
+    this.props.onChange(urls);
   }
 
-  handleNewLink(site, e) {
-    let index = this.indexFinder(this.props.urls, site);
-    if (index < 0) { index = this.props.urls.length; }
-
-    if (e.target.value) {
-      const changes = {
-        label: '',
-        path: e.target.value,
-        site,
-        url: `https://${site}${e.target.value}`
-      };
-      const urls = this.props.urls;
-      urls[index] = changes;
-      this.props.onChange(urls);
-    } else {
-      this.handleRemoveLink(site);
-    }
+  handleInputChange(idx, event) {
+    const urls = this.props.urls;
+    urls[idx].path = event.target.value;
+    this.props.onChange(urls);
   }
 
   handleLinkReorder(newLinkOrder) {
-    const externalUrls = this.props.urls.filter(url => !url.path);
-    const socialUrls = this.props.urls.filter(url => url.path);
-    const newSocialUrls = socialUrls.sort((a, b) => newLinkOrder.indexOf(a.site) - newLinkOrder.indexOf(b.site));
-    const changes = externalUrls.concat(newSocialUrls);
-
-    this.props.onChange(changes);
+    const externalUrls = this.props.urls.filter(url => !url.site);
+    const urls = externalUrls.concat(newLinkOrder);
+    this.props.onChange(urls);
   }
 
   handleRemoveLink(linkToRemove) {
-    const urls = this.props.urls.slice();
-    const indexToRemove = this.indexFinder(urls, linkToRemove);
+    const urls = this.props.urls;
+    const indexToRemove = urls.indexOf(linkToRemove);
     if (indexToRemove > -1) {
       urls.splice(indexToRemove, 1);
       this.props.onChange(urls);
     }
   }
 
-  handleDisableDrag(event) {
-    event.target.parentElement.parentElement.parentElement.setAttribute('draggable', false);
-  }
-
-  handleEnableDrag(event) {
-    event.target.parentElement.parentElement.parentElement.setAttribute('draggable', true);
-  }
-
-  indexFinder(toSearch, toFind) {
-    return toSearch.findIndex(i => (i.site === toFind));
-  }
-
-  renderRow(site, i) {
-    const index = this.indexFinder(this.props.urls, site);
-    const value = index >= 0 ? this.props.urls[index].path : '';
-
+  renderRow(link) {
+    const idx = this.props.urls.findIndex(i => (i.site === link.site));
     return (
-      <tr key={i}>
-        <td>{site}</td>
+      <tr key={idx}>
+        <td>{link.site}</td>
         <td>
           <input
             type="text"
-            name={`urls.${site}.url`}
-            value={value}
-            onChange={this.handleNewLink.bind(this, site)}
+            value={link.path || ''}
+            onChange={this.handleInputChange.bind(this, idx)}
             onMouseDown={this.handleDisableDrag}
             onMouseUp={this.handleEnableDrag}
           />
         </td>
         <td>
-          <button type="button" onClick={this.handleRemoveLink.bind(this, site)}>
+          <button type="button" onClick={this.handleRemoveLink.bind(this, link)}>
             <i className="fa fa-remove" />
           </button>
         </td>
@@ -97,17 +71,27 @@ export default class SocialLinksEditor extends React.Component {
   }
 
   render() {
-    const socialOrder = this.reorderDefault();
+    const socialUrls = this.props.urls.filter(url => url.site);
+    const socialOptions = Object.keys(SOCIAL_ICONS)
+      .filter(item => socialUrls.map(url => url.site).indexOf(item) < 0);
     return (
-      <table className="edit-social-links">
-        <DragReorderable
-          tag="tbody"
-          items={socialOrder}
-          render={this.renderRow}
-          onChange={this.handleLinkReorder}
-        />
-      </table>
-    );
+      <div>
+        <table className="edit-social-links">
+          <DragReorderable
+            tag="tbody"
+            items={socialUrls}
+            render={this.renderRow}
+            onChange={this.handleLinkReorder}
+          />
+        </table>
+        <label htmlFor="social link">
+          Add social link:{' '}
+          <select value="stuck" onChange={this.handleAddLink}>
+            <option value="stuck" disabled>Social links...</option>
+            {socialOptions.map(item => <option key={item} value={item}>{item}</option>)}
+          </select>
+        </label>
+      </div>);
   }
 }
 

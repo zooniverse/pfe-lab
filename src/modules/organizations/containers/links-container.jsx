@@ -27,7 +27,8 @@ class LinksContainer extends React.Component {
 
   handleSubmit() {
     this.setState({ show: false });
-    this.props.updateOrganization({ urls: this.state.urls });
+    const filteredUrls = this.state.urls.filter(url => url.label || url.path);
+    this.props.updateOrganization({ urls: filteredUrls });
   }
 
   handleUrlsChange(urls) {
@@ -42,6 +43,7 @@ class LinksContainer extends React.Component {
   render() {
     return (
       <div>
+        <h5>Links</h5>
         <div>
           <span className="form__label" htmlFor="external urls">
             External Links
