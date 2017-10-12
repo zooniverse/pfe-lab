@@ -1,8 +1,6 @@
 import React from 'react';
 import DragReorderable from 'drag-reorderable';
 
-// TODO refactor as stateless component
-
 export default class ExternalLinksEditor extends React.Component {
   constructor(props) {
     super(props);
@@ -10,6 +8,7 @@ export default class ExternalLinksEditor extends React.Component {
     this.handleAddLink = this.handleAddLink.bind(this);
     this.handleLinkReorder = this.handleLinkReorder.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleRemoveLink = this.handleRemoveLink.bind(this);
     this.renderRow = this.renderRow.bind(this);
     this.renderTable = this.renderTable.bind(this);
   }
@@ -37,22 +36,18 @@ export default class ExternalLinksEditor extends React.Component {
   }
 
   handleRemoveLink(linkToRemove) {
-    const urlList = this.props.urls.slice();
-    const indexToRemove = urlList.findIndex(i => (i._key === linkToRemove._key));
+    const urls = this.props.urls;
+    const indexToRemove = urls.findIndex(i => (i.key === linkToRemove.key));
     if (indexToRemove > -1) {
-      urlList.splice(indexToRemove, 1);
-      const changes = {
-        urls: urlList
-      };
+      urls.splice(indexToRemove, 1);
     }
-    this.props.onChange(urlList);
+    this.props.onChange(urls);
   }
 
   renderRow(link) {
-    // Find the link's current position in the list
-    const idx = this.props.urls.findIndex(i => (i._key === link._key));
+    const idx = this.props.urls.findIndex(i => (i.key === link.key));
     return (
-      <tr key={link._key}>
+      <tr key={link.key}>
         <td>
           <input
             type="text"
@@ -70,8 +65,8 @@ export default class ExternalLinksEditor extends React.Component {
           />
         </td>
         <td>
-          <button type="button">
-            <i className="fa fa-remove" onClick={this.handleRemoveLink.bind(this, link)} />
+          <button onClick={this.handleRemoveLink.bind(this, link)} type="button">
+            <i className="fa fa-remove" />
           </button>
         </td>
       </tr>
@@ -79,12 +74,16 @@ export default class ExternalLinksEditor extends React.Component {
   }
 
   renderTable(urls) {
-    const tableUrls = urls.filter(url => !url.path);
-    for (const link of tableUrls) {
-      if (!link._key) {
-        link._key = Math.random();
-      }
-    }
+    const tableUrls = urls
+      .filter(url => !url.path)
+      .map((url) => {
+        if (!url.key) {
+          const newUrl = url;
+          newUrl.key = Math.random();
+          return newUrl;
+        }
+        return url;
+      });
 
     return (
       <table className="external-links-table">
@@ -123,5 +122,8 @@ ExternalLinksEditor.defaultProps = {
 
 ExternalLinksEditor.propTypes = {
   onChange: React.PropTypes.func,
-  urls: React.PropTypes.array
+  urls: React.PropTypes.arrayOf(
+    React.PropTypes.shape({
+      url: React.PropTypes.string
+    }))
 };

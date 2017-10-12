@@ -2,6 +2,7 @@ import React from 'react';
 
 import { organizationShape, organizationAvatarShape, organizationBackgroundShape } from '../model';
 import DetailsFormContainer from '../containers/details-form-container';
+import LinksContainer from '../containers/links-container';
 import ImageSelector from '../../common/containers/image-selector';
 
 const EditDetails = (props) => {
@@ -43,6 +44,9 @@ const EditDetails = (props) => {
         </aside>
         <section className="forms__section">
           <DetailsFormContainer updateOrganization={props.updateOrganization} />
+          <hr />
+          <LinksContainer updateOrganization={props.updateOrganization} />
+          <hr />
           <span className="form__label">Status</span>
           <div>
             <span>

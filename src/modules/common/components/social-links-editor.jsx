@@ -2,15 +2,10 @@ import React from 'react';
 import DragReorderable from 'drag-reorderable';
 import SOCIAL_ICONS from '../../../lib/social-icons';
 
-export default class ExternalLinksEditor extends React.Component {
+export default class SocialLinksEditor extends React.Component {
 
   constructor(props) {
     super(props);
-
-    const socialOrder = Object.keys(SOCIAL_ICONS);
-    this.state = {
-      socialOrder
-    };
 
     this.reorderDefault = this.reorderDefault.bind(this);
     this.handleNewLink = this.handleNewLink.bind(this);
@@ -19,27 +14,11 @@ export default class ExternalLinksEditor extends React.Component {
     this.renderRow = this.renderRow.bind(this);
   }
 
-  componentDidMount() {
-    this.reorderDefault();
-  }
-
-  // not sure if we need this.
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.urls !== this.props.urls) {
-      this.reorderDefault();
-    }
-  }
-
   reorderDefault() {
-    const socialUrls = this.props.urls.filter(url => url.path);
-    const newOrder = [];
-    socialUrls.map(link => newOrder.push(link.site));
-    this.state.socialOrder.map((item) => {
-      if (newOrder.indexOf(item) < 0) {
-        newOrder.push(item);
-      }
-    });
-    this.setState({ socialOrder: newOrder });
+    const socialUrls = this.props.urls.filter(url => url.path).map(url => url.site);
+    const socialOrder = Object.keys(SOCIAL_ICONS).filter(item => socialUrls.indexOf(item) < 0);
+    const newOrder = socialUrls.concat(socialOrder);
+    return newOrder;
   }
 
   handleNewLink(site, e) {
@@ -59,7 +38,6 @@ export default class ExternalLinksEditor extends React.Component {
     } else {
       this.handleRemoveLink(site);
     }
-
   }
 
   handleLinkReorder(newLinkOrder) {
@@ -69,7 +47,6 @@ export default class ExternalLinksEditor extends React.Component {
     const changes = externalUrls.concat(newSocialUrls);
 
     this.props.onChange(changes);
-    this.setState({ socialOrder: newLinkOrder });
   }
 
   handleRemoveLink(linkToRemove) {
@@ -120,11 +97,12 @@ export default class ExternalLinksEditor extends React.Component {
   }
 
   render() {
+    const socialOrder = this.reorderDefault();
     return (
       <table className="edit-social-links">
         <DragReorderable
           tag="tbody"
-          items={this.state.socialOrder}
+          items={socialOrder}
           render={this.renderRow}
           onChange={this.handleLinkReorder}
         />
@@ -133,4 +111,14 @@ export default class ExternalLinksEditor extends React.Component {
   }
 }
 
+SocialLinksEditor.defaultProps = {
+  urls: []
+};
 
+SocialLinksEditor.propTypes = {
+  onChange: React.PropTypes.func,
+  urls: React.PropTypes.arrayOf(
+    React.PropTypes.shape({
+      url: React.PropTypes.string
+    }))
+};
