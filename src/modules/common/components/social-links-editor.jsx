@@ -28,7 +28,9 @@ export default class SocialLinksEditor extends React.Component {
 
   handleInputChange(idx, event) {
     const urls = this.props.urls;
+    const site = urls[idx].site;
     urls[idx].path = event.target.value;
+    urls[idx].url = `https://${site}${event.target.value}`;
     this.props.onChange(urls);
   }
 
