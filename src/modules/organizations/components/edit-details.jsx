@@ -2,6 +2,7 @@ import React from 'react';
 
 import { organizationShape, organizationAvatarShape, organizationBackgroundShape } from '../model';
 import DetailsFormContainer from '../containers/details-form-container';
+import LinksContainer from '../containers/links-container';
 import ImageSelector from '../../common/containers/image-selector';
 
 const EditDetails = (props) => {
@@ -43,24 +44,29 @@ const EditDetails = (props) => {
         </aside>
         <section className="forms__section">
           <DetailsFormContainer updateOrganization={props.updateOrganization} />
-          <span className="form__label">Status</span>
+          <hr />
+          <LinksContainer updateOrganization={props.updateOrganization} />
+          <hr />
           <div>
-            <span>
-              Listed:{' '}
-              <span className={props.organization.listed ? 'color-label green' : 'color-label red'}>
-                {props.organization.listed.toString()}
+            <h5>Status</h5>
+            <div>
+              <span>
+                Listed:{' '}
+                <span className={props.organization.listed ? 'color-label green' : 'color-label red'}>
+                  {props.organization.listed.toString()}
+                </span>
               </span>
-            </span>
-            <br />
-            <span>
-              Listed At:{' '}
-              {props.organization.listed ? Date(props.organization.listed_at) : 'N/A'}
-            </span>
+              <br />
+              <span>
+                Listed At:{' '}
+                {props.organization.listed ? Date(props.organization.listed_at) : 'N/A'}
+              </span>
+            </div>
+            <small>
+              Status indicates whether an organization is publicly visible (TRUE) or not publicly visible (FALSE).
+              Please contact the Zooniverse team via Talk (use @team or @admin) to change the status of an organization.
+            </small>
           </div>
-          <small>
-            Status indicates whether an organization is publicly visible (TRUE) or not publicly visible (FALSE).
-            Please contact the Zooniverse team via Talk (use @team or @admin) to change the status of an organization.
-          </small>
           <hr />
           <button
             type="button"
