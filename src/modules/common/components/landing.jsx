@@ -3,22 +3,23 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { ZooniverseLogotype } from 'zooniverse-react-components';
 import { loginToPanoptes } from '../../../services/panoptes';
+import { config } from '../../../constants/config';
 
 const SignedOut = () =>
   <div>
     <div className="landing__buttons">
       <button className="button button--full-teal landing__button" onClick={loginToPanoptes}>Sign In</button>
       <br />
-      <a className="button button--full-teal landing__button" href="https://www.zooniverse.org/projects">Back to Classifying</a>
+      <a className="button button--full-teal landing__button" href={`${config.zooniverseURL}/projects`}>Back to Classifying</a>
     </div>
     <div className="landing__links-section">
       <p className="landing__links-heading">Quick Links</p>
-      <a className="landing__link" href="https://www.zooniverse.org/help">Project Builder Help</a>
-      <a className="landing__link" href="https://www.zooniverse.org/help/lab-policies">Project Builder Policies</a>
-      <a className="landing__link" href="https://www.zooniverse.org/lab-best-practices/introduction">Best Practices Guide</a>
-      <a className="landing__link" href="https://www.zooniverse.org/about/acknowledgements">Acknowledgements</a>
-      <a className="landing__link" href="https://www.zooniverse.org/talk/18">Project Builder Talk</a>
-      <a className="landing__link" href="https://www.zooniverse.org/help/glossary">Glossary</a>
+      <a className="landing__link" href={`${config.zooniverseURL}/help`}>Project Builder Help</a>
+      <a className="landing__link" href={`${config.zooniverseURL}/help/lab-policies`}>Project Builder Policies</a>
+      <a className="landing__link" href={`${config.zooniverseURL}/lab-best-practices/introduction`}>Best Practices Guide</a>
+      <a className="landing__link" href={`${config.zooniverseURL}/about/acknowledgements`}>Acknowledgements</a>
+      <a className="landing__link" href={`${config.zooniverseURL}/talk/18`}>Project Builder Talk</a>
+      <a className="landing__link" href={`${config.zooniverseURL}/help/glossary`}>Glossary</a>
     </div>
   </div>;
 
@@ -27,10 +28,10 @@ const SignedIn = () =>
     <div className="landing__row">
       <div>
         <h4>Projects</h4>
-        <p className="landing__paragraph">To build a project just upload your data and choose the tasks you want the volunteers to do. To find out more, read our <a href="https://www.zooniverse.org/lab-how-to">How to Build a Project documentation</a>, or click the button to get started.</p>
+        <p className="landing__paragraph">To build a project just upload your data and choose the tasks you want the volunteers to do. To find out more, read our <a href={`${config.zooniverseURL}/lab-how-to`}>How to Build a Project documentation</a>, or click the button to get started.</p>
       </div>
       <div>
-        <a href="https://www.zooniverse.org/lab"className="button button--full-teal landing__button">Build a Project</a>
+        <a href={`${config.zooniverseURL}/lab`} className="button button--full-teal landing__button">Build a Project</a>
       </div>
     </div>
     <div className="landing__row">
