@@ -16,8 +16,11 @@ const AboutPage = (props) => {
   if (Object.keys(props.organizationPage).length === 0) {
     return (
       <div>
+        <p>
+          This page is for you to describe your organization to the volunteers. Feel free to add detail, but try to avoid jargon. This page renders markdown, so you can format it and add images via the Media Library and links.
+        </p>
         <p>No about page is found.</p>
-        <button type="button" onClick={props.onCreatePage}>Create a new about page</button>
+        <button className="button button--full-major" type="button" onClick={props.onCreatePage}>Create a new about page</button>
       </div>
     );
   }
