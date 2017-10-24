@@ -64,6 +64,10 @@ module.exports = {
         loader: 'file-loader',
       },
       {
+        test: /\.(ico\d?)$/,
+        use: 'file-loader?name=[name].[ext]',
+      },
+      {
         test: /\.styl$/,
         use: [
           'style-loader',

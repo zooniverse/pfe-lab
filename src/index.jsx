@@ -12,6 +12,7 @@ import organizationsRoutes from './modules/organizations';
 import { config } from './constants/config';
 import configureStore from './store';
 import initialState from './initial-state';
+import favicon from './images/favicon.ico';
 
 import 'grommet/scss/vanilla/index.scss'; // eslint-disable-line import/first
 import './styles/main.styl'; // eslint-disable-line no-unused-vars
