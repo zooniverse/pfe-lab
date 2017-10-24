@@ -32,7 +32,7 @@
   },
   "engines": {
     "node": "^8.1.2",
-    "npm": "^5.0.3"
+    "npm": "^5.3.0"
   },
   "author": "Zooniverse",
   "license": "Apache-2.0",
@@ -62,7 +62,7 @@
     "redux-logger": "~2.7.4",
     "redux-thunk": "~2.1.0",
     "zoo-grommet": "~0.2.2",
-    "zooniverse-react-components": "git+https://github.com/zooniverse/Zooniverse-React-Components.git#v0.4.4"
+    "zooniverse-react-components": "github:zooniverse/Zooniverse-React-Components#v0.5.0"
   },
   "devDependencies": {
     "babel-cli": "~6.24.0",
