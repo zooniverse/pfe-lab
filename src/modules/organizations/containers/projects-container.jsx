@@ -44,7 +44,7 @@ class ProjectsContainer extends React.Component {
   }
 
   getLinkedProjects(organization = this.props.organization, page = 1) {
-    if (!organization) {
+    if (!organization || !organization.links.projects) {
       return;
     }
 
