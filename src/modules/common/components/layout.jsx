@@ -2,19 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Notification from 'grommet/components/Notification';
-import { ZooFooter } from 'zooniverse-react-components';
-import SiteNav from './site-nav';
+import { AdminLayoutIndicator, ZooFooter, ZooHeader } from 'zooniverse-react-components';
 import Landing from './landing';
 import { setAppNotification } from '../action-creators';
 import AdminContainer from '../containers/admin-container';
+import AuthContainer from '../containers/auth-container';
+import { LogoHomeLink, MainHeaderNavList } from './header-nav-items';
 
 const Layout = props =>
   <div className="layout">
-    <header className="layout__header">
-      <SiteNav />
-    </header>
+    {props.adminMode && <AdminLayoutIndicator />}
 
-    {props.adminMode && (<div className="layout__admin-indicator" title="Admin mode on!" />)}
+    <ZooHeader authContainer={<AuthContainer />} logoHomeLink={LogoHomeLink} mainHeaderNavList={MainHeaderNavList} />
 
     <main className="layout__main">
       {props.appNotification.status &&
