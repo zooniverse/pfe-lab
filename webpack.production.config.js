@@ -105,6 +105,10 @@ module.exports = {
           }
         }],
       },
+      {
+        test: /\.(ico\d?)$/,
+        use: 'file-loader?name=[name].[ext]',
+      },
     ],
   },
 
