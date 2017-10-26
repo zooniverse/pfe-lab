@@ -1,6 +1,7 @@
 import React from 'react';
 import ProjectSearch from '../../common/components/project-search';
 import FormContainer from '../../common/containers/form-container';
+import { config } from '../../../constants/config';
 
 const OrganizationAddProject = ({ value, onAdd, onChange, onReset }) =>
   (<div>
@@ -36,6 +37,9 @@ const OrganizationAddProject = ({ value, onAdd, onChange, onReset }) =>
         Contact the other organization collaborators to get access to this project.
       </li>
     </ul>
+    <div>
+      <a href={`${config.zooniverseURL}/lab`} className="button button--full-major">Build a Project</a>
+    </div>
   </div>);
 
 OrganizationAddProject.propTypes = {
