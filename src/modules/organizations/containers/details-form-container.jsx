@@ -68,12 +68,14 @@ class DetailsFormContainer extends React.Component {
         <h5>Details</h5>
         <FormContainer onSubmit={this.handleSubmit} onReset={this.resetOrganization}>
           <fieldset className="form__fieldset">
-            <DisplayNameSlugEditor
-              origin={config.zooniverseURL}
-              resource={organization}
-              resourceType="organization"
-              ref={(node) => { this.fields.display_name = node; }}
-            />
+            <label className="form__label" htmlFor="display_name">
+              <DisplayNameSlugEditor
+                origin={config.zooniverseURL}
+                resource={organization}
+                resourceType="organization"
+                ref={(node) => { this.fields.display_name = node; }}
+              />
+            </label>
           </fieldset>
           <fieldset className="form__fieldset">
             <label className="form__label" htmlFor="description">
@@ -84,14 +86,14 @@ class DetailsFormContainer extends React.Component {
                 ref={(node) => { this.fields.description = node; }}
               />
             </label>
-            <small className="form__help">
+            <p className="form__help">
               This should be a one-line call to action for your organization that displays on your landing page.
               It will be displayed below the organization&apos;s name.{' '}
               <CharLimit limit={300} string={this.props.organization.description || ''} />
-            </small>
+            </p>
           </fieldset>
           <fieldset className="form__fieldset">
-            <label className="form__label" htmlFor="introduction">
+            <label htmlFor="introduction">
               Introduction
               <MarkdownEditor
                 id="introduction"
@@ -102,11 +104,11 @@ class DetailsFormContainer extends React.Component {
                 value={this.state.textarea}
               />
             </label>
-            <small className="form__help">
+            <p className="form__help">
               Add a brief introduction to get people interested in your organization.
               This will display on your landing page.{' '}
               <CharLimit limit={1500} string={this.state.textarea || ''} />
-            </small>
+            </p>
           </fieldset>
         </FormContainer>
       </div>
