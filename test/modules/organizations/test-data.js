@@ -10,7 +10,8 @@ export const organizations = [
     links: {
       owner: { display_name: 'Bob' }
     },
-    listed: true
+    listed: true,
+    listed_at: "2017-10-25T18:54:02.604Z"
   },
   {
     id: '42',
