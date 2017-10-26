@@ -14,7 +14,7 @@ const EditDetails = (props) => {
     );
   }
 
-  if (props.organization.listed) {
+  if (props.organization.listed_at) {
     listedAtDate = new Date(props.organization.listed_at).toDateString();
   }
 
