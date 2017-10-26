@@ -86,29 +86,31 @@ class DetailsFormContainer extends React.Component {
                 ref={(node) => { this.fields.description = node; }}
               />
             </label>
-            <p className="form__help">
+            <small className="form__help">
               This should be a one-line call to action for your organization that displays on your landing page.
               It will be displayed below the organization&apos;s name.{' '}
               <CharLimit limit={300} string={this.props.organization.description || ''} />
-            </p>
+            </small>
           </fieldset>
           <fieldset className="form__fieldset">
-            <label htmlFor="introduction">
+            <label className="form__label" htmlFor="introduction">
               Introduction
-              <MarkdownEditor
-                id="introduction"
-                name="introduction"
-                onChange={this.handleTextAreaChange}
-                project={this.props.organization}
-                rows="10"
-                value={this.state.textarea}
-              />
+              <div className="form__input--top-margin">
+                <MarkdownEditor
+                  id="introduction"
+                  name="introduction"
+                  onChange={this.handleTextAreaChange}
+                  project={this.props.organization}
+                  rows="10"
+                  value={this.state.textarea}
+                />
+              </div>
             </label>
-            <p className="form__help">
+            <small className="form__help">
               Add a brief introduction to get people interested in your organization.
               This will display on your landing page.{' '}
               <CharLimit limit={1500} string={this.state.textarea || ''} />
-            </p>
+            </small>
           </fieldset>
         </FormContainer>
       </div>

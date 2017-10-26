@@ -36,14 +36,16 @@ const AboutPage = (props) => {
           <label className="form__label" htmlFor="content">
             About Page Content
             <br />
-            <MarkdownEditor
-              id="content"
-              name="content"
-              onChange={props.onTextAreaChange}
-              project={props.organization}
-              rows="20"
-              value={props.pageContent}
-            />
+            <div className="form__input--top-margin">
+              <MarkdownEditor
+                id="content"
+                name="content"
+                onChange={props.onTextAreaChange}
+                project={props.organization}
+                rows="20"
+                value={props.pageContent}
+              />
+            </div>
           </label>
         </fieldset>
       </FormContainer>

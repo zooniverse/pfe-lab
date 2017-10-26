@@ -45,15 +45,17 @@ class LinksContainer extends React.Component {
       <div>
         <h5>Links</h5>
         <div>
-          <span className="form__label" htmlFor="external urls">
+          <label className="form form__label" htmlFor="external urls">
             External Links
-            <ExternalLinksEditor
-              id="external"
-              name="external"
-              onChange={this.handleUrlsChange}
-              urls={this.state.urls}
-            />
-          </span>
+            <div className="form__input--top-margin">
+              <ExternalLinksEditor
+                id="external"
+                name="external"
+                onChange={this.handleUrlsChange}
+                urls={this.state.urls}
+              />
+            </div>
+          </label>
           <small className="form__help">
             Adding an external link will make it appear as a new tab alongside
             the about, classify, talk, and collect tabs.
@@ -61,15 +63,17 @@ class LinksContainer extends React.Component {
         </div>
         <br />
         <div className="form__fieldset">
-          <span className="form__label">
+          <label className="form form__label">
             Social Links
-            <SocialLinksEditor
-              id="social"
-              name="social"
-              onChange={this.handleUrlsChange}
-              urls={this.state.urls}
-            />
-          </span>
+            <div className="form__input--top-margin">
+              <SocialLinksEditor
+                id="social"
+                name="social"
+                onChange={this.handleUrlsChange}
+                urls={this.state.urls}
+              />
+            </div>
+          </label>
           <small className="form__help">
             Adding a social link will append a media icon at the end of your project menu bar.
           </small>

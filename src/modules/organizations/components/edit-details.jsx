@@ -29,6 +29,7 @@ const EditDetails = (props) => {
             />
             <small>Pick a logo to represent your organization. To add an image, either drag and drop or click to open your file viewer. For best results, use a square image of not more than 50 KB.</small>
           </div>
+          <br />
           <hr />
           <div>
             <ImageSelector

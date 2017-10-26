@@ -13,14 +13,25 @@
 
     &--full-width
       width: 100%
+    &--top-margin
+      margin-top: 1em
+
 
   &__label
-    input
+    input.slug-editor__form-input
+      margin-top: 1em
+    &--top-margin
       margin-top: 1em
     // font-size: .7em
     // font-weight: bold
     // letter-spacing: .1em
     // opacity: .7
+
+  &__help
+    font-size: .9em
+
+  small.slug-editor__form-help
+    font-size: .9em
 
   &__markdown-editor
     textarea
