@@ -68,7 +68,7 @@ class DetailsFormContainer extends React.Component {
         <h5>Details</h5>
         <FormContainer onSubmit={this.handleSubmit} onReset={this.resetOrganization}>
           <fieldset className="form__fieldset">
-            <label className="form__label" htmlFor="display_name">
+            <label className="form__label">
               <DisplayNameSlugEditor
                 origin={config.zooniverseURL}
                 resource={organization}
@@ -78,7 +78,7 @@ class DetailsFormContainer extends React.Component {
             </label>
           </fieldset>
           <fieldset className="form__fieldset">
-            <label className="form__label" htmlFor="description">
+            <label className="form__label">
               Description
               <DescriptionInput
                 className="form__input form__input--full-width"
@@ -93,18 +93,17 @@ class DetailsFormContainer extends React.Component {
             </small>
           </fieldset>
           <fieldset className="form__fieldset">
-            <label className="form__label" htmlFor="introduction">
+            <label className="form__label">
               Introduction
-              <div className="form__input--top-margin">
-                <MarkdownEditor
-                  id="introduction"
-                  name="introduction"
-                  onChange={this.handleTextAreaChange}
-                  project={this.props.organization}
-                  rows="10"
-                  value={this.state.textarea}
-                />
-              </div>
+              <MarkdownEditor
+                id="introduction"
+                name="introduction"
+                className="form__input--top-margin"
+                onChange={this.handleTextAreaChange}
+                project={this.props.organization}
+                rows="10"
+                value={this.state.textarea}
+              />
             </label>
             <small className="form__help">
               Add a brief introduction to get people interested in your organization.
