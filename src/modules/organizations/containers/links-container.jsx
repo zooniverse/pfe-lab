@@ -45,14 +45,14 @@ class LinksContainer extends React.Component {
       <div>
         <h5>Links</h5>
         <div>
-          <label className="form form__label" htmlFor="external urls">
+          <label className="form form__label">
             External Links
-              <ExternalLinksEditor
-                id="external"
-                name="external"
-                onChange={this.handleUrlsChange}
-                urls={this.state.urls}
-              />
+            <ExternalLinksEditor
+              id="external"
+              name="external"
+              onChange={this.handleUrlsChange}
+              urls={this.state.urls}
+            />
           </label>
           <small className="form__help">
             Adding an external link will make it appear as a new tab alongside
