@@ -6,10 +6,16 @@ import LinksContainer from '../containers/links-container';
 import ImageSelector from '../../common/containers/image-selector';
 
 const EditDetails = (props) => {
+  let listedAtDate;
+
   if (!props.organization) {
     return (
       <div>Loading...</div>
     );
+  }
+
+  if (props.organization.listed_at) {
+    listedAtDate = new Date(props.organization.listed_at).toDateString();
   }
 
   return (
@@ -59,7 +65,7 @@ const EditDetails = (props) => {
               <br />
               <span>
                 Listed At:{' '}
-                {props.organization.listed ? Date(props.organization.listed_at) : 'N/A'}
+                {props.organization.listed ? listedAtDate : 'N/A'}
               </span>
             </div>
             <small>
