@@ -71,6 +71,7 @@ class DetailsFormContainer extends React.Component {
             <label className="form__label">
               <DisplayNameSlugEditor
                 origin={config.zooniverseURL}
+                className="org-details-slug-editor"
                 resource={organization}
                 resourceType="organization"
                 ref={(node) => { this.fields.display_name = node; }}
