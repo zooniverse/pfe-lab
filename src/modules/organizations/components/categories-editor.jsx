@@ -16,8 +16,10 @@ export default class CategoriesEditor extends React.Component {
   handleAddCategory() {
     const newCategory = 'Example';
     const categories = this.props.categories;
-    categories.push(newCategory);
-    this.props.onChange(categories);
+    if (categories.indexOf(newCategory) === -1) {
+      categories.push(newCategory);
+      this.props.onChange(categories);
+    }
   }
 
   handleInputChange(idx, event) {
