@@ -14,17 +14,15 @@ export default class CategoriesEditor extends React.Component {
   }
 
   handleAddCategory() {
-    const newCategory = 'Example';
+    const newCategory = { key: Math.random(), category: 'Example' };
     const categories = this.props.categories;
-    if (categories.indexOf(newCategory) === -1) {
-      categories.push(newCategory);
-      this.props.onChange(categories);
-    }
+    categories.push(newCategory);
+    this.props.onChange(categories);
   }
 
   handleInputChange(idx, event) {
     const categories = this.props.categories;
-    categories[idx] = event.target.value;
+    categories[idx].category = event.target.value;
     this.props.onChange(categories);
   }
 
@@ -34,27 +32,27 @@ export default class CategoriesEditor extends React.Component {
 
   handleRemoveCategory(categoryToRemove) {
     const categories = this.props.categories;
-    const indexToRemove = categories.indexOf(categoryToRemove);
+    const indexToRemove = categories.findIndex(i => (i.key === categoryToRemove.key));
     if (indexToRemove > -1) {
       categories.splice(indexToRemove, 1);
       this.props.onChange(categories);
     }
   }
 
-  renderRow(category) {
-    const idx = this.props.categories.indexOf(category);
+  renderRow(categoryObject) {
+    const idx = this.props.categories.findIndex(i => (i.key === categoryObject.key));
     return (
-      <tr key={idx}>
+      <tr key={categoryObject.key}>
         <td>
           <input
             type="text"
             name="category"
-            value={category}
+            value={categoryObject.category}
             onChange={this.handleInputChange.bind(this, idx)}
           />
         </td>
         <td>
-          <button onClick={this.handleRemoveCategory.bind(this, category)} type="button">
+          <button onClick={this.handleRemoveCategory.bind(this, categoryObject)} type="button">
             <i className="fa fa-remove" />
           </button>
         </td>
@@ -100,6 +98,9 @@ CategoriesEditor.defaultProps = {
 CategoriesEditor.propTypes = {
   onChange: React.PropTypes.func,
   categories: React.PropTypes.arrayOf(
-    React.PropTypes.string
+    React.PropTypes.shape({
+      key: React.PropTypes.num,
+      category: React.PropTypes.string
+    })
   )
 };

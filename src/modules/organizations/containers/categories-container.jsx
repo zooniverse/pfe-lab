@@ -19,14 +19,19 @@ class CategoriesContainer extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({
-      categories: this.props.organization.categories
-    });
+    this.setCategories();
+  }
+
+  setCategories() {
+    const categoriesWithKeys = this.props.organization.categories
+      .map(category => Object.assign({}, { key: Math.random(), category }));
+    this.setState({ categories: categoriesWithKeys });
   }
 
   handleSubmit() {
+    const categories = this.state.categories.map(categoryObject => categoryObject.category);
     this.setState({ show: false });
-    this.props.updateOrganization({ categories: this.state.categories });
+    this.props.updateOrganization({ categories });
   }
 
   handleChange(categories) {
@@ -53,7 +58,8 @@ class CategoriesContainer extends React.Component {
             />
           </span>
           <small className="form__help">
-            Categories blah blah blah.
+            Add categories for volunteers to filter your projects by.
+            A project must have a tag that matches a category to be filtered.
           </small>
         </div>
         {this.state.show &&
