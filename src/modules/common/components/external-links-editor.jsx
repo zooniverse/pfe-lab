@@ -86,7 +86,7 @@ export default class ExternalLinksEditor extends React.Component {
       });
 
     return (
-      <table className="external-links-table form__input--top-margin">
+      <table className="external-links-table">
         <thead>
           <tr>
             <th>Label</th>

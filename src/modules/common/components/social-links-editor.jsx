@@ -78,7 +78,7 @@ export default class SocialLinksEditor extends React.Component {
       .filter(item => socialUrls.map(url => url.site).indexOf(item) < 0);
     return (
       <div>
-        <table className="edit-social-links form__input--top-margin">
+        <table className="edit-social-links">
           <DragReorderable
             tag="tbody"
             items={socialUrls}
