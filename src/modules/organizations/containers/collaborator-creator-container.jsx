@@ -74,7 +74,7 @@ class CollaboratorCreatorContainer extends React.Component {
       >
         <h4 className="collaborators__title">Add another user role</h4>
         <fieldset className="form__fieldset">
-          <label htmlFor="user-search" className="form__label">Find a user</label>
+          <label htmlFor="user-search">Find a user</label>
           <UserSearch id="user-search" ref={(input) => { this.userSearch = input; }} />
         </fieldset>
 
@@ -84,7 +84,7 @@ class CollaboratorCreatorContainer extends React.Component {
               return (
                 <span key={ID_PREFIX + role}>
                   <dt>
-                    <strong><label className="form__label" htmlFor={ID_PREFIX + role}>
+                    <strong><label htmlFor={ID_PREFIX + role}>
                       <input
                         ref={(input) => { this[ID_PREFIX + role] = input; }}
                         id={ID_PREFIX + role}

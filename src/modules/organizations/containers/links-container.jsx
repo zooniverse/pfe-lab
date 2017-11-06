@@ -45,7 +45,7 @@ class LinksContainer extends React.Component {
       <div>
         <h5>Links</h5>
         <div>
-          <label className="form form__label">
+          <label>
             External Links
             <ExternalLinksEditor
               id="external"
@@ -61,7 +61,7 @@ class LinksContainer extends React.Component {
         </div>
         <br />
         <div className="form__fieldset">
-          <label className="form form__label">
+          <label>
             Social Links
             <SocialLinksEditor
               id="social"

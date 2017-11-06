@@ -15,7 +15,7 @@ const OrganizationAddProject = ({ value, onAdd, onChange, onReset }) =>
       <ProjectSearch clearable={false} onChange={onChange} value={value} />
     </FormContainer>
     <br />
-    <span className="form__label">Instructions</span>
+    <strong>Instructions</strong>
     <ul className="organization-layout__section-instructions">
       <li className="organization-layout__section-instructions--list-items">
         You must be a project&apos;s owner or collaborator to add a project to the organization.

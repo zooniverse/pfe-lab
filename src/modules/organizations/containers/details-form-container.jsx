@@ -68,10 +68,9 @@ class DetailsFormContainer extends React.Component {
         <h5>Details</h5>
         <FormContainer onSubmit={this.handleSubmit} onReset={this.resetOrganization}>
           <fieldset className="form__fieldset">
-            <label className="form__label">
+            <label>
               <DisplayNameSlugEditor
                 origin={config.zooniverseURL}
-                className="org-details-slug-editor"
                 resource={organization}
                 resourceType="organization"
                 ref={(node) => { this.fields.display_name = node; }}
@@ -79,7 +78,7 @@ class DetailsFormContainer extends React.Component {
             </label>
           </fieldset>
           <fieldset className="form__fieldset">
-            <label className="form__label">
+            <label>
               Description
               <DescriptionInput
                 className="form__input form__input--full-width"
@@ -94,12 +93,11 @@ class DetailsFormContainer extends React.Component {
             </small>
           </fieldset>
           <fieldset className="form__fieldset">
-            <label className="form__label">
+            <label>
               Introduction
               <MarkdownEditor
                 id="introduction"
                 name="introduction"
-                className="form__input--top-margin"
                 onChange={this.handleTextAreaChange}
                 project={this.props.organization}
                 rows="10"

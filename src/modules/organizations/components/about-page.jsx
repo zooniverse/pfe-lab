@@ -33,13 +33,12 @@ const AboutPage = (props) => {
       </p>
       <FormContainer onSubmit={props.onSubmit} onReset={props.resetOrganizationPage}>
         <fieldset className="form__fieldset">
-          <label className="form__label" htmlFor="content">
+          <label htmlFor="content">
             About Page Content
             <br />
             <MarkdownEditor
               id="content"
               name="content"
-              className="form__input--top-margin"
               onChange={props.onTextAreaChange}
               project={props.organization}
               rows="20"
