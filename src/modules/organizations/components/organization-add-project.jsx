@@ -1,6 +1,7 @@
 import React from 'react';
 import ProjectSearch from '../../common/components/project-search';
 import FormContainer from '../../common/containers/form-container';
+import { config } from '../../../constants/config';
 
 const OrganizationAddProject = ({ value, onAdd, onChange, onReset }) =>
   (<div>
@@ -14,7 +15,7 @@ const OrganizationAddProject = ({ value, onAdd, onChange, onReset }) =>
       <ProjectSearch clearable={false} onChange={onChange} value={value} />
     </FormContainer>
     <br />
-    <span className="form__label">Instructions</span>
+    <strong>Instructions</strong>
     <ul className="organization-layout__section-instructions">
       <li className="organization-layout__section-instructions--list-items">
         You must be a project&apos;s owner or collaborator to add a project to the organization.
@@ -36,6 +37,9 @@ const OrganizationAddProject = ({ value, onAdd, onChange, onReset }) =>
         Contact the other organization collaborators to get access to this project.
       </li>
     </ul>
+    <div>
+      <a href={`${config.zooniverseURL}/lab`} className="button button--full-major">Build a Project</a>
+    </div>
   </div>);
 
 OrganizationAddProject.propTypes = {

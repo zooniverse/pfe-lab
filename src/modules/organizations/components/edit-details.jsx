@@ -35,6 +35,7 @@ const EditDetails = (props) => {
             />
             <small>Pick a logo to represent your organization. To add an image, either drag and drop or click to open your file viewer. For best results, use a square image of not more than 50 KB.</small>
           </div>
+          <br />
           <hr />
           <div>
             <ImageSelector
@@ -50,8 +51,10 @@ const EditDetails = (props) => {
         </aside>
         <section className="forms__section">
           <DetailsFormContainer updateOrganization={props.updateOrganization} />
+          <br />
           <hr />
           <LinksContainer updateOrganization={props.updateOrganization} />
+          <br />
           <hr />
           <div>
             <h5>Status</h5>
@@ -73,6 +76,7 @@ const EditDetails = (props) => {
               Please contact the Zooniverse team via Talk (use @team or @admin) to change the status of an organization.
             </small>
           </div>
+          <br />
           <hr />
           <button
             type="button"
