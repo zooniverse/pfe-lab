@@ -14,7 +14,8 @@ class CategoriesContainer extends React.Component {
     this.resetOrganization = this.resetOrganization.bind(this);
 
     this.state = {
-      categories: []
+      categories: [],
+      show: false
     };
   }
 
@@ -24,12 +25,12 @@ class CategoriesContainer extends React.Component {
 
   setCategories() {
     const categoriesWithKeys = this.props.organization.categories
-      .map(category => Object.assign({}, { key: Math.random(), category }));
+      .map((category, index) => Object.assign({}, { key: index, label: category }));
     this.setState({ categories: categoriesWithKeys });
   }
 
   handleSubmit() {
-    const categories = this.state.categories.map(categoryObject => categoryObject.category);
+    const categories = this.state.categories.map(categoryObject => categoryObject.label);
     this.setState({ show: false });
     this.props.updateOrganization({ categories });
   }

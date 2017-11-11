@@ -14,15 +14,16 @@ export default class CategoriesEditor extends React.Component {
   }
 
   handleAddCategory() {
-    const newCategory = { key: Math.random(), category: 'Example' };
+    const newCategory = { key: this.props.categories.length, label: 'Example' };
     const categories = this.props.categories;
     categories.push(newCategory);
     this.props.onChange(categories);
   }
 
-  handleInputChange(idx, event) {
+  handleInputChange(key, event) {
     const categories = this.props.categories;
-    categories[idx].category = event.target.value;
+    const index = categories.findIndex(item => (item.key === key));
+    categories[index].label = event.target.value;
     this.props.onChange(categories);
   }
 
@@ -30,29 +31,28 @@ export default class CategoriesEditor extends React.Component {
     this.props.onChange(newCategoryOrder);
   }
 
-  handleRemoveCategory(categoryToRemove) {
+  handleRemoveCategory(key) {
     const categories = this.props.categories;
-    const indexToRemove = categories.findIndex(i => (i.key === categoryToRemove.key));
-    if (indexToRemove > -1) {
-      categories.splice(indexToRemove, 1);
+    const index = categories.findIndex(item => (item.key === key));
+    if (index > -1) {
+      categories.splice(index, 1);
       this.props.onChange(categories);
     }
   }
 
   renderRow(categoryObject) {
-    const idx = this.props.categories.findIndex(i => (i.key === categoryObject.key));
     return (
       <tr key={categoryObject.key}>
         <td>
           <input
             type="text"
             name="category"
-            value={categoryObject.category}
-            onChange={this.handleInputChange.bind(this, idx)}
+            value={categoryObject.label}
+            onChange={this.handleInputChange.bind(this, categoryObject.key)}
           />
         </td>
         <td>
-          <button onClick={this.handleRemoveCategory.bind(this, categoryObject)} type="button">
+          <button onClick={this.handleRemoveCategory.bind(this, categoryObject.key)} type="button">
             <i className="fa fa-remove" />
           </button>
         </td>
@@ -100,7 +100,7 @@ CategoriesEditor.propTypes = {
   categories: React.PropTypes.arrayOf(
     React.PropTypes.shape({
       key: React.PropTypes.num,
-      category: React.PropTypes.string
+      label: React.PropTypes.string
     })
   )
 };
