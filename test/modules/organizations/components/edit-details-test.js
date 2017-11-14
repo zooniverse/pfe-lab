@@ -12,7 +12,7 @@ import ImageSelector from '../../../../src/modules/common/containers/image-selec
 const listedOrganization = organizations[0];
 const unlistedOrganization = organizations[1];
 
-describe('<EditDetails />', function() {
+describe.only('<EditDetails />', function() {
   let wrapper;
   const deleteOrganizationSpy = sinon.spy();
 
@@ -51,8 +51,19 @@ describe('<EditDetails />', function() {
     expect(wrapper.find('span').last().text()).to.equal(`Listed At: ${formattedDate}`);
   });
 
-  it('should render "N/A" when passed an unlisted organization', function() {
+  it('should render true when passed a listed organization', function() {
+    const orgStatus = wrapper.find('span').at(1).children().text();
+    expect(orgStatus).to.equal('true');
+  });
+
+  it('should render false when passed an unlisted organization', function() {
     wrapper.setProps({ organization: unlistedOrganization });
-    expect(wrapper.find('span').last().text()).to.equal('Listed At: N/A');
+    const orgStatus = wrapper.find('span').at(1).children().text();
+    expect(orgStatus).to.equal('false');
+  });
+
+  it('should not render a Listed At field for an unlisted organization', function() {
+    const orgStatusWrapper = wrapper.find('div').at(5);
+    expect(orgStatusWrapper.children()).to.have.lengthOf(2);
   });
 });

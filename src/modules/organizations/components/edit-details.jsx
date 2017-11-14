@@ -69,10 +69,9 @@ const EditDetails = (props) => {
                 </span>
               </span>
               <br />
-              <span>
-                Listed At:{' '}
-                {props.organization.listed ? listedAtDate : 'N/A'}
-              </span>
+              {props.organization.listed
+                ? <span>Listed At: {listedAtDate}</span>
+                : null }
             </div>
             <small>
               Status indicates whether an organization is publicly visible (TRUE) or not publicly visible (FALSE).
