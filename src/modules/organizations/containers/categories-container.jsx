@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { setCurrentOrganization } from '../action-creators';
+
 import { organizationShape } from '../model';
 import CategoriesEditor from '../components/categories-editor';
 
@@ -24,8 +24,11 @@ class CategoriesContainer extends React.Component {
   }
 
   setCategories() {
-    const categoriesWithKeys = this.props.organization.categories
-      .map((category, index) => Object.assign({}, { key: index, label: category }));
+    let categoriesWithKeys = [];
+    if (this.props.organization.categories && this.props.organization.categories.length > 1) {
+      categoriesWithKeys = this.props.organization.categories
+        .map((category, index) => Object.assign({}, { key: index, label: category }));
+    }
     this.setState({ categories: categoriesWithKeys });
   }
 
@@ -41,7 +44,7 @@ class CategoriesContainer extends React.Component {
 
   resetOrganization() {
     this.setState({ show: false });
-    this.props.dispatch(setCurrentOrganization(this.props.organization));
+    this.setCategories();
   }
 
   render() {
@@ -77,7 +80,6 @@ CategoriesContainer.defaultProps = {
 };
 
 CategoriesContainer.propTypes = {
-  dispatch: PropTypes.func,
   organization: organizationShape,
   updateOrganization: PropTypes.func
 };
