@@ -84,7 +84,6 @@ class OrganizationContainer extends React.Component {
 
   render() {
     const children = this.props.children; // eslint-disable-line react/prop-types
-
     const organizationId = this.props.params.id;
 
     // inject props into children
@@ -99,7 +98,8 @@ class OrganizationContainer extends React.Component {
 
     return (
       <OrganizationLayout
-        organizationId={organizationId} organizationSlug={this.props.organization ? this.props.organization.slug : ''}
+        organizationId={organizationId}
+        organizationSlug={this.props.organization ? this.props.organization.slug : ''}
       >
         {wrappedChildren}
       </OrganizationLayout>
