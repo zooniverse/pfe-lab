@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { DisplayNameSlugEditor } from 'zooniverse-react-components';
+
 import { config } from '../../../constants/config';
 import { setCurrentOrganization } from '../action-creators';
 import { organizationShape } from '../model';
 import MarkdownEditor from '../../common/components/markdown-editor';
-import bindInput from '../../common/containers/bind-input';
 import FormContainer from '../../common/containers/form-container';
 import CharLimit from '../../common/components/char-limit';
 
@@ -14,34 +14,51 @@ class DetailsFormContainer extends React.Component {
   constructor(props) {
     super(props);
 
+    this.handleChange = this.handleChange.bind(this);
     this.collectValues = this.collectValues.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleTextAreaChange = this.handleTextAreaChange.bind(this);
     this.resetOrganization = this.resetOrganization.bind(this);
 
     this.state = {
-      textarea: ''
+      fields: {
+        description: '',
+        introduction: ''
+      }
     };
   }
 
   componentDidMount() {
-    this.setState({ textarea: this.props.organization.introduction });
+    this.setFields();
   }
 
-  handleTextAreaChange(event) {
-    const textarea = event.target.value;
+  setFields() {
+    const fields = {
+      description: this.props.organization.description.slice(),
+      introduction: this.props.organization.introduction.slice()
+    };
+    this.setState({ fields });
+  }
 
-    this.setState({ textarea });
+  handleChange(event) {
+    const { value, name } = event.target;
+
+    const fields = this.state.fields;
+    fields[name] = value;
+
+    this.setState({ fields });
   }
 
   collectValues() {
-    // TODO rework this to better work with the MarkdownEditor
-    // TODO only submit changed fields!
-    const result = {};
-    Object.keys(this.fields).forEach((fieldName) => {
-      result[fieldName] = this.fields[fieldName].value();
-    });
-    result.introduction = this.state.textarea;
+    const fields = this.state.fields;
+    fields.display_name = this.display_name.value();
+
+    const result = Object.keys(fields).reduce((values, key) => {
+      const newValues = Object.assign({}, values);
+      if (fields[key] !== this.props.organization[key]) {
+        newValues[key] = fields[key];
+      }
+      return newValues;
+    }, {});
     return result;
   }
 
@@ -51,17 +68,14 @@ class DetailsFormContainer extends React.Component {
   }
 
   resetOrganization() {
+    this.display_name.undoNameChange();
+    this.setFields();
     this.props.dispatch(setCurrentOrganization(this.props.organization));
   }
 
   render() {
-    // TODO rename prop in markdownz to be resource not project.
-    // TODO extract <MarkdownHelp /> into shared components repo.
-    // TODO extract MarkdownEditor into its own component put into common folder
-    // TODO split into functional component
     const organization = this.props.organization;
-    const DescriptionInput = bindInput(organization.description, <input type="text" />);
-    this.fields = {};
+    this.display_name = {};
 
     return (
       <div>
@@ -73,23 +87,26 @@ class DetailsFormContainer extends React.Component {
                 origin={config.zooniverseURL}
                 resource={organization}
                 resourceType="organization"
-                ref={(node) => { this.fields.display_name = node; }}
+                ref={(node) => { this.display_name = node; }}
               />
             </label>
           </fieldset>
           <fieldset className="form__fieldset">
             <label>
               Description
-              <DescriptionInput
+              <input
                 className="form__input form__input--full-width"
                 id="description"
-                ref={(node) => { this.fields.description = node; }}
+                name="description"
+                onChange={this.handleChange}
+                type="text"
+                value={this.state.fields.description}
               />
             </label>
             <small className="form__help">
               This should be a one-line call to action for your organization that displays on your landing page.
               It will be displayed below the organization&apos;s name.{' '}
-              <CharLimit limit={300} string={this.props.organization.description || ''} />
+              <CharLimit limit={300} string={this.state.fields.description || ''} />
             </small>
           </fieldset>
           <fieldset className="form__fieldset">
@@ -98,16 +115,16 @@ class DetailsFormContainer extends React.Component {
               <MarkdownEditor
                 id="introduction"
                 name="introduction"
-                onChange={this.handleTextAreaChange}
+                onChange={this.handleChange}
                 project={this.props.organization}
                 rows="10"
-                value={this.state.textarea}
+                value={this.state.fields.introduction}
               />
             </label>
             <small className="form__help">
               Add a brief introduction to get people interested in your organization.
               This will display on your landing page.{' '}
-              <CharLimit limit={1500} string={this.state.textarea || ''} />
+              <CharLimit limit={1500} string={this.state.fields.introduction || ''} />
             </small>
           </fieldset>
         </FormContainer>
