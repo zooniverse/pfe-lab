@@ -22,7 +22,8 @@ class DetailsFormContainer extends React.Component {
     this.state = {
       fields: {
         description: '',
-        introduction: ''
+        introduction: '',
+        announcement: ''
       }
     };
   }
@@ -34,7 +35,8 @@ class DetailsFormContainer extends React.Component {
   setFields() {
     const fields = {
       description: this.props.organization.description.slice(),
-      introduction: this.props.organization.introduction.slice()
+      introduction: this.props.organization.introduction.slice(),
+      announcement: this.props.organization.announcement.slice()
     };
     this.setState({ fields });
   }
@@ -125,6 +127,24 @@ class DetailsFormContainer extends React.Component {
               Add a brief introduction to get people interested in your organization.
               This will display on your landing page.{' '}
               <CharLimit limit={1500} string={this.state.fields.introduction || ''} />
+            </small>
+          </fieldset>
+          <fieldset className="form__fieldset">
+            <label>
+              Announcement Banner
+              <MarkdownEditor
+                id="announcement"
+                name="announcement"
+                onChange={this.handleChange}
+                project={this.props.organization}
+                rows="2"
+                value={this.state.fields.announcement}
+              />
+            </label>
+            <small className="form__help">
+              This text will appear as a banner at the top of all your organization&apos;s pages.
+              Only use this when you&apos;ve got a big important announcement to make!{' '}
+              <CharLimit limit={500} string={this.state.fields.announcement || ''} />
             </small>
           </fieldset>
         </FormContainer>
