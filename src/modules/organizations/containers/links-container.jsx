@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { setCurrentOrganization } from '../action-creators';
+
 import { organizationShape } from '../model';
 import ExternalLinksEditor from '../../common/components/external-links-editor';
 import SocialLinksEditor from '../../common/components/social-links-editor';
@@ -15,14 +15,21 @@ class LinksContainer extends React.Component {
     this.resetOrganization = this.resetOrganization.bind(this);
 
     this.state = {
+      show: false,
       urls: []
     };
   }
 
   componentDidMount() {
-    this.setState({
-      urls: this.props.organization.urls
-    });
+    this.setUrls();
+  }
+
+  setUrls() {
+    let urls = [];
+    if (this.props.organization.urls && this.props.organization.urls.length > 1) {
+      urls = this.props.organization.urls.slice();
+    }
+    this.setState({ urls });
   }
 
   handleSubmit() {
@@ -37,7 +44,7 @@ class LinksContainer extends React.Component {
 
   resetOrganization() {
     this.setState({ show: false });
-    this.props.dispatch(setCurrentOrganization(this.props.organization));
+    this.setUrls();
   }
 
   render() {
@@ -88,7 +95,6 @@ LinksContainer.defaultProps = {
 };
 
 LinksContainer.propTypes = {
-  dispatch: PropTypes.func,
   organization: organizationShape,
   updateOrganization: PropTypes.func
 };

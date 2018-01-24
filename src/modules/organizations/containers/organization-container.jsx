@@ -84,13 +84,12 @@ class OrganizationContainer extends React.Component {
 
   render() {
     const children = this.props.children; // eslint-disable-line react/prop-types
-    const organization = this.props.organization;
+
     const organizationId = this.props.params.id;
 
     // inject props into children
     const wrappedChildren = React.Children.map(children, child =>
       React.cloneElement(child, {
-        organization,
         organizationId,
         updateOrganization: this.updateOrganization,
         deleteOrganization: this.deleteOrganization,
@@ -99,7 +98,9 @@ class OrganizationContainer extends React.Component {
     );
 
     return (
-      <OrganizationLayout organizationId={organizationId} organizationSlug={organization ? organization.slug : ''}>
+      <OrganizationLayout
+        organizationId={organizationId} organizationSlug={this.props.organization ? this.props.organization.slug : ''}
+      >
         {wrappedChildren}
       </OrganizationLayout>
     );
