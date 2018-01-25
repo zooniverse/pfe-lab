@@ -76,7 +76,7 @@ class LinksContainer extends React.Component {
         </div>
         <br />
         <small className="form__help">
-          Adding links to the organization will list them in the bottom right section of the organization landing page.
+          Adding links to the organization will list them in the bottom right section of the organization home page.
           External links will be listed before social links and social links will be shown with the related site icon.
           The link display order within their respective groups can be rearranged by dragging.
         </small>

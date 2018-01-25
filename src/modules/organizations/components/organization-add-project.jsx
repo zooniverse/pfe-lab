@@ -30,7 +30,7 @@ const OrganizationAddProject = ({ value, onAdd, onChange, onReset }) =>
         Removing a project from the organization has no other effect on the project.
       </li>
       <li className="organization-layout__section-instructions--list-items">
-        A LAUNCH APPROVED project is shown on the organization landing page to all volunteers.
+        A LAUNCH APPROVED project is shown on the organization home page to all volunteers.
       </li>
       <li className="organization-layout__section-instructions--list-items">
         You are not a collaborator on a project with an UNKNOWN status.

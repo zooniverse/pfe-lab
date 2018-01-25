@@ -17,7 +17,7 @@ const AboutPage = (props) => {
     return (
       <div>
         <p>
-          This page is for you to describe your organization to the volunteers. Feel free to add detail, but try to avoid jargon. This page renders markdown, so you can format it and add images via the Media Library and links.
+          This page is for you to describe the organization to the volunteers. Feel free to add detail, but try to avoid jargon. This page renders markdown, so you can format it and add images via the Media Library and links.
         </p>
         <p>No about page is found.</p>
         <button className="button button--full-major" type="button" onClick={props.onCreatePage}>Create a new about page</button>
@@ -29,7 +29,7 @@ const AboutPage = (props) => {
     <div>
       <h3 className="organization-layout__section-header">Organization About Page</h3>
       <p>
-        This page is for you to describe your organization to the volunteers. Feel free to add detail, but try to avoid jargon. This page renders markdown, so you can format it and add images via the Media Library and links.
+        This page is for you to describe the organization to the volunteers. Feel free to add detail, but try to avoid jargon. This page renders markdown, so you can format it and add images via the Media Library and links.
       </p>
       <FormContainer onSubmit={props.onSubmit} onReset={props.resetOrganizationPage}>
         <fieldset className="form__fieldset">

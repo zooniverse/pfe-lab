@@ -107,7 +107,7 @@ class DetailsFormContainer extends React.Component {
               />
             </label>
             <small className="form__help">
-              This should be a one-line call to action for your organization that displays on your landing page.
+              This should be a one-line call to action for the organization that displays on the home page.
               It will be displayed below the organization&apos;s name.{' '}
               <CharLimit limit={300} string={this.state.fields.description || ''} />
             </small>
@@ -125,8 +125,8 @@ class DetailsFormContainer extends React.Component {
               />
             </label>
             <small className="form__help">
-              Add a brief introduction to get people interested in your organization.
-              This will display on your landing page.{' '}
+              Add a brief introduction to get people interested in the organization.
+              This will display on the organization home page.{' '}
               <CharLimit limit={1500} string={this.state.fields.introduction || ''} />
             </small>
           </fieldset>
@@ -143,7 +143,7 @@ class DetailsFormContainer extends React.Component {
               />
             </label>
             <small className="form__help">
-              This text will appear as a banner at the top of all your organization&apos;s pages.
+              This text will appear as a banner at the top of all the organization&apos;s pages.
               Only use this when you&apos;ve got a big important announcement to make!{' '}
               <CharLimit limit={500} string={this.state.fields.announcement || ''} />
             </small>
