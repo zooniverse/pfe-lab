@@ -52,7 +52,7 @@ class LinksContainer extends React.Component {
       <div>
         <h5>Links</h5>
         <div>
-          <label>
+          <label className="form__label" htmlFor="external">
             External Links
             <ExternalLinksEditor
               id="external"
@@ -68,7 +68,7 @@ class LinksContainer extends React.Component {
         </div>
         <br />
         <div className="form__fieldset">
-          <label>
+          <label className="form__label" htmlFor="social">
             Social Links
             <SocialLinksEditor
               id="social"

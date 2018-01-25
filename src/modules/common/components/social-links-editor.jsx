@@ -88,7 +88,7 @@ export default class SocialLinksEditor extends React.Component {
         </table>
         <label htmlFor="social link">
           Add social link:{' '}
-          <select value="stuck" onChange={this.handleAddLink}>
+          <select id="social link" onChange={this.handleAddLink} value="stuck">
             <option value="stuck" disabled>Social links...</option>
             {socialOptions.map(item => <option key={item} value={item}>{item}</option>)}
           </select>
