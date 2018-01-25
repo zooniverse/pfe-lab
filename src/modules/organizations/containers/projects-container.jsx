@@ -116,7 +116,7 @@ class ProjectsContainer extends React.Component {
           onRemove={this.removeProject}
           projects={this.props.organizationProjects}
         />
-        {this.props.organizationProjects.length && this.state.meta &&
+      {(this.props.organizationProjects.length > 0) && this.state.meta &&
           (<Paginator
             page={this.state.meta.page}
             pageCount={this.state.meta.page_count}
