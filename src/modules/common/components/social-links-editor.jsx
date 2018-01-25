@@ -26,11 +26,11 @@ export default class SocialLinksEditor extends React.Component {
     this.props.onChange(urls);
   }
 
-  handleInputChange(idx, event) {
+  handleInputChange(index, event) {
     const urls = this.props.urls;
-    const site = urls[idx].site;
-    urls[idx].path = event.target.value;
-    urls[idx].url = `https://${site}${event.target.value}`;
+    const site = urls[index].site;
+    urls[index].path = event.target.value;
+    urls[index].url = `https://${site}${event.target.value}`;
     this.props.onChange(urls);
   }
 
@@ -50,15 +50,15 @@ export default class SocialLinksEditor extends React.Component {
   }
 
   renderRow(link) {
-    const idx = this.props.urls.findIndex(i => (i.site === link.site));
+    const index = this.props.urls.findIndex(item => (item.site === link.site));
     return (
-      <tr key={idx}>
+      <tr key={index}>
         <td>{link.site}</td>
         <td>
           <input
             type="text"
             value={link.path || ''}
-            onChange={this.handleInputChange.bind(this, idx)}
+            onChange={this.handleInputChange.bind(this, index)}
             onMouseDown={this.handleDisableDrag}
             onMouseUp={this.handleEnableDrag}
           />
