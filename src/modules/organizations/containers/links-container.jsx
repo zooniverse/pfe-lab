@@ -61,10 +61,6 @@ class LinksContainer extends React.Component {
               urls={this.state.urls}
             />
           </label>
-          <small className="form__help">
-            Adding an external link will make it appear as a new tab alongside
-            the about, classify, talk, and collect tabs.
-          </small>
         </div>
         <br />
         <div className="form__fieldset">
@@ -77,10 +73,13 @@ class LinksContainer extends React.Component {
               urls={this.state.urls}
             />
           </label>
-          <small className="form__help">
-            Adding a social link will append a media icon at the end of your project menu bar.
-          </small>
         </div>
+        <br />
+        <small className="form__help">
+          Adding links to the organization will list them in the bottom right section of the organization landing page.
+          External links will be listed before social links and social links will be shown with the related site icon.
+          The link display order within their respective groups can be rearranged by dragging.
+        </small>
         {this.state.show &&
         <div>
           <button onClick={this.handleSubmit}>Save</button>

@@ -62,8 +62,9 @@ class CategoriesContainer extends React.Component {
             />
           </label>
           <small className="form__help">
-            Add categories for volunteers to filter your projects by.
+            Add categories for volunteers to filter projects by.
             A project must have a tag that matches a category to be filtered.
+            Category display order can be rearranged by dragging.
           </small>
         </div>
         {this.state.show &&

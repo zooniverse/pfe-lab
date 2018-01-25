@@ -54,10 +54,20 @@ const EditDetails = (props) => {
           <DetailsFormContainer updateOrganization={props.updateOrganization} />
           <br />
           <hr />
-          <LinksContainer updateOrganization={props.updateOrganization} />
+          <CategoriesContainer updateOrganization={props.updateOrganization} />
           <br />
           <hr />
-          <CategoriesContainer updateOrganization={props.updateOrganization} />
+          <div>
+            <h5>Project Quotes</h5>
+            <small className="form__help">
+              A researcher quote from one of the projects linked to the organization will be displayed on the organization landing page.
+              The quote is selected at random on page load.
+            </small>
+          </div>
+          <br />
+          <hr />
+          <LinksContainer updateOrganization={props.updateOrganization} />
+          <br />
           <hr />
           <div>
             <h5>Status</h5>
@@ -73,7 +83,7 @@ const EditDetails = (props) => {
                 ? <span>Listed At: {listedAtDate}</span>
                 : null }
             </div>
-            <small>
+            <small className="form__help">
               Status indicates whether an organization is publicly visible (TRUE) or not publicly visible (FALSE).
               Please contact the Zooniverse team via Talk (use @team or @admin) to change the status of an organization.
             </small>
