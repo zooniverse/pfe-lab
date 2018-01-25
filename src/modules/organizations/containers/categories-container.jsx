@@ -52,7 +52,7 @@ class CategoriesContainer extends React.Component {
       <div>
         <h5>Categories</h5>
         <div>
-          <span className="form__label" htmlFor="categories">
+          <label className="form__label" htmlFor="categories">
             Project Categories
             <CategoriesEditor
               id="categories"
@@ -60,10 +60,11 @@ class CategoriesContainer extends React.Component {
               onChange={this.handleChange}
               categories={this.state.categories}
             />
-          </span>
+          </label>
           <small className="form__help">
-            Add categories for volunteers to filter your projects by.
+            Add categories for volunteers to filter projects by.
             A project must have a tag that matches a category to be filtered.
+            Category display order can be rearranged by dragging.
           </small>
         </div>
         {this.state.show &&

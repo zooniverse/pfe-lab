@@ -23,9 +23,9 @@ export default class ExternalLinksEditor extends React.Component {
     this.props.onChange(urls);
   }
 
-  handleInputChange(idx, event) {
+  handleInputChange(index, event) {
     const urls = this.props.urls;
-    urls[idx][event.target.name] = event.target.value;
+    urls[index][event.target.name] = event.target.value;
     this.props.onChange(urls);
   }
 
@@ -37,7 +37,7 @@ export default class ExternalLinksEditor extends React.Component {
 
   handleRemoveLink(linkToRemove) {
     const urls = this.props.urls;
-    const indexToRemove = urls.findIndex(i => (i.key === linkToRemove.key));
+    const indexToRemove = urls.findIndex(item => (item.key === linkToRemove.key));
     if (indexToRemove > -1) {
       urls.splice(indexToRemove, 1);
       this.props.onChange(urls);
@@ -45,7 +45,7 @@ export default class ExternalLinksEditor extends React.Component {
   }
 
   renderRow(link) {
-    const idx = this.props.urls.findIndex(i => (i.key === link.key));
+    const index = this.props.urls.findIndex(item => (item.key === link.key));
     return (
       <tr key={link.key}>
         <td>
@@ -53,7 +53,7 @@ export default class ExternalLinksEditor extends React.Component {
             type="text"
             name="label"
             value={link.label}
-            onChange={this.handleInputChange.bind(this, idx)}
+            onChange={this.handleInputChange.bind(this, index)}
           />
         </td>
         <td>
@@ -61,7 +61,7 @@ export default class ExternalLinksEditor extends React.Component {
             type="text"
             name="url"
             value={link.url}
-            onChange={this.handleInputChange.bind(this, idx)}
+            onChange={this.handleInputChange.bind(this, index)}
           />
         </td>
         <td>

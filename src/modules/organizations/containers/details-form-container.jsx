@@ -84,8 +84,9 @@ class DetailsFormContainer extends React.Component {
         <h5>Details</h5>
         <FormContainer onSubmit={this.handleSubmit} onReset={this.resetOrganization}>
           <fieldset className="form__fieldset">
-            <label>
+            <label htmlFor="displayName">
               <DisplayNameSlugEditor
+                id="displayName"
                 origin={config.zooniverseURL}
                 resource={organization}
                 resourceType="organization"
@@ -94,7 +95,7 @@ class DetailsFormContainer extends React.Component {
             </label>
           </fieldset>
           <fieldset className="form__fieldset">
-            <label>
+            <label htmlFor="description">
               Description
               <input
                 className="form__input form__input--full-width"
@@ -106,13 +107,13 @@ class DetailsFormContainer extends React.Component {
               />
             </label>
             <small className="form__help">
-              This should be a one-line call to action for your organization that displays on your landing page.
+              This should be a one-line call to action for the organization that displays on the home page.
               It will be displayed below the organization&apos;s name.{' '}
               <CharLimit limit={300} string={this.state.fields.description || ''} />
             </small>
           </fieldset>
           <fieldset className="form__fieldset">
-            <label>
+            <label htmlFor="introduction">
               Introduction
               <MarkdownEditor
                 id="introduction"
@@ -124,13 +125,13 @@ class DetailsFormContainer extends React.Component {
               />
             </label>
             <small className="form__help">
-              Add a brief introduction to get people interested in your organization.
-              This will display on your landing page.{' '}
+              Add a brief introduction to get people interested in the organization.
+              This will display on the organization home page.{' '}
               <CharLimit limit={1500} string={this.state.fields.introduction || ''} />
             </small>
           </fieldset>
           <fieldset className="form__fieldset">
-            <label>
+            <label htmlFor="announcement">
               Announcement Banner
               <MarkdownEditor
                 id="announcement"
@@ -142,7 +143,7 @@ class DetailsFormContainer extends React.Component {
               />
             </label>
             <small className="form__help">
-              This text will appear as a banner at the top of all your organization&apos;s pages.
+              This text will appear as a banner at the top of all the organization&apos;s pages.
               Only use this when you&apos;ve got a big important announcement to make!{' '}
               <CharLimit limit={500} string={this.state.fields.announcement || ''} />
             </small>

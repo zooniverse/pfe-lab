@@ -12,7 +12,7 @@ import ImageSelector from '../../../../src/modules/common/containers/image-selec
 const listedOrganization = organizations[0];
 const unlistedOrganization = organizations[1];
 
-describe.only('<EditDetails />', function() {
+describe('<EditDetails />', function() {
   let wrapper;
   const deleteOrganizationSpy = sinon.spy();
 

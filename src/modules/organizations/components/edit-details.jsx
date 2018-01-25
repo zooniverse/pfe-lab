@@ -22,7 +22,7 @@ const EditDetails = (props) => {
   return (
     <div className="organization-edit-details">
       <h3 className="organization-layout__section-header">Edit Organization Details</h3>
-      <p>Input the basic information about your organization and setup its home page.</p>
+      <p>Input the basic information about the organization and setup its home page.</p>
       <div className="organization-edit-details__forms">
         <aside className="forms__aside">
           <div>
@@ -34,7 +34,7 @@ const EditDetails = (props) => {
               resourceSrc={props.organizationAvatar.src}
               resourceType="avatar"
             />
-            <small>Pick a logo to represent your organization. To add an image, either drag and drop or click to open your file viewer. For best results, use a square image of not more than 50 KB.</small>
+            <small>Pick a logo to represent the organization. To add an image, either drag and drop or click to open your file viewer. For best results, use a square image of not more than 50 KB.</small>
           </div>
           <br />
           <hr />
@@ -47,17 +47,27 @@ const EditDetails = (props) => {
               resourceSrc={props.organizationBackground.src}
               resourceType="background"
             />
-            <small>This image will be the background for your organization page. To add an image, either drag and drop or left click to open your file viewer. For best results, use good quality images no more than 256 KB.</small>
+            <small>This image will be the background for the organization page. To add an image, either drag and drop or left click to open your file viewer. For best results, use good quality images no more than 256 KB.</small>
           </div>
         </aside>
         <section className="forms__section">
           <DetailsFormContainer updateOrganization={props.updateOrganization} />
           <br />
           <hr />
-          <LinksContainer updateOrganization={props.updateOrganization} />
+          <CategoriesContainer updateOrganization={props.updateOrganization} />
           <br />
           <hr />
-          <CategoriesContainer updateOrganization={props.updateOrganization} />
+          <div>
+            <h5>Project Quotes</h5>
+            <small className="form__help">
+              A researcher quote from one of the projects linked to the organization will be displayed on the organization home page.
+              The quote is selected at random on page load.
+            </small>
+          </div>
+          <br />
+          <hr />
+          <LinksContainer updateOrganization={props.updateOrganization} />
+          <br />
           <hr />
           <div>
             <h5>Status</h5>
@@ -73,7 +83,7 @@ const EditDetails = (props) => {
                 ? <span>Listed At: {listedAtDate}</span>
                 : null }
             </div>
-            <small>
+            <small className="form__help">
               Status indicates whether an organization is publicly visible (TRUE) or not publicly visible (FALSE).
               Please contact the Zooniverse team via Talk (use @team or @admin) to change the status of an organization.
             </small>
