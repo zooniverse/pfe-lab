@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import apiClient from 'panoptes-client/lib/api-client';
 import MediaArea from '../components/media-area';
 
-// import { setCurrentOrganization } from '../action-creators';
+import { setCurrentOrganization } from '../action-creators';
 import { organizationShape } from '../model';
 
 export class MediaContainer extends React.Component {
@@ -11,6 +11,7 @@ export class MediaContainer extends React.Component {
     super(props);
 
     this.state = {
+      media: [],
       pendingFiles: [],
       pendingMedia: [],
       saving: false,
@@ -55,6 +56,7 @@ export class MediaContainer extends React.Component {
         })
         .then((filteredMedia) => {
           console.log('filteredMedia from fetchMedia', filteredMedia);
+          this.setState({ media: filteredMedia });
         })
         .catch(error => console.error(error));
     }
@@ -110,8 +112,8 @@ export class MediaContainer extends React.Component {
       });
   }
 
-  uploadMedia(file, media) {
-    console.log(`Uploading ${file.name} => ${media.src}`);
+  uploadMedia(file, medium) {
+    console.log(`Uploading ${file.name} => ${medium.src}`);
     const headers = new Headers();
     const params = {
       method: 'PUT',
@@ -120,12 +122,18 @@ export class MediaContainer extends React.Component {
       body: file
     };
 
-    return fetch(media.src, params)
+    return fetch(medium.src, params)
       .then((response) => {
         console.log('response from uploadMedia', response);
+        if (response.ok) {
+          return medium.refresh().then((media) => {
+            console.log('([].concat(media)[0])... ', ([].concat(media)[0]));
+            return ([].concat(media)[0]);
+          });
+        }
       })
       .catch(error => (
-        media.delete().then(() => {
+        medium.delete().then(() => {
           throw error;
         })
       ));
@@ -177,6 +185,7 @@ export class MediaContainer extends React.Component {
           </p>
         </div>
         <MediaArea
+          media={this.state.media}
           onDrop={this.handleDrop}
           onSelect={this.handleFileSelection}
         />
@@ -190,7 +199,7 @@ MediaContainer.defaultProps = {
 };
 
 MediaContainer.propTypes = {
-  // dispatch: React.PropTypes.func,
+  dispatch: React.PropTypes.func,
   organization: organizationShape,
   validSubjectExtensions: React.PropTypes.arrayOf(React.PropTypes.string)
 };
