@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import apiClient from 'panoptes-client/lib/api-client';
 import MediaArea from '../components/media-area';
 
-import { setCurrentOrganization } from '../action-creators';
+// import { setCurrentOrganization } from '../action-creators';
 import { organizationShape } from '../model';
 
 export class MediaContainer extends React.Component {
@@ -11,7 +11,8 @@ export class MediaContainer extends React.Component {
     super(props);
 
     this.state = {
-      media: [],
+      errors: [],
+      media: null,
       pendingFiles: [],
       pendingMedia: [],
       saving: false,
@@ -19,14 +20,14 @@ export class MediaContainer extends React.Component {
 
     this.fetchMedia = this.fetchMedia.bind(this);
     this.handleDrop = this.handleDrop.bind(this);
-    // this.handleDelete = this.handleDelete.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
     this.handleFileSelection = this.handleFileSelection.bind(this);
     this.addFiles = this.addFiles.bind(this);
     this.addFile = this.addFile.bind(this);
     this.createLinkedResource = this.createLinkedResource.bind(this);
     this.uploadMedia = this.uploadMedia.bind(this);
     this.handleSuccess = this.handleSuccess.bind(this);
-    // this.handleError = this.handleError.bind(this);
+    this.handleError = this.handleError.bind(this);
     this.removeFromPending = this.removeFromPending.bind(this);
     this.renderValidExtensions = this.renderValidExtensions.bind(this);
   }
@@ -51,11 +52,9 @@ export class MediaContainer extends React.Component {
     if (org.links.attached_images && org.links.attached_images.ids && org.links.attached_images.ids.length > 0) {
       org.get('attached_images')
         .then((media) => {
-          console.log('media from fetchMedia', media);
           return media.filter(medium => Object.keys(medium.metadata).length > 0);
         })
         .then((filteredMedia) => {
-          console.log('filteredMedia from fetchMedia', filteredMedia);
           this.setState({ media: filteredMedia });
         })
         .catch(error => console.error(error));
@@ -66,6 +65,11 @@ export class MediaContainer extends React.Component {
     if (event[0].target.files.length !== 0) {
       this.addFiles(Array.prototype.slice.call(event[0].dataTransfer.files));
     }
+  }
+
+  handleDelete() {
+    console.log('Refreshing media area');
+    this.fetchMedia();
   }
 
   handleFileSelection(event) {
@@ -88,7 +92,7 @@ export class MediaContainer extends React.Component {
     return this.createLinkedResource(file)
       .then(this.uploadMedia.bind(this, file))
       .then(this.handleSuccess)
-      .catch(error => console.error(error))
+      .catch(this.handleError.bind(this, file))
       .then(this.removeFromPending.bind(this, file))
       .then(this.fetchMedia());
   }
@@ -148,6 +152,13 @@ export class MediaContainer extends React.Component {
     return media;
   }
 
+  handleError(file, error) {
+    console.log(`Got error ${error.message} for ${file.name}`);
+    const errors = this.state.errors;
+    errors.push({ file, error });
+    this.setState({ errors });
+  }
+
   removeFromPending(file) {
     console.log(`No longer pendingFiles: ${file.name}`);
     const pendingFiles = this.state.pendingFiles;
@@ -185,9 +196,13 @@ export class MediaContainer extends React.Component {
           </p>
         </div>
         <MediaArea
+          errors={this.state.errors}
           media={this.state.media}
+          onDelete={this.handleDelete}
           onDrop={this.handleDrop}
           onSelect={this.handleFileSelection}
+          pendingFiles={this.state.pendingFiles}
+          pendingMedia={this.state.pendingMedia}
         />
       </div>
     );
@@ -199,7 +214,7 @@ MediaContainer.defaultProps = {
 };
 
 MediaContainer.propTypes = {
-  dispatch: React.PropTypes.func,
+  // dispatch: React.PropTypes.func,
   organization: organizationShape,
   validSubjectExtensions: React.PropTypes.arrayOf(React.PropTypes.string)
 };
