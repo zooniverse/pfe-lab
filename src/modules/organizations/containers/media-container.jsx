@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import apiClient from 'panoptes-client/lib/api-client';
 import MediaArea from '../components/media-area';
 
-// import { setCurrentOrganization } from '../action-creators';
+import { setCurrentOrganization } from '../action-creators';
 import { organizationShape } from '../model';
 
 export class MediaContainer extends React.Component {
@@ -30,6 +30,7 @@ export class MediaContainer extends React.Component {
     this.handleError = this.handleError.bind(this);
     this.removeFromPending = this.removeFromPending.bind(this);
     this.renderValidExtensions = this.renderValidExtensions.bind(this);
+    this.refreshOrganization = this.refreshOrganization.bind(this);
   }
 
   componentDidMount() {
@@ -48,12 +49,10 @@ export class MediaContainer extends React.Component {
   //   this.props.dispatch(setMedia({}));
   // }
 
-  fetchMedia(org = this.props.organization) {
+  fetchMedia(org) {
     if (org.links.attached_images && org.links.attached_images.ids && org.links.attached_images.ids.length > 0) {
       org.get('attached_images')
-        .then((media) => {
-          return media.filter(medium => Object.keys(medium.metadata).length > 0);
-        })
+        .then(media => media.filter(medium => Object.keys(medium.metadata).length > 0))
         .then((filteredMedia) => {
           this.setState({ media: filteredMedia });
         })
@@ -62,14 +61,16 @@ export class MediaContainer extends React.Component {
   }
 
   handleDrop(event) {
-    if (event[0].target.files.length !== 0) {
-      this.addFiles(Array.prototype.slice.call(event[0].dataTransfer.files));
-    }
+    console.log('drop', event[0].target);
   }
 
   handleDelete() {
     console.log('Refreshing media area');
-    this.fetchMedia();
+    this.refreshOrganization()
+      .then(([org]) => {
+        this.props.dispatch(setCurrentOrganization(org));
+        this.fetchMedia(org);
+      });
   }
 
   handleFileSelection(event) {
@@ -94,7 +95,11 @@ export class MediaContainer extends React.Component {
       .then(this.handleSuccess)
       .catch(this.handleError.bind(this, file))
       .then(this.removeFromPending.bind(this, file))
-      .then(this.fetchMedia());
+      .then(this.refreshOrganization)
+      .then(([org]) => {
+        this.props.dispatch(setCurrentOrganization(org));
+        this.fetchMedia(org);
+      });
   }
 
   createLinkedResource(file, location = this.props.organization._getURL('attached_images')) {
@@ -108,7 +113,6 @@ export class MediaContainer extends React.Component {
 
     return apiClient.post(location, payload)
       .then(([media]) => {
-        console.log('media from createLinkedResource', media);
         const pendingMedia = this.state.pendingMedia;
         pendingMedia.push(media);
         this.setState({ pendingMedia });
@@ -128,10 +132,8 @@ export class MediaContainer extends React.Component {
 
     return fetch(medium.src, params)
       .then((response) => {
-        console.log('response from uploadMedia', response);
         if (response.ok) {
           return medium.refresh().then((media) => {
-            console.log('([].concat(media)[0])... ', ([].concat(media)[0]));
             return ([].concat(media)[0]);
           });
         }
@@ -214,7 +216,7 @@ MediaContainer.defaultProps = {
 };
 
 MediaContainer.propTypes = {
-  // dispatch: React.PropTypes.func,
+  dispatch: React.PropTypes.func,
   organization: organizationShape,
   validSubjectExtensions: React.PropTypes.arrayOf(React.PropTypes.string)
 };
