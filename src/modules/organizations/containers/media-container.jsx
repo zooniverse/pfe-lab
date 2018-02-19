@@ -1,8 +1,10 @@
+/* eslint-disable no-console */
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import apiClient from 'panoptes-client/lib/api-client';
-import MediaArea from '../components/media-area';
 
+import MediaArea from '../../common/components/media-area';
 import { setCurrentOrganization } from '../action-creators';
 import { organizationShape } from '../model';
 
@@ -56,12 +58,12 @@ export class MediaContainer extends React.Component {
         .then((filteredMedia) => {
           this.setState({ media: filteredMedia });
         })
-        .catch(error => console.error(error));
+        .catch(error => console.error('Error fetching organization attached_images', error)); //
     }
   }
 
   handleDrop(event) {
-    console.log('drop', event[0].target);
+    this.addFiles(Array.prototype.slice.call(event.dataTransfer.files));
   }
 
   handleDelete() {
@@ -133,10 +135,9 @@ export class MediaContainer extends React.Component {
     return fetch(medium.src, params)
       .then((response) => {
         if (response.ok) {
-          return medium.refresh().then((media) => {
-            return ([].concat(media)[0]);
-          });
+          return medium.refresh().then(media => ([].concat(media)[0]));
         }
+        throw response;
       })
       .catch(error => (
         medium.delete().then(() => {
@@ -216,9 +217,9 @@ MediaContainer.defaultProps = {
 };
 
 MediaContainer.propTypes = {
-  dispatch: React.PropTypes.func,
+  dispatch: PropTypes.func,
   organization: organizationShape,
-  validSubjectExtensions: React.PropTypes.arrayOf(React.PropTypes.string)
+  validSubjectExtensions: PropTypes.arrayOf(PropTypes.string)
 };
 
 function mapStateToProps(state) {

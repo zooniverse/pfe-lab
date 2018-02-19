@@ -1,5 +1,7 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import { DragAndDropTarget, FileButton, MediaIcon } from 'zooniverse-react-components';
+import { FileButton, MediaIcon } from 'zooniverse-react-components';
+import DragAndDropTarget from '../containers/drag-and-drop-target';
 
 export default class MediaAreaView extends React.Component {
   constructor(props) {
@@ -32,22 +34,19 @@ export default class MediaAreaView extends React.Component {
     return (
       <div
         className={`media-area ${this.props.className}`.trim()}
-        style={Object.assign({ position: 'relative' }, this.props.style)}
+        style={{ position: 'relative' }}
       >
         {(this.props.pendingFiles.length !== 0) ? <hr /> : null}
-        {this.props.pendingFiles.map((file) => {
-          return (
-            <div key={file.name}>
-              <small>
-                <i className="fa fa-spinner fa-spin" />{' '}
-                <strong>{file.name}</strong>
-              </small>
-            </div>
-          );
-        })}
-        {this.props.errors.map(({ file, error }) => {
-          return (<div key={file.name}>{error.toString()} ({file.name})</div>);
-        })}
+        {this.props.pendingFiles.map(file => (
+          <div key={file.name}>
+            <small>
+              <i className="fa fa-spinner fa-spin" />{' '}
+              <strong>{file.name}</strong>
+            </small>
+          </div>))}
+        {this.props.errors.map(({ file, error }) => (
+          <div key={file.name}>{error.toString()} ({file.name})</div>
+        ))}
         {this.props.errors.length !== 0 && <hr />}
 
         <DragAndDropTarget
@@ -98,19 +97,21 @@ MediaAreaView.defaultProps = {
   onDrop: () => {},
   onSelect: () => {},
   pendingFiles: [],
-  pendingMedia: [],
-  style: {},
+  pendingMedia: []
 };
 
 MediaAreaView.propTypes = {
-  children: React.PropTypes.node,
-  className: React.PropTypes.string,
-  errors: React.PropTypes.array,
-  media: React.PropTypes.arrayOf(React.PropTypes.object),
-  onDelete: React.PropTypes.func,
-  onDrop: React.PropTypes.func,
-  onSelect: React.PropTypes.func,
-  pendingFiles: React.PropTypes.array,
-  pendingMedia: React.PropTypes.array,
-  style: React.PropTypes.object,
+  children: PropTypes.node,
+  className: PropTypes.string,
+  errors: PropTypes.arrayOf(PropTypes.object),
+  media: PropTypes.arrayOf(PropTypes.object),
+  onDelete: PropTypes.func,
+  onDrop: PropTypes.func,
+  onSelect: PropTypes.func,
+  pendingFiles: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string
+  })),
+  pendingMedia: PropTypes.arrayOf(PropTypes.shape({
+    src: PropTypes.string
+  }))
 };
