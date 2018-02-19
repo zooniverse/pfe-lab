@@ -47,10 +47,6 @@ export class MediaContainer extends React.Component {
     }
   }
 
-  // componentWillUnmount() {
-  //   this.props.dispatch(setMedia({}));
-  // }
-
   fetchMedia(org) {
     if (org.links.attached_images && org.links.attached_images.ids && org.links.attached_images.ids.length > 0) {
       org.get('attached_images')
