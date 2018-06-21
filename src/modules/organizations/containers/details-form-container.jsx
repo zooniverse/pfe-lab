@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { DisplayNameSlugEditor } from 'zooniverse-react-components';
+import createDomPurify from 'dompurify';
 
 import { config } from '../../../constants/config';
 import { setCurrentOrganization } from '../action-creators';
@@ -9,6 +10,8 @@ import { organizationShape } from '../model';
 import MarkdownEditor from '../../common/components/markdown-editor';
 import FormContainer from '../../common/containers/form-container';
 import CharLimit from '../../common/components/char-limit';
+
+const DOMPurify = createDomPurify(window);
 
 class DetailsFormContainer extends React.Component {
   constructor(props) {
@@ -45,14 +48,14 @@ class DetailsFormContainer extends React.Component {
     const { value, name } = event.target;
 
     const fields = this.state.fields;
-    fields[name] = value;
+    fields[name] = DOMPurify.sanitize(value);
 
     this.setState({ fields });
   }
 
   collectValues() {
     const fields = this.state.fields;
-    fields.display_name = this.display_name.value();
+    fields.display_name = DOMPurify.sanitize(this.display_name.value());
 
     const result = Object.keys(fields).reduce((values, key) => {
       const newValues = Object.assign({}, values);

@@ -3,10 +3,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import apiClient from 'panoptes-client/lib/api-client';
+import createDomPurify from 'dompurify';
 
 import { organizationShape, organizationPageShape } from '../model';
 import { setCurrentOrganization, setOrganizationPage } from '../action-creators';
 import AboutPage from '../components/about-page';
+
+const DOMPurify = createDomPurify(window);
 
 export class AboutContainer extends React.Component {
   constructor(props) {
@@ -40,7 +43,7 @@ export class AboutContainer extends React.Component {
   }
 
   onTextAreaChange(event) {
-    const pageContent = event.target.value;
+    const pageContent = DOMPurify.sanitize(event.target.value);
 
     this.setState({ pageContent });
   }
