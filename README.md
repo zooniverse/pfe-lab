@@ -1,5 +1,3 @@
-[![bitHound Score](https://www.bithound.io/github/Granze/react-starterify/badges/score.svg)](https://www.bithound.io/github/zooniverse/pfe-lab/master)
-
 # Panoptes-Front-End Lab
 
 PFE Lab is the UI interface for the Zooniverse Lab. 
