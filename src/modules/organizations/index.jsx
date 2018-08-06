@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import OrganizationContainer from './containers/organization-container';
 import EditDetailsContainer from './containers/edit-details-container';
 import AboutContainer from './containers/about-container';
+import MediaContainer from './containers/media-container';
 import CollaboratorsContainer from './containers/collaborators-container';
 import OrganizationsListContainer from './containers/organizations-list-container';
 import ProjectsContainer from './containers/projects-container';
@@ -18,6 +19,7 @@ const organizationsRoutes = store => (
           <IndexRoute component={EditDetailsContainer} />
           <Route path="edit" component={EditDetailsContainer} />
           <Route path="about" component={AboutContainer} />
+          <Route path="media" component={MediaContainer} />
           <Route path="collaborators" component={CollaboratorsContainer} />
           <Route path="projects" component={ProjectsContainer} />
         </Route>
