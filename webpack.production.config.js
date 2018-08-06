@@ -62,7 +62,8 @@ module.exports = {
     rules: [
       {
         test: /\.jsx?$/,
-        exclude: /node_modules/,
+        exclude: /node_modules\/(?!(markdown-it-anchor|markdown-it-table-of-contents)\/).*/,
+        // markdown-it-anchor and markdown-it-table-of-contents are written in ES6 and aren't properly compiled
         use: 'babel-loader',
       },
       {
