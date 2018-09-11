@@ -3,7 +3,7 @@ var jsdom = require('jsdom');
 const { JSDOM } = jsdom;
 
 // setup the simplest document possible
-const { document } = (new JSDOM('<!doctype html><html><body></body></html>', { url: 'http://localhost' })).window;
+const { document } = (new JSDOM(`<!doctype html><html><body></body></html>`, { url: 'http://localhost' })).window;
 
 // get the window object out of the document
 var win = document.defaultView;
