@@ -7,12 +7,15 @@ import React from 'react';
 import sinon from 'sinon';
 import { expect } from 'chai';
 import { shallow, mount } from 'enzyme';
+import FakeLocalStorage from '../../utils/fake-local-storage';
 import { AdminContainer } from '../../../src/modules/common/containers/admin-container';
 
 const user = {
   id: '34',
   admin: true
 };
+
+const storage = window.localStorage || new FakeLocalStorage();
 
 describe('AdminContainer', function() {
   describe('renders', function() {
@@ -50,7 +53,7 @@ describe('AdminContainer', function() {
       });
 
       it('calls #setAdminState if localstorage contains { adminFlag: true }', function() {
-        localStorage.setItem('adminFlag', true);
+        storage.setItem('adminFlag', true);
         mount(<AdminContainer user={user} loginInitialized={true} />);
         expect(setAdminStateStub.called).to.equal(true);
         expect(setAdminStateStub.calledWith(true)).to.equal(true);
