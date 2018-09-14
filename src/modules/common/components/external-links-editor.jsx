@@ -37,7 +37,7 @@ export default class ExternalLinksEditor extends React.Component {
 
   handleRemoveLink(linkToRemove) {
     const urls = this.props.urls;
-    const indexToRemove = urls.findIndex(item => (item.key === linkToRemove.key));
+    const indexToRemove = urls.findIndex(item => (item._key === linkToRemove._key));
     if (indexToRemove > -1) {
       urls.splice(indexToRemove, 1);
       this.props.onChange(urls);
@@ -45,9 +45,9 @@ export default class ExternalLinksEditor extends React.Component {
   }
 
   renderRow(link) {
-    const index = this.props.urls.findIndex(item => (item.key === link.key));
+    const index = this.props.urls.findIndex(item => (item._key === link._key));
     return (
-      <tr key={link.key}>
+      <tr key={link._key}>
         <td>
           <input
             type="text"
@@ -77,9 +77,9 @@ export default class ExternalLinksEditor extends React.Component {
     const tableUrls = urls
       .filter(url => !url.site)
       .map((url) => {
-        if (!url.key) {
+        if (!url._key) {
           const newUrl = url;
-          newUrl.key = Math.random();
+          newUrl._key = Math.random();
           return newUrl;
         }
         return url;
