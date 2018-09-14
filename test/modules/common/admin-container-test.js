@@ -50,7 +50,7 @@ describe('AdminContainer', function() {
       });
 
       it('calls #setAdminState if localstorage contains { adminFlag: true }', function() {
-        localStorage.setItem('adminFlag', true);
+        window.localStorage.setItem('adminFlag', true);
         mount(<AdminContainer user={user} loginInitialized={true} />);
         expect(setAdminStateStub.called).to.equal(true);
         expect(setAdminStateStub.calledWith(true)).to.equal(true);
