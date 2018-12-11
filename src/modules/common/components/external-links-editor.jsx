@@ -25,7 +25,15 @@ export default class ExternalLinksEditor extends React.Component {
 
   handleInputChange(index, event) {
     const urls = this.props.urls;
-    urls[index][event.target.name] = event.target.value;
+    const { name, type, value } = event.target;
+
+    let sanitisedValue = value;
+    if (type === 'url' && value.length > 4) {
+      const isURL = value.substring(0, 4) === 'http';
+      sanitisedValue = isURL ? value : '';
+    }
+
+    urls[index][name] = sanitisedValue;
     this.props.onChange(urls);
   }
 
@@ -50,18 +58,21 @@ export default class ExternalLinksEditor extends React.Component {
       <tr key={link._key}>
         <td>
           <input
-            type="text"
             name="label"
-            value={link.label}
             onChange={this.handleInputChange.bind(this, index)}
+            required
+            type="text"
+            value={link.label}
           />
         </td>
         <td>
           <input
-            type="text"
             name="url"
-            value={link.url}
             onChange={this.handleInputChange.bind(this, index)}
+            pattern="https?://.+"
+            required
+            type="url"
+            value={link.url}
           />
         </td>
         <td>
