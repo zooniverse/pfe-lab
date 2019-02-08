@@ -59,7 +59,7 @@
     "react-select": "~1.0.0-rc.3",
     "redux": "~3.6.0",
     "redux-devtools-extension": "~1.0.0",
-    "redux-logger": "~2.7.4",
+    "redux-logger": "~3.0.6",
     "redux-thunk": "~2.1.0",
     "zoo-grommet": "~0.3.0",
     "zooniverse-react-components": "github:zooniverse/Zooniverse-React-Components#v0.5.0"
