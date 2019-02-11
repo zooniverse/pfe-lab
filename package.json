@@ -74,7 +74,7 @@
     "chai": "~3.5.0",
     "check-dependencies": "~1.0.1",
     "check-engines": "~1.5.0",
-    "clean-webpack-plugin": "~0.1.16",
+    "clean-webpack-plugin": "~1.0.1",
     "css-loader": "~0.28.0",
     "enzyme": "~2.7.0",
     "eslint": "~3.11.1",
