@@ -93,7 +93,7 @@
     "mocha": "~5.2.0",
     "nib": "~1.1.2",
     "nock": "~9.3.3",
-    "node-sass": "~4.9.3",
+    "node-sass": "~4.11.0",
     "publisssh": "~1.1.0",
     "react-addons-test-utils": "~15.4.1",
     "redux-mock-store": "~1.5.3",
