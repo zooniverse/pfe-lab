@@ -82,7 +82,7 @@ module.exports = {
         }, {
           loader: 'css-loader', // translates CSS into CommonJS
           options: {
-            includePaths: [path.resolve(__dirname, './node_modules/zoo-grommet/dist'), path.resolve(__dirname, './node_modules/zooniverse-react-components/lib/zooniverse-react-components.css')]
+            import: true
           }
         }, {
           loader: 'sass-loader',
