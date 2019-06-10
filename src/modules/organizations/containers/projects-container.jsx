@@ -52,8 +52,10 @@ class ProjectsContainer extends React.Component {
 
     organization.get('projects', query)
       .then((projects) => {
-        this.setState({ meta: projects[0].getMeta() });
-        this.props.dispatch(setOrganizationProjects(projects));
+        if (projects && projects.length > 0) {
+          this.setState({ meta: projects[0].getMeta() });
+          this.props.dispatch(setOrganizationProjects(projects));
+        }
       })
       .catch((error) => {
         const notification = { status: 'critical', message: `${error.statusText}: ${error.message}` };
