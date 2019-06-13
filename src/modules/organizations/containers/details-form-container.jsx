@@ -36,10 +36,11 @@ class DetailsFormContainer extends React.Component {
   }
 
   setFields() {
+    const { description, introduction, announcement } = this.props.organization;
     const fields = {
-      description: this.props.organization.description.slice(),
-      introduction: this.props.organization.introduction.slice(),
-      announcement: this.props.organization.announcement.slice()
+      description: description ? description.slice() : '',
+      introduction: introduction ? introduction.slice() : '',
+      announcement: announcement ? announcement.slice() : ''
     };
     this.setState({ fields });
   }
