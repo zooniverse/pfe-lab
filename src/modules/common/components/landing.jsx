@@ -38,7 +38,7 @@ const SignedIn = () =>
       <div>
         <h4>Organizations</h4>
         <p className="landing__paragraph">
-          To build an organization, or collection of projects, [additional info goes here]. To find out more, read our <a href="">How to Build an Organization documentation</a>, or click the button to get started.
+          To build an organization, or collection of projects, enter some basic information and link your projects. To find out more, read our related blog post <a href="https://blog.zooniverse.org/2019/06/19/zooniverse-new-functionality-organizations/">&quot;Zooniverse New Functionality: Organizations&quot;</a>, or click the button to get started.
         </p>
       </div>
       <div>
