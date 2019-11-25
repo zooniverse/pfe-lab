@@ -2,9 +2,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const SplitByPathPlugin = require('webpack-split-by-path');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const nib = require('nib');
 
 module.exports = {
@@ -12,45 +10,48 @@ module.exports = {
     path.join(__dirname, 'src/index.jsx'),
   ],
 
+  mode: 'production',
+
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        styles: {
+          name: 'main',
+          test: /\.(css|styl)$/,
+          chunks: 'all',
+          enforce: true
+        },
+        vendor: {
+          name: 'vendor',
+          test: /[\\/]node_modules[\\/]/,
+          chunks: 'all',
+          enforce: true
+        }
+      }
+    }
+  },
+
   output: {
     path: path.join(__dirname, '/dist/'),
-    filename: '[name]-[hash].min.js',
+    filename: '[name]-[chunkhash].js',
+    chunkFilename: '[name]-[chunkhash].js',
     publicPath: '/',
   },
 
   plugins: [
-    new CleanWebpackPlugin(['dist']),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+      'process.env.HEAD_COMMIT': JSON.stringify(process.env.HEAD_COMMIT)
+    }),
     new HtmlWebpackPlugin({
       template: 'src/index.tpl.html',
       inject: 'body',
       filename: 'index.html',
       gtm: '<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-WDW6V4" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({"gtm.start":new Date().getTime(),event:"gtm.js"});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src="//www.googletagmanager.com/gtm.js?id="+i+dl;f.parentNode.insertBefore(j,f);})(window,document,"script","dataLayer","GTM-WDW6V4");</script>',
     }),
-    new ExtractTextPlugin({
-      filename: '[name]-[hash].min.css',
-      allChunks: true
+    new MiniCssExtractPlugin({
+      filename: '[name]-[contenthash].css'
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      compressor: {
-        warnings: false,
-        screw_ie8: true,
-      },
-    }),
-    new SplitByPathPlugin([{
-      name: 'vendor',
-      path: path.join(__dirname, 'node_modules'),
-    }]),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-    }),
-    new webpack.LoaderOptionsPlugin({
-      stylus: {
-        default: {
-          use: [nib()],
-          import: ['~nib/lib/nib/index.styl']
-        }
-      }
-    })
   ],
 
   resolve: {
@@ -68,23 +69,29 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: 'css-loader'
-        }),
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader'
+        ],
       },
       {
         test: /\.styl$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: ['css-loader', 'stylus-loader']
-        }),
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          {
+            loader: 'stylus-loader',
+            options: {
+              use: [nib()]
+            }
+          }
+        ],
       },
       {
         test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [{
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
             loader: 'css-loader',
             options: {
               import: true
@@ -92,10 +99,12 @@ module.exports = {
           }, {
             loader: 'sass-loader',
             options: {
-              includePaths: ['./node_modules', './node_modules/grommet/node_modules']
+              sassOptions: {
+                includePaths: ['./node_modules', './node_modules/grommet/node_modules']
+              }
             }
-          }]
-        }),
+          }
+        ],
       },
       {
         test: /\.(jpg|png|gif|otf|eot|svg|ttf|woff\d?)$/,
