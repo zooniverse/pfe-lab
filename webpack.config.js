@@ -10,9 +10,6 @@ module.exports = {
   mode: 'development',
 
   devServer: {
-    allowedHosts: [
-      '.zooniverse.org'
-    ],
     historyApiFallback: true,
     host: process.env.HOST || "localhost",
     open: true,
