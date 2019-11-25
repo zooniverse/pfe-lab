@@ -3,14 +3,24 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const nib = require('nib');
 const DashboardPlugin = require('webpack-dashboard/plugin');
-const SplitByPathPlugin = require('webpack-split-by-path');
 
 module.exports = {
-  devtool: 'eval-source-map',
+  devtool: 'cheap-module-source-map',
+
+  mode: 'development',
+
+  devServer: {
+    allowedHosts: [
+      '.zooniverse.org'
+    ],
+    historyApiFallback: true,
+    host: process.env.HOST || "localhost",
+    open: true,
+    overlay: true,
+    port: 3737
+  },
 
   entry: [
-    'eventsource-polyfill', // necessary for hot reloading with IE
-    'webpack-hot-middleware/client?reload=true',
     path.join(__dirname, 'src/index.jsx'),
   ],
 
@@ -21,30 +31,17 @@ module.exports = {
   },
 
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+      'process.env.HEAD_COMMIT': JSON.stringify(process.env.HEAD_COMMIT)
+    }),
     new HtmlWebpackPlugin({
       template: 'src/index.tpl.html',
       inject: 'body',
       filename: 'index.html',
       gtm: '',
     }),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('staging'),
-    }),
-    new DashboardPlugin({ port: 3777 }),
-    new SplitByPathPlugin([{
-      name: 'vendor',
-      path: path.join(__dirname, 'node_modules'),
-    }]),
-    new webpack.LoaderOptionsPlugin({
-      stylus: {
-        default: {
-          use: [nib()],
-          import: ['~nib/lib/nib/index.styl']
-        }
-      }
-    })
+    new DashboardPlugin({ port: 3777 })
   ],
 
   resolve: {
@@ -72,7 +69,12 @@ module.exports = {
         use: [
           'style-loader',
           'css-loader',
-          'stylus-loader'
+          {
+            loader: 'stylus-loader',
+            options: {
+              use: [nib()]
+            }
+          }
         ],
       },
       {
@@ -87,7 +89,9 @@ module.exports = {
         }, {
           loader: 'sass-loader',
           options: {
-            includePaths: ['./node_modules', './node_modules/grommet/node_modules']
+            sassOptions: {
+              includePaths: ['./node_modules', './node_modules/grommet/node_modules']
+            }
           }
         }]
       },

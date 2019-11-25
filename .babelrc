@@ -1,13 +1,17 @@
 {
   "presets": [
-    "es2015",
-    "react"
+    "@babel/preset-env",
+    "@babel/preset-react"
   ],
   "env": {
     "test": {
       "plugins": [
-        ["babel-plugin-rewire"],
-        ["transform-react-jsx"]
+        [
+          "babel-plugin-rewire"
+        ],
+        [
+          "@babel/plugin-transform-react-jsx"
+        ]
       ]
     }
   }
