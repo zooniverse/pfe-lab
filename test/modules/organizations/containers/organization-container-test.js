@@ -17,10 +17,12 @@ const initialState = {
   organization: sampleOrganization,
 };
 
-let organizationPeek = {};
+let organizationIdPeek = '';
+let deletionInProgressPeek;
 
-const MyPureComponent = ({ organization }) => {
-  organizationPeek = organization;
+const MyPureComponent = ({ organizationId, deletionInProgress }) => {
+  organizationIdPeek = organizationId;
+  deletionInProgressPeek = deletionInProgress;
 
   return (<div>okay</div>);
 };
@@ -31,13 +33,17 @@ describe('OrganizationContainer', () => {
 
   mount(
     <Provider store={store}>
-      <OrganizationContainer params={{}}>
+      <OrganizationContainer params={{ id: '7' }}>
         <MyPureComponent />
       </OrganizationContainer>
     </Provider>,
   );
 
-  it('should give EditDetails the organization correctly', () => {
-    expect(organizationPeek.id).to.equal(initialState.organization.id);
+  it('should give a child component the correct organization Id', () => {
+    expect(organizationIdPeek).to.equal('7');
+  });
+
+  it('should give a child component the correct deletion state', () => {
+    expect(deletionInProgressPeek).to.equal(false);
   });
 });

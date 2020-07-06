@@ -20,6 +20,6 @@ describe('OrganizationsList', () => {
   });
 
   it('should have a list of owned and collaborator organizations', () => {
-    expect(wrapper.find('ListGroup')).to.have.length(2);
+    expect(wrapper.find('ResourcesList')).to.have.length(2);
   });
 });

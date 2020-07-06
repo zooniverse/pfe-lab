@@ -48,6 +48,7 @@ describe('<EditDetails />', function() {
 
   it('should render a listed_at date when passed a listed organization', function() {
     const formattedDate = new Date(listedOrganization.listed_at).toDateString();
+    expect(wrapper.find('span')).to.have.lengthOf(3);
     expect(wrapper.find('span').last().text()).to.equal(`Listed At: ${formattedDate}`);
   });
 
@@ -56,14 +57,18 @@ describe('<EditDetails />', function() {
     expect(orgStatus).to.equal('true');
   });
 
-  it('should render false when passed an unlisted organization', function() {
-    wrapper.setProps({ organization: unlistedOrganization });
-    const orgStatus = wrapper.find('span').at(1).children().text();
-    expect(orgStatus).to.equal('false');
-  });
+  describe('with an unlisted organization', function () {
+    before(function () {
+      wrapper.setProps({ organization: unlistedOrganization });
+    });
 
-  it('should not render a Listed At field for an unlisted organization', function() {
-    const orgStatusWrapper = wrapper.find('div').at(5);
-    expect(orgStatusWrapper.children()).to.have.lengthOf(2);
+    it('should render Listed as "false"', function() {
+      const orgStatus = wrapper.find('span').at(1).children().text();
+      expect(orgStatus).to.equal('false');
+    });
+
+    it('should not render a Listed At field', function() {
+      expect(wrapper.find('span')).to.have.lengthOf(2);
+    });
   });
 });
