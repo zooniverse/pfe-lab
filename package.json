@@ -60,7 +60,7 @@
     "redux-devtools-extension": "~1.0.0",
     "redux-thunk": "~2.1.0",
     "zoo-grommet": "~0.3.0",
-    "zooniverse-react-components": "github:zooniverse/Zooniverse-React-Components#v0.9.0"
+    "zooniverse-react-components": "github:zooniverse/Zooniverse-React-Components#v0.9.1"
   },
   "devDependencies": {
     "@babel/cli": "~7.7.4",
@@ -91,7 +91,7 @@
     "mocha": "~5.2.0",
     "nib": "~1.1.2",
     "nock": "~9.3.3",
-    "node-sass": "~4.13.0",
+    "node-sass": "~4.14.1",
     "publisssh": "~1.1.0",
     "react-addons-test-utils": "~15.4.1",
     "redux-mock-store": "~1.5.3",
@@ -104,6 +104,6 @@
     "webpack": "~4.41.2",
     "webpack-cli": "~3.3.10",
     "webpack-dashboard": "~3.2.0",
-    "webpack-dev-server": "~3.9.0"
+    "webpack-dev-server": "~3.11.0"
   }
 }
