@@ -69,7 +69,9 @@ class EditDetailsContainer extends React.Component {
   handleMediaChange(type, file) {
     apiClient.post(this.props.organization._getURL(type), { media: { content_type: file.type } })
       .then(([resource]) => {
-        const headers = new Headers();
+        const headers = new Headers({
+          'x-ms-blob-type': 'BlockBlob'
+        });
         const params = {
           method: 'PUT',
           headers: headers,
