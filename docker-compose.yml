@@ -1,13 +1,23 @@
-version: '2'
+version: '3.7'
 
 services:
-  dev:
+  app:
     build:
-      context:  ./
-      dockerfile: Dockerfile
+      context: ./
+    ports:
+      - "3737:3737"
     environment:
+      - HOST=0.0.0.0
       - AWS_REGION=${AWS_REGION}
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
       - AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}
       - AWS_SECURITY_TOKEN=${AWS_SECURITY_TOKEN}
+      - PANOPTES_API_APPLICATION=${PANOPTES_API_APPLICATION}
+      - PANOPTES_API_HOST=${PANOPTES_API_HOST}
+    volumes:
+      - ${PWD}:/src
+      - node_modules:/src/node_modules
+
+volumes:
+  node_modules:
