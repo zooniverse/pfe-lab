@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Karla:400,400i,700,700i" />
   </head>
   <body>
+    <!--Last build: <%= new Date() %>-->
+    <!--Deployed commit: <%= process.env.HEAD_COMMIT %>-->
+    <!--Build env: <%= process.env.NODE_ENV %>-->
     <div id="root"></div>
     <%= htmlWebpackPlugin.options.gtm %>
     <!-- TODO: Add polyfill to reduxify repo -->
