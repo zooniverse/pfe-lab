@@ -21,7 +21,7 @@
   "scripts": {
     "start": "export HEAD_COMMIT=$(git rev-parse --short HEAD); export NODE_ENV=development; check-engines && check-dependencies && webpack-dashboard -p 3777  -- webpack-dev-server --config ./webpack.config.js",
     "_build": "export HEAD_COMMIT=$(git rev-parse --short HEAD); check-engines && check-dependencies && rimraf dist; webpack --config ./webpack.production.config.js -p",
-    "_publish": "s3-batch-upload -b zooniverse-static -p ./dist -C 200 -acl 'public-read' -r \"$PATH_ROOT/$SUBDIR\"",
+    "_publish": "node ./bin/upload.js dist \"$PATH_ROOT/$SUBDIR\"",
     "_log-staging-url": "echo \"Staged at https://$SUBDIR.lab-preview.zooniverse.org/\"",
     "_stage": "export PATH_ROOT=preview.zooniverse.org/pfe-lab; npm run _build && npm run _publish && npm run _log-staging-url",
     "stage": "export NODE_ENV=staging; export SUBDIR=$(git symbolic-ref --short HEAD | awk '{print tolower($0)}'); npm run _stage",
