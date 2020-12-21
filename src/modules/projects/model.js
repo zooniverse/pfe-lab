@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export const projectShape = React.PropTypes.shape({
-  id: React.PropTypes.string,
-  display_name: React.PropTypes.string,
-  description: React.PropTypes.string,
+export const projectShape = PropTypes.shape({
+  id: PropTypes.string,
+  display_name: PropTypes.string,
+  description: PropTypes.string,
 });
 
-export const projectsShape = React.PropTypes.arrayOf(projectShape);
+export const projectsShape = PropTypes.arrayOf(projectShape);

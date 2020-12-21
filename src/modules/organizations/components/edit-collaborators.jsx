@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import { organizationCollaboratorsShape, organizationOwnerShape } from '../model';
 
 const EditCollaborators = ({ organizationOwner, organizationCollaborators, possibleRoles, removeCollaborator, rolesInfo, saving, updateCollaborator, user }) => {
@@ -71,13 +71,13 @@ EditCollaborators.defaultProps = {
 EditCollaborators.propTypes = {
   organizationCollaborators: organizationCollaboratorsShape,
   organizationOwner: organizationOwnerShape,
-  possibleRoles: React.PropTypes.objectOf(React.PropTypes.string).isRequired,
-  removeCollaborator: React.PropTypes.func,
-  rolesInfo: React.PropTypes.objectOf(React.PropTypes.object).isRequired,
-  saving: React.PropTypes.string,
-  updateCollaborator: React.PropTypes.func,
-  user: React.PropTypes.shape({
-    id: React.PropTypes.string,
+  possibleRoles: PropTypes.objectOf(PropTypes.string).isRequired,
+  removeCollaborator: PropTypes.func,
+  rolesInfo: PropTypes.objectOf(PropTypes.object).isRequired,
+  saving: PropTypes.string,
+  updateCollaborator: PropTypes.func,
+  user: PropTypes.shape({
+    id: PropTypes.string,
   }),
 };
 

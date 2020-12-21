@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import { organizationShape, organizationAvatarShape, organizationBackgroundShape } from '../model';
 import DetailsFormContainer from '../containers/details-form-container';
 import LinksContainer from '../containers/links-container';
@@ -105,15 +105,15 @@ const EditDetails = (props) => {
 };
 
 EditDetails.propTypes = {
-  deleteOrganization: React.PropTypes.func,
-  deletionInProgress: React.PropTypes.bool,
-  handleMediaChange: React.PropTypes.func,
-  maxAvatarSize: React.PropTypes.number,
-  maxBackgroundSize: React.PropTypes.number,
+  deleteOrganization: PropTypes.func,
+  deletionInProgress: PropTypes.bool,
+  handleMediaChange: PropTypes.func,
+  maxAvatarSize: PropTypes.number,
+  maxBackgroundSize: PropTypes.number,
   organization: organizationShape,
   organizationAvatar: organizationAvatarShape,
   organizationBackground: organizationBackgroundShape,
-  updateOrganization: React.PropTypes.func,
+  updateOrganization: PropTypes.func,
 };
 
 EditDetails.defaultProps = {

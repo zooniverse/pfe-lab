@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { IndexLink, Link } from 'react-router';
 import { config } from '../../../constants/config';
 
@@ -46,10 +47,10 @@ const OrganizationLayout = ({ children, navItems, organizationId, organizationSl
 );
 
 OrganizationLayout.propTypes = {
-  children: React.PropTypes.node,
-  navItems: React.PropTypes.arrayOf(React.PropTypes.object),
-  organizationId: React.PropTypes.string,
-  organizationSlug: React.PropTypes.string,
+  children: PropTypes.node,
+  navItems: PropTypes.arrayOf(PropTypes.object),
+  organizationId: PropTypes.string,
+  organizationSlug: PropTypes.string,
 };
 
 OrganizationLayout.defaultProps = {

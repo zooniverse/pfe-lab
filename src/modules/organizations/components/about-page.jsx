@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import MarkdownEditor from '../../common/components/markdown-editor';
 
 import FormContainer from '../../common/containers/form-container';
@@ -52,13 +53,13 @@ const AboutPage = (props) => {
 };
 
 AboutPage.propTypes = {
-  onCreatePage: React.PropTypes.func,
-  onSubmit: React.PropTypes.func,
-  onTextAreaChange: React.PropTypes.func,
+  onCreatePage: PropTypes.func,
+  onSubmit: PropTypes.func,
+  onTextAreaChange: PropTypes.func,
   organization: organizationShape,
   organizationPage: organizationPageShape,
-  pageContent: React.PropTypes.string,
-  resetOrganizationPage: React.PropTypes.func
+  pageContent: PropTypes.string,
+  resetOrganizationPage: PropTypes.func
 };
 
 export default AboutPage;
