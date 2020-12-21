@@ -56,6 +56,7 @@ describe('FormContainer', function() {
     it('is disabled if disabledSubmit prop is true', function() {
       expect(submitButton.prop('disabled')).to.be.false;
       wrapper.setProps({ disabledSubmit: true });
+      submitButton = wrapper.find('button[type="submit"]');
       expect(submitButton.prop('disabled')).to.be.true;
     });
   });

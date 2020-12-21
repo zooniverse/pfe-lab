@@ -68,7 +68,7 @@ describe('AdminContainer', function() {
       });
 
       it('calls #setAdminState if nextProps.admin does not equal props.admin', function() {
-        const wrapper = shallow(<AdminContainer user={user} loginInitialized={true} adminMode={false} />);
+        const wrapper = shallow(<AdminContainer user={user} loginInitialized={true} adminMode={false} />, { disableLifecycleMethods: true });
         expect(setAdminStateStub.called).to.equal(false);
         wrapper.setProps({ adminMode: true });
         expect(setAdminStateStub.called).to.equal(true);
