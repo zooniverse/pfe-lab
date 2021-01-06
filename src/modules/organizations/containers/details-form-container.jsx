@@ -165,7 +165,7 @@ DetailsFormContainer.defaultProps = {
 DetailsFormContainer.propTypes = {
   dispatch: PropTypes.func,
   organization: organizationShape,
-  updateOrganization: React.PropTypes.func
+  updateOrganization: PropTypes.func
 };
 
 function mapStateToProps(state) {

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { config } from '../../../constants/config';
 
@@ -119,24 +120,24 @@ ResourcesList.defaultProps = {
 };
 
 ResourcesList.propTypes = {
-  resources: React.PropTypes.arrayOf(
-    React.PropTypes.shape({
-      id: React.PropTypes.string,
-      display_name: React.PropTypes.string
+  resources: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      display_name: PropTypes.string
     })
   ).isRequired,
-  resourcesAvatars: React.PropTypes.arrayOf(
-    React.PropTypes.shape({
-      src: React.PropTypes.string
+  resourcesAvatars: PropTypes.arrayOf(
+    PropTypes.shape({
+      src: PropTypes.string
     })
   ),
-  resourceType: React.PropTypes.string.isRequired,
-  showAvatar: React.PropTypes.bool,
-  showOwnerName: React.PropTypes.bool,
-  showRemove: React.PropTypes.bool,
-  onRemove: React.PropTypes.func,
-  showStatus: React.PropTypes.bool,
-  title: React.PropTypes.string
+  resourceType: PropTypes.string.isRequired,
+  showAvatar: PropTypes.bool,
+  showOwnerName: PropTypes.bool,
+  showRemove: PropTypes.bool,
+  onRemove: PropTypes.func,
+  showStatus: PropTypes.bool,
+  title: PropTypes.string
 };
 
 export default ResourcesList;

@@ -42,7 +42,7 @@ describe('<AboutContainer />', function() {
   before(function() {
     // fetchPageSpy = sinon.spy(AboutContainer.prototype, 'fetchPage');
 
-    wrapper = shallow(<AboutContainer organization={organization} />);
+    wrapper = shallow(<AboutContainer organization={organization} />, { disableLifecycleMethods: true });
   });
 
   it('renders', function() {

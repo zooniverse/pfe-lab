@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ResourcesList from '../../common/components/resources-list';
 
 import { projectsShape } from '../../projects/model';
@@ -26,7 +27,7 @@ const OrganizationProjectsList = ({ projects, onRemove }) => {
 
 OrganizationProjectsList.propTypes = {
   projects: projectsShape.isRequired,
-  onRemove: React.PropTypes.func.isRequired,
+  onRemove: PropTypes.func.isRequired,
 };
 
 export default OrganizationProjectsList;

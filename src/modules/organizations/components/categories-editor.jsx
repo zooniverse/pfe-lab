@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import DragReorderable from 'drag-reorderable';
 
 export default class CategoriesEditor extends React.Component {
@@ -96,11 +97,11 @@ CategoriesEditor.defaultProps = {
 };
 
 CategoriesEditor.propTypes = {
-  onChange: React.PropTypes.func,
-  categories: React.PropTypes.arrayOf(
-    React.PropTypes.shape({
-      key: React.PropTypes.num,
-      label: React.PropTypes.string
+  onChange: PropTypes.func,
+  categories: PropTypes.arrayOf(
+    PropTypes.shape({
+      key: PropTypes.num,
+      label: PropTypes.string
     })
   )
 };

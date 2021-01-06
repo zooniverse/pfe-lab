@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ProjectSearch from '../../common/components/project-search';
 import FormContainer from '../../common/containers/form-container';
 import { config } from '../../../constants/config';
@@ -43,10 +44,10 @@ const OrganizationAddProject = ({ value, onAdd, onChange, onReset }) =>
   </div>);
 
 OrganizationAddProject.propTypes = {
-  onAdd: React.PropTypes.func.isRequired,
-  onChange: React.PropTypes.func.isRequired,
-  onReset: React.PropTypes.func,
-  value: React.PropTypes.string.isRequired,
+  onAdd: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onReset: PropTypes.func,
+  value: PropTypes.string.isRequired,
 };
 
 export default OrganizationAddProject;

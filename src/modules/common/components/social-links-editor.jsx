@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import DragReorderable from 'drag-reorderable';
 import SOCIAL_ICONS from '../../../lib/social-icons';
 
@@ -102,9 +103,9 @@ SocialLinksEditor.defaultProps = {
 };
 
 SocialLinksEditor.propTypes = {
-  onChange: React.PropTypes.func,
-  urls: React.PropTypes.arrayOf(
-    React.PropTypes.shape({
-      url: React.PropTypes.string
+  onChange: PropTypes.func,
+  urls: PropTypes.arrayOf(
+    PropTypes.shape({
+      url: PropTypes.string
     }))
 };

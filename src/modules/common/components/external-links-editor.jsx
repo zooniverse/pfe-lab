@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import DragReorderable from 'drag-reorderable';
 
 export default class ExternalLinksEditor extends React.Component {
@@ -132,9 +133,9 @@ ExternalLinksEditor.defaultProps = {
 };
 
 ExternalLinksEditor.propTypes = {
-  onChange: React.PropTypes.func,
-  urls: React.PropTypes.arrayOf(
-    React.PropTypes.shape({
-      url: React.PropTypes.string
+  onChange: PropTypes.func,
+  urls: PropTypes.arrayOf(
+    PropTypes.shape({
+      url: PropTypes.string
     }))
 };

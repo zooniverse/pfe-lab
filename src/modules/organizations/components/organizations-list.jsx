@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { config } from '../../../constants/config';
 import ResourcesList from '../../common/components/resources-list';
 
@@ -54,7 +55,7 @@ const OrganizationsList = ({
 };
 
 OrganizationsList.propTypes = {
-  createOrganization: React.PropTypes.func,
+  createOrganization: PropTypes.func,
   collaboratedOrganizations: organizationsShape,
   organizationsAvatars: organizationsAvatarsShape,
   ownedOrganizations: organizationsShape,
