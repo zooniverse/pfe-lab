@@ -28,8 +28,8 @@ __When you are done, create a production-ready version of the JS bundle:__
 
 ## Deployment
 
-Merges to the `master` branch trigger a production build and deployment.
-Opening a PR triggers a staging build and deployment.
+A merge to the `master` branch automatically creates a production build and deploys to https://lab.zooniverse.org/.
+Opening a PR creates a staging build and deploys to a url based on the PR # (i.e. PR-123 => https://pr-123.lab-preview.zooniverse.org/).
 
 Builds and deployments utilize [Docker](https://github.com/zooniverse/pfe-lab/blob/master/Dockerfile) and the pfe-lab [Jenkins project](https://jenkins.zooniverse.org/job/Zooniverse%20GitHub/job/pfe-lab/).
 
