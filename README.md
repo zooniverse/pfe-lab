@@ -20,13 +20,21 @@ __When you are done, create a production-ready version of the JS bundle:__
 
 ```npm run build```
 
-
 ## Testing
-- If you write a new component, write a test. Each component should have its own `-test.js` file. 
+
+- If you write a new component, write a test. Each component should have its own `-test.js` file.
 - The test runner is [Mocha](https://mochajs.org/), assertion library is [Chai](http://chaijs.com/), and [Enzyme](http://airbnb.io/enzyme/) is available for testing React components. [Sinon](http://sinonjs.org/) is used for standalone test spies, stubs, and mocks.
 - You can run the tests with `npm run test`.
 
+## Deployment
+
+A merge to the `master` branch automatically creates a production build and deploys to https://lab.zooniverse.org/.
+Opening a PR creates a staging build and deploys to a url based on the PR # (i.e. PR-123 => https://pr-123.lab-preview.zooniverse.org/).
+
+Builds and deployments utilize [Docker](https://github.com/zooniverse/pfe-lab/blob/master/Dockerfile) and the pfe-lab [Jenkins project](https://jenkins.zooniverse.org/job/Zooniverse%20GitHub/job/pfe-lab/).
+
 ## CSS Conventions
+
 - Keep common base styles and variables in **common.styl**. 
 - For a given component, pick a unique top-level class name for that component and nest child classes under it. 
 - Stylus formatting: Yes colons, no semicolons, no braces. 
@@ -36,6 +44,7 @@ __When you are done, create a production-ready version of the JS bundle:__
 - We are using [BEM](http://getbem.com/introduction/) for CSS naming conventions.
 
 ## ESLint
+
 - An [ESLint](https://eslint.org/) configuration file is setup in the root of the repository for you to use with your text editor to lint both ES6 and use [Airbnb's React style guide](https://github.com/airbnb/javascript/tree/master/react).
 - ESLint can be run from the CLI with `eslint path/to/local/file.jsx`.
 
