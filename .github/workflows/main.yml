@@ -12,8 +12,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      NODE_ENV: production
     steps:
     - uses: actions/checkout@v2
     - uses: azure/login@v1
@@ -25,7 +23,7 @@ jobs:
       with:
         node-version: '14.x'
     - run: npm install
-    - run: npm run _build
+    - run: npm run _build-production
 
     - name: Upload to blob storage
       uses: azure/CLI@v1
