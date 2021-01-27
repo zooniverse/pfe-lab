@@ -25,7 +25,7 @@ jobs:
       with:
         node-version: '14.x'
     - run: npm install
-    - run: npm run _build
+    - run: npm run _build-production
 
     - name: Upload to blob storage
       uses: azure/CLI@v1
