@@ -30,8 +30,17 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_STATIC_SITES }}
         inlineScript: |
-            az storage blob upload-batch --account-name zooniversestatic -d '$web/lab.zooniverse.org' -s ./dist
-
+            az storage blob upload-batch \
+              --account-name zooniversestatic \
+              --content-cache-control 'public, max-age=604800, immutable' \
+              -destination '$web/lab.zooniverse.org' \
+              -source ./dist
+            az storage blob upload \
+              --account-name zooniversestatic \
+              --content-cache-control 'max-age=60' \
+              --container-name '$web' \
+              --name 'lab.zooniverse.org/index.html' \
+              --file ./dist/index.html
 # Azure logout
     - name: logout
       run: |
