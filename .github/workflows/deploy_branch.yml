@@ -1,0 +1,42 @@
+name: Deploy Staging Branch
+
+on:
+    # Run this workflow on creation (or sync to source branch) of a new pull request
+    pull_request:
+
+jobs:
+  deploy_staging_branch:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: azure/login@v1
+      with:
+          creds: ${{ secrets.AZURE_STATIC_SITES }}
+
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '14.x'
+    - run: npm install
+    - run: npm run _build-production
+
+    - name: Upload to blob storage
+      uses: azure/CLI@v1
+      with:
+        creds: ${{ secrets.AZURE_STATIC_SITES }}
+        inlineScript: |
+            az storage blob upload-batch \
+              --account-name zooniversestatic \
+              --content-cache-control 'public, max-age=604800, immutable' \
+              -destination '$web/preview.zooniverse.org/pfe-lab/${{ github.event.number }}' \
+              -source ./dist
+            az storage blob upload \
+              --account-name zooniversestatic \
+              --content-cache-control 'max-age=60' \
+              --container-name '$web' \
+              --name 'preview.zooniverse.org/pfe-lab/${{ github.event.number }}/index.html' \
+              --file ./dist/index.html
+# Azure logout
+    - name: logout
+      run: |
+            az logout
