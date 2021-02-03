@@ -28,8 +28,8 @@ jobs:
             az storage blob upload-batch \
               --account-name zooniversestatic \
               --content-cache-control 'public, max-age=604800, immutable' \
-              -destination '$web/preview.zooniverse.org/pfe-lab/${{ github.event.number }}' \
-              -source ./dist
+              --destination '$web/preview.zooniverse.org/pfe-lab/${{ github.event.number }}' \
+              --source ./dist
             az storage blob upload \
               --account-name zooniversestatic \
               --content-cache-control 'max-age=60' \
