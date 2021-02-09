@@ -18,7 +18,8 @@ jobs:
       with:
           creds: ${{ secrets.AZURE_STATIC_SITES }}
 
-    - name: Use Node.js
+    - name: Node.js build
+      id: build
       uses: actions/setup-node@v1
       with:
         node-version: '14.x'
@@ -26,6 +27,7 @@ jobs:
     - run: npm run _build-production
 
     - name: Upload to blob storage
+      id: upload
       uses: azure/CLI@v1
       with:
         creds: ${{ secrets.AZURE_STATIC_SITES }}
@@ -41,6 +43,17 @@ jobs:
               --container-name '$web' \
               --name 'lab.zooniverse.org/index.html' \
               --file ./dist/index.html
+
+    - name: Slack notification
+      uses: act10ns/slack@v1
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      with:
+        status: ${{ job.status }}
+        steps: ${{ toJson(steps) }}
+        channel: '#bot-playground'
+      if: always()
+
 # Azure logout
     - name: logout
       run: |
