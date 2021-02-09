@@ -32,12 +32,12 @@ jobs:
         inlineScript: |
             az storage blob upload-batch \
               --account-name zooniversestatic \
-              --content-cache-control 'public, max-age=604800, immutable' \
+              --content-cache-control 'public, immutable, max-age=604800' \
               --destination '$web/lab.zooniverse.org' \
               --source ./dist
             az storage blob upload \
               --account-name zooniversestatic \
-              --content-cache-control 'max-age=60' \
+              --content-cache-control 'public, immutable, max-age=60' \
               --container-name '$web' \
               --name 'lab.zooniverse.org/index.html' \
               --file ./dist/index.html
