@@ -46,12 +46,12 @@ jobs:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         STAGING_URL: 'http://pr-${{ github.event.number }}.lab-preview.zooniverse.org'
       with:
-        channel: '#ops'
-        icon_emoji: ':octocat:'
-        username: 'Deploy Action'
         status: custom
         custom_payload: |
           {
+          "channel": "#deploys"
+            "icon_emoji": ":octocat:",
+            "username": "Deploy Action",
             "attachments": [{
               "color": '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
               "mrkdwn_in": ["text"],
