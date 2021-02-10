@@ -73,12 +73,12 @@ jobs:
                   },
                   {
                       "title": "Run Link",
-                      "value": "${{ GITHUB_SERVER_URL }}/${{ GITHUB_REPOSITORY }}/actions/runs/${{ GITHUB_RUN_ID }}",
+                      "value": "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID",
                       "short": true
                   }
               ],
               "thumb_url": "https://raw.githubusercontent.com/zooniverse/Brand/master/style%20guide/logos/zooniverse-emblem/zooniverse-logo-teal.png",
-              "footer": "<http://github.com/zooniverse/${ process.env.AS_REPO }|zooniverse/${ process.env.AS_REPO }> #${{ GITHUB_RUN_ID }}",
+              "footer": "<https://github.com/zooniverse/${ process.env.AS_REPO }|zooniverse/${ process.env.AS_REPO }> #$GITHUB_RUN_ID",
               "footer_icon": "https://www.zooniverse.org/favicon.ico"
             }]
           }
