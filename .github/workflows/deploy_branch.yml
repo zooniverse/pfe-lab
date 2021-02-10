@@ -62,8 +62,8 @@ jobs:
               "title_link": "${{ github.event.url }}",
               "fields": [
                   {
-                      "title": "${{ STAGING_URL }}",
-                      "value": "${{ STAGING_URL }}",
+                      "title": "${{ env.STAGING_URL }}",
+                      "value": "${{ env.STAGING_URL }}",
                       "short": false
                   },
                   {
