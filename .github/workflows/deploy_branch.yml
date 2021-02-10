@@ -62,8 +62,8 @@ jobs:
               "text": "\"${ process.env.AS_MESSAGE }\"",
               "fields": [
                   {
-                      "title": "${{ STAGING_URL }}",
-                      "value": "${{ STAGING_URL }}",
+                      "title": "$STAGING_URL",
+                      "value": "$STAGING_URL",
                       "short": false
                   },
                   {
