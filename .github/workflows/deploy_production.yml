@@ -50,6 +50,7 @@ jobs:
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
       with:
+        fields: took
         status: custom
         custom_payload: |
           {
@@ -62,7 +63,7 @@ jobs:
               "author_name": "${{ github.actor }}",
               "author_link": "https://github.com/${{ github.actor }}/",
               "author_icon": "https://github.com/${{ github.actor }}.png?size=40",
-              "title": `PFE Lab production deploy complete in ${process.env.AS_TOOK}`,
+              "title": "PFE Lab production deploy complete",
               "title_link": "https://lab.zooniverse.org",
               "fields": [
                   {
