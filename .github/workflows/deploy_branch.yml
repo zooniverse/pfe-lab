@@ -64,7 +64,7 @@ jobs:
               "fields": [
                   {
                       "title": "Status",
-                      "value": '${{ job.status }}' === 'success' ? ':white_check_mark: Success' : '${{ job.status }}' === 'failure' ? ':x: Failed' : ':warning: Warning',
+                      "value": '${{ job.status }}' === 'success' ? `:white_check_mark: Success in ${process.env.AS_TOOK}` : '${{ job.status }}' === 'failure' ? ':x: Failed' : ':warning: Warning',
                       "short": true
                   },
                   {
