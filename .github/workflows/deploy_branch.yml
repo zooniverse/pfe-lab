@@ -54,13 +54,12 @@ jobs:
             "attachments": [{
               "color": '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
               "mrkdwn_in": ["text"],
-              "pretext": "${{ process.env.AS_WORKFLOW }} finished in ${{ process.env.AS_TOOK }}",
-              "author_name": "${{ process.env.AS_AUTHOR }}",
-              "author_link": "https://github.com/${{ process.env.AS_AUTHOR }}/",
-              "author_icon": "https://github.com/${{ process.env.AS_AUTHOR }}.png?size=40",
+              "pretext": "${{ github.workflow }} finished",
+              "author_name": "${{ github.actor }}",
+              "author_link": "https://github.com/${{ github.actor }}/",
+              "author_icon": "https://github.com/${{ github.actor }}.png?size=40",
               "title": "${{ github.event.title }}",
               "title_link": "${{ github.event.url }}",
-              "text": "\"${{ process.env.AS_MESSAGE }}\"",
               "fields": [
                   {
                       "title": "${{ STAGING_URL }}",
@@ -69,17 +68,17 @@ jobs:
                   },
                   {
                       "title": "Triggered by",
-                      "value": "${{ process.env.AS_EVENT_NAME }}",
+                      "value": "${{ github.event_name }}",
                       "short": true
                   },
                   {
                       "title": "Run Link",
-                      "value": "${{ GITHUB_SERVER_URL }}/${{ GITHUB_REPOSITORY }}/actions/runs/${{ GITHUB_RUN_ID }}",
+                      "value": "${{ github.event_path	}}",
                       "short": true
                   }
               ],
               "thumb_url": "https://raw.githubusercontent.com/zooniverse/Brand/master/style%20guide/logos/zooniverse-emblem/zooniverse-logo-teal.png",
-              "footer": "<https://github.com/zooniverse/${{ process.env.AS_REPO }}|zooniverse/${{ process.env.AS_REPO }}> #${{ GITHUB_RUN_ID }}",
+              "footer": "<https://github.com/zooniverse/${{ github.repository }}|zooniverse/${{ github.repository }}> #${{ github.run_number }}",
               "footer_icon": "https://www.zooniverse.org/favicon.ico"
             }]
           }
