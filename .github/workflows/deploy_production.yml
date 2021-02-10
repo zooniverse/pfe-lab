@@ -39,7 +39,7 @@ jobs:
               --source ./dist
             az storage blob upload \
               --account-name zooniversestatic \
-              --content-cache-control 'public, immutable, max-age=60' \
+              --content-cache-control 'public, max-age=60' \
               --container-name '$web' \
               --name 'lab.zooniverse.org/index.html' \
               --file ./dist/index.html
