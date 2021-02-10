@@ -18,7 +18,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '14.x'
-    - run: npm installolololol
+    - run: npm install
     - run: npm run _build-production
 
     - name: Upload to blob storage
