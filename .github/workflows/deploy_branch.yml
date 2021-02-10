@@ -18,7 +18,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '14.x'
-    - run: npm install
+    - run: npm installolololol
     - run: npm run _build-production
 
     - name: Upload to blob storage
@@ -41,16 +41,15 @@ jobs:
 
     - name: Slack notification
       uses: 8398a7/action-slack@v3
+      if: always()
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         STAGING_URL: 'http://pr-${{ github.event.number }}.lab-preview.zooniverse.org'
       with:
-        channel: '#bot-playground'
+        channel: '#ops'
         status: custom
-        fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
         custom_payload: |
           {
-            "channel": "#ops",
             "attachments": [{
               "color": '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
               "mrkdwn_in": ["text"],
@@ -78,7 +77,6 @@ jobs:
               "footer_icon": "https://www.zooniverse.org/favicon.ico"
             }]
           }
-      if: always()
 
 # Azure logout
     - name: logout
