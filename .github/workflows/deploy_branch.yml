@@ -69,7 +69,7 @@ jobs:
                   },
                   {
                       "title": "Triggered by",
-                      "value": `${{ github.event_name }} in ${process.env.AS_TOOK}`,
+                      "value": "${{ github.event_name }}",
                       "short": true
                   },
                   {
