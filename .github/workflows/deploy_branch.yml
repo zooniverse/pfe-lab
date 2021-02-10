@@ -58,13 +58,13 @@ jobs:
               "author_name": "${{ github.actor }}",
               "author_link": "https://github.com/${{ github.actor }}/",
               "author_icon": "https://github.com/${{ github.actor }}.png?size=40",
-              "title": "${{ github.event.pull_request.title }}",
-              "title_link": "${{ github.event.pull_request.url }}",
-              "text": "${{ env.STAGING_URL }}",
+              "title": "${{ env.STAGING_URL }}",
+              "title_link": "${{ env.STAGING_URL }}",
               "fields": [
                   {
                       "title": "Status",
-                      "value": '${{ job.status }}' === 'success' ? ':white_check_mark: Success' : '${{ job.status }}' === 'failure' ? ':x: Failed' : ':warning: Warning'
+                      "value": '${{ job.status }}' === 'success' ? ':white_check_mark: Success' : '${{ job.status }}' === 'failure' ? ':x: Failed' : ':warning: Warning',
+                      "short": true
                   },
                   {
                       "title": "Triggered by",
@@ -72,9 +72,12 @@ jobs:
                       "short": true
                   },
                   {
+                      "title": "Initiated by",
+                      "value": "<https://github.com/${{ github.repository }}/pulls/${{ github.event.number }}|${{ github.event.pull_request.title }}>"
+                  },
+                  {
                       "title": "Run Link",
-                      "value": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}",
-                      "short": true
+                      "value": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
                   }
               ],
               "thumb_url": "https://raw.githubusercontent.com/zooniverse/Brand/master/style%20guide/logos/zooniverse-emblem/zooniverse-logo-teal.png",
