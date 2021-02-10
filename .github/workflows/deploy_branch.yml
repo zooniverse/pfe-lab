@@ -49,7 +49,7 @@ jobs:
         status: custom
         custom_payload: |
           {
-            "channel": "#deploys"
+            "channel": "#deploys",
             "icon_emoji": ":octocat:",
             "username": "Deploy Action",
             "attachments": [{
