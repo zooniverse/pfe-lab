@@ -64,7 +64,7 @@ jobs:
               "fields": [
                   {
                       "title": "Status",
-                      "value": '${{ job.status }}' === 'success' ? ":white_check_mark: ${{ job.status }}" : '${{ job.status }}' === 'failure' ? ":x: ${{ job.status }}"
+                      "value": "${{ job.status }}"
                   },
                   {
                       "title": "Triggered by",
