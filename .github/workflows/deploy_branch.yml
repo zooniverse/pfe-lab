@@ -58,8 +58,8 @@ jobs:
               "author_name": "${{ github.actor }}",
               "author_link": "https://github.com/${{ github.actor }}/",
               "author_icon": "https://github.com/${{ github.actor }}.png?size=40",
-              "title": "${{ github.event.title }}",
-              "title_link": "${{ github.event.url }}",
+              "title": "${{ github.event.pull_request.title }}",
+              "title_link": "${{ github.event.pull_request.url }}",
               "text": "${{ env.STAGING_URL }}",
               "fields": [
                   {
