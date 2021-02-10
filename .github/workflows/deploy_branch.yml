@@ -47,7 +47,7 @@ jobs:
         STAGING_URL: 'http://pr-${{ github.event.number }}.lab-preview.zooniverse.org'
       with:
         channel: '#ops'
-        icon_emoji: 'octocat'
+        icon_emoji: ':octocat:'
         username: 'Deploy Action'
         status: custom
         custom_payload: |
@@ -64,7 +64,7 @@ jobs:
               "fields": [
                   {
                       "title": "Status",
-                      "value": "${{ job.status }}"
+                      "value": '${{ job.status }}' === 'success' ? ':white_check_mark: Success' : '${{ job.status }}' === 'failure' ? ':x: Failed',
                   },
                   {
                       "title": "Triggered by",
