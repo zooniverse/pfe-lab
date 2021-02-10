@@ -46,6 +46,7 @@ jobs:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         STAGING_URL: 'http://pr-${{ github.event.number }}.lab-preview.zooniverse.org'
       with:
+        fields: took
         status: custom
         custom_payload: |
           {
