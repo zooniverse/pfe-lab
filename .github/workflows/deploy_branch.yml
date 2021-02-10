@@ -60,7 +60,7 @@ jobs:
               "author_icon": "https://github.com/${{ github.actor }}.png?size=40",
               "title": "${{ github.event.title }}",
               "title_link": "${{ github.event.url }}",
-              "text": ${{ env.STAGING_URL }}
+              "text": "${{ env.STAGING_URL }}",
               "fields": [
                   {
                       "title": "Triggered by",
