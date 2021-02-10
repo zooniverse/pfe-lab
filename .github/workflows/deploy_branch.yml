@@ -40,14 +40,48 @@ jobs:
               --file ./dist/index.html
 
     - name: Slack notification
-      uses: act10ns/slack@v1
+      uses: 8398a7/action-slack@v3
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-        STAGING_URL: 'http://pr-${{ github.event.number }}/lab-preview.zooniverse.org'
+        STAGING_URL: 'http://pr-${{ github.event.number }}.lab-preview.zooniverse.org'
       with:
-        status: ${{ job.status }}
-        steps: ${{ toJson(steps) }}
         channel: '#bot-playground'
+        status: custom
+        fields: workflow,job,commit,repo,ref,author,took
+        custom_payload: |
+          {
+            attachments: [{
+              color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
+              "mrkdwn_in": ["text"],
+              "pretext": "${{ AS_WORKFLOW }} finished in ${{ AS_TOOK }}",
+              "author_name": "${{ env.AS_AUTHOR }}",
+              "author_link": "https://github.com/${{ AS_AUTHOR }}/",
+              "author_icon": "https://github.com/${{ AS_AUTHOR }}.png?size=40",
+              "title": "${{ github.event.title }}",
+              "title_link": "${{ github.event.url }}",
+              "text": "\"${{ AS_MESSAGE }} \"",
+              "fields": [
+                  {
+                      "title": "${{ STAGING_URL }}",
+                      "value": "${{ STAGING_URL }}",
+                      "short": false
+                  },
+                  {
+                      "title": "Triggered by",
+                      "value": "${{ AS_EVENT_NAME }}",
+                      "short": true
+                  },
+                  {
+                      "title": "Run Link",
+                      "value": "${{ GITHUB_SERVER_URL }}/${{ GITHUB_REPOSITORY }}/actions/runs/${{ GITHUB_RUN_ID }}",
+                      "short": true
+                  }
+              ],
+              "thumb_url": "https://raw.githubusercontent.com/zooniverse/Brand/master/style%20guide/logos/zooniverse-emblem/zooniverse-logo-teal.png",
+              "footer": "<http://github.com/zooniverse/${{ AS_REPO }}|zooniverse/${{ AS_REPO }}> #${{ GITHUB_RUN_ID }}",
+              "footer_icon": "https://www.zooniverse.org/favicon.ico"
+            }]
+          }
       if: always()
 
 # Azure logout
