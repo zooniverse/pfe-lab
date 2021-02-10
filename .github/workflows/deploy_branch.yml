@@ -50,7 +50,7 @@ jobs:
         fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
         custom_payload: |
           {
-            "channel": "#bot-playground",
+            "channel": "#ops",
             "attachments": [{
               "color": '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
               "mrkdwn_in": ["text"],
@@ -74,7 +74,7 @@ jobs:
                   }
               ],
               "thumb_url": "https://raw.githubusercontent.com/zooniverse/Brand/master/style%20guide/logos/zooniverse-emblem/zooniverse-logo-teal.png",
-              "footer": "<https://github.com/${{ github.repository }}|zooniverse/${{ github.repository }}> #${{ github.run_number }}",
+              "footer": "<https://github.com/${{ github.repository }}|${{ github.repository }}> #${{ github.run_number }}",
               "footer_icon": "https://www.zooniverse.org/favicon.ico"
             }]
           }
