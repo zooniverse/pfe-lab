@@ -55,7 +55,6 @@ jobs:
             "attachments": [{
               "color": '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
               "mrkdwn_in": ["text"],
-              "pretext": "Action \"${{ github.workflow }}\" finished on ${{ github.repository }}",
               "author_name": "${{ github.actor }}",
               "author_link": "https://github.com/${{ github.actor }}/",
               "author_icon": "https://github.com/${{ github.actor }}.png?size=40",
@@ -65,7 +64,7 @@ jobs:
               "fields": [
                   {
                       "title": "Status",
-                      "value": '${{ job.status }}' === 'success' ? ':white_check_mark: ${{ job.status }}!' : '${{ job.status }}' === 'failure' ? ':x: ${{ job.status }}'
+                      "value": '${{ job.status }}' === 'success' ? ":white_check_mark: ${{ job.status }}" : '${{ job.status }}' === 'failure' ? ":x: ${{ job.status }}"
                   },
                   {
                       "title": "Triggered by",
