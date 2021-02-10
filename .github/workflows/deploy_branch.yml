@@ -68,12 +68,12 @@ jobs:
                   },
                   {
                       "title": "Triggered by",
-                      "value": "${{ github.event_name }}",
+                      "value": `${{ github.event_name }} in ${process.env.AS_TOOK}`,
                       "short": true
                   },
                   {
                       "title": "Initiated by",
-                      "value": "<https://github.com/${{ github.repository }}/pulls/${{ github.event.number }}|${{ github.event.pull_request.title }}>"
+                      "value": "<https://github.com/${{ github.repository }}/pull/${{ github.event.number }}|${{ github.event.pull_request.title }}>"
                   },
                   {
                       "title": "Run Link",
