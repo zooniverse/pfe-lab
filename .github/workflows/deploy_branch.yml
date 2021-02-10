@@ -53,13 +53,13 @@ jobs:
             attachments: [{
               color: '${{ job.status }}' === 'success' ? 'good' : '${{ job.status }}' === 'failure' ? 'danger' : 'warning',
               "mrkdwn_in": ["text"],
-              "pretext": "${{ AS_WORKFLOW }} finished in ${{ AS_TOOK }}",
-              "author_name": "${{ env.AS_AUTHOR }}",
-              "author_link": "https://github.com/${{ AS_AUTHOR }}/",
-              "author_icon": "https://github.com/${{ AS_AUTHOR }}.png?size=40",
+              "pretext": "${{ process.env.AS_WORKFLOW }} finished in ${{ AS_TOOK }}",
+              "author_name": "${{ process.env.AS_AUTHOR }}",
+              "author_link": "https://github.com/${{ process.env.AS_AUTHOR }}/",
+              "author_icon": "https://github.com/${{ process.env.AS_AUTHOR }}.png?size=40",
               "title": "${{ github.event.title }}",
               "title_link": "${{ github.event.url }}",
-              "text": "\"${{ AS_MESSAGE }} \"",
+              "text": "\"${{ process.env.AS_MESSAGE }} \"",
               "fields": [
                   {
                       "title": "${{ STAGING_URL }}",
@@ -68,7 +68,7 @@ jobs:
                   },
                   {
                       "title": "Triggered by",
-                      "value": "${{ AS_EVENT_NAME }}",
+                      "value": "${{ process.env.AS_EVENT_NAME }}",
                       "short": true
                   },
                   {
@@ -78,7 +78,7 @@ jobs:
                   }
               ],
               "thumb_url": "https://raw.githubusercontent.com/zooniverse/Brand/master/style%20guide/logos/zooniverse-emblem/zooniverse-logo-teal.png",
-              "footer": "<http://github.com/zooniverse/${{ AS_REPO }}|zooniverse/${{ AS_REPO }}> #${{ GITHUB_RUN_ID }}",
+              "footer": "<http://github.com/zooniverse/${{ process.env.AS_REPO }}|zooniverse/${{ process.env.AS_REPO }}> #${{ GITHUB_RUN_ID }}",
               "footer_icon": "https://www.zooniverse.org/favicon.ico"
             }]
           }
