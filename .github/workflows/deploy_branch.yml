@@ -19,7 +19,7 @@ jobs:
       with:
         node-version: '14.x'
     - run: npm install
-    - run: npm run _build-production
+    - run: npm run _build
 
     - name: Upload to blob storage
       id: upload
