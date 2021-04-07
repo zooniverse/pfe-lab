@@ -12,26 +12,28 @@ __Development mode with livereload:__
 
 `npm run start`
 
-__Staged Deployment:__
-`npm run stage` builds and optimizes the site, and then deploys it to <https://current-git-branch-name.lab-preview.zooniverse.org>.
-- Note: For authentication, you will need to add the staged URL to Doorkeeper.
-
 __When you are done, create a production-ready version of the JS bundle:__
 
-```npm run build```
+```npm run _build-production```
+
+## Deployment
+
+Deployment is handled by Github Action. Both staging and production deployment can be run ad hoc in the actions tab as needed if you have the appropriate permissions on the repository.
+
+### Staging
+
+On opening of pull requests, a Github Action is triggered to deploy to staging. The blob storage location depends on the pull request number, e.g. `https://pr-214.lab-preview.zooniverse.org`. Note: For authentication, you will need to add the staged URL to Doorkeeper.
+
+### Production
+
+Production deployments are triggered by an update to which commit the `production-release` tag is pointed to. This tag should be updated via chat ops and then a Github Action will run that builds and uploads the files to our cloud provider found at `https://lab.zooniverse.org`.
 
 ## Testing
 
 - If you write a new component, write a test. Each component should have its own `-test.js` file.
 - The test runner is [Mocha](https://mochajs.org/), assertion library is [Chai](http://chaijs.com/), and [Enzyme](http://airbnb.io/enzyme/) is available for testing React components. [Sinon](http://sinonjs.org/) is used for standalone test spies, stubs, and mocks.
 - You can run the tests with `npm run test`.
-
-## Deployment
-
-A merge to the `master` branch automatically creates a production build and deploys to https://lab.zooniverse.org/.
-Opening a PR creates a staging build and deploys to a url based on the PR # (i.e. PR-123 => https://pr-123.lab-preview.zooniverse.org/).
-
-Builds and deployments utilize [Docker](https://github.com/zooniverse/pfe-lab/blob/master/Dockerfile) and the pfe-lab [Jenkins project](https://jenkins.zooniverse.org/job/Zooniverse%20GitHub/job/pfe-lab/).
+- Tests are also run by Github Actions as part of a CI check on pull requests
 
 ## CSS Conventions
 
