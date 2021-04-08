@@ -21,6 +21,7 @@
   "scripts": {
     "start": "export HEAD_COMMIT=$(git rev-parse --short HEAD); export NODE_ENV=development; check-engines && check-dependencies && webpack-dashboard -p 3777  -- webpack-dev-server --config ./webpack.config.js",
     "_build-production": "export NODE_ENV=production; npm run _build",
+    "_build-staging": "export NODE_ENV=staging; npm run _build",
     "_build": "export HEAD_COMMIT=$(git rev-parse --short HEAD); check-engines && check-dependencies && rimraf dist; webpack --config ./webpack.production.config.js",
     "eslint": "eslint .",
     "test": "NODE_ENV=development BABEL_ENV=test mocha"

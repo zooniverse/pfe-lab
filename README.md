@@ -22,7 +22,9 @@ Deployment is handled by Github Action. Both staging and production deployment c
 
 ### Staging
 
-On opening of pull requests, a Github Action is triggered to deploy to staging. The blob storage location depends on the pull request number, e.g. `https://pr-214.lab-preview.zooniverse.org`. Note: For authentication, you will need to add the staged URL to Doorkeeper.
+On opening of pull requests, a Github Action is triggered to deploy to a branch staging location. The blob storage location depends on the pull request number, e.g. `https://pr-214.lab-preview.zooniverse.org`. Note: For authentication, you will need to add the staged URL to Doorkeeper.
+
+On push to master, a Github Action is triggered to deploy to master staging found at `https://master.lab-preview.zooniverse.org`. 
 
 ### Production
 
