@@ -65,12 +65,7 @@ module.exports = {
         use: [
           'style-loader',
           'css-loader',
-          {
-            loader: 'stylus-loader',
-            options: {
-              use: [nib()]
-            }
-          }
+          'stylus-loader'
         ],
       },
       {

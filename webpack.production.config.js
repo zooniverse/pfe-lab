@@ -78,12 +78,7 @@ module.exports = {
         use: [
           MiniCssExtractPlugin.loader,
           'css-loader',
-          {
-            loader: 'stylus-loader',
-            options: {
-              use: [nib()]
-            }
-          }
+          'stylus-loader'
         ],
       },
       {
