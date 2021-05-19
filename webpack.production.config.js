@@ -81,7 +81,9 @@ module.exports = {
           {
             loader: 'stylus-loader',
             options: {
-              use: [nib()]
+              stylusOptions: {
+                use: ['nib']
+              }
             }
           }
         ],
