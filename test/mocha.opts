@@ -1,4 +1,0 @@
---require test/utils/dom.js
---require test/utils/enzyme.js
---recursive
---compilers js:@babel/register

@@ -8,7 +8,16 @@ jobs:
   deploy_staging_branch:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        persist-credentials: false
+
+    - name: Reconfigure git to use HTTPS protocol
+      run: >
+        git config --global url."https://github.com/".insteadOf
+        ssh://git@github.com/
+
     - uses: azure/login@v1
       with:
           creds: ${{ secrets.AZURE_STATIC_SITES }}
@@ -18,7 +27,16 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '14.x'
-    - run: npm install
+
+    - name: Cache dependencies
+      uses: actions/cache@v1
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
+    - run: npm ci
     - run: npm run _build-staging
 
     - name: Upload to blob storage
