@@ -27,8 +27,8 @@
     "test": "NODE_ENV=development BABEL_ENV=test mocha"
   },
   "engines": {
-    "node": ">=14",
-    "npm": ">=7"
+    "node": ">=16",
+    "npm": ">=8"
   },
   "author": "Zooniverse",
   "license": "Apache-2.0",
