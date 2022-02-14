@@ -1,47 +1,55 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const nib = require('nib');
 const DashboardPlugin = require('webpack-dashboard/plugin');
+const nib = require('nib');
 
 module.exports = {
-  devtool: 'cheap-module-source-map',
-
   mode: 'development',
 
+  devtool: 'eval-source-map',
+
   devServer: {
+    allowedHosts: [
+      'localhost',
+      'local.zooniverse.org'
+    ],
+    client: {
+      overlay: true,
+    },
     historyApiFallback: true,
-    host: process.env.HOST || "localhost",
     open: true,
-    overlay: true,
-    port: 3737
-  },
-
-  entry: [
-    path.join(__dirname, 'src/index.jsx'),
-  ],
-
-  output: {
-    path: path.join(__dirname, '/dist/'),
-    filename: '[name].js'
+    port: 3737,
+    server: 'https',
   },
 
   plugins: [
+    new webpack.ProvidePlugin({
+      process: 'process/browser.js',
+    }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
       'process.env.HEAD_COMMIT': JSON.stringify(process.env.HEAD_COMMIT)
     }),
     new HtmlWebpackPlugin({
-      template: 'src/index.tpl.html',
-      inject: 'body',
       filename: 'index.html',
       gtm: '',
+      inject: 'body',
+      template: 'src/index.tpl.html',
     }),
+    new webpack.NoEmitOnErrorsPlugin(),
     new DashboardPlugin({ port: 3777 })
   ],
 
   resolve: {
     extensions: ['.js', '.jsx', '.styl'],
+    fallback: {
+      fs: false,
+      path: require.resolve("path-browserify"), // for markdown-it plugins
+      punycode: require.resolve("punycode/"), // for markdown-it plugins
+      url: false,
+      util: false,
+    },
     modules: ['.', 'node_modules'],
   },
 
@@ -54,7 +62,7 @@ module.exports = {
       },
       {
         test: /\.(jpg|png|gif|otf|eot|svg|ttf|woff\d?)$/,
-        loader: 'file-loader',
+        type: 'asset/resource',
       },
       {
         test: /\.(ico\d?)$/,
@@ -69,7 +77,7 @@ module.exports = {
             loader: 'stylus-loader',
             options: {
               stylusOptions: {
-                use: ['nib']
+                use: [nib()]
               }
             }
           }
@@ -77,21 +85,27 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        use: [{
-          loader: 'style-loader' // creates style nodes from JS strings
-        }, {
-          loader: 'css-loader', // translates CSS into CommonJS
-          options: {
-            import: true
-          }
-        }, {
-          loader: 'sass-loader',
-          options: {
-            sassOptions: {
-              includePaths: ['./node_modules', './node_modules/grommet/node_modules']
+        use: [
+          {
+            loader: 'style-loader' // creates style nodes from JS strings
+          },
+          {
+            loader: 'css-loader', // translates CSS into CommonJS
+            options: {
+              import: true
+            }
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              sassOptions: {
+                includePaths: [
+                  path.resolve(__dirname, './node_modules'),
+                ],
+              }
             }
           }
-        }]
+        ]
       },
       {
         test: /\.css$/,
@@ -99,8 +113,4 @@ module.exports = {
       },
     ],
   },
-
-  node: {
-    fs: 'empty'
-  }
 };
