@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { browserHistory, Route, Router } from 'react-router';
 import { Provider } from 'react-redux';
 import oauth from 'panoptes-client/lib/oauth';
-import apiClient from 'panoptes-client/lib/api-client';
 
 import App from './modules/common/containers/App';
 
@@ -17,13 +16,19 @@ import favicon from './images/favicon.ico';
 import 'grommet/scss/vanilla/index.scss'; // eslint-disable-line import/first
 import './styles/main.styl'; // eslint-disable-line no-unused-vars
 
-const store = configureStore(initialState);
+function removeHash() {
+  window.history.pushState(
+    '',
+    document.title,
+    window.location.pathname + window.location.search
+  );
+}
 
-window.React = React;
+const store = configureStore(initialState);
 
 // We should use react-router-scroll middleware instead of onUpdate handler
 // But lib still depends on history v3
-oauth.init(config.panoptesAppId)
+oauth.init(config.panoptesAppId, { customRedirects: true })
   .then(() => {
     ReactDOM.render((
       <Provider store={store}>
@@ -32,11 +37,8 @@ oauth.init(config.panoptesAppId)
             {organizationsRoutes(store)}
           </Route>
         </Router>
-      </Provider>),
-      document.getElementById('root'),
-    );
+      </Provider>
+    ),
+    document.getElementById('root'));
+    removeHash();
   });
-
-
-// Just for console access:
-window.zooAPI = apiClient;
