@@ -6,10 +6,6 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const nib = require('nib');
 
 module.exports = {
-  entry: [
-    path.join(__dirname, 'src/index.jsx'),
-  ],
-
   mode: 'production',
 
   optimization: {
@@ -32,12 +28,14 @@ module.exports = {
   },
 
   output: {
-    path: path.join(__dirname, '/dist/'),
+    clean: true,
     filename: '[name]-[chunkhash].js',
-    chunkFilename: '[name]-[chunkhash].js'
   },
 
   plugins: [
+    new webpack.ProvidePlugin({
+      process: 'process/browser.js',
+    }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
       'process.env.HEAD_COMMIT': JSON.stringify(process.env.HEAD_COMMIT)
@@ -54,7 +52,14 @@ module.exports = {
   ],
 
   resolve: {
-    extensions: ['.js', '.jsx', '.styl', '.css'],
+    extensions: ['.js', '.jsx', '.styl'],
+    fallback: {
+      fs: false,
+      path: require.resolve("path-browserify"), // for markdown-it plugins
+      punycode: require.resolve("punycode/"), // for markdown-it plugins
+      url: false,
+      util: false,
+    },
     modules: ['.', 'node_modules'],
   },
 
@@ -82,7 +87,7 @@ module.exports = {
             loader: 'stylus-loader',
             options: {
               stylusOptions: {
-                use: ['nib']
+                use: [nib()]
               }
             }
           }
@@ -121,9 +126,5 @@ module.exports = {
         use: 'file-loader?name=[name].[ext]',
       },
     ],
-  },
-
-  node: {
-    fs: 'empty'
   }
 };
