@@ -10,11 +10,18 @@ module.exports = {
   mode: 'development',
 
   devServer: {
+    allowedHosts: [
+      '.zooniverse.org'
+    ],
     historyApiFallback: true,
     host: process.env.HOST || "localhost",
+    client: {
+      overlay: true,
+      progress: true
+    },
     open: true,
-    overlay: true,
-    port: 3737
+    port: 3737,
+    server: 'https'
   },
 
   entry: [
