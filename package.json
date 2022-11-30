@@ -54,7 +54,7 @@
     "react-select": "~1.0.0-rc.3",
     "redux": "~3.6.0",
     "redux-devtools-extension": "~1.0.0",
-    "redux-thunk": "~2.1.0",
+    "redux-thunk": "~2.3.0",
     "zoo-grommet": "~0.3.4",
     "zooniverse-react-components": "~0.9.7"
   },
