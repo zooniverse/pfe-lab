@@ -85,7 +85,7 @@
     "image-webpack-loader": "~8.1.0",
     "jsdom": "~20.0.3",
     "mini-css-extract-plugin": "~1.6.2",
-    "mocha": "~10.1.0",
+    "mocha": "~10.2.0",
     "nib": "~1.2.0",
     "nock": "~13.2.9",
     "react-addons-test-utils": "~15.6.2",
