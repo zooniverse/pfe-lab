@@ -44,7 +44,7 @@
     "drag-reorderable": "~0.2.0",
     "grommet": "~1.13.0",
     "history": "~4.4.1",
-    "markdownz": "~7.10.1",
+    "markdownz": "~8.0.0",
     "panoptes-client": "~4.2.7",
     "prop-types": "~15.8.1",
     "react": "~16.14.0",
