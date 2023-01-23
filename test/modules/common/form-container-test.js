@@ -18,8 +18,9 @@ describe('FormContainer', function() {
   it('renders children', function() {
     wrapper = shallow(
       <FormContainer onSubmit={onSubmit} onReset={onReset} resetLabel="Reset" submitLabel="Submit">
-        <span></span>
-      </FormContainer>);
+        <span />
+      </FormContainer>
+    );
     expect(wrapper.find('span')).to.have.length(1);
   });
 

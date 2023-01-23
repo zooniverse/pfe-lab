@@ -1,7 +1,9 @@
 import { expect } from 'chai';
 
 import initialState from '../../../src/initial-state';
-import { user, userAction, noUserAction, bogusAction } from './test-data';
+import {
+  user, userAction, noUserAction, bogusAction
+} from './test-data';
 
 import reducer from '../../../src/modules/users/reducer';
 

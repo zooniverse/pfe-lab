@@ -50,7 +50,6 @@ describe('OrganizationsReducer', () => {
     });
 
     it('should put a new organizations list into the state on receiving a SET_COLLABORATED_ORGANIZATIONS', function() {
-
       const newState = reducer(initialState, setCollaboratedOrganizationsAction);
 
       expect(newState.collaboratedOrganizations).to.not.be.null;

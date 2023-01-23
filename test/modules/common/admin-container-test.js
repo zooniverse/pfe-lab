@@ -1,4 +1,3 @@
-
 // "Passing arrow functions (“lambdas”) to Mocha is discouraged" - https://mochajs.org/#arrow-functions
 /* eslint prefer-arrow-callback: 0, func-names: 0, 'react/jsx-boolean-value': ['error', 'always'] */
 /* global describe, it, before, beforeEach, afterEach, expect, localStorage */

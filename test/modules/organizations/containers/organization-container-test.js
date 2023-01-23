@@ -20,12 +20,12 @@ const initialState = {
 let organizationIdPeek = '';
 let deletionInProgressPeek;
 
-const MyPureComponent = ({ organizationId, deletionInProgress }) => {
+function MyPureComponent({ organizationId, deletionInProgress }) {
   organizationIdPeek = organizationId;
   deletionInProgressPeek = deletionInProgress;
 
   return (<div>okay</div>);
-};
+}
 
 describe('OrganizationContainer', () => {
   const mockStore = configureStore([]);

@@ -27,7 +27,8 @@ describe('<EditDetailsContainer />', function() {
     wrapper = mount(
       <Provider store={store}>
         <EditDetailsContainer />
-      </Provider>);
+      </Provider>
+    );
   });
 
   it('mounts', function() {

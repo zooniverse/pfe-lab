@@ -14,7 +14,7 @@ module.exports = {
       '.zooniverse.org'
     ],
     historyApiFallback: true,
-    host: process.env.HOST || "localhost",
+    host: process.env.HOST || 'localhost',
     client: {
       overlay: true,
       progress: true

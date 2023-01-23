@@ -11,7 +11,7 @@ export const organizations = [
       owner: { display_name: 'Bob' }
     },
     listed: true,
-    listed_at: "2017-10-25T18:54:02.604Z"
+    listed_at: '2017-10-25T18:54:02.604Z'
   },
   {
     id: '42',
@@ -38,7 +38,8 @@ export const users = [
 export const organizationOwner = users[0];
 
 export const organizationCollaborators = [
-  { id: '49',
+  {
+    id: '49',
     roles: ['collaborator'],
     links: {
       organization: organizations[0].id,
@@ -48,7 +49,8 @@ export const organizationCollaborators = [
       }
     }
   },
-  { id: '64',
+  {
+    id: '64',
     roles: ['collaborator'],
     links: {
       organization: organizations[0].id,

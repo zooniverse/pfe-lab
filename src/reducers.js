@@ -21,7 +21,7 @@ export const myCombineReducers = (...reducers) => {
         }
 
         matched = true;
-        result = Object.assign({}, state, reduction);
+        result = { ...state, ...reduction };
       }
     }
 

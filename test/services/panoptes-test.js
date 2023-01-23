@@ -27,7 +27,6 @@ describe('Panoptes', () => {
         .reply(401);
     });
 
-
     it('should know that nobody is logged in', function (done) {
       panoptes.checkLoginUser((action) => {
         expect(action).to.not.be.null;

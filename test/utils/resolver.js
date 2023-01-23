@@ -1,1 +1,1 @@
-export default function(value) { new Promise(resolve => resolve(value)); }
+export default function(value) { new Promise((resolve) => resolve(value)); }

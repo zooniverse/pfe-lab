@@ -9,8 +9,8 @@ export function checkLoginUser(dispatch) {
 }
 
 function computeRedirectURL(window) {
-  return window.location.origin ||
-    `${window.location.protocol}//${window.location.hostname}:${window.location.port}`;
+  return window.location.origin
+    || `${window.location.protocol}//${window.location.hostname}:${window.location.port}`;
 }
 
 export function loginToPanoptes() {

@@ -20,7 +20,7 @@ describe('<OrganizationsListContainer />', () => {
   let fetchLinkedAvatarSpy;
   const mockStore = configureStore([]);
   const store = mockStore(initialState);
-  const resolver = value => new Promise(resolve => resolve(value));
+  const resolver = (value) => new Promise((resolve) => resolve(value));
 
   // TODO: trying out rewire for integration testing. It's not working yet.
   // OrganizationsListContainer.__Rewire__('apiClient', {
