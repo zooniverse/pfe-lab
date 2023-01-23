@@ -34,6 +34,9 @@ module.exports = {
   },
 
   plugins: [
+    new webpack.ProvidePlugin({
+      process: 'process/browser',
+    }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
       'process.env.HEAD_COMMIT': JSON.stringify(process.env.HEAD_COMMIT)
@@ -50,6 +53,14 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx', '.styl'],
     modules: ['.', 'node_modules'],
+    fallback: {
+      fs: false,
+      // for markdown-it plugins
+      path: require.resolve("path-browserify"),
+      util: require.resolve("util"),
+      url: require.resolve("url"),
+      process: false,
+    }
   },
 
   module: {
@@ -61,11 +72,17 @@ module.exports = {
       },
       {
         test: /\.(jpg|png|gif|otf|eot|svg|ttf|woff\d?)$/,
-        loader: 'file-loader',
+        type: 'asset/resource',
+        use: {
+          loader: 'image-webpack-loader'
+        }
       },
       {
         test: /\.(ico\d?)$/,
-        use: 'file-loader?name=[name].[ext]',
+        type: 'asset/resource',
+        generator: {
+          filename: '[name][ext]'
+        }
       },
       {
         test: /\.styl$/,
@@ -105,9 +122,5 @@ module.exports = {
         use: ['style-loader', 'css-loader'],
       },
     ],
-  },
-
-  node: {
-    fs: 'empty'
   }
 };
