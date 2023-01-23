@@ -6,14 +6,14 @@
     <title>Zoo-Lab</title>
     <meta name="description" content="zoo-lab">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="zooniverse:deployed_commit" content="<%= process.env.HEAD_COMMIT %>">
+    <meta name="zooniverse:build_env" content="<%= process.env.NODE_ENV %>">
+    <meta name="zooniverse:build_date" content="<%= new Date() %>">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Montserrat&amp;text=ZOONIVERSE">
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Karla:400,400i,700,700i" />
   </head>
   <body>
-    <!--Last build: <%= new Date() %>-->
-    <!--Deployed commit: <%= process.env.HEAD_COMMIT %>-->
-    <!--Build env: <%= process.env.NODE_ENV %>-->
     <div id="root"></div>
     <%= htmlWebpackPlugin.options.gtm %>
     <!-- TODO: Add polyfill to reduxify repo -->
