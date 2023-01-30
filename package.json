@@ -56,7 +56,7 @@
     "redux-devtools-extension": "~1.0.0",
     "redux-thunk": "~2.3.0",
     "zoo-grommet": "~0.3.4",
-    "zooniverse-react-components": "~0.10.5"
+    "zooniverse-react-components": "~0.12.0"
   },
   "devDependencies": {
     "@babel/cli": "~7.20.7",
