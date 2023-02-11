@@ -24,10 +24,10 @@
     "_build-staging": "export NODE_ENV=staging; npm run _build",
     "_build": "export HEAD_COMMIT=$(git rev-parse --short HEAD); check-engines && check-dependencies && rimraf dist; webpack --config ./webpack.production.config.js",
     "eslint": "eslint .",
-    "test": "NODE_ENV=development BABEL_ENV=test mocha"
+    "test": "NODE_ENV=development BABEL_ENV=test mocha --exit"
   },
   "engines": {
-    "node": ">=16",
+    "node": ">=18",
     "npm": ">=8"
   },
   "author": "Zooniverse",

@@ -1,6 +1,9 @@
 /* eslint-disable */
 var jsdom = require('jsdom');
+var nock = require('nock');
 const { JSDOM } = jsdom;
+// require all net requests to be mocked.
+nock.disableNetConnect()
 
 // setup the simplest document possible
 const { document } = (new JSDOM(`<!doctype html><html><body></body></html>`, { url: 'http://localhost' })).window;
