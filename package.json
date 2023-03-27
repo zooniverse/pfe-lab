@@ -42,7 +42,7 @@
     "data-uri-to-blob": "~0.0.4",
     "dompurify": "~3.0.1",
     "drag-reorderable": "~0.2.0",
-    "grommet": "~1.13.0",
+    "grommet": "~2.31.0",
     "history": "~4.4.1",
     "markdownz": "~8.0.3",
     "panoptes-client": "~5.2.4",
