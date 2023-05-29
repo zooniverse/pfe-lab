@@ -71,7 +71,7 @@
     "chai": "~3.5.0",
     "check-dependencies": "~1.1.0",
     "check-engines": "~1.6.0",
-    "css-loader": "~6.7.3",
+    "css-loader": "~6.8.1",
     "enzyme": "~3.11.0",
     "enzyme-adapter-react-16": "~1.15.7",
     "eslint": "~8.40.0",
