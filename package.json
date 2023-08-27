@@ -63,7 +63,7 @@
     "@babel/core": "~7.22.11",
     "@babel/eslint-parser": "~7.22.11",
     "@babel/node": "~7.22.6",
-    "@babel/preset-env": "~7.22.9",
+    "@babel/preset-env": "~7.22.10",
     "@babel/preset-react": "~7.22.5",
     "babel-loader": "~9.1.3",
     "babel-plugin-react-transform": "~3.0.0",
