@@ -93,7 +93,7 @@
     "rimraf": "~5.0.1",
     "sass": "~1.66.1",
     "sass-loader": "~13.3.2",
-    "sinon": "~15.2.0",
+    "sinon": "~16.0.0",
     "style-loader": "~3.3.3",
     "stylus": "~0.60.0",
     "stylus-loader": "~7.1.3",
