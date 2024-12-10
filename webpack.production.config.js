@@ -121,7 +121,11 @@ module.exports = {
       },
       {
         test: /\.(jpg|png|gif|otf|eot|svg|ttf|woff\d?)$/,
-        type: 'asset/resource'
+        type: 'asset/resource',
+        generator: {
+          filename: '[name][ext]',
+          publicPath: '../',
+        }
       },
       {
         test: /\.(ico\d?)$/,
