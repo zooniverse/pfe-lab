@@ -131,7 +131,7 @@ class ProjectsContainer extends React.Component {
           onAdd={this.addProject}
           onChange={this.changeSelectedProject}
           onReset={this.resetProjectToAdd}
-          value={this.state.projectToAdd.value}
+          value={this.state.projectToAdd}
         />
       </div>
     );
