@@ -15,7 +15,7 @@ const ProjectSearch = ({ clearable, onChange, value }) => {
     }).then((projects) => {
       const opts = projects.map(project => ({
         value: project.id,
-        label: project.display_name,
+        label: `${project.display_name} (${project.slug})`
       }));
       return { options: opts };
     });
